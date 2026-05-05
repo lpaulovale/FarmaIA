@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/evaluate", "destination": "/public/evaluate.html" },
     { "source": "/((?!api/).*)", "destination": "/public/$1" }
   ],
   "headers": [
