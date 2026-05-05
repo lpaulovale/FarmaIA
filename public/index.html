@@ -871,6 +871,9 @@
                 </div>
             </div>
             <div class="header-right">
+                <button class="hdr-btn" id="copy-eval-link" title="Copiar link de avaliação" onclick="copyEvalLink()" style="position:relative;">
+                    <i data-lucide="share-2" id="share-icon"></i>
+                </button>
                 <button class="hdr-btn" id="theme-toggle" title="Alternar tema">
                     <i data-lucide="sun" id="theme-icon"></i>
                 </button>
@@ -1505,6 +1508,23 @@
     sidebarOpen.addEventListener('click', () => {
         sidebar.classList.remove('collapsed');
     });
+
+    // Copy evaluation link
+    function copyEvalLink() {
+        const url = `${window.location.origin}/evaluate?session=${sessionId}`;
+        navigator.clipboard.writeText(url).then(() => {
+            const btn = document.getElementById('copy-eval-link');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="check" style="color:var(--accent);"></i>';
+            btn.title = 'Link copiado!';
+            lucide.createIcons();
+            setTimeout(() => { btn.innerHTML = orig; btn.title = 'Copiar link de avaliação'; lucide.createIcons(); }, 2000);
+        }).catch(() => {
+            prompt('Copie o link de avaliação:', `${window.location.origin}/evaluate?session=${sessionId}`);
+        });
+    }
+    // Make it globally accessible
+    window.copyEvalLink = copyEvalLink;
 </script>
 </body>
 </html>
