@@ -17,6 +17,8 @@ const cors = require('cors');
 const chatHandler = require('./api/chat');
 const evaluateHandler = require('./api/evaluate');
 const modelsHandler = require('./api/models');
+const evaluateSessionHandler = require('./api/evaluate-session');
+const submitEvaluationHandler = require('./api/submit-evaluation');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -45,6 +47,13 @@ app.get('/health', (req, res) => {
 app.get('/api/models', modelsHandler);
 app.post('/api/chat', chatHandler);
 app.post('/api/evaluate', evaluateHandler);
+app.get('/api/evaluate-session', evaluateSessionHandler);
+app.post('/api/submit-evaluation', submitEvaluationHandler);
+
+// Serve evaluate.html for evaluation route
+app.get('/evaluate', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'evaluate.html'));
+});
 
 // Serve index.html for all other routes (SPA fallback)
 app.get('*', (req, res) => {
@@ -94,8 +103,11 @@ async function startServer() {
 ║                                                           ║
 ║   Endpoints:                                              ║
 ║   - GET  /              → Frontend                        ║
+║   - GET  /evaluate      → Evaluation Frontend             ║
 ║   - POST /api/chat      → Chat API (MongoDB)              ║
 ║   - POST /api/evaluate  → Evaluation API                  ║
+║   - GET  /api/evaluate-session → Load Session             ║
+║   - POST /api/submit-evaluation → Submit Human Eval       ║
 ║   - GET  /health        → Health Check                    ║
 ║                                                           ║
 ║   Data Source: MongoDB (no web scraping)                  ║

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmaIA — Avaliação</title>
+    <meta name="description" content="Avaliação dos juízes automáticos do FarmaIA por estudantes de Farmácia">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea57a'/%3E%3Cpath d='M9 10h14M9 14h10M9 18h12M9 22h8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+    <link rel="stylesheet" href="/evaluate.css">
+</head>
+<body>
+
+<!-- Meta form overlay -->
+<div class="meta-overlay active" id="meta-overlay">
+    <div class="meta-card">
+        <h2>👋 Bem-vindo à Avaliação</h2>
+        <p>Antes de começar, preencha algumas informações. O questionário é anônimo — seu código será gerado automaticamente.</p>
+        <div class="meta-field">
+            <label>Semestre atual</label>
+            <input type="text" id="meta-semester" placeholder="Ex: 2026.1">
+        </div>
+        <div class="meta-field">
+            <label>Cursou Farmacologia?</label>
+            <select id="meta-pharmacology">
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+        </div>
+        <button class="meta-start-btn" id="meta-start">Começar Avaliação</button>
+    </div>
+</div>
+
+<!-- Success overlay -->
+<div class="success-overlay" id="success-overlay">
+    <div class="success-card">
+        <div class="success-icon"><i data-lucide="check-circle"></i></div>
+        <h2>Avaliação Enviada!</h2>
+        <p>Obrigado pela sua participação. Suas respostas foram salvas com sucesso.</p>
+        <p style="margin-top:12px;font-size:12px;color:var(--text3);">TCC de Paulo Eduardo B. do Vale — Orientador: Prof. Pedro Santos Neto — UFPI</p>
+    </div>
+</div>
+
+<div id="main-content" style="display:flex;flex-direction:column;height:100vh;">
+
+    <!-- Header -->
+    <header class="eval-header">
+        <div class="eval-header-left">
+            <div class="eval-logo">
+                <div class="eval-logo-icon"><i data-lucide="scroll-text"></i></div>
+                <span class="eval-logo-name">FarmaIA</span>
+            </div>
+            <span class="eval-badge">Modo Avaliação</span>
+        </div>
+        <div class="eval-header-right">
+            <button class="hdr-btn" id="theme-toggle" title="Alternar tema">
+                <i data-lucide="sun" id="theme-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="progress-text" id="progress-text">0/0 respostas avaliadas</span>
+        </div>
+        <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar"></div></div>
+    </div>
+
+    <!-- 2-panel layout -->
+    <div class="eval-layout">
+
+        <!-- LEFT: Conversation + Chat -->
+        <div class="left-panel">
+            <div class="left-panel-header"><i data-lucide="messages-square"></i> Conversação</div>
+            <div class="conv-scroll" id="conv-scroll">
+                <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
+            </div>
+            <div class="chat-input-wrap">
+                <div class="chat-input-row">
+                    <textarea id="chat-input" placeholder="Faça uma nova pergunta sobre medicamentos…" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+                    <button class="chat-send-btn" onclick="sendChat()" title="Enviar"><i data-lucide="arrow-up"></i></button>
+                </div>
+                <div class="chat-note">Novas perguntas também podem ser avaliadas</div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Evaluation panel -->
+        <div class="right-panel" id="right-panel">
+            <div class="right-panel-header">
+                <div class="right-panel-title"><i data-lucide="scale"></i> Avaliação dos Juízes</div>
+            </div>
+            <div class="right-scroll" id="right-scroll">
+                <div class="eval-empty">
+                    <i data-lucide="mouse-pointer-click"></i>
+                    <p>Clique em <strong>"Iniciar Avaliação"</strong> em uma resposta da conversação à esquerda para avaliar os juízes automáticos.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="/evaluate.js"></script>
+</body>
+</html>
