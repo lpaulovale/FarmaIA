@@ -71,33 +71,32 @@
         <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-bar"></div></div>
     </div>
 
-    <!-- 2-panel layout -->
+    <!-- 2-panel: LEFT = conversation + judges, RIGHT = concordance form -->
     <div class="eval-layout">
 
-        <!-- LEFT: Conversation + Chat -->
+        <!-- LEFT: Conversation + Judge Details -->
         <div class="left-panel">
-            <div class="left-panel-header"><i data-lucide="messages-square"></i> Conversação</div>
-            <div class="conv-scroll" id="conv-scroll">
+            <div class="left-panel-header"><i data-lucide="messages-square"></i> Conversação & Juízes</div>
+            <div class="left-scroll" id="left-scroll">
                 <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
             </div>
             <div class="chat-input-wrap">
                 <div class="chat-input-row">
-                    <textarea id="chat-input" placeholder="Faça uma nova pergunta sobre medicamentos…" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+                    <textarea id="chat-input" placeholder="Faça uma nova pergunta…" rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
                     <button class="chat-send-btn" onclick="sendChat()" title="Enviar"><i data-lucide="arrow-up"></i></button>
                 </div>
-                <div class="chat-note">Novas perguntas também podem ser avaliadas</div>
             </div>
         </div>
 
-        <!-- RIGHT: Evaluation panel -->
+        <!-- RIGHT: Concordance Form -->
         <div class="right-panel" id="right-panel">
             <div class="right-panel-header">
-                <div class="right-panel-title"><i data-lucide="scale"></i> Avaliação dos Juízes</div>
+                <div class="right-panel-title"><i data-lucide="clipboard-check"></i> Sua Avaliação</div>
             </div>
             <div class="right-scroll" id="right-scroll">
                 <div class="eval-empty">
                     <i data-lucide="mouse-pointer-click"></i>
-                    <p>Clique em <strong>"Iniciar Avaliação"</strong> em uma resposta da conversação à esquerda para avaliar os juízes automáticos.</p>
+                    <p>Clique em <strong>"Iniciar Avaliação"</strong> em uma resposta à esquerda para indicar sua concordância com cada juiz.</p>
                 </div>
             </div>
         </div>
