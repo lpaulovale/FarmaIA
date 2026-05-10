@@ -214,4 +214,115 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:99px;}
 *{scrollbar-width:thin;scrollbar-color:var(--surface2) transparent;}
 
-@media(max-width:900px){.right-panel{position:fixed;right:0;top:0;bottom:0;width:90vw;max-width:420px;z-index:500;transform:translateX(100%);transition:transform .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.4);}.right-panel.mobile-open{transform:translateX(0);}}
+/* ═══ MOBILE TAB BAR ═══ */
+.mobile-tab-bar{display:none;}
+
+/* ═══ MOBILE RESPONSIVE ═══ */
+@media(max-width:768px){
+
+  /* Tab bar */
+  .mobile-tab-bar{
+    display:flex;position:fixed;bottom:0;left:0;right:0;z-index:600;
+    background:var(--bg2);border-top:1px solid var(--border2);
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom));
+    gap:6px;
+  }
+  .mobile-tab{
+    flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:8px 4px;border-radius:var(--r-sm);border:none;
+    background:transparent;color:var(--text3);
+    font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;
+    cursor:pointer;transition:all .15s;
+  }
+  .mobile-tab svg{width:20px;height:20px;stroke-width:1.8;}
+  .mobile-tab.active{color:var(--accent);background:var(--accent-soft);}
+  .mobile-tab .tab-badge{
+    position:absolute;top:4px;right:calc(50% - 20px);
+    width:8px;height:8px;border-radius:50%;background:var(--eval-amber);
+    display:none;
+  }
+  .mobile-tab .tab-badge.visible{display:block;}
+
+  /* Layout: stack panels, show one at a time */
+  .eval-layout{flex-direction:column;overflow:hidden;}
+  .left-panel{display:none;flex:1;overflow:hidden;}
+  .left-panel.mobile-visible{display:flex;}
+  .right-panel{
+    display:none;position:relative;flex:1;overflow:hidden;
+    width:100%;border-left:none;border-top:1px solid var(--border);
+  }
+  .right-panel.mobile-visible{display:flex;}
+
+  /* Account for bottom tab bar */
+  #main-content{padding-bottom:64px;}
+
+  /* Header compact */
+  .eval-header{padding:10px 14px;}
+  .eval-logo-name{font-size:15px;}
+  .eval-badge{font-size:11px;padding:3px 10px;}
+
+  /* Progress compact */
+  .progress-wrap{padding:0 14px;}
+  .progress-text{font-size:11px;}
+
+  /* Left panel header */
+  .left-panel-header{padding:10px 14px;font-size:12.5px;}
+
+  /* Scrollable area */
+  .left-scroll{padding:12px 14px;}
+  .right-scroll{padding:14px 14px;}
+
+  /* Chat input — above tab bar */
+  .chat-input-wrap{padding:8px 14px 10px;}
+  .chat-input-row textarea{font-size:16px;padding:10px 12px;border-radius:var(--r-sm);}
+  .chat-send-btn{width:44px;height:44px;border-radius:var(--r-sm);}
+
+  /* Conversation messages */
+  .conv-bubble-user{max-width:92%;font-size:14px;padding:10px 12px;}
+  .conv-model-text{font-size:14px;line-height:1.65;}
+  .conv-msg-model.active-eval{margin:-2px -6px;padding:10px 6px;}
+
+  /* Judge inline panels */
+  .judge-inline-panel{margin-top:8px;}
+  .judge-inline-header{padding:10px 12px;}
+  .judge-inline-body{padding:0 10px 10px;}
+  .ji-card{padding:10px;}
+  .just-item{font-size:12px;}
+
+  /* Eval button — larger touch target */
+  .eval-start-btn{padding:10px 16px;font-size:13px;min-height:44px;}
+
+  /* Right panel header */
+  .right-panel-header{padding:12px 14px;}
+
+  /* Concordance cards — touch-friendly */
+  .conc-card{padding:14px 12px;margin-bottom:10px;}
+  .conc-name{font-size:14px;}
+  .concordance-group{gap:6px;}
+  .concordance-btn{padding:12px 8px;font-size:13px;min-height:44px;border-radius:var(--r-sm);}
+  .reason-input textarea{font-size:14px;padding:10px;min-height:56px;}
+
+  /* General eval */
+  .ge-options{gap:6px;}
+  .ge-option{padding:10px 14px;font-size:13px;min-height:44px;}
+  .ge-textarea{font-size:14px;min-height:72px;padding:10px;}
+  .general-eval-title{font-size:14px;}
+
+  /* Submit button */
+  .submit-btn{padding:16px;font-size:16px;border-radius:var(--r);margin-bottom:8px;}
+
+  /* Overlays */
+  .success-card,.meta-card{padding:24px 20px;width:92%;}
+  .meta-card h2{font-size:18px;}
+  .meta-field input,.meta-field select{font-size:16px;padding:12px;}
+  .meta-start-btn{padding:14px;font-size:16px;}
+}
+
+/* Small phones */
+@media(max-width:380px){
+  .eval-header{padding:8px 10px;}
+  .eval-logo-icon{width:30px;height:30px;border-radius:9px;}
+  .eval-logo-icon svg{width:16px;height:16px;}
+  .eval-logo-name{font-size:14px;}
+  .concordance-btn{font-size:12px;padding:10px 4px;}
+}

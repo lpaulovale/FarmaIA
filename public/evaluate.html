@@ -75,7 +75,7 @@
     <div class="eval-layout">
 
         <!-- LEFT: Conversation + Judge Details -->
-        <div class="left-panel">
+        <div class="left-panel mobile-visible">
             <div class="left-panel-header"><i data-lucide="messages-square"></i> Conversação & Juízes</div>
             <div class="left-scroll" id="left-scroll">
                 <div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>
@@ -102,6 +102,18 @@
         </div>
 
     </div>
+
+    <!-- Mobile tab bar -->
+    <nav class="mobile-tab-bar" id="mobile-tab-bar">
+        <button class="mobile-tab active" id="tab-chat" onclick="switchMobileTab('chat')">
+            <i data-lucide="messages-square"></i>
+            <span>Chat</span>
+        </button>
+        <button class="mobile-tab" id="tab-eval" onclick="switchMobileTab('eval')">
+            <i data-lucide="clipboard-check"></i>
+            <span>Avaliação</span>
+        </button>
+    </nav>
 </div>
 
 <script src="/evaluate.js"></script>

@@ -30,6 +30,30 @@ function initTheme() {
   });
 }
 
+// ── Mobile tab switching ──
+function isMobile() { return window.innerWidth <= 768; }
+
+function switchMobileTab(tab) {
+  const left = document.querySelector('.left-panel');
+  const right = document.getElementById('right-panel');
+  const tabChat = document.getElementById('tab-chat');
+  const tabEval = document.getElementById('tab-eval');
+  if (!left || !right) return;
+  if (tab === 'chat') {
+    left.classList.add('mobile-visible');
+    right.classList.remove('mobile-visible');
+    tabChat?.classList.add('active');
+    tabEval?.classList.remove('active');
+  } else {
+    left.classList.remove('mobile-visible');
+    right.classList.add('mobile-visible');
+    tabChat?.classList.remove('active');
+    tabEval?.classList.add('active');
+  }
+  lucide.createIcons();
+}
+
+
 function showMetaForm(cb) {
   const ov = document.getElementById('meta-overlay'); ov.classList.add('active');
   document.getElementById('meta-start').addEventListener('click', () => {
@@ -171,8 +195,12 @@ function selectMessage(index) {
   activeMessageIndex = index;
   renderLeftPanel();
   renderRightPanel(index);
-  const el = document.getElementById(`conv-msg-${index}`);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  // On mobile, auto-switch to the evaluation tab
+  if (isMobile()) { switchMobileTab('eval'); }
+  else {
+    const el = document.getElementById(`conv-msg-${index}`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 // ── RIGHT panel: concordance form ──
