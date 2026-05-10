@@ -1,5 +1,8 @@
 // FarmaIA Evaluation Frontend v2
-const API_BASE = '/api';
+// API_BASE: reads from <meta name="api-base"> or window.FARMAIA_API_BASE, defaults to '/api' (same-origin)
+const API_BASE = document.querySelector('meta[name="api-base"]')?.content
+  || window.FARMAIA_API_BASE
+  || '/api';
 let sessionData = null;
 let evaluatorId = sessionStorage.getItem('farmaia_evaluator');
 if (!evaluatorId) { evaluatorId = 'eval_' + crypto.randomUUID(); sessionStorage.setItem('farmaia_evaluator', evaluatorId); }
