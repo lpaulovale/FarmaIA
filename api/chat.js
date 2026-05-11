@@ -507,6 +507,8 @@ module.exports = async function handler(req, res) {
                     needs_history: plan.needs_history || false,
                     // Store retrieved documents (truncated for space)
                     documents_context: context ? context.substring(0, 5000) : null,
+                    // Store full extracted bula sections for evaluate frontend
+                    extracted_data: Object.keys(extractedData).length > 0 ? extractedData : null,
                   },
                 ],
               },
