@@ -1,8 +1,5 @@
 // FarmaIA Evaluation Frontend v2
-// API_BASE: reads from <meta name="api-base"> or window.FARMAIA_API_BASE, defaults to '/api' (same-origin)
-const API_BASE = document.querySelector('meta[name="api-base"]')?.content
-  || window.FARMAIA_API_BASE
-  || '/api';
+const API_BASE = '/api';
 let sessionData = null;
 let evaluatorId = sessionStorage.getItem('farmaia_evaluator');
 if (!evaluatorId) { evaluatorId = 'eval_' + crypto.randomUUID(); sessionStorage.setItem('farmaia_evaluator', evaluatorId); }
@@ -167,6 +164,29 @@ function renderLeftPanel() {
           }
         }
         html += '</div></div>';
+      }
+
+      // Fonte Bula button (if documents_context available)
+      const docs = m.documents_context;
+      if (docs && docs.length > 50) {
+        // Extract drug names from context or use detected drugs
+        const drugNames = extractDrugNames(docs, m);
+        html += `<div class="fonte-btn-wrap">`;
+        html += `<div class="fonte-label"><i data-lucide="file-text"></i> Bula Oficial</div>`;
+        html += `<div class="fonte-pills">`;
+        const contextEncoded = encodeURIComponent(docs);
+        if (drugNames.length > 0) {
+          for (const name of drugNames) {
+            html += `<button class="fonte-pill" onclick="openFonteModal('${esc(name).replace(/'/g, "\\'")}', '${contextEncoded}')" title="Ver dados extraídos da bula">
+              <i data-lucide="file-text"></i> ${esc(name)}
+            </button>`;
+          }
+        } else {
+          html += `<button class="fonte-pill" onclick="openFonteModal('Dados Extraídos', '${contextEncoded}')" title="Ver dados extraídos da bula">
+            <i data-lucide="file-text"></i> Ver Fonte
+          </button>`;
+        }
+        html += `</div></div>`;
       }
 
       // Evaluate button
@@ -360,3 +380,82 @@ async function submitAll() {
     document.getElementById('success-overlay').classList.add('active');
   } catch (err) { alert('Erro: '+err.message); sb.disabled=false; sb.innerHTML='<i data-lucide="send"></i> Enviar Avaliação Completa'; lucide.createIcons(); }
 }
+
+// ── Fonte Bula Modal ──
+function extractDrugNames(docsContext, msg) {
+  const names = new Set();
+  // Try to extract from section headers like "## Posologia para Adultos" or drug names
+  const headerMatch = docsContext.match(/(?:Bula|BULA|bula)\s+(?:de\s+)?([A-ZÀ-Ú][a-záàâãéêíóôõúç]+(?:\s+[A-ZÀ-Ú][a-záàâãéêíóôõúç]+)*)/g);
+  if (headerMatch) {
+    headerMatch.forEach(m => {
+      const name = m.replace(/(?:Bula|BULA|bula)\s+(?:de\s+)?/, '').trim();
+      if (name.length > 2 && name.length < 40) names.add(name);
+    });
+  }
+  // Try to extract drug names from title-case words at start of context
+  const firstLine = docsContext.split('\n')[0] || '';
+  const drugMatch = firstLine.match(/^#+\s*(.+)/); // Markdown heading
+  if (drugMatch) {
+    const name = drugMatch[1].trim();
+    if (name.length > 2 && name.length < 40) names.add(name);
+  }
+  // Fallback: look for known patterns
+  const knownDrugs = docsContext.match(/(?:dipirona|paracetamol|ibuprofeno|amoxicilina|omeprazol|losartana|metformina|atenolol|sinvastatina|fluoxetina)/gi);
+  if (knownDrugs) {
+    knownDrugs.forEach(d => names.add(d.charAt(0).toUpperCase() + d.slice(1).toLowerCase()));
+  }
+  return [...names].slice(0, 3);
+}
+
+function openFonteModal(title, encodedContext) {
+  const overlay = document.getElementById('fonte-overlay');
+  const titleEl = document.getElementById('fonte-title');
+  const body = document.getElementById('fonte-body');
+  titleEl.textContent = `Bula — ${title}`;
+  try {
+    const context = decodeURIComponent(encodedContext);
+    // Split into sections by markdown headers or double newlines
+    const sections = context.split(/\n(?=##\s)/).filter(s => s.trim());
+    let html = '';
+    if (sections.length > 1) {
+      for (const sec of sections) {
+        const headerMatch = sec.match(/^##\s*(.+)/);
+        const sectionTitle = headerMatch ? headerMatch[1].trim() : 'Conteúdo';
+        const sectionContent = headerMatch ? sec.replace(/^##\s*.+\n*/, '').trim() : sec.trim();
+        if (sectionContent.length > 0) {
+          html += `<div class="fonte-section">`;
+          html += `<div class="fonte-section-title">${esc(sectionTitle)}</div>`;
+          html += `<div class="fonte-section-content">${esc(sectionContent)}</div>`;
+          html += `</div>`;
+        }
+      }
+    } else {
+      // Single block — split by double newlines for readability
+      const blocks = context.split(/\n\n+/).filter(b => b.trim());
+      for (let idx = 0; idx < blocks.length; idx++) {
+        html += `<div class="fonte-section">`;
+        html += `<div class="fonte-section-title">Trecho ${idx + 1}</div>`;
+        html += `<div class="fonte-section-content">${esc(blocks[idx].trim())}</div>`;
+        html += `</div>`;
+      }
+    }
+    body.innerHTML = html;
+  } catch (err) {
+    body.innerHTML = `<div style="color:var(--eval-red);padding:16px;">Erro ao carregar dados: ${err.message}</div>`;
+  }
+  overlay.classList.add('active');
+  lucide.createIcons();
+}
+
+function closeFonteModal() {
+  document.getElementById('fonte-overlay').classList.remove('active');
+}
+
+// Close fonte modal on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeFonteModal();
+});
+// Close on overlay click
+document.getElementById('fonte-overlay')?.addEventListener('click', (e) => {
+  if (e.target.id === 'fonte-overlay') closeFonteModal();
+});

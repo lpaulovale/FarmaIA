@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmaIA — Avaliação</title>
     <meta name="description" content="Avaliação dos juízes automáticos do FarmaIA por estudantes de Farmácia">
-    <!-- Cloudflare Pages: uncomment and set your backend URL below -->
-    <!-- <meta name="api-base" content="https://YOUR-BACKEND.fly.dev/api"> -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea57a'/%3E%3Cpath d='M9 10h14M9 14h10M9 18h12M9 22h8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,6 +114,17 @@
             <span>Avaliação</span>
         </button>
     </nav>
+</div>
+
+<!-- Extracted Data (Fonte Bula) Modal -->
+<div class="fonte-overlay" id="fonte-overlay">
+    <div class="fonte-modal">
+        <div class="fonte-header">
+            <h3><span class="fonte-icon"><i data-lucide="file-text"></i></span> <span id="fonte-title">Dados Extraídos</span></h3>
+            <button class="fonte-close" onclick="closeFonteModal()" title="Fechar"><i data-lucide="x"></i></button>
+        </div>
+        <div class="fonte-body" id="fonte-body"></div>
+    </div>
 </div>
 
 <script src="/evaluate.js"></script>
