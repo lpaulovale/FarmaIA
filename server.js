@@ -19,6 +19,7 @@ const evaluateHandler = require('./api/evaluate');
 const modelsHandler = require('./api/models');
 const evaluateSessionHandler = require('./api/evaluate-session');
 const submitEvaluationHandler = require('./api/submit-evaluation');
+const importDadosHandler = require('./api/import-dados');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -49,6 +50,8 @@ app.post('/api/chat', chatHandler);
 app.post('/api/evaluate', evaluateHandler);
 app.get('/api/evaluate-session', evaluateSessionHandler);
 app.post('/api/submit-evaluation', submitEvaluationHandler);
+app.get('/api/import-dados', importDadosHandler);
+app.post('/api/import-dados', importDadosHandler);
 
 // Serve evaluate.html for evaluation route
 app.get('/evaluate', (req, res) => {
@@ -108,6 +111,8 @@ async function startServer() {
 ║   - POST /api/evaluate  → Evaluation API                  ║
 ║   - GET  /api/evaluate-session → Load Session             ║
 ║   - POST /api/submit-evaluation → Submit Human Eval       ║
+║   - GET  /api/import-dados     → List dados files         ║
+║   - POST /api/import-dados     → Import to MongoDB        ║
 ║   - GET  /health        → Health Check                    ║
 ║                                                           ║
 ║   Data Source: MongoDB (no web scraping)                  ║
