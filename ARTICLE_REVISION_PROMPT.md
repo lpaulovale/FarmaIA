@@ -406,4 +406,4 @@ R: Mantenha aproximadamente o mesmo tamanho (+10-15% para novas seções).
 
 ---
 
-**Boa revisão! Se tiver dúvidas sobre alguma parte do código, consulte os arquivos .js em anexo..**
+**Boa revisão! Se tiver dúvidas sobre alguma parte do código, consulte os arquivos .js em anexo.**
