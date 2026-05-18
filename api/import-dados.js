@@ -27,7 +27,7 @@ const fs = require("fs");
 const path = require("path");
 const { getCollection } = require("../lib/mongodb_tools");
 
-const DADOS_BASE = path.join(__dirname, "..", "dados");
+const DADOS_BASE = path.join(__dirname, "..", "dados", "profissional-new");
 
 // ============================================================
 // Helpers
@@ -242,14 +242,69 @@ function transformPaciente(jsonData, sourceFilePath) {
 }
 
 // ============================================================
+// Transform: New format (from profissional-new) → MongoDB doc
+// ============================================================
+function transformNewFormat(jsonData, sourceFilePath) {
+  const meta = jsonData.document_metadata || {};
+  const filename = path.basename(sourceFilePath);
+  const drugName = normalizeDrugName(jsonData.drug_name || meta.drug_name || drugNameFromFilename(filename));
+
+  const secoes = {};
+  const hasSection = {};
+  const clinicalPriorities = {};
+  const sectionTitles = {};
+  const textParts = [`MEDICAMENTO: ${drugName}\n`];
+  let composicao = "";
+
+  const sectionsObj = jsonData.sections || {};
+  let segmentsCount = 0;
+
+  for (const [sectionId, sectionData] of Object.entries(sectionsObj)) {
+    const text = (sectionData.text || "").trim();
+    if (!text) continue;
+
+    secoes[sectionId] = text;
+    hasSection[sectionId] = true;
+    clinicalPriorities[sectionId] = sectionData.clinical_priority || 3;
+    sectionTitles[sectionId] = sectionId.toUpperCase();
+    textParts.push(`${sectionId.toUpperCase()}:\n${text}\n`);
+
+    if (sectionId === "composicao") composicao = text;
+    segmentsCount++;
+  }
+
+  return {
+    nome_medicamento: drugName,
+    tipo: "bula",
+    bula_type: detectBulaType(filename) || "profissional",
+    composicao,
+    secoes,
+    has_section: hasSection,
+    texto_completo: textParts.join("\n"),
+    fonte_arquivo: jsonData.source_file || meta.original_file || filename,
+    metodo_conversao: "new_extractor",
+    data_conversao: jsonData.extracted_at || null,
+    clinical_priorities: clinicalPriorities,
+    section_titles: sectionTitles,
+    segments_count: segmentsCount,
+    importedAt: new Date(),
+    updatedAt: new Date(),
+  };
+}
+
+// ============================================================
 // Import logic
 // ============================================================
 
 /** Transform a JSON file based on auto-detected format */
 function transformToMongoDoc(jsonData, sourceFilePath) {
   const filename = path.basename(sourceFilePath);
-  const bulaType = detectBulaType(filename);
   const segments = jsonData.segments || [];
+
+  // Check for the new format where sections are stored directly as keys under "sections"
+  if (jsonData.sections && !Array.isArray(jsonData.sections)) {
+    return transformNewFormat(jsonData, sourceFilePath);
+  }
 
   // Detect format: profissional has "content" field, paciente has "full_text" + "phrases"
   const hasContentField = segments.some(s => s.content !== undefined);
