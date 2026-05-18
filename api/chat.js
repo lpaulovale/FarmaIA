@@ -248,7 +248,7 @@ module.exports = async function handler(req, res) {
               allTaggedSentences.push(...tagged);
               
               if (!filteredContentByDrug[drugName]) filteredContentByDrug[drugName] = {};
-              filteredContentByDrug[drugName][section] = tagged.map(s => s.text).join('\\n\\n');
+              filteredContentByDrug[drugName][section] = tagged.map(s => s.text).join('\n\n');
             } catch (err) {
               console.warn(`[Tagger] Failed for section ${section}:`, err.message);
             }
