@@ -229,6 +229,7 @@ module.exports = async function handler(req, res) {
     // =========================================
     let taggedContext = null;
     const taggerStartTime = Date.now();
+    const filteredContentByDrug = {};
 
     if (toolResults.length > 0 && plan.tags && plan.tags.length > 0) {
       console.log('[Tagger] Tagging and filtering content for tags:', plan.tags);
@@ -239,11 +240,15 @@ module.exports = async function handler(req, res) {
         if ((result.tool === 'get_section' || result.tool === 'get_bula_data') && result.found && result.data) {
           const content = result.data.content || result.data.textContent || '';
           const section = result.data.section || 'bula_completa';
+          const drugName = result.data.name;
 
           if (content && content.length > 50) {
             try {
               const tagged = await tagAndFilter(content, section, plan.tags);
               allTaggedSentences.push(...tagged);
+              
+              if (!filteredContentByDrug[drugName]) filteredContentByDrug[drugName] = {};
+              filteredContentByDrug[drugName][section] = tagged.map(s => s.text).join('\\n\\n');
             } catch (err) {
               console.warn(`[Tagger] Failed for section ${section}:`, err.message);
             }
@@ -416,7 +421,12 @@ module.exports = async function handler(req, res) {
         const displayName = `Bula ${drugName}`;
 
         // Get content - normalize field names for frontend
-        const content = r.data.content || r.data.textContent || r.data.textContent;
+        let content = r.data.content || r.data.textContent;
+        
+        // Substitui o texto bruto pelas sentenças filtradas, se existirem!
+        if (filteredContentByDrug[drugName] && filteredContentByDrug[drugName][sectionName]) {
+          content = filteredContentByDrug[drugName][sectionName];
+        }
 
         // Debug: log what section was retrieved
         console.log('[DEBUG] Storing extracted section:', { 
