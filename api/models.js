@@ -37,9 +37,9 @@ function getAvailableModels() {
   const seen = new Set();
 
   // Read primary from env
-  const primaryProvider = (process.env.PRIMARY_PROVIDER || "huggingface").toLowerCase();
+  const primaryProvider = (process.env.PRIMARY_PROVIDER || "groq").toLowerCase();
   const primaryModel = process.env.PRIMARY_MODEL || 
-    (primaryProvider === "huggingface" ? "meta-llama/Llama-3.1-8B-Instruct:cerebras" : null);
+    (primaryProvider === "groq" ? "llama-3.3-70b-versatile" : null);
 
   if (primaryModel && !seen.has(primaryModel)) {
     seen.add(primaryModel);
@@ -59,10 +59,10 @@ function getAvailableModels() {
 
   if (fallbackModel && !seen.has(fallbackModel)) {
     seen.add(fallbackModel);
-    const providerConfig = PROVIDER_CONFIGS[fallbackProvider || "huggingface"];
+    const providerConfig = PROVIDER_CONFIGS[fallbackProvider || "groq"];
     models.push({
       id: fallbackModel,
-      provider: fallbackProvider || "huggingface",
+      provider: fallbackProvider || "groq",
       providerName: providerConfig?.name || fallbackProvider,
       label: buildLabel(fallbackModel),
       purpose: "fallback",
