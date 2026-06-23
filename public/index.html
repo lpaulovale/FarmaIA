@@ -1279,12 +1279,12 @@
                     const sectionsJson = encodeURIComponent(JSON.stringify(sections));
                     richHtml += `<button type="button" onclick="openExtractedDataPopup('${drugName.replace(/'/g, "\\'")}', '${sectionsJson}')"
                         style="display:inline-flex;align-items:center;gap:6px;
-                        padding:6px 14px;background:rgba(14,165,122,0.1);
-                        border:1px solid rgba(14,165,122,0.3);border-radius:20px;
+                        padding:6px 14px;background:rgba(14,165,233,0.1);
+                        border:1px solid rgba(14,165,233,0.3);border-radius:20px;
                         color:var(--accent);font-size:13px;font-weight:500;
                         cursor:pointer;transition:all 0.2s;"
-                        onmouseover="this.style.background='rgba(14,165,122,0.2)';this.style.transform='translateY(-1px)'"
-                        onmouseout="this.style.background='rgba(14,165,122,0.1)';this.style.transform='translateY(0)'"
+                        onmouseover="this.style.background='rgba(14,165,233,0.2)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='rgba(14,165,233,0.1)';this.style.transform='translateY(0)'"
                         title="Ver dados extraídos da bula de ${drugName}">
                         <span class="ico" data-lucide="file-text" style="width:16px;height:16px;"></span>
                         ${drugName}
