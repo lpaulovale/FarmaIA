@@ -21,7 +21,7 @@ const { getSystemPrompt, buildContextPrompt, getNoDataPrompt, getResponsePrompt 
 const { planQuery } = require("../lib/planner");
 const { chat, chatWithModel } = require("../lib/llm_client");
 const { tagAndFilter, groupByTag } = require("../lib/tagger");
-const { fuzzyExtractDrugs, detectMode } = require("../lib/drug_extractor");
+const { fuzzyExtractDrugs, detectMode, initExtractor } = require("../lib/drug_extractor");
 
 const MAX_HISTORY_MESSAGES = 6;
 
@@ -104,6 +104,7 @@ module.exports = async function handler(req, res) {
   let { message, mode, sessionId, model: runtimeModel } = req.body || {};
   
   // Apply JS hybrid extraction before planner
+  await initExtractor();
   const extractedDrugs = fuzzyExtractDrugs(message);
   if (!mode) {
     mode = detectMode(message);
