@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmaIA</title>
 
-    <!-- Favicon: scroll + cross SVG -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea5e9'/%3E%3Cpath d='M9 10h14M9 14h10M9 18h12M9 22h8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <!-- Favicon: medical cross SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea5e9'/%3E%3Crect x='13' y='7' width='6' height='18' rx='1.5' fill='white'/%3E%3Crect x='7' y='13' width='18' height='6' rx='1.5' fill='white'/%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,10 +105,10 @@
         .logo { display: flex; align-items: center; gap: 9px; flex: 1; }
         .logo-icon {
             width: 34px; height: 34px;
-            background: var(--accent);
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
             border-radius: 11px;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 3px 10px rgba(14,165,122,0.4);
+            box-shadow: 0 3px 10px rgba(14,165,233,0.4);
             flex-shrink: 0;
             color: white;
         }
@@ -171,6 +171,15 @@
             padding: 12px 22px;
             border-bottom: 1px solid var(--border);
             flex-shrink: 0;
+            position: relative;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.4;
         }
         .header-left { display: flex; align-items: center; gap: 10px; position: relative; }
         .header-right { display: flex; align-items: center; gap: 8px; }
@@ -255,10 +264,10 @@
 
         .avatar {
             width: 34px; height: 34px; border-radius: 10px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
             display: flex; align-items: center; justify-content: center;
             font-size: 14px; font-weight: 700; color: white;
-            box-shadow: 0 2px 8px rgba(14,165,122,0.3);
+            box-shadow: 0 2px 8px rgba(14,165,233,0.35);
         }
 
         /* ── Chat ── */
@@ -276,16 +285,21 @@
             text-align: center; padding: 48px 0 36px;
         }
         .welcome-bubble {
-            width: 62px; height: 62px;
-            background: var(--accent-soft);
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, rgba(14,165,233,0.15), rgba(6,182,212,0.1));
             border: 2px solid var(--accent-mid);
-            border-radius: 20px;
+            border-radius: 22px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(14,165,122,0.15);
+            margin-bottom: 22px;
+            box-shadow: 0 4px 24px rgba(14,165,233,0.2);
             color: var(--accent);
+            animation: pulse-glow 3s ease-in-out infinite;
         }
-        .welcome-bubble svg { width: 30px; height: 30px; stroke-width: 1.75; }
+        .welcome-bubble svg { width: 34px; height: 34px; stroke-width: 1.75; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 4px 24px rgba(14,165,233,0.2); }
+            50% { box-shadow: 0 4px 32px rgba(14,165,233,0.35); }
+        }
 
         .welcome-title {
             font-family: 'Nunito', sans-serif;
@@ -331,9 +345,9 @@
             flex-shrink: 0; display: flex; align-items: center; justify-content: center;
         }
         .message.user .msg-avatar {
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            background: linear-gradient(135deg, #0ea5e9, #06b6d4);
             color: white; font-size: 13px; font-weight: 700;
-            box-shadow: 0 2px 8px rgba(14,165,122,0.3);
+            box-shadow: 0 2px 8px rgba(14,165,233,0.3);
         }
         .message.assistant .msg-avatar {
             background: var(--accent-soft);
@@ -387,12 +401,13 @@
         .send-btn {
             width: 38px; height: 38px;
             border-radius: 11px; border: none;
-            background: var(--accent); color: white;
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.15s;
-            box-shadow: 0 2px 8px rgba(14,165,122,0.35);
+            box-shadow: 0 2px 8px rgba(14,165,233,0.35);
         }
-        .send-btn:hover { background: var(--accent-hover); transform: scale(1.05); }
+        .send-btn:hover { background: linear-gradient(135deg, #38bdf8, #0ea5e9); transform: scale(1.05); }
         .send-btn:disabled {
             background: var(--bg3); color: var(--text3);
             cursor: not-allowed; transform: none; box-shadow: none;
@@ -711,6 +726,21 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
         * { scrollbar-width: thin; scrollbar-color: var(--surface2) transparent; }
 
+        /* ── Status badge ── */
+        .status-online {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 11px; color: #22c55e; font-weight: 500;
+        }
+        .status-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #22c55e;
+            animation: status-blink 2s ease-in-out infinite;
+        }
+        @keyframes status-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
         @media (max-width: 860px) { .sidebar { display: none; } }
         @media (max-width: 600px) {
             .welcome-title { font-size: 26px; }
@@ -727,7 +757,7 @@
         <div class="sidebar-top">
             <div class="logo">
                 <div class="logo-icon">
-                    <i data-lucide="scroll-text"></i>
+                    <i data-lucide="pill"></i>
                 </div>
                 <span class="logo-name">FarmaIA</span>
             </div>
@@ -785,10 +815,11 @@
                 </div>
             </div>
             <div class="header-right">
+                <span class="status-online"><span class="status-dot"></span> Online</span>
                 <button class="hdr-btn" id="theme-toggle" title="Alternar tema">
                     <i data-lucide="sun" id="theme-icon"></i>
                 </button>
-                <div class="avatar">P</div>
+                <div class="avatar"><i data-lucide="user" style="width:17px;height:17px;stroke-width:2;"></i></div>
             </div>
         </header>
 
@@ -796,22 +827,22 @@
             <div class="chat-container">
                 <div id="welcome" class="welcome">
                     <div class="welcome-bubble">
-                        <i data-lucide="scroll-text"></i>
+                        <i data-lucide="activity"></i>
                     </div>
-                    <h1 class="welcome-title">Como posso ajudar? 👋</h1>
-                    <p class="welcome-sub">Tire dúvidas sobre medicamentos com base nas bulas oficiais da ANVISA. Simples, claro e confiável.</p>
+                    <h1 class="welcome-title">Assistente Farmacêutico</h1>
+                    <p class="welcome-sub">Consulte informações sobre medicamentos com base nas bulas oficiais da ANVISA. Dados confiáveis para decisões seguras.</p>
                     <div class="chips">
                         <button class="chip" data-question="Qual a dose de dipirona para adulto?">
-                            <i data-lucide="pill"></i>Dose de Dipirona
+                            <i data-lucide="pill"></i>Posologia — Dipirona
                         </button>
                         <button class="chip" data-question="Quais são os efeitos colaterais do paracetamol?">
-                            <i data-lucide="thermometer"></i>Efeitos do Paracetamol
+                            <i data-lucide="alert-triangle"></i>Reações — Paracetamol
                         </button>
                         <button class="chip" data-question="Qual a dose de dipirona para adulto e quais são os efeitos colaterais?">
-                            <i data-lucide="clipboard-list"></i>Dose e Efeitos da Dipirona
+                            <i data-lucide="file-text"></i>Bula — Dipirona
                         </button>
                         <button class="chip" data-question="Quais são os efeitos colaterais do paracetamol e quem não pode tomar?">
-                            <i data-lucide="shield-alert"></i>Efeitos e Contraindicações do Paracetamol
+                            <i data-lucide="shield-alert"></i>Contraindicações — Paracetamol
                         </button>
                     </div>
                 </div>
@@ -1138,11 +1169,11 @@
                 <div class="msg-body">
                     <div class="msg-text">${escapeHtml(text)}</div>
                 </div>
-                <div class="msg-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:white;">P</div>`;
+                <div class="msg-avatar" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);color:white;"><i data-lucide="user" style="width:15px;height:15px;stroke-width:2;"></i></div>`;
         } else {
             el.innerHTML = `
                 <div class="msg-avatar">
-                    <i data-lucide="scroll-text"></i>
+                    <i data-lucide="activity"></i>
                 </div>
                 <div class="msg-body">
                     <div class="msg-name">FarmaIA</div>
@@ -1161,7 +1192,7 @@
         const el = document.createElement('div');
         el.className='message assistant'; el.id='loading-msg';
         el.innerHTML=`
-            <div class="msg-avatar"><i data-lucide="scroll-text"></i></div>
+            <div class="msg-avatar"><i data-lucide="activity"></i></div>
             <div class="msg-body">
                 <div class="msg-name">FarmaIA</div>
                 <div class="msg-text"><div class="loading"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div></div>
