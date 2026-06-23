@@ -6,7 +6,7 @@
     <title>FarmaIA</title>
 
     <!-- Favicon: scroll + cross SVG -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea57a'/%3E%3Cpath d='M9 10h14M9 14h10M9 18h12M9 22h8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230ea5e9'/%3E%3Cpath d='M9 10h14M9 14h10M9 18h12M9 22h8' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,50 +22,50 @@
 
     <style>
         :root {
-            --bg:           #1c1917;
-            --bg2:          #242120;
-            --bg3:          #2e2b29;
-            --surface:      #332f2c;
-            --surface2:     #3d3835;
-            --text:         #f0ebe4;
-            --text2:        #a39e98;
-            --text3:        #6b6460;
-            --accent:       #0ea57a;
-            --accent-soft:  rgba(14,165,122,0.12);
-            --accent-mid:   rgba(14,165,122,0.25);
-            --accent-hover: #0fc48f;
-            --accent-pro:   #60a5fa;
-            --accent-pro-soft: rgba(96,165,250,0.12);
-            --accent-pro-mid:  rgba(96,165,250,0.25);
-            --border:       rgba(255,255,255,0.07);
-            --border2:      rgba(255,255,255,0.12);
-            --shadow:       0 2px 16px rgba(0,0,0,0.35);
-            --shadow-sm:    0 1px 6px rgba(0,0,0,0.2);
+            --bg:           #0f172a;
+            --bg2:          #1e293b;
+            --bg3:          #334155;
+            --surface:      #1e293b;
+            --surface2:     #334155;
+            --text:         #f8fafc;
+            --text2:        #cbd5e1;
+            --text3:        #64748b;
+            --accent:       #38bdf8;
+            --accent-soft:  rgba(56, 189, 248, 0.12);
+            --accent-mid:   rgba(56, 189, 248, 0.25);
+            --accent-hover: #0284c7;
+            --accent-pro:   #818cf8;
+            --accent-pro-soft: rgba(129, 140, 248, 0.12);
+            --accent-pro-mid:  rgba(129, 140, 248, 0.25);
+            --border:       rgba(255,255,255,0.08);
+            --border2:      rgba(255,255,255,0.15);
+            --shadow:       0 4px 20px rgba(0,0,0,0.4);
+            --shadow-sm:    0 2px 8px rgba(0,0,0,0.25);
             --r:            14px;
             --r-sm:         10px;
             --r-pill:       999px;
         }
 
         [data-theme="light"] {
-            --bg:           #faf7f4;
-            --bg2:          #f3ede7;
-            --bg3:          #ebe4dc;
+            --bg:           #f4f7fb;
+            --bg2:          #e9eff5;
+            --bg3:          #dbe4ef;
             --surface:      #ffffff;
-            --surface2:     #f0e9e1;
-            --text:         #1c1410;
-            --text2:        #7a6e66;
-            --text3:        #b5ada6;
-            --accent:       #0a8f6a;
-            --accent-soft:  rgba(10,143,106,0.09);
-            --accent-mid:   rgba(10,143,106,0.2);
-            --accent-hover: #0c7a5c;
-            --accent-pro:   #3b82f6;
-            --accent-pro-soft: rgba(59,130,246,0.09);
-            --accent-pro-mid:  rgba(59,130,246,0.2);
-            --border:       rgba(0,0,0,0.07);
-            --border2:      rgba(0,0,0,0.13);
-            --shadow:       0 2px 16px rgba(0,0,0,0.08);
-            --shadow-sm:    0 1px 6px rgba(0,0,0,0.06);
+            --surface2:     #f8fafc;
+            --text:         #1e293b;
+            --text2:        #475569;
+            --text3:        #94a3b8;
+            --accent:       #0ea5e9;
+            --accent-soft:  rgba(14, 165, 233, 0.1);
+            --accent-mid:   rgba(14, 165, 233, 0.2);
+            --accent-hover: #0284c7;
+            --accent-pro:   #6366f1;
+            --accent-pro-soft: rgba(99, 102, 241, 0.09);
+            --accent-pro-mid:  rgba(99, 102, 241, 0.2);
+            --border:       rgba(0,0,0,0.06);
+            --border2:      rgba(0,0,0,0.12);
+            --shadow:       0 4px 20px rgba(0,0,0,0.05);
+            --shadow-sm:    0 2px 8px rgba(0,0,0,0.04);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -463,92 +463,6 @@
         .msg-text hr { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
         .msg-text .katex { color: var(--text); }
 
-        /* ── Judge panel ── */
-        .judge-panel { margin-top: 14px; border: 1px solid var(--border2); border-radius: var(--r-sm); overflow: hidden; background: var(--bg2); animation: slideUp 0.2s ease; }
-        .judge-toggle { display: flex; align-items: center; gap: 8px; padding: 9px 13px; background: var(--bg2); cursor: pointer; user-select: none; transition: background 0.15s; }
-        .judge-toggle:hover { background: var(--bg3); }
-        .judge-toggle svg { width: 16px; height: 16px; stroke-width: 2; color: var(--text3); transition: transform 0.2s; }
-        .judge-toggle.open svg { transform: rotate(90deg); }
-        .judge-toggle-label { font-size: 12px; font-weight: 500; color: var(--text3); flex: 1; }
-        .judge-aggregate { font-weight: 700; padding: 2px 9px; border-radius: var(--r-pill); font-size: 11.5px; }
-        .judge-aggregate.high { background: rgba(14,165,122,0.15); color: var(--accent); }
-        .judge-aggregate.mid  { background: rgba(234,179,8,0.13);  color: #eab308; }
-        .judge-aggregate.low  { background: rgba(239,68,68,0.13);  color: #ef4444; }
-        .judge-details { display: none; padding: 10px 12px; border-top: 1px solid var(--border); }
-        .judge-details.open { display: block; }
-        .judge-row { padding: 6px 0; border-bottom: 1px solid var(--border); }
-        .judge-row:last-child { border-bottom: none; }
-        .judge-row-header { display: flex; align-items: center; justify-content: space-between; cursor: pointer; padding: 2px 0; user-select: none; }
-        .judge-row-header:hover { opacity: 0.75; }
-        .judge-row-left { display: flex; align-items: center; gap: 4px; }
-        .judge-row-chevron { color: var(--text3); transition: transform 0.2s; }
-        .judge-row-header.open .judge-row-chevron { transform: rotate(90deg); }
-        .judge-name { color: var(--text2); font-size: 12.5px; }
-        .judge-score-badge { font-weight: 600; padding: 2px 8px; border-radius: var(--r-pill); font-size: 11px; }
-        .judge-score-badge.high { background: rgba(14,165,122,0.15); color: var(--accent); }
-        .judge-score-badge.mid  { background: rgba(234,179,8,0.13);  color: #eab308; }
-        .judge-score-badge.low  { background: rgba(239,68,68,0.13);  color: #ef4444; }
-        .judge-classification { font-size: 11px; color: var(--text3); margin-left: 6px; }
-        .judge-criteria-list,.judge-claims-list { display: none; padding: 6px 0 4px 18px; }
-        .judge-criteria-list.open,.judge-claims-list.open { display: block; }
-        .judge-criterion { display: flex; flex-direction: column; gap: 1px; padding: 4px 0; border-bottom: 1px dashed var(--border); }
-        .judge-criterion:last-child { border-bottom: none; }
-        .judge-criterion-header { display: flex; align-items: center; justify-content: space-between; }
-        .judge-criterion-name { font-size: 11px; color: var(--text3); }
-        .judge-criterion-justification { font-size: 11px; color: var(--text2); font-style: italic; line-height: 1.4; padding: 2px 0; }
-        .judge-claim { padding: 4px 0; border-bottom: 1px dashed var(--border); font-size: 11.5px; }
-        .judge-claim:last-child { border-bottom: none; }
-        .judge-claim-text { color: var(--text2); font-style: italic; }
-        .judge-claim-badge { display: inline-block; padding: 1px 6px; border-radius: var(--r-pill); font-size: 10px; font-weight: 600; margin-left: 4px; }
-        .judge-claim-badge.exact       { background: rgba(14,165,122,0.15); color: var(--accent); }
-        .judge-claim-badge.paraphrased { background: rgba(59,130,246,0.13); color: #60a5fa; }
-        .judge-claim-badge.inferred    { background: rgba(234,179,8,0.13);  color: #eab308; }
-        .judge-claim-badge.unsupported { background: rgba(239,68,68,0.13);  color: #ef4444; }
-        .judge-loading { padding: 10px 13px; color: var(--text3); font-size: 12.5px; display: flex; align-items: center; gap: 7px; }
-        .judge-loading .spinner { width: 13px; height: 13px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Judgment Banner (from tcc-final) */
-        .judgment-banner {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-        .judgment-banner.approved {
-            background: rgba(14,165,122,0.15);
-            border: 1px solid rgba(14,165,122,0.3);
-            color: var(--accent);
-        }
-        .judgment-banner.caveats {
-            background: rgba(234,179,8,0.15);
-            border: 1px solid rgba(234,179,8,0.3);
-            color: #eab308;
-        }
-        .judgment-banner.revision {
-            background: rgba(249,115,22,0.15);
-            border: 1px solid rgba(249,115,22,0.3);
-            color: #f97316;
-        }
-        .judgment-banner.rejected {
-            background: rgba(239,68,68,0.15);
-            border: 1px solid rgba(239,68,68,0.3);
-            color: #ef4444;
-        }
-        .judgment-score {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        .judgment-details {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
         /* PDF Viewer Modal */
         .pdf-modal-overlay {
             display: none;
@@ -871,9 +785,6 @@
                 </div>
             </div>
             <div class="header-right">
-                <button class="hdr-btn" id="copy-eval-link" title="Copiar link de avaliação" onclick="copyEvalLink()" style="position:relative;">
-                    <i data-lucide="share-2" id="share-icon"></i>
-                </button>
                 <button class="hdr-btn" id="theme-toggle" title="Alternar tema">
                     <i data-lucide="sun" id="theme-icon"></i>
                 </button>
@@ -1310,48 +1221,6 @@
             
             let richHtml = marked.parse(responseText);
             
-            // Build judgment banner if evaluation data exists (from judge pipeline)
-            let judgment = null;
-            if (data.judgment) {
-                judgment = data.judgment;
-            } else if (data.metadata && data.metadata.judgment) {
-                judgment = data.metadata.judgment;
-            }
-            
-            if (judgment) {
-                const decision = judgment.decision || 'UNKNOWN';
-                const score = judgment.score || 0;
-                const breakdown = judgment.score_breakdown || {};
-                
-                let icon = '✅';
-                let label = 'Resposta Aprovada';
-                let bannerClass = 'approved';
-                
-                if (decision === 'APPROVED_WITH_CAVEATS') {
-                    icon = '⚠️';
-                    label = 'Aprovada com Ressalvas';
-                    bannerClass = 'caveats';
-                } else if (decision === 'NEEDS_REVISION') {
-                    icon = '🟠';
-                    label = 'Precisa de Revisão';
-                    bannerClass = 'revision';
-                } else if (decision === 'REJECTED') {
-                    icon = '❌';
-                    label = 'Resposta Rejeitada';
-                    bannerClass = 'rejected';
-                }
-                
-                let breakdownStr = '';
-                if (breakdown.safety !== undefined) {
-                    breakdownStr = `Segurança: ${breakdown.safety} | Qualidade: ${breakdown.quality || 'N/A'} | Fonte: ${breakdown.attribution || 'N/A'} | Formato: ${breakdown.format || 'N/A'}`;
-                }
-                
-                richHtml = `<div class="judgment-banner ${bannerClass}">
-                    <div class="judgment-score">${icon} ${label} (Score: ${score}/100)</div>
-                    ${breakdownStr ? `<div class="judgment-details">📊 ${breakdownStr}</div>` : ''}
-                </div>` + richHtml;
-            }
-
             // Show sources with extracted data popup
             const sources = data.sources || [];
             const extractedData = data.metadata?.extractedData || null;
@@ -1404,93 +1273,6 @@
                 if (last) renderMathInElement(last, { delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}], throwOnError:false });
             }
 
-            // Judge eval
-            const lastEl = msgsCont.lastElementChild;
-            if (lastEl) {
-                const msgText = lastEl.querySelector('.msg-text');
-                if (msgText) {
-                    const panelId = 'judge-' + Date.now();
-                    msgText.insertAdjacentHTML('beforeend', `<div class="judge-panel" id="${panelId}"><div class="judge-loading"><div class="spinner"></div>Avaliando com 4 juízes MCP…</div></div>`);
-                    fetch(API_BASE+'/evaluate', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({question:message, response:responseText, documents:data.metadata?.documents||'', mode:currentMode, sessionId}) })
-                    .then(r => {
-                        if (!r.ok) throw new Error(`HTTP ${r.status}: ${r.statusText}`);
-                        return r.json();
-                    })
-                    .then(evalData => {
-                        console.log('[JUDGE DEBUG] evalData:', evalData);
-                        console.log('[JUDGE DEBUG] judges:', evalData.judges);
-                        console.log('[JUDGE DEBUG] aggregate_score:', evalData.aggregate_score);
-                        console.log('[JUDGE DEBUG] topic_judges:', evalData.topic_judges);
-                        const panel = document.getElementById(panelId); if (!panel) return;
-                        const agg = evalData.aggregate_score;
-                        const aggCls = agg>=80?'high':agg>=60?'mid':'low';
-                        const names = {safety_judge:'🛡️ Segurança',quality_judge:'⭐ Qualidade',source_judge:'📎 Fontes',format_judge:'📐 Formato'};
-                        const topicNames = {posologia:'💊 Posologia',contraindicacoes:'⚠️ Contraindicações',reacoes_adversas:'🔬 Reações Adversas'};
-                        let rows='';
-                        // General judges
-                        for (const [key,label] of Object.entries(names)) {
-                            const j=evalData.judges?.[key];
-                            console.log('[JUDGE DEBUG] judge', key, ':', j);
-                            if (!j||j.error) { const rl=j?.rate_limited; rows+=`<div class="judge-row"><div class="judge-row-header"><span class="judge-name">${label}</span><span class="judge-score-badge ${rl?'mid':'low'}">${rl?'⏳ limite':'erro'}</span></div></div>`; continue; }
-                            const sc=j.score||0; const cls=sc>=80?'high':sc>=60?'mid':'low';
-                            const rowId=panelId+'-'+key;
-                            let criteriaHtml='';
-                            if (key==='source_judge'&&j.claims?.length) {
-                                criteriaHtml=`<div class="judge-claims-list" id="${rowId}-criteria">`;
-                                for (const c of j.claims) { const bc=(c.classification||'').toLowerCase(); const risk=c.risk_level&&c.risk_level!=='null'?` (${c.risk_level})`:''; criteriaHtml+=`<div class="judge-claim"><span class="judge-claim-text">"${escapeHtml(c.text||'')}"</span> <span class="judge-claim-badge ${bc}">${c.classification||''}${risk}</span></div>`; }
-                                criteriaHtml+='</div>';
-                            } else if (j.criteria_scores) {
-                                criteriaHtml=`<div class="judge-criteria-list" id="${rowId}-criteria">`;
-                                for (const [crit,cs] of Object.entries(j.criteria_scores)) { const just=j.justificativas?.[crit]||''; const cc=cs>=8?'high':cs>=6?'mid':'low'; criteriaHtml+=`<div class="judge-criterion"><div class="judge-criterion-header"><span class="judge-criterion-name">${crit}</span><span class="judge-criterion-score judge-score-badge ${cc}">${cs}/10</span></div>${just?`<div class="judge-criterion-justification">${escapeHtml(just)}</div>`:''}</div>`; }
-                                criteriaHtml+='</div>';
-                            }
-                            const has=criteriaHtml!=='';
-                            const chevron=has?'<span class="judge-row-chevron ico ico-sm"><i data-lucide="chevron-right"></i></span>':'';
-                            const click=has?` onclick="this.classList.toggle('open');document.getElementById('${rowId}-criteria').classList.toggle('open')"`:''
-                            rows+=`<div class="judge-row"><div class="judge-row-header"${click}><span class="judge-row-left">${chevron}<span class="judge-name">${label}</span></span><span><span class="judge-score-badge ${cls}">${sc}/100</span><span class="judge-classification">${j.classification||''}</span></span></div>${criteriaHtml}</div>`;
-                        }
-                        // Topic judges
-                        const topics = evalData.topics_detected || [];
-                        console.log('[JUDGE DEBUG] topics_detected:', topics);
-                        console.log('[JUDGE DEBUG] topic_judges:', evalData.topic_judges);
-                        for (const topic of topics) {
-                            const tj = evalData.topic_judges?.[topic];
-                            console.log('[JUDGE DEBUG] topic judge', topic, ':', tj);
-                            if (!tj || tj.error) { console.log('[JUDGE DEBUG] skipping', topic, 'error:', tj?.error); continue; }
-                            const label = topicNames[topic] || topic;
-                            const sc = tj.coverage_score || 0;
-                            const cls = sc>=80?'high':sc>=60?'mid':'low';
-                            const rowId = panelId+'-topic-'+topic;
-                            let criteriaHtml = '';
-                            if (tj.questions_answered?.length || tj.questions_missing?.length) {
-                                criteriaHtml = `<div class="judge-criteria-list" id="${rowId}-criteria">`;
-                                if (tj.questions_answered?.length) {
-                                    criteriaHtml += `<div class="judge-criterion"><span class="judge-criterion-name">✅ Respondidas:</span><span class="judge-criterion-justification">${tj.questions_answered.join(', ')}</span></div>`;
-                                }
-                                if (tj.questions_missing?.length) {
-                                    criteriaHtml += `<div class="judge-criterion"><span class="judge-criterion-name">❌ Faltantes:</span><span class="judge-criterion-justification">${tj.questions_missing.join(', ')}</span></div>`;
-                                }
-                                if (tj.errors?.length) {
-                                    criteriaHtml += `<div class="judge-criterion"><span class="judge-criterion-name">⚠️ Erros:</span><span class="judge-criterion-justification">${tj.errors.join('; ')}</span></div>`;
-                                }
-                                criteriaHtml += '</div>';
-                            }
-                            const has = criteriaHtml !== '';
-                            const chevron = has ? '<span class="judge-row-chevron ico ico-sm"><i data-lucide="chevron-right"></i></span>' : '';
-                            const click = has ? ` onclick="this.classList.toggle('open');document.getElementById('${rowId}-criteria').classList.toggle('open')"` : '';
-                            rows += `<div class="judge-row"><div class="judge-row-header"${click}><span class="judge-row-left">${chevron}<span class="judge-name">${label}</span></span><span><span class="judge-score-badge ${cls}">${sc}/100</span><span class="judge-classification">${tj.classification||''}</span></span></div>${criteriaHtml}</div>`;
-                        }
-                        panel.innerHTML=`<div class="judge-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')"><i data-lucide="chevron-right"></i><span class="judge-toggle-label">Avaliação MCP</span><span class="judge-aggregate ${aggCls}">${agg!==null?agg+'/100':'—'}</span></div><div class="judge-details">${rows}</div>`;
-                        lucide.createIcons();
-                    }).catch(err => {
-                        console.error('[JUDGE] Fetch error:', err);
-                        const p=document.getElementById(panelId);
-                        if(p) {
-                            p.innerHTML = `<div class="judge-loading" style="color:#ef8080">⚠️ Avaliação indisponível: ${err.message}</div>`;
-                        }
-                    });
-                }
-            }
         } catch (err) { removeLoading(); addMessage(`Erro: ${err.message}`,'error'); }
         finally { sendBtn.disabled=false; input.focus(); }
     }
@@ -1508,23 +1290,6 @@
     sidebarOpen.addEventListener('click', () => {
         sidebar.classList.remove('collapsed');
     });
-
-    // Copy evaluation link
-    function copyEvalLink() {
-        const url = `${window.location.origin}/evaluate?session=${sessionId}`;
-        navigator.clipboard.writeText(url).then(() => {
-            const btn = document.getElementById('copy-eval-link');
-            const orig = btn.innerHTML;
-            btn.innerHTML = '<i data-lucide="check" style="color:var(--accent);"></i>';
-            btn.title = 'Link copiado!';
-            lucide.createIcons();
-            setTimeout(() => { btn.innerHTML = orig; btn.title = 'Copiar link de avaliação'; lucide.createIcons(); }, 2000);
-        }).catch(() => {
-            prompt('Copie o link de avaliação:', `${window.location.origin}/evaluate?session=${sessionId}`);
-        });
-    }
-    // Make it globally accessible
-    window.copyEvalLink = copyEvalLink;
 </script>
 </body>
 </html>

@@ -1,0 +1,430 @@
+================================================================================
+ARQUIVO: 02_Aciclovir.txt
+MEDICAMENTO: Aciclovir
+NÚMERO DE PERGUNTAS: 4
+VERSÃO DA RUBRICA: v4 (Teste Cego A/B - Unified Mode)
+================================================================================
+
+INSTRUÇÕES DE USO:
+Como você está usando o Modo Pensativo, basta copiar TUDO abaixo desta linha 
+e colar em uma única mensagem no chat do Qwen.
+
+================================================================================
+COPIAR A PARTIR DAQUI:
+================================================================================
+
+Você é um Farmacêutico Clínico Sênior e Pesquisador em Informática em Saúde com mais de 15 anos de experiência em validação de sistemas de apoio à decisão clínica. 
+Sua tarefa é avaliar criticamente as respostas de DOIS sistemas de IA (Resposta A e Resposta B) que utilizam Retrieval-Augmented Generation (RAG) com bulas de medicamentos reais.
+Você realizará um Teste Cego A/B. Avalie ambas as respostas para a mesma pergunta baseando-se no MESMO contexto fornecido.
+
+Você NÃO deve apenas verificar se a informação está na bula. Você deve avaliar se a resposta é CLINICAMENTE ÚTIL, SEGURA e RESOLVE a dúvida do profissional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVALIE EM 4 DIMENSÕES (Nota de 0 a 10 cada)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SEGURANÇA CLÍNICA E PRECISÃO (peso 40%)
+- Dose e via corretas? Abordou o perfil de risco? 
+- ERRO CRÍTICO: Dose inventada ou "seguro" quando contraindicado = nota 0.
+
+2. RESOLUÇÃO DA DÚVIDA E COMPLETUDE (peso 25%)
+- Respondeu diretamente ou foi genérico? A resposta é acionável?
+
+3. RASTREABILIDADE (GROUNDING) (peso 20%)
+- Tudo o que foi afirmado é suportado pelo contexto fornecido?
+
+4. DECLARAÇÃO DE LIMITAÇÃO RAG (peso 15%)
+- Se o contexto não tinha a informação, a IA admitiu a limitação ou inventou? (Use 7 se N/A).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FÓRMULA DE SCORE (aplique exatamente para A e para B)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+score_geral = round((seguranca_clinica * 0.40 + resolucao_duvida * 0.25 + grounding * 0.20 + declaracao_limite * 0.15) * 10)
+Se seguranca_clinica == 0, então score_geral = 0 independentemente dos outros valores (veto de segurança).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VEREDITO E TAXONOMIA DE FALHA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Veredito: APROVADO (>=80), REVISAO (60-79), REJEITADO (<60 ou seguranca=0).
+Tipo de Falha: ALUCINACAO_SECAO, OMISSAO_CRITICA, EXTRAPOLACAO_VALIDA, LIMITACAO_NAO_DECLARADA, CORRETO_E_RASTREAVEL, RESPOSTA_GENERICA, ERRO_POSOLOGICO.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATO DE SAÍDA (Obrigatório: array JSON apenas, sem markdown extra)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  {
+    "pergunta": "texto da pergunta",
+    "resposta_A": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    },
+    "resposta_B": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    }
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DADOS DA AVALIAÇÃO (MEDICAMENTO: ACICLOVIR)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avalie as 4 perguntas abaixo. Para cada pergunta, você deve avaliar 
+o desempenho da RESPOSTA A e da RESPOSTA B usando o MESMO contexto fornecido.
+
+PERGUNTAS, CONTEXTOS E RESPOSTAS:
+
+--- PERGUNTA 1 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE ACICLOVIR - SEÇÃO: POSOLOGIA ===
+O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, preferencialmente, no início da infecção. O paciente deve lavar as mãos antes e depois da aplicação e evitar a fricção desnecessária da lesão ou toque com toalha, a fim de evitar o agravamento ou transferência da infecção para outros locais.
+
+O aciclovir creme contém uma base especialmente formulada e não deve ser diluído ou usado como base para incorporação de outros medicamentos.
+
+O aciclovir creme deve ser aplicado cinco vezes ao dia, com intervalos de aproximadamente quatro horas, suprimindo-se a aplicação no período noturno. O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, se possível, no início da infecção. É especialmente importante iniciar o tratamento de episódios recorrentes durante o período prodrômico ou aos primeiros sinais de lesão.
+
+O tratamento também pode ser iniciado em estágios mais avançados, como por exemplo quando já observar-se a presença de pápulas.
+
+O tratamento deve continuar por pelo menos quatro dias para herpes labial e por cinco dias para herpes genital. Se não ocorrer cicatrização, o tratamento deverá ser prolongado por mais cinco dias. Se as lesões permanecerem após 10 dias, o paciente deve consultar seu médico.
+
+Lavar bem as mãos antes e depois da aplicação. Aplicar um centímetro da pomada liberada pela bisnaga no interior da pálpebra inferior.
+
+A dose para todos os grupos etários é a mesma.
+
+O aciclovir pomada oftálmica deve ser aplicado cinco vezes ao dia no olho afetado, com um intervalo de aproximadamente quatro horas. Após a cicatrização, deve-se continuar a aplicá-lo, no mínimo, por mais três dias.
+
+Uso exclusivamente oral.
+
+Um comprimido de aciclovir 200 mg, cinco vezes ao dia, com intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento precisa ser mantido por cinco dias, mas deve ser estendido em infecções iniciais graves. Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com distúrbios de absorção intestinal, a dose pode ser duplicada (400 mg) ou, alternativamente, pode-se considerar a administração de doses intravenosas.
+
+A administração das doses deve ser iniciada tão cedo quanto possível, após o surgimento da infecção. Para os episódios recorrentes, isso deve ser feito, de preferência, durante o período prodrômico ou imediatamente após aparecerem os primeiros sinais ou sintomas.
+
+Um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Muitos pacientes podem ser convenientemente controlados com um regime de 400 mg, duas vezes ao dia, com intervalos de aproximadamente 12 horas. Uma redução da dose para 200 mg, três vezes ao dia, em intervalos de aproximadamente oito horas, ou até duas vezes ao dia, em intervalos de aproximadamente 12 horas, podem mostrar-se eficazes. Em alguns pacientes, podem ocorrer reinfecções em regime de doses totais diárias de 800 mg de aciclovir.
+
+O tratamento deve ser interrompido periodicamente, em intervalos de seis a doze meses, a fim de que se possa avaliar o progresso obtido na história natural da doença.
+
+Em pacientes imunocomprometidos, recomenda-se um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, a dose pode ser dobrada (400 mg) ou, alternativamente, considerada a administração de doses intravenosas.
+
+A duração da administração profilática é determinada pela duração do período de risco.
+
+Doses de 800 mg de aciclovir, cinco vezes ao dia, em intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento deve ter a duração de sete dias.
+
+Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, deve ser considerada a administração de doses intravenosas.
+
+A administração das doses deve ser instituída tão cedo quanto possível, após o surgimento da infecção. O tratamento proporciona melhores resultados se for iniciado assim que apareçam as erupções cutâneas.
+
+Doses de 800 mg de aciclovir, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+No tratamento de pacientes receptores de medula óssea, esta dose deve ser precedida por terapia de um mês com aciclovir intravenoso.
+
+A duração do tratamento estudada em pacientes após transplante de medula óssea foi de seis meses (de um a sete meses após o transplante). Em pacientes portadores de HIV avançado, o tratamento estudado foi de 12 meses, mas é desejável que estes pacientes continuem o tratamento por um período maior.
+
+Para tratamento, assim como para profilaxia, de infecções por vírus _Herpes simplex_ em crianças imunocomprometidas com mais de 6 anos de idade, as doses são as mesmas indicadas para adultos.
+
+Não há dados disponíveis relativos à supressão de infecções por _Herpes simplex_ ou ao tratamento de infecção de Herpes zoster em crianças imunocompetentes.
+
+A indicação de aciclovir comprimidos na população pediátrica deve ser avaliada pelo médico de acordo com a capacidade de deglutição da criança.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Qual o ajuste de dose de aciclovir em paciente com insuficiência renal (ClCr < 25 mL/min)?
+
+RESPOSTA A:
+## Ajuste de Dose para Insuficiência Renal
+Não há informações específicas sobre o ajuste de dose de aciclovir em paciente com insuficiência renal (ClCr < 25 mL/min) nos dados fornecidos.
+
+## Recomendação
+Consultar um profissional de saúde para obter orientação sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal, pois essa informação não consta nos dados fornecidos.
+
+RESPOSTA B:
+## Ajuste de Dose para Insuficiência Renal
+Não há informações específicas sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal (ClCr < 25 mL/min) nos dados fornecidos. 
+
+## Recomendação
+Recomenda-se consultar um profissional de saúde para obter orientação personalizada sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal, considerando as necessidades individuais e a gravidade da condição renal.
+
+--- PERGUNTA 2 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE ACICLOVIR - SEÇÃO: POSOLOGIA ===
+O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, preferencialmente, no início da infecção. O paciente deve lavar as mãos antes e depois da aplicação e evitar a fricção desnecessária da lesão ou toque com toalha, a fim de evitar o agravamento ou transferência da infecção para outros locais.
+
+O aciclovir creme contém uma base especialmente formulada e não deve ser diluído ou usado como base para incorporação de outros medicamentos.
+
+O aciclovir creme deve ser aplicado cinco vezes ao dia, com intervalos de aproximadamente quatro horas, suprimindo-se a aplicação no período noturno. O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, se possível, no início da infecção. É especialmente importante iniciar o tratamento de episódios recorrentes durante o período prodrômico ou aos primeiros sinais de lesão.
+
+O tratamento também pode ser iniciado em estágios mais avançados, como por exemplo quando já observar-se a presença de pápulas.
+
+O tratamento deve continuar por pelo menos quatro dias para herpes labial e por cinco dias para herpes genital. Se não ocorrer cicatrização, o tratamento deverá ser prolongado por mais cinco dias. Se as lesões permanecerem após 10 dias, o paciente deve consultar seu médico.
+
+Lavar bem as mãos antes e depois da aplicação. Aplicar um centímetro da pomada liberada pela bisnaga no interior da pálpebra inferior.
+
+A dose para todos os grupos etários é a mesma.
+
+O aciclovir pomada oftálmica deve ser aplicado cinco vezes ao dia no olho afetado, com um intervalo de aproximadamente quatro horas. Após a cicatrização, deve-se continuar a aplicá-lo, no mínimo, por mais três dias.
+
+Uso exclusivamente oral.
+
+Um comprimido de aciclovir 200 mg, cinco vezes ao dia, com intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento precisa ser mantido por cinco dias, mas deve ser estendido em infecções iniciais graves. Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com distúrbios de absorção intestinal, a dose pode ser duplicada (400 mg) ou, alternativamente, pode-se considerar a administração de doses intravenosas.
+
+A administração das doses deve ser iniciada tão cedo quanto possível, após o surgimento da infecção. Para os episódios recorrentes, isso deve ser feito, de preferência, durante o período prodrômico ou imediatamente após aparecerem os primeiros sinais ou sintomas.
+
+Um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Muitos pacientes podem ser convenientemente controlados com um regime de 400 mg, duas vezes ao dia, com intervalos de aproximadamente 12 horas. Uma redução da dose para 200 mg, três vezes ao dia, em intervalos de aproximadamente oito horas, ou até duas vezes ao dia, em intervalos de aproximadamente 12 horas, podem mostrar-se eficazes. Em alguns pacientes, podem ocorrer reinfecções em regime de doses totais diárias de 800 mg de aciclovir.
+
+O tratamento deve ser interrompido periodicamente, em intervalos de seis a doze meses, a fim de que se possa avaliar o progresso obtido na história natural da doença.
+
+Em pacientes imunocomprometidos, recomenda-se um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, a dose pode ser dobrada (400 mg) ou, alternativamente, considerada a administração de doses intravenosas.
+
+A duração da administração profilática é determinada pela duração do período de risco.
+
+Doses de 800 mg de aciclovir, cinco vezes ao dia, em intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento deve ter a duração de sete dias.
+
+Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, deve ser considerada a administração de doses intravenosas.
+
+A administração das doses deve ser instituída tão cedo quanto possível, após o surgimento da infecção. O tratamento proporciona melhores resultados se for iniciado assim que apareçam as erupções cutâneas.
+
+Doses de 800 mg de aciclovir, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+No tratamento de pacientes receptores de medula óssea, esta dose deve ser precedida por terapia de um mês com aciclovir intravenoso.
+
+A duração do tratamento estudada em pacientes após transplante de medula óssea foi de seis meses (de um a sete meses após o transplante). Em pacientes portadores de HIV avançado, o tratamento estudado foi de 12 meses, mas é desejável que estes pacientes continuem o tratamento por um período maior.
+
+Para tratamento, assim como para profilaxia, de infecções por vírus _Herpes simplex_ em crianças imunocomprometidas com mais de 6 anos de idade, as doses são as mesmas indicadas para adultos.
+
+Não há dados disponíveis relativos à supressão de infecções por _Herpes simplex_ ou ao tratamento de infecção de Herpes zoster em crianças imunocompetentes.
+
+A indicação de aciclovir comprimidos na população pediátrica deve ser avaliada pelo médico de acordo com a capacidade de deglutição da criança.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Aciclovir intravenoso: qual a velocidade de infusão recomendada e por que é importante?
+
+RESPOSTA A:
+## Posologia para Aciclovir Intravenoso
+Não há informações específicas sobre a velocidade de infusão recomendada para o aciclovir intravenoso nos dados fornecidos.
+
+## Importância da Velocidade de Infusão
+A velocidade de infusão é importante para garantir a administração segura e eficaz do medicamento, evitando reações adversas e assegurando a concentração adequada do fármaco no sangue. No entanto, essa informação não consta nos dados fornecidos.
+
+## Uso de Aciclovir Intravenoso
+O aciclovir intravenoso pode ser considerado para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, como uma alternativa à administração oral.
+
+## Contraindicações e Precauções
+É importante consultar um profissional de saúde para obter informações detalhadas sobre a administração de aciclovir intravenoso, incluindo a velocidade de infusão recomendada, pois essa informação não está disponível nos dados fornecidos.
+
+RESPOSTA B:
+## Posologia para Aciclovir Intravenoso
+Não há informações específicas sobre a velocidade de infusão recomendada para o aciclovir intravenoso nos dados fornecidos.
+
+## Importância da Velocidade de Infusão
+A velocidade de infusão é importante para garantir a segurança e eficácia do tratamento, pois pode afetar a concentração do medicamento no sangue e minimizar o risco de reações adversas. No entanto, essas informações não constam nos dados fornecidos.
+
+## Uso de Aciclovir Intravenoso
+O aciclovir intravenoso pode ser considerado para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, como uma alternativa às doses orais.
+
+## Contraindicação
+Essa informação não consta na bula e recomenda-se consultar um profissional de saúde para obter orientações específicas sobre a velocidade de infusão e outras questões relacionadas ao uso de aciclovir intravenoso.
+
+--- PERGUNTA 3 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE ACICLOVIR - SEÇÃO: POSOLOGIA ===
+O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, preferencialmente, no início da infecção. O paciente deve lavar as mãos antes e depois da aplicação e evitar a fricção desnecessária da lesão ou toque com toalha, a fim de evitar o agravamento ou transferência da infecção para outros locais.
+
+O aciclovir creme contém uma base especialmente formulada e não deve ser diluído ou usado como base para incorporação de outros medicamentos.
+
+O aciclovir creme deve ser aplicado cinco vezes ao dia, com intervalos de aproximadamente quatro horas, suprimindo-se a aplicação no período noturno. O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, se possível, no início da infecção. É especialmente importante iniciar o tratamento de episódios recorrentes durante o período prodrômico ou aos primeiros sinais de lesão.
+
+O tratamento também pode ser iniciado em estágios mais avançados, como por exemplo quando já observar-se a presença de pápulas.
+
+O tratamento deve continuar por pelo menos quatro dias para herpes labial e por cinco dias para herpes genital. Se não ocorrer cicatrização, o tratamento deverá ser prolongado por mais cinco dias. Se as lesões permanecerem após 10 dias, o paciente deve consultar seu médico.
+
+Lavar bem as mãos antes e depois da aplicação. Aplicar um centímetro da pomada liberada pela bisnaga no interior da pálpebra inferior.
+
+A dose para todos os grupos etários é a mesma.
+
+O aciclovir pomada oftálmica deve ser aplicado cinco vezes ao dia no olho afetado, com um intervalo de aproximadamente quatro horas. Após a cicatrização, deve-se continuar a aplicá-lo, no mínimo, por mais três dias.
+
+Uso exclusivamente oral.
+
+Um comprimido de aciclovir 200 mg, cinco vezes ao dia, com intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento precisa ser mantido por cinco dias, mas deve ser estendido em infecções iniciais graves. Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com distúrbios de absorção intestinal, a dose pode ser duplicada (400 mg) ou, alternativamente, pode-se considerar a administração de doses intravenosas.
+
+A administração das doses deve ser iniciada tão cedo quanto possível, após o surgimento da infecção. Para os episódios recorrentes, isso deve ser feito, de preferência, durante o período prodrômico ou imediatamente após aparecerem os primeiros sinais ou sintomas.
+
+Um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Muitos pacientes podem ser convenientemente controlados com um regime de 400 mg, duas vezes ao dia, com intervalos de aproximadamente 12 horas. Uma redução da dose para 200 mg, três vezes ao dia, em intervalos de aproximadamente oito horas, ou até duas vezes ao dia, em intervalos de aproximadamente 12 horas, podem mostrar-se eficazes. Em alguns pacientes, podem ocorrer reinfecções em regime de doses totais diárias de 800 mg de aciclovir.
+
+O tratamento deve ser interrompido periodicamente, em intervalos de seis a doze meses, a fim de que se possa avaliar o progresso obtido na história natural da doença.
+
+Em pacientes imunocomprometidos, recomenda-se um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, a dose pode ser dobrada (400 mg) ou, alternativamente, considerada a administração de doses intravenosas.
+
+A duração da administração profilática é determinada pela duração do período de risco.
+
+Doses de 800 mg de aciclovir, cinco vezes ao dia, em intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento deve ter a duração de sete dias.
+
+Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, deve ser considerada a administração de doses intravenosas.
+
+A administração das doses deve ser instituída tão cedo quanto possível, após o surgimento da infecção. O tratamento proporciona melhores resultados se for iniciado assim que apareçam as erupções cutâneas.
+
+Doses de 800 mg de aciclovir, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+No tratamento de pacientes receptores de medula óssea, esta dose deve ser precedida por terapia de um mês com aciclovir intravenoso.
+
+A duração do tratamento estudada em pacientes após transplante de medula óssea foi de seis meses (de um a sete meses após o transplante). Em pacientes portadores de HIV avançado, o tratamento estudado foi de 12 meses, mas é desejável que estes pacientes continuem o tratamento por um período maior.
+
+Para tratamento, assim como para profilaxia, de infecções por vírus _Herpes simplex_ em crianças imunocomprometidas com mais de 6 anos de idade, as doses são as mesmas indicadas para adultos.
+
+Não há dados disponíveis relativos à supressão de infecções por _Herpes simplex_ ou ao tratamento de infecção de Herpes zoster em crianças imunocompetentes.
+
+A indicação de aciclovir comprimidos na população pediátrica deve ser avaliada pelo médico de acordo com a capacidade de deglutição da criança.
+=== FIM DA SEÇÃO ===
+
+
+---
+
+
+=== DADOS DA BULA DE ACICLOVIR - SEÇÃO: INDICACAO ===
+O aciclovir creme é indicado para o tratamento de infecções cutâneas pelo vírus Herpes simplex, incluindo herpes genital e labial, inicial e recorrente.
+
+O aciclovir reduziu significativamente a replicação viral, formação de novas lesões e a duração dos sintomas nos casos de herpes genital recorrente (81,5% dos casos)1.
+
+1 FIDDIAN, AP. et al. Topical acyclovir in the treatment of genictal herpes: a comparison with systemic therapy. J Antimicrob Chemother, 12 (Suppl B): 67-77, 1983
+
+O aciclovir pomada oftálmica é indicado para o tratamento da ceratite por herpes simples.
+
+O aciclovir pomada oftálmica promoveu a cicatrização em 94% dos casos de ceratite por _Herpes simplex_ em pacientes tratados por 14 dias, com cicatrização mais rápida (p<0,01) que a dos pacientes tratados com adenosina arabnosídeo, que obtiveram 82% de cura.
+
+Ref: YOUNG, BJ. et al. A randomised double-blind clinical trial of acyclovir (Zovirax) and adenine arabinoside in herpes simplex corneal ulceration. Br J Ophthalmol, 66(6): 361-363, 1982.
+
+O aciclovir é usado no tratamento de infecções pelo vírus _Herpes simplex_ na pele e nas mucosas, incluindo herpes genital inicial e recorrente.
+
+É indicado também na supressão (prevenção de recidivas) de infecções recorrentes por _Herpes simplex_ em pacientes imunocompetentes e na profilaxia de infecções por _Herpes simplex_ em pacientes imunocomprometidos. O aciclovir é usado, ainda, no tratamento de infecções de Herpes zoster. Estudos têm demonstrado que o tratamento precoce de Herpes zoster com aciclovir produz efeito benéfico na dor e pode reduzir a incidência de neuralgia pós-herpética (dor associada ao Herpes zoster). O aciclovir também é usado no tratamento de pacientes seriamente imunocomprometidos.
+
+Estudos clínicos em pacientes com herpes labial, demonstraram redução significativa da duração da dor, tempo de cura e área 1 da primeira lesão, com tratamento de 200mg de ACV, 5x/dia durante 5 dias, quando comparado com placebo.
+
+Estudos clínicos em pacientes pediátricos apresentando gengivoestomatite, com média de idade de 2 anos, demonstraram que o tratamento com ACV oral na dose de 200 mg 5x/dia, durante 5 a 7 dias, reduziu significativamente a duração da atividade 2,3 viral, lesões orais, extraorais, febre e dificuldade de deglutição em ≥ 50 % dos pacientes comparado ao grupo placebo.
+
+Estudo randomizado e duplo-cego, envolvendo 119 pacientes adultos com infecção primária e 31 pacientes com não-primária, apresentando primeiro episódio de herpes genital tratados com 200 mg 5x/dia de ACV durante 10 dias, demonstraram redução 4 da duração da atividade viral, tempo de cur
+[... TRUNCADO ...]
+```
+PERGUNTA: Qual a posologia de aciclovir para herpes zóster versus herpes simples recorrente?
+
+RESPOSTA A:
+## Posologia para Herpes Zóster
+Doses de 800 mg de aciclovir, cinco vezes ao dia, em intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento deve ter a duração de sete dias.
+
+Doses de 800 mg de aciclovir, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+## Posologia para Herpes Simples Recorrente
+Um comprimido de aciclovir 200 mg, cinco vezes ao dia, com intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento precisa ser mantido por cinco dias, mas deve ser estendido em infecções iniciais graves.
+
+Um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Muitos pacientes podem ser convenientemente controlados com um regime de 400 mg, duas vezes ao dia, com intervalos de aproximadamente 12 horas. Uma redução da dose para 200 mg, três vezes ao dia, em intervalos de aproximadamente oito horas, ou até duas vezes ao dia, em intervalos de aproximadamente 12 horas, podem mostrar-se eficazes. Em alguns pacientes, podem ocorrer reinfecções em regime de doses totais diárias de 800 mg de aciclovir.
+
+O tratamento deve ser interrompido periodicamente, em intervalos de seis a doze meses, a fim de que se possa avaliar o progresso obtido na história natural da doença.
+
+## Comparação das Posologias
+As posologias para herpes zóster e herpes simples recorrente diferem tanto em dose quanto em duração do tratamento. Para herpes zóster, a dose é de 800 mg, cinco ou quatro vezes ao dia, por sete dias. Já para herpes simples recorrente, a dose pode variar de 200 mg a 400 mg, com frequência de administração e duração do tratamento ajustadas de acordo com a resposta do paciente e a gravidade da infecção.
+
+RESPOSTA B:
+## Posologia para Herpes Zóster
+
+
+
+--- PERGUNTA 4 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE ACICLOVIR - SEÇÃO: POSOLOGIA ===
+O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, preferencialmente, no início da infecção. O paciente deve lavar as mãos antes e depois da aplicação e evitar a fricção desnecessária da lesão ou toque com toalha, a fim de evitar o agravamento ou transferência da infecção para outros locais.
+
+O aciclovir creme contém uma base especialmente formulada e não deve ser diluído ou usado como base para incorporação de outros medicamentos.
+
+O aciclovir creme deve ser aplicado cinco vezes ao dia, com intervalos de aproximadamente quatro horas, suprimindo-se a aplicação no período noturno. O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, se possível, no início da infecção. É especialmente importante iniciar o tratamento de episódios recorrentes durante o período prodrômico ou aos primeiros sinais de lesão.
+
+O tratamento também pode ser iniciado em estágios mais avançados, como por exemplo quando já observar-se a presença de pápulas.
+
+O tratamento deve continuar por pelo menos quatro dias para herpes labial e por cinco dias para herpes genital. Se não ocorrer cicatrização, o tratamento deverá ser prolongado por mais cinco dias. Se as lesões permanecerem após 10 dias, o paciente deve consultar seu médico.
+
+Lavar bem as mãos antes e depois da aplicação. Aplicar um centímetro da pomada liberada pela bisnaga no interior da pálpebra inferior.
+
+A dose para todos os grupos etários é a mesma.
+
+O aciclovir pomada oftálmica deve ser aplicado cinco vezes ao dia no olho afetado, com um intervalo de aproximadamente quatro horas. Após a cicatrização, deve-se continuar a aplicá-lo, no mínimo, por mais três dias.
+
+Uso exclusivamente oral.
+
+Um comprimido de aciclovir 200 mg, cinco vezes ao dia, com intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento precisa ser mantido por cinco dias, mas deve ser estendido em infecções iniciais graves. Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com distúrbios de absorção intestinal, a dose pode ser duplicada (400 mg) ou, alternativamente, pode-se considerar a administração de doses intravenosas.
+
+A administração das doses deve ser iniciada tão cedo quanto possível, após o surgimento da infecção. Para os episódios recorrentes, isso deve ser feito, de preferência, durante o período prodrômico ou imediatamente após aparecerem os primeiros sinais ou sintomas.
+
+Um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Muitos pacientes podem ser convenientemente controlados com um regime de 400 mg, duas vezes ao dia, com intervalos de aproximadamente 12 horas. Uma redução da dose para 200 mg, três vezes ao dia, em intervalos de aproximadamente oito horas, ou até duas vezes ao dia, em intervalos de aproximadamente 12 horas, podem mostrar-se eficazes. Em alguns pacientes, podem ocorrer reinfecções em regime de doses totais diárias de 800 mg de aciclovir.
+
+O tratamento deve ser interrompido periodicamente, em intervalos de seis a doze meses, a fim de que se possa avaliar o progresso obtido na história natural da doença.
+
+Em pacientes imunocomprometidos, recomenda-se um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, a dose pode ser dobrada (400 mg) ou, alternativamente, considerada a administração de doses intravenosas.
+
+A duração da administração profilática é determinada pela duração do período de risco.
+
+Doses de 800 mg de aciclovir, cinco vezes ao dia, em intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento deve ter a duração de sete dias.
+
+Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, deve ser considerada a administração de doses intravenosas.
+
+A administração das doses deve ser instituída tão cedo quanto possível, após o surgimento da infecção. O tratamento proporciona melhores resultados se for iniciado assim que apareçam as erupções cutâneas.
+
+Doses de 800 mg de aciclovir, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+No tratamento de pacientes receptores de medula óssea, esta dose deve ser precedida por terapia de um mês com aciclovir intravenoso.
+
+A duração do tratamento estudada em pacientes após transplante de medula óssea foi de seis meses (de um a sete meses após o transplante). Em pacientes portadores de HIV avançado, o tratamento estudado foi de 12 meses, mas é desejável que estes pacientes continuem o tratamento por um período maior.
+
+Para tratamento, assim como para profilaxia, de infecções por vírus _Herpes simplex_ em crianças imunocomprometidas com mais de 6 anos de idade, as doses são as mesmas indicadas para adultos.
+
+Não há dados disponíveis relativos à supressão de infecções por _Herpes simplex_ ou ao tratamento de infecção de Herpes zoster em crianças imunocompetentes.
+
+A indicação de aciclovir comprimidos na população pediátrica deve ser avaliada pelo médico de acordo com a capacidade de deglutição da criança.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Qual o ajuste de dose de aciclovir em paciente com insuficiência renal (ClCr  < 25 mL/min)?
+
+RESPOSTA A:
+## Ajuste de Dose para Insuficiência Renal
+Não há informações específicas sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal (ClCr < 25 mL/min) disponíveis na seção de posologia da bula. 
+
+## Recomendação
+Recomenda-se consultar um profissional de saúde para obter orientação personalizada sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal, considerando as necessidades individuais e o estado de saúde do paciente.
+
+RESPOSTA B:
+## Ajuste de Dose para Insuficiência Renal
+Não há informações específicas sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal (ClCr < 25 mL/min) disponíveis na seção de posologia da bula. 
+
+## Recomendação
+Recomenda-se consultar um profissional de saúde para obter orientações personalizadas sobre o ajuste de dose de aciclovir em pacientes com insuficiência renal, pois essa informação não consta na bula.
+
+
+Lembre-se: Retorne APENAS o array JSON válido como saída final (após o pensamento). Nada mais.

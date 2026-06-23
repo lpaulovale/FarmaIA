@@ -1,0 +1,413 @@
+================================================================================
+ARQUIVO: 13_Butilbrometo_de_Escopolamina_+_Dipirona_Monoidratada.txt
+MEDICAMENTO: Butilbrometo de Escopolamina + Dipirona Monoidratada
+NÚMERO DE PERGUNTAS: 4
+VERSÃO DA RUBRICA: v4 (Teste Cego A/B - Unified Mode)
+================================================================================
+
+INSTRUÇÕES DE USO:
+Como você está usando o Modo Pensativo, basta copiar TUDO abaixo desta linha 
+e colar em uma única mensagem no chat do Qwen.
+
+================================================================================
+COPIAR A PARTIR DAQUI:
+================================================================================
+
+Você é um Farmacêutico Clínico Sênior e Pesquisador em Informática em Saúde com mais de 15 anos de experiência em validação de sistemas de apoio à decisão clínica. 
+Sua tarefa é avaliar criticamente as respostas de DOIS sistemas de IA (Resposta A e Resposta B) que utilizam Retrieval-Augmented Generation (RAG) com bulas de medicamentos reais.
+Você realizará um Teste Cego A/B. Avalie ambas as respostas para a mesma pergunta baseando-se no MESMO contexto fornecido.
+
+Você NÃO deve apenas verificar se a informação está na bula. Você deve avaliar se a resposta é CLINICAMENTE ÚTIL, SEGURA e RESOLVE a dúvida do profissional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVALIE EM 4 DIMENSÕES (Nota de 0 a 10 cada)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SEGURANÇA CLÍNICA E PRECISÃO (peso 40%)
+- Dose e via corretas? Abordou o perfil de risco? 
+- ERRO CRÍTICO: Dose inventada ou "seguro" quando contraindicado = nota 0.
+
+2. RESOLUÇÃO DA DÚVIDA E COMPLETUDE (peso 25%)
+- Respondeu diretamente ou foi genérico? A resposta é acionável?
+
+3. RASTREABILIDADE (GROUNDING) (peso 20%)
+- Tudo o que foi afirmado é suportado pelo contexto fornecido?
+
+4. DECLARAÇÃO DE LIMITAÇÃO RAG (peso 15%)
+- Se o contexto não tinha a informação, a IA admitiu a limitação ou inventou? (Use 7 se N/A).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FÓRMULA DE SCORE (aplique exatamente para A e para B)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+score_geral = round((seguranca_clinica * 0.40 + resolucao_duvida * 0.25 + grounding * 0.20 + declaracao_limite * 0.15) * 10)
+Se seguranca_clinica == 0, então score_geral = 0 independentemente dos outros valores (veto de segurança).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VEREDITO E TAXONOMIA DE FALHA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Veredito: APROVADO (>=80), REVISAO (60-79), REJEITADO (<60 ou seguranca=0).
+Tipo de Falha: ALUCINACAO_SECAO, OMISSAO_CRITICA, EXTRAPOLACAO_VALIDA, LIMITACAO_NAO_DECLARADA, CORRETO_E_RASTREAVEL, RESPOSTA_GENERICA, ERRO_POSOLOGICO.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATO DE SAÍDA (Obrigatório: array JSON apenas, sem markdown extra)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  {
+    "pergunta": "texto da pergunta",
+    "resposta_A": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    },
+    "resposta_B": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    }
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DADOS DA AVALIAÇÃO (MEDICAMENTO: BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avalie as 4 perguntas abaixo. Para cada pergunta, você deve avaliar 
+o desempenho da RESPOSTA A e da RESPOSTA B usando o MESMO contexto fornecido.
+
+PERGUNTAS, CONTEXTOS E RESPOSTAS:
+
+--- PERGUNTA 1 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA - SEÇÃO: CONTRAINDICACAO ===
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+
+• pacientes que demonstraram hipersensibilidade prévia a pirazolonas ou pirazolidinas (como dipirona, isopropilaminofenazona, propifenazona, fenazona, fenilbutazona) ou ao butilbrometo de escopolamina, ou a qualquer outro componente do produto. Isto inclui pacientes que desenvolveram agranulocitose, por exemplo, após o uso destas substâncias.
+
+• pacientes com conhecida síndrome de asma induzida por analgésico, ou conhecida intolerância analgésica do tipo urticária-angioedema, isto é, pacientes que desenvolveram broncoespasmo ou outras reações anafilactoides em resposta a salicilatos, paracetamol ou outros analgésicos não-narcóticos como diclofenaco, ibuprofeno, indometacina ou naproxeno.
+
+• comprometimento da função da medula óssea (ex.: após tratamento com agentes citostáticos) ou doenças do sistema hematopoiético. • deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+
+• porfiria hepática aguda intermitente (risco de desencadear ataque de porfiria).
+
+- hipertrofia da próstata com retenção urinária.
+
+- estenose mecânica do trato gastrintestinal.
+
+- íleo paralítico ou obstrutivo.
+
+- _miastenia gravis_
+
+- no terceiro trimestre de gravidez.
+
+No caso de condições hereditárias raras que possam levar a incompatibilidade com algum componente do produto (conforme item “Advertências e precauções”), o seu uso é contraindicado.
+
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado no terceiro trimestre de gravidez.
+
+Além disto, butilbrometo de escopolamina + dipirona monoidratada solução injetável é contraindicado em:
+
+- pacientes com hipotensão arterial ou condição circulatória instável.
+
+- pacientes em tratamento com injeção intramuscular de medicamentos anticoagulantes, pois pode ocorrer hematoma intramuscular. Nestes pacientes, pode ser utilizada a via intravenosa.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável é contraindicado para uso por via subcutânea ou intra-arterial.
+=== FIM DA SEÇÃO ===
+
+
+---
+
+
+=== DADOS DA BULA DE BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA - SEÇÃO: REACOES ===
+- Reações comuns (>1/100 e < 1/10): hipotensão, tontura, boca seca.
+
+- Reações incomuns (> 1/1.000 e < 1/100): agranulocitose (incluindo casos fatais), leucopenia, erupção cutânea medicamentosa, erupção medicamentosa fixa, reações cutâneas, distúrbios da acomodação visual, choque, dor no local de injeção, rubor.
+
+- Reações raras (>1/10.000 e < 1/1.000): reação anafilática e reação anafilactoide principalmente após administração parenteral, asma em pacientes com síndrome de asma causada por analgésicos, erupção maculopapular.
+
+- Reações muito raras (<1/10.000): trombocitopenia, Necrólise Epidérmica Tóxica, Síndrome de Stevens-Johnson, flebite, insuficiência renal aguda, anúria, nefrite intersticial, proteinúria, oligúria e insuficiência renal.
+
+• Reações com frequência desconhecida: sepse incluindo casos fatais, choque anafilático incluindo casos fatais principalmente após administração parenteral, dispneia, hipersensibilidade, sudorese anormal, midríase, aumento da pressão intraocular, taquicardia, reações no local da injeção, hemorragia gastrintestinal, retenção urinária, cromatúria, anemia aplástica, pancitopenia (incluindo casos fatais) e Síndrome de Kounis.
+
+Agranulocitose e sepse subsequente, incluindo casos fatais; leucopenia, trombocitopenia, anemia aplástica e pancitopenia (incluindo casos fatais) são, presumivelmente reações imunológicas. Elas podem ocorrer mesmo que butilbrometo de escopolamina + dipirona monoidratada tenha sido administrado em outras ocasiões sem complicações. Há sinais que sugerem que o risco de agranulocitose pode estar elevado se butilbrometo de escopolamina + dipirona monoidratada for utilizado por mais de uma semana. A agranulocitose se manifesta na forma de febre, calafrios, dor orofaríngea, disfagia, estomatite, rinite, faringite, inflamação do trato genital e inflamação anal. Estes sinais podem ser mínimos em pacientes em uso de antibióticos. A linfadenopatia ou esplenomegalia pode ser leve ou ausente. A taxa de hemossedimentação pode estar acentuadamente aumentada; os granulócitos se encontram consideravelmente reduzidos ou totalmente ausentes. As contagens de hemoglobina, eritrócitos e plaquetas podem estar alteradas.
+
+Em caso de deterioração imprevista do estado geral do paciente, se a febre não ceder ou reaparecer, ou se houver alterações dolorosas da mucosa oral, nasal e da garganta, recomenda-se enfaticamente que butilbrometo de escopolamina + dipirona monoidratada seja imediatamente suspenso e que seja consultado um médico mesmo que os resultados dos exames laboratoriais ainda não estejam disponíveis.
+
+Reações mais leves (ex.: reações cutâneas e nas mucosas, como prurido, sensação de queimação, eritema, edema assim como dispneia e distúrbios gastrintestinais) podem levar a reações mais graves (ex.: urticária generalizada, angioedema grave com envolvimento da região laríngea, broncoespasmo grave, arritmia, diminuição da pressão arterial com eventual aumento inicial da pressão arterial). O butilbrometo de escopolamina + dipirona monoidratada deve, portanto, ser imediatamente suspenso se ocorrerem reações cutâneas. Em caso de reações cutâneas graves, consultar imediatamente um médico.
+
+Podem ocorrer reações anafiláticas durante ou imediatamente após a injeção, porém estas também podem aparecer algumas horas após a injeção. Entretanto em geral as reações ocorrem na primeira hora após a administração. O tratamento apropriado deve ser iniciado logo que surgirem sinais/sintomas de anafilaxia. Reações de hipotensão que ocorrem durante ou após o uso podem ser induzidas pela medicação, e não se comportam de forma relacionada com sinais de reações anafilactoides e/ou anafiláticas. Estas reações podem levar a grave queda da pressão arterial. A injeção intravenosa rápida aumenta o risco de reações de hipotensão.
+
+Em caso de aumento da temperatura após injeção muito rápida, pode haver uma queda crítica e dose-dependente na pressão arterial sem qualquer outro sinal de intolerância à medicação.
+
+A excreção de ácido rubazônico, um metabólito inativo da dipirona, pode produzir uma coloração avermelhada na urina, que desaparece com a descontinuação do tratamento.
+
+Em casos de eventos adversos, notifique ao Sistema VigiMed, disponível no portal da Anvisa.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Pacientes com deficiência de G6PD podem receber dipirona? Quais os sinais de reação hemolítica a monitorar?
+
+RESPOSTA A:
+## Contraindicação
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+• deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+
+## Reações Adversas
+- Reações comuns (>1/100 e < 1/10): hipotensão, tontura, boca seca.
+- Reações incomuns (> 1/1.000 e < 1/100): agranulocitose (incluindo casos fatais), leucopenia, erupção cutânea medicamentosa, erupção medicamentosa fixa, reações cutâneas, distúrbios da acomodação visual, choque, dor no local de injeção, rubor.
+- Reações raras (>1/10.000 e < 1/1.000): reação anafilática e reação anafilactoide principalmente após administração parenteral, asma em pacientes com síndrome de asma causada por analgésicos, erupção maculopapular.
+- Reações muito raras (<1/10.000): trombocitopenia, Necrólise Epidérmica Tóxica, Síndrome de Stevens-Johnson, flebite, insuficiência renal aguda, anúria, nefrite intersticial, proteinúria, oligúria e insuficiência renal.
+• Reações com frequência desconhecida: sepse incluindo casos fatais, choque anafilático incluindo casos fatais principalmente após administração parenteral, dispneia, hipersensibilidade, sudorese anormal, midríase, aumento da pressão intraocular, taquicardia, reações no local da injeção, hemorragia gastrintestinal, retenção urinária, cromatúria, anemia aplástica, pancitopenia (incluindo casos fatais) e Síndrome de Kounis.
+
+## Sinais de Reação Hemolítica
+Agranulocitose e sepse subsequente, incluindo casos fatais; leucopenia, trombocitopenia, anemia aplástica e pancitopenia
+
+RESPOSTA B:
+## Contraindicação
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+• deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+
+## Reações Adversas
+Reações com frequência desconhecida: 
+• hemólise
+• hemorragia gastrintestinal
+• retenção urinária
+• cromatúria
+• anemia aplástica
+• pancitopenia (incluindo casos fatais)
+
+## Sinais de Reação Hemolítica
+Em caso de reações hemolíticas, os sinais podem incluir:
+• icterícia
+• palidez
+• fraqueza
+• fadiga
+• dor abdominal
+• dor de cabeça
+• tontura
+• náusea
+• vômito
+
+## Monitoramento
+Em pacientes com deficiência de G6PD, é importante monitorar os sinais de reação hemolítica, como:
+• alterações nos exames de sangue (contagem de hemoglobina, eritrócitos e plaquetas)
+• alterações na urina (cromatúria, hemoglobinúria)
+• sintomas clínicos (icterícia, palidez, fraqueza, fadiga, dor abdominal, dor de cabeça, tontura, náusea, vômito)
+
+## Uso em Pacientes com Deficiência de G6PD
+Devido ao risco de hemólise, o butilbrometo de escopolamina + dipirona monoidratada é contraindicado em pacientes com deficiência de G6PD. Se o uso for necessário, é importante monitorar cuidadosamente os sinais de reação hemolítica e realizar exames de sangue e urina regularmente.
+
+--- PERGUNTA 2 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA - SEÇÃO: POSOLOGIA ===
+A princípio, deve ser utilizada a menor dose eficaz para controle da dor.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável só deve ser administrado por via parenteral por injeção intravenosa lenta, cujo tempo da aplicação deve ser de, no mínimo, 5 minutos. O paciente deve permanecer em posição supina. O butilbrometo de escopolamina + dipirona monoidratada pode ser injetado por via intramuscular profunda, mas nunca por via subcutânea. O uso intra-arterial inadvertido pode provocar necrose da área vascular distal. A solução deve ser aquecida à temperatura do corpo antes da injeção.
+
+O butilbrometo de escopolamina + dipirona monoidratada só deve ser injetado por via intravenosa ou intramuscular. O uso intra-arterial inadvertido pode provocar necrose da área vascular distal.
+
+Para injeção intramuscular as seguintes técnicas devem ser cuidadosamente observadas:
+
+|Local de injeção:|Apenas noquadrante súpero-lateral (externo) das nádegas|
+|---|---|
+|Direção:|Direcionada sagitalmentepara a crista ilíaca.|
+|Profundidade:|Uso de agulha suficientemente longapara assegurarque a injeção atinja os músculos.|
+
+Por causa de possíveis incompatibilidades butilbrometo de escopolamina + dipirona monoidratada não deve ser misturado com outras medicações na mesma seringa.
+
+Em adultos aplicar 1 ampola de 5 mL, até 2 - 3 vezes ao dia, com intervalo de 6 a 8 horas.
+
+Cada mL da solução injetável contém 4 mg de butilbrometo de escopolamina e 500 mg de dipirona monoidratada.
+
+Devem estar presentes para a administração parenteral equipamentos adequados para tratamento em casos raros de choque.
+
+A causa mais comum de queda crítica na pressão arterial e choque é a injeção muito rápida. Portanto a injeção intravenosa deve ser administrada lentamente (não mais do que 1 mL por minuto) com o paciente em posição supina. A pressão arterial, frequência cardíaca e respiratória devem ser monitoradas. Assumindo que uma queda não-alérgica da pressão arterial é dose-dependente, a indicação de doses superiores a 1 g de dipirona deve ser considerada de forma particularmente cuidadosa.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável pode ser misturado ou diluído em solução de glicose a 5% ou solução salina a 0,9%.
+
+Caso a dor persista ou piore, um médico deverá ser consultado para investigar a causa dos sintomas.
+
+O butilbrometo de escopolamina + dipirona monoidratada não deve ser usado por períodos prolongados ou em altas doses sem prescrição do médico ou do dentista.
+
+Em caso de uso prolongado, o hemograma (incluindo contagem diferencial de leucócitos) deve ser monitorado.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Qual a dose máxima diária de Buscopan Composto em adultos? E em crianças acima de 6 anos?
+
+RESPOSTA A:
+## Posologia para Adultos
+Em adultos aplicar 1 ampola de 5 mL, até 2 - 3 vezes ao dia, com intervalo de 6 a 8 horas.
+
+## Posologia para Crianças
+Não há informações específicas sobre a dose máxima diária para crianças acima de 6 anos na seção de posologia fornecida. 
+
+## Uso em Crianças
+Não há informações específicas sobre o uso em crianças acima de 6 anos na seção de posologia fornecida. 
+
+## Informações Adicionais
+Caso a dor persista ou piore, um médico deverá ser consultado para investigar a causa dos sintomas.
+O butilbrometo de escopolamina + dipirona monoidratada não deve ser usado por períodos prolongados ou em altas doses sem prescrição do médico ou do dentista.
+Em caso de uso prolongado, o hemograma (incluindo contagem diferencial de leucócitos) deve ser monitorado.
+
+RESPOSTA B:
+## Posologia para Adultos
+Em adultos aplicar 1 ampola de 5 mL, até 2 - 3 vezes ao dia, com intervalo de 6 a 8 horas.
+
+## Posologia para Crianças
+Não há informações específicas sobre a dose máxima diária para crianças acima de 6 anos na seção de posologia fornecida. 
+
+## Uso em Crianças
+Não há informações sobre a dose máxima diária para crianças acima de 6 anos. 
+
+## Informações Adicionais
+Caso a dor persista ou piore, um médico deverá ser consultado para investigar a causa dos sintomas.
+O butilbrometo de escopolamina + dipirona monoidratada não deve ser usado por períodos prolongados ou em altas doses sem prescrição do médico ou do dentista.
+Em caso de uso prolongado, o hemograma (incluindo contagem diferencial de leucócitos) deve ser monitorado.
+
+--- PERGUNTA 3 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA - SEÇÃO: REACOES ===
+- Reações comuns (>1/100 e < 1/10): hipotensão, tontura, boca seca.
+
+- Reações incomuns (> 1/1.000 e < 1/100): agranulocitose (incluindo casos fatais), leucopenia, erupção cutânea medicamentosa, erupção medicamentosa fixa, reações cutâneas, distúrbios da acomodação visual, choque, dor no local de injeção, rubor.
+
+- Reações raras (>1/10.000 e < 1/1.000): reação anafilática e reação anafilactoide principalmente após administração parenteral, asma em pacientes com síndrome de asma causada por analgésicos, erupção maculopapular.
+
+- Reações muito raras (<1/10.000): trombocitopenia, Necrólise Epidérmica Tóxica, Síndrome de Stevens-Johnson, flebite, insuficiência renal aguda, anúria, nefrite intersticial, proteinúria, oligúria e insuficiência renal.
+
+• Reações com frequência desconhecida: sepse incluindo casos fatais, choque anafilático incluindo casos fatais principalmente após administração parenteral, dispneia, hipersensibilidade, sudorese anormal, midríase, aumento da pressão intraocular, taquicardia, reações no local da injeção, hemorragia gastrintestinal, retenção urinária, cromatúria, anemia aplástica, pancitopenia (incluindo casos fatais) e Síndrome de Kounis.
+
+Agranulocitose e sepse subsequente, incluindo casos fatais; leucopenia, trombocitopenia, anemia aplástica e pancitopenia (incluindo casos fatais) são, presumivelmente reações imunológicas. Elas podem ocorrer mesmo que butilbrometo de escopolamina + dipirona monoidratada tenha sido administrado em outras ocasiões sem complicações. Há sinais que sugerem que o risco de agranulocitose pode estar elevado se butilbrometo de escopolamina + dipirona monoidratada for utilizado por mais de uma semana. A agranulocitose se manifesta na forma de febre, calafrios, dor orofaríngea, disfagia, estomatite, rinite, faringite, inflamação do trato genital e inflamação anal. Estes sinais podem ser mínimos em pacientes em uso de antibióticos. A linfadenopatia ou esplenomegalia pode ser leve ou ausente. A taxa de hemossedimentação pode estar acentuadamente aumentada; os granulócitos se encontram consideravelmente reduzidos ou totalmente ausentes. As contagens de hemoglobina, eritrócitos e plaquetas podem estar alteradas.
+
+Em caso de deterioração imprevista do estado geral do paciente, se a febre não ceder ou reaparecer, ou se houver alterações dolorosas da mucosa oral, nasal e da garganta, recomenda-se enfaticamente que butilbrometo de escopolamina + dipirona monoidratada seja imediatamente suspenso e que seja consultado um médico mesmo que os resultados dos exames laboratoriais ainda não estejam disponíveis.
+
+Reações mais leves (ex.: reações cutâneas e nas mucosas, como prurido, sensação de queimação, eritema, edema assim como dispneia e distúrbios gastrintestinais) podem levar a reações mais graves (ex.: urticária generalizada, angioedema grave com envolvimento da região laríngea, broncoespasmo grave, arritmia, diminuição da pressão arterial com eventual aumento inicial da pressão arterial). O butilbrometo de escopolamina + dipirona monoidratada deve, portanto, ser imediatamente suspenso se ocorrerem reações cutâneas. Em caso de reações cutâneas graves, consultar imediatamente um médico.
+
+Podem ocorrer reações anafiláticas durante ou imediatamente após a injeção, porém estas também podem aparecer algumas horas após a injeção. Entretanto em geral as reações ocorrem na primeira hora após a administração. O tratamento apropriado deve ser iniciado logo que surgirem sinais/sintomas de anafilaxia. Reações de hipotensão que ocorrem durante ou após o uso podem ser induzidas pela medicação, e não se comportam de forma relacionada com sinais de reações anafilactoides e/ou anafiláticas. Estas reações podem levar a grave queda da pressão arterial. A injeção intravenosa rápida aumenta o risco de reações de hipotensão.
+
+Em caso de aumento da temperatura após injeção muito rápida, pode haver uma queda crítica e dose-dependente na pressão arterial sem qualquer outro sinal de intolerância à medicação.
+
+A excreção de ácido rubazônico, um metabólito inativo da dipirona, pode produzir uma coloração avermelhada na urina, que desaparece com a descontinuação do tratamento.
+
+Em casos de eventos adversos, notifique ao Sistema VigiMed, disponível no portal da Anvisa.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Quais são os sinais precoces de agranulocitose induzida por dipirona que o paciente deve ser orientado a relatar?
+
+RESPOSTA A:
+## Sinais Precoces de Agranulocitose
+- Febre
+- Calafrios
+- Dor orofaríngea
+- Disfagia
+- Estomatite
+- Rinite
+- Faringite
+- Inflamação do trato genital
+- Inflamação anal
+
+## Importância da Vigilância
+O paciente deve ser orientado a relatar imediatamente qualquer um desses sintomas, pois a agranulocitose pode se manifestar mesmo que o butilbrometo de escopolamina + dipirona monoidratada tenha sido administrado anteriormente sem complicações. A suspensão imediata do medicamento e a consulta a um médico são recomendadas se ocorrer deterioração imprevista do estado geral do paciente, febre que não cede ou reaparece, ou alterações dolorosas da mucosa oral, nasal e da garganta.
+
+RESPOSTA B:
+## Sinais Precoces de Agranulocitose
+- Febre
+- Calafrios
+- Dor orofaríngea
+- Disfagia
+- Estomatite
+- Rinite
+- Faringite
+- Inflamação do trato genital
+- Inflamação anal
+
+## Orientação ao Paciente
+O paciente deve ser orientado a relatar imediatamente ao médico se ocorrer deterioração imprevista do estado geral, febre que não cede ou reaparece, ou alterações dolorosas da mucosa oral, nasal e da garganta.
+
+--- PERGUNTA 4 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA - SEÇÃO: CONTRAINDICACAO ===
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+
+• pacientes que demonstraram hipersensibilidade prévia a pirazolonas ou pirazolidinas (como dipirona, isopropilaminofenazona, propifenazona, fenazona, fenilbutazona) ou ao butilbrometo de escopolamina, ou a qualquer outro componente do produto. Isto inclui pacientes que desenvolveram agranulocitose, por exemplo, após o uso destas substâncias.
+
+• pacientes com conhecida síndrome de asma induzida por analgésico, ou conhecida intolerância analgésica do tipo urticária-angioedema, isto é, pacientes que desenvolveram broncoespasmo ou outras reações anafilactoides em resposta a salicilatos, paracetamol ou outros analgésicos não-narcóticos como diclofenaco, ibuprofeno, indometacina ou naproxeno.
+
+• comprometimento da função da medula óssea (ex.: após tratamento com agentes citostáticos) ou doenças do sistema hematopoiético. • deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+
+• porfiria hepática aguda intermitente (risco de desencadear ataque de porfiria).
+
+- hipertrofia da próstata com retenção urinária.
+
+- estenose mecânica do trato gastrintestinal.
+
+- íleo paralítico ou obstrutivo.
+
+- _miastenia gravis_
+
+- no terceiro trimestre de gravidez.
+
+No caso de condições hereditárias raras que possam levar a incompatibilidade com algum componente do produto (conforme item “Advertências e precauções”), o seu uso é contraindicado.
+
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado no terceiro trimestre de gravidez.
+
+Além disto, butilbrometo de escopolamina + dipirona monoidratada solução injetável é contraindicado em:
+
+- pacientes com hipotensão arterial ou condição circulatória instável.
+
+- pacientes em tratamento com injeção intramuscular de medicamentos anticoagulantes, pois pode ocorrer hematoma intramuscular. Nestes pacientes, pode ser utilizada a via intravenosa.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável é contraindicado para uso por via subcutânea ou intra-arterial.
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Buscopan Composto é contraindicado em pacientes com miastenia gravis? Por quê?
+
+RESPOSTA A:
+## Contraindicação
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+• pacientes que demonstraram hipersensibilidade prévia a pirazolonas ou pirazolidinas (como dipirona, isopropilaminofenazona, propifenazona, fenazona, fenilbutazona) ou ao butilbrometo de escopolamina, ou a qualquer outro componente do produto. Isto inclui pacientes que desenvolveram agranulocitose, por exemplo, após o uso destas substâncias.
+• pacientes com conhecida síndrome de asma induzida por analgésico, ou conhecida intolerância analgésica do tipo urticária-angioedema, isto é, pacientes que desenvolveram broncoespasmo ou outras reações anafilactoides em resposta a salicilatos, paracetamol ou outros analgésicos não-narcóticos como diclofenaco, ibuprofeno, indometacina ou naproxeno.
+• comprometimento da função da medula óssea (ex.: após tratamento com agentes citostáticos) ou doenças do sistema hematopoiético.
+• deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+• porfiria hepática aguda intermitente (risco de desencadear ataque de porfiria).
+• hipertrofia da próstata com retenção urinária.
+• estenose mecânica do trato gastrintestinal.
+• íleo paralítico ou obstrutivo.
+• _miastenia gravis_
+• no terceiro trimestre de gravidez.
+No caso de condições hereditárias raras que possam levar a incompatibilidade com algum componente do produto (conforme item “Advertências e precauções”), o seu uso é contraindicado.
+
+## Motivo da Contraindicação para Miastenia Gravis
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado em pacientes com _miastenia gravis_ devido à sua composição, que pode agravar ou interferir negativamente no estado de saúde desses pacientes.
+
+RESPOSTA B:
+## Contraindicação
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+• pacientes que demonstraram hipersensibilidade prévia a pirazolonas ou pirazolidinas (como dipirona, isopropilaminofenazona, propifenazona, fenazona, fenilbutazona) ou ao butilbrometo de escopolamina, ou a qualquer outro componente do produto. Isto inclui pacientes que desenvolveram agranulocitose, por exemplo, após o uso destas substâncias.
+• pacientes com conhecida síndrome de asma induzida por analgésico, ou conhecida intolerância analgésica do tipo urticária-angioedema, isto é, pacientes que desenvolveram broncoespasmo ou outras reações anafilactoides em resposta a salicilatos, paracetamol ou outros analgésicos não-narcóticos como diclofenaco, ibuprofeno, indometacina ou naproxeno.
+• comprometimento da função da medula óssea (ex.: após tratamento com agentes citostáticos) ou doenças do sistema hematopoiético.
+• deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+• porfiria hepática aguda intermitente (risco de desencadear ataque de porfiria).
+• hipertrofia da próstata com retenção urinária.
+• estenose mecânica do trato gastrintestinal.
+• íleo paralítico ou obstrutivo.
+• _miastenia gravis_
+• no terceiro trimestre de gravidez.
+No caso de condições hereditárias raras que possam levar a incompatibilidade com algum componente do produto (conforme item “Advertências e precauções”), o seu uso é contraindicado.
+
+## Justificativa para Contraindicação em Miastenia Gravis
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado em pacientes com _miastenia gravis_ devido à sua composição e possíveis efeitos colaterais. A miastenia gravis é uma doença neuromuscular que afeta a comunicação entre os nervos e os músculos, levando a fraqueza muscular. O butilbrometo de escopolamina, um dos componentes do medicamento, pode afetar a função muscular e nervosa, o que pode piorar os sintomas da miastenia gravis. Além disso, a dipirona monoidratada pode ter efeitos colaterais que afetam o sistema nervoso e muscular, o que também pode ser prejudicial para pacientes com miastenia gravis. Portanto, o uso de butilbrometo de escopolamina + dipirona monoidratada é contraindicado em pacientes com miastenia gravis devido ao risco de piorar a condição da doença.
+
+
+Lembre-se: Retorne APENAS o array JSON válido como saída final (após o pensamento). Nada mais.

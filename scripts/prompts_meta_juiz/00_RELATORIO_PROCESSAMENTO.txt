@@ -1,0 +1,74 @@
+================================================================================
+RELATÓRIO DE PROCESSAMENTO DO BENCHMARK — v3 (Append Mode)
+================================================================================
+
+RESUMO GERAL:
+- Total de perguntas no benchmark: 58
+- Perguntas com sucesso de retrieval: 39
+- Perguntas com falha: 19
+- Medicamentos processados: 15
+
+Este relatório inclui todos os medicamentos (os que você já tinha e os novos).
+
+================================================================================
+MEDICAMENTOS COM SUCESSO (Prontos ou já avaliados)
+================================================================================
+
+- Acetilcisteína: 3 perguntas
+- Aciclovir: 4 perguntas
+- Azitromicina: 1 perguntas
+- Besilato de Anlodipino: 3 perguntas
+- Butilbrometo de Escopolamina: 2 perguntas
+- Butilbrometo de Escopolamina + Dipirona Monoidratada: 4 perguntas
+- Cefalexina: 2 perguntas
+- Cloridrato de Ambroxol: 3 perguntas
+- Cloridrato de Cefepima: 2 perguntas
+- Cloridrato de Ciprofloxacino: 3 perguntas
+- Cloridrato de Terbinafina: 3 perguntas
+- Dipirona Sódica: 4 perguntas
+- Elani Ciclo: 1 perguntas
+- Expectoflui: 1 perguntas
+- Furosemida: 3 perguntas
+
+================================================================================
+FALHAS DETECTADAS (Não enviadas para avaliação)
+================================================================================
+
+1. [Azitromicina] Azitromicina prolonga o intervalo QT? Quais medicamentos não devem ser associado...
+   Razão: Empty/Failed response
+2. [Azitromicina] Paciente com insuficiência hepática grave pode receber azitromicina? Precisa aju...
+   Razão: Empty/Failed response
+3. [Butilbrometo de Escopolamina] Qual o mecanismo de ação do butilbrometo de escopolamina como antiespasmódico?...
+   Razão: Empty/Failed response
+4. [Cefalexina] Paciente alérgico a penicilina pode receber cefalexina? Qual o risco de reação c...
+   Razão: Empty/Failed response
+5. [Dortrirelax] Qual a composição do Dortrirelax e qual o mecanismo de ação do relaxante muscula...
+   Razão: Empty/Failed response
+6. [Cloridrato de Cefepima] Qual a estabilidade de cefepima após reconstituição em temperatura ambiente?...
+   Razão: Empty/Failed response
+7. [Fauldcita] Qual o mecanismo de ação da citarabina (Fauldcita) como antineoplásico?...
+   Razão: Empty/Failed response
+8. [Diclofenaco Sódico] Qual o risco cardiovascular do diclofenaco comparado a outros AINEs? Há contrain...
+   Razão: Medicamento não encontrado
+9. [Diclofenaco Sódico] Diclofenaco pode ser usado em pacientes com doença renal crônica? Qual o ClCr mí...
+   Razão: Medicamento não encontrado
+10. [Diclofenaco Sódico] Qual a dose máxima diária de diclofenaco sódico e qual a duração máxima recomend...
+   Razão: Medicamento não encontrado
+11. [Diclofenaco Dietilamônio] Diclofenaco tópico (gel) tem absorção sistêmica significativa? Pode causar os me...
+   Razão: Medicamento não encontrado
+12. [Diclofenaco Dietilamônio] Qual a posologia do diclofenaco dietilamônio tópico e por quantos dias pode ser ...
+   Razão: Medicamento não encontrado
+13. [Diclofenaco Dietilamônio] Gestantes podem usar diclofenaco dietilamônio tópico no terceiro trimestre?...
+   Razão: Medicamento não encontrado
+14. [Dipropionato de Betametasona + Ácido Salicílico] Qual a indicação principal da associação betametasona + ácido salicílico? O ácid...
+   Razão: Medicamento não encontrado
+15. [Dipropionato de Betametasona + Ácido Salicílico] Pode ser aplicado em face ou áreas intertriginosas? Por que se deve evitar uso p...
+   Razão: Medicamento não encontrado
+16. [Dipropionato de Betametasona + Ácido Salicílico] Quais são os sinais de supressão adrenal que devem ser monitorados em uso prolon...
+   Razão: Medicamento não encontrado
+17. [Fosfato Sódico de Prednisolona] Qual a dose de prednisolona para crise de asma em crianças (mg/kg/dia)?...
+   Razão: Medicamento não encontrado
+18. [Fosfato Sódico de Prednisolona] Prednisolona solução oral precisa ser administrada com alimentos para reduzir ir...
+   Razão: Medicamento não encontrado
+19. [Fosfato Sódico de Prednisolona] Em tratamento prolongado com prednisolona, quais exames laboratoriais devem ser ...
+   Razão: Medicamento não encontrado

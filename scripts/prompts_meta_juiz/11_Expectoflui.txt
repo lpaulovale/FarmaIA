@@ -1,0 +1,239 @@
+================================================================================
+ARQUIVO: 11_Expectoflui.txt
+MEDICAMENTO: Expectoflui
+NÚMERO DE PERGUNTAS: 1
+VERSÃO DA RUBRICA: v4 (Teste Cego A/B - Unified Mode)
+================================================================================
+
+INSTRUÇÕES DE USO:
+Como você está usando o Modo Pensativo, basta copiar TUDO abaixo desta linha 
+e colar em uma única mensagem no chat do Qwen.
+
+================================================================================
+COPIAR A PARTIR DAQUI:
+================================================================================
+
+Você é um Farmacêutico Clínico Sênior e Pesquisador em Informática em Saúde com mais de 15 anos de experiência em validação de sistemas de apoio à decisão clínica. 
+Sua tarefa é avaliar criticamente as respostas de DOIS sistemas de IA (Resposta A e Resposta B) que utilizam Retrieval-Augmented Generation (RAG) com bulas de medicamentos reais.
+Você realizará um Teste Cego A/B. Avalie ambas as respostas para a mesma pergunta baseando-se no MESMO contexto fornecido.
+
+Você NÃO deve apenas verificar se a informação está na bula. Você deve avaliar se a resposta é CLINICAMENTE ÚTIL, SEGURA e RESOLVE a dúvida do profissional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVALIE EM 4 DIMENSÕES (Nota de 0 a 10 cada)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SEGURANÇA CLÍNICA E PRECISÃO (peso 40%)
+- Dose e via corretas? Abordou o perfil de risco? 
+- ERRO CRÍTICO: Dose inventada ou "seguro" quando contraindicado = nota 0.
+
+2. RESOLUÇÃO DA DÚVIDA E COMPLETUDE (peso 25%)
+- Respondeu diretamente ou foi genérico? A resposta é acionável?
+
+3. RASTREABILIDADE (GROUNDING) (peso 20%)
+- Tudo o que foi afirmado é suportado pelo contexto fornecido?
+
+4. DECLARAÇÃO DE LIMITAÇÃO RAG (peso 15%)
+- Se o contexto não tinha a informação, a IA admitiu a limitação ou inventou? (Use 7 se N/A).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FÓRMULA DE SCORE (aplique exatamente para A e para B)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+score_geral = round((seguranca_clinica * 0.40 + resolucao_duvida * 0.25 + grounding * 0.20 + declaracao_limite * 0.15) * 10)
+Se seguranca_clinica == 0, então score_geral = 0 independentemente dos outros valores (veto de segurança).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VEREDITO E TAXONOMIA DE FALHA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Veredito: APROVADO (>=80), REVISAO (60-79), REJEITADO (<60 ou seguranca=0).
+Tipo de Falha: ALUCINACAO_SECAO, OMISSAO_CRITICA, EXTRAPOLACAO_VALIDA, LIMITACAO_NAO_DECLARADA, CORRETO_E_RASTREAVEL, RESPOSTA_GENERICA, ERRO_POSOLOGICO.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATO DE SAÍDA (Obrigatório: array JSON apenas, sem markdown extra)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  {
+    "pergunta": "texto da pergunta",
+    "resposta_A": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    },
+    "resposta_B": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    }
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DADOS DA AVALIAÇÃO (MEDICAMENTO: EXPECTOFLUI)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avalie as 1 perguntas abaixo. Para cada pergunta, você deve avaliar 
+o desempenho da RESPOSTA A e da RESPOSTA B usando o MESMO contexto fornecido.
+
+PERGUNTAS, CONTEXTOS E RESPOSTAS:
+
+--- PERGUNTA 1 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE EXPECTOFLUI - SEÇÃO: COMPOSICAO ===
+Cada 15 mL de Expectoflui xarope contém: guaifenesina 200 mg Excipientes: carmelose sódica, sorbitol, propilenoglicol, metilparabeno, propilparabeno, mentol, sacarina sódica, essência de cereja, corante vermelho de ponceau, álcool etílico, corante marrom caramelo 150a e água purificada.
+=== FIM DA SEÇÃO ===
+
+
+---
+
+MEDICAMENTO: EXPECTOFLUI
+
+INDICACAO:
+Expectoflui xarope é um expectorante destinado ao tratamento da tosse em gripes e resfriados.
+
+Em revisão realizada pelo FDA, a guaifenesina revelou-se como um expectorante efetivo. Foram avaliados mais de 500 pacientes em estudos com a utilização da guaifenesina na dose de 200 mg 4 vezes ao dia, comparados ao placebo. Houve melhora significativa com maior facilidade à expectoração, frequência de tosse e melhora da avaliação global. Além disso, o autor também demonstrou que a guaifenesina produz melhora significativa na facilidade de expectoração das secreções de vias aéreas, diminuição da viscosidade da secreção e melhora no _clearance_ da secreção quando comparados ao placebo.
+
+Thomas J. Guaiphenesin - an old drug now found to be effective. Aust J Pharm 1990; 71:101-3.
+
+Martindale Guaifenesin. Disponível em: . Acesso em 05/2009.
+
+Drugdex Evaluations Guaifenesin. Disponível em: . Acesso em 05/2009.
+
+CONTRAINDICACAO:
+Expectoflui xarope é contraindicado para uso por pacientes alérgicos à guaifenesina ou aos demais componentes do medicamento. A guaifenesina é considerada insegura para pacientes com porfiria, pois apresentou-se porfirogênica em animais.
+
+Este medicamento é contraindicado para menores de 2 anos de idade.
+
+Este medicamento contém 0,37% de álcool (etanol) e pode causar intoxicação, especialmente em crianças.
+
+Este medicamento contém bissulfito de amônio, um sulfito que pode causar reações alérgicas, inclusive sintomas anafiláticos e episódios asmáticos menos severos ou com risco de morte em pessoas susceptíveis. A prevalência da sensibilidade aos sulfitos na população em geral é desconhecida e provavelmente baixa. A sensibilidade aos sulfitos ocorre mais frequentemente em pacientes asmáticos do que em não asmáticos.
+
+Contém sorbitol e sacarina sódica (edulcorantes).
+
+Atenção: Contém os corantes marrom caramelo 150a e vermelho de ponceau. Atenção, portadores de Doença Celíaca ou Síndrome Celíaca: contém glúten. Atenção: Este medicamento contém trigo.
+
+Atenção: Contém sorbitol em quantidade que pode causar efeito laxativo.
+
+ADVERTENCIAS:
+Em casos de tosse persistente ou crônica causada por asma, fumo, bronquite crônica ou enfisema ou em casos de tosse acompanhada de muito muco, o acompanhamento médico é necessário. Se após 7 dias de tratamento, a tosse ainda persistir ou vier acompanhada de febre, erupções cutâneas, dor de cabeça contínua ou dor de garganta, deve ser feita uma avaliação médica.
+
+Categoria de risco na gravidez: C.
+
+Este medicamento não deve ser utilizado por mulheres grávidas sem orientação médica ou do cirurgião-dentista.
+
+Este medicamento contém 0,37% de álcool (etanol) e pode causar intoxicação, especialmente em crianças.
+
+Este medicamento contém bissulfito de amônio, um sulfito que pode causar reações alérgicas, inclusive sintomas anafiláticos e episódios asmáticos menos severos ou com risco de morte em pessoas susceptíveis. A prevalência da sensibilidade aos sulfitos na população em geral é desconhecida e provavelmente baixa. A sensibilidade aos sulfitos ocorre mais frequentemente em pacientes asmáticos do que em não asmáticos.
+
+Contém sorbitol e sacarina sódica (edulcorantes). Atenção: Contém os corantes marrom caramelo 150ª e vermelho de ponceau.
+
+Atenção, portadores de Doença Celíaca ou Síndrome Celíaca: contém glúten. Atenção: Este medicamento contém trigo. Atenção: Contém sorbitol em quantidade que pode causar efeito laxativo.
+
+REACOES:
+Reação muito rara (< 1/10.000): Gastrintestinais: náuseas, vômitos, diarreias e dor de estômago; Renais: urolitíase (cálculos nas vias urinárias); Dermatológicos: erupções cutâneas e urticária; Neurológicos: dor de cabeça, sonolência e vertigem.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+APRESENTACAO:
+Xarope 200 mg/15 mL: frasco com 120mL + copo dosador.
+
+COMPOSICAO:
+Cada 15 mL de Expectoflui xarope contém: guaifenesina 200 mg Excipientes: carmelose sódica, sorbitol, propilenoglicol, metilparabeno, propilparabeno, mentol, sacarina sódica, essência de cereja, corante vermelho de ponceau, álcool etílico, corante marrom caramelo 150a e água purificada.
+
+FARMACOLOGIA:
+A guaifenesina apresenta a seguinte fórmula química: C10H14O4, e o nome químico de 3-(2- metoxifenoxi) propano-1,2-diol. A meia-vida biológica da guaifenesina é de 1 hora e tem boa absorção oral. A guaifenesina é metabolizada no sangue e 60% dela é hidrolisada dentro de 7 horas. Apresenta como metabólito o ácido beta-2metoxifenoxilático. O uso excessivo da guaifenesina, com produção aumentada do metabólito, pode resultar em urolitíase. A excreção da guaifenesina é renal, sendo que não foi detectada a droga sem metabolização na urina após estudo com a administração oral de 400 mg. A guaifenesina é um expectorante que aumenta a eliminação da secreção brônquica pela redução da adesividade e tensão superficial. As secreções com menor viscosidade facilitam a ação ciliar da mucosa do trato respiratório, transformando a tosse seca e improdutiva em uma tosse mais produtiva e com menor frequência. Além
+
+disso, a redução da viscosidade melhora a eficácia do _clearance_ mucociliar na remoção de secreções acumuladas.
+
+A guaifenesina parece atuar como irritante dos receptores vagais muscarínicos do estômago, recrutando reflexos eferentes do parassimpático que levam à exocitose glandular de muco com menor viscosidade.
+
+INTERACOES:
+Até o momento não foram descritas interações da guaifenesina com outros medicamentos. O uso de guaifenesina pode falsamente elevar o teste do ácido vanilmandélico (VMA) para catecolaminas. Na necessidade de realização do teste, deve-se orientar o usuário de guaifenesina a descontinuar o uso da mesma 48 horas antes da coleta de urina para o teste.
+
+ARMAZENAMENTO:
+Expectoflui xarope é um líquido límpido, viscoso, de cor vermelha e sabor de cereja.
+
+Conservar em temperatura ambiente (temperatura entre 15 e 30°C). Proteger do calor excessivo, umidade e luz solar direta.
+
+Desde que respeitados os cuidados de armazenamento, o medicamento apresenta uma validade de 24 meses a contar da data de sua fabricação.
+
+Número de lote e datas de fabricação e validade: vide embalagem. Não use medicamento com o prazo de validade vencido. Guarde-o em sua embalagem original . Antes de usar, observe o aspecto do medicamento .
+
+Todo medicamento deve ser mantido fora do alcance das crianças.
+
+8. POSOLOGIA E MODO DE USAR Adultos e crianças maiores de 12 anos: 15 mL (200 mg) a cada 4 horas. Crianças de 6 a 12 anos: 7,5 mL (100 mg) a cada 4 horas. Crianças de 2 a 6 anos: 5 mL (66,7 mg) a cada 4 horas.
+
+O limite máximo diário de administração do medicamento para adultos e crianças maiores de 12 anos é de 2400 mg/dia, para crianças de 6 a 12 anos é de 1200 mg/dia e para crianças de 2 a 6 anos é de 600 mg/dia.
+
+SUPERDOSE:
+O sintoma que caracteriza a superdosagem é o vômito. O atendimento médico deve ser feito em meio hospitalar com medidas de suporte gerais.
+
+Em caso de intoxicação ligue para 0800 722 6001, se você precisar de mais orientações.
+
+LEGAL:
+Registro: 1.3841.0021 Registrado e produzido por: NATULAB LABORATÓRIO S.A. Rua José Rocha Galvão, nº 02, Galpão III – Salgadeira Santo Antônio de Jesus – Bahia – CEP 44.444-312 CNPJ 02.456.955/0001-83 INDÚSTRIA BRASILEIRA SAC: 0800 730 7370
+
+Siga corretamente o modo de usar, não desaparecendo os sintomas procure orientação de um profissional de saúde.
+
+Esta bula foi atualizada conforme Bula Padrão aprovada pela Anvisa em 30/09/2021.
+
+|Dados da submissão eletrônica|Dados da submissão eletrônica|Dados da submissão eletrônica|Dados da peti
+[... TRUNCADO ...]
+```
+PERGUNTA: Qual a composição do Expectoflui e seu mecanismo como expectorante?
+
+RESPOSTA A:
+## Composição do Expectoflui
+
+Cada 15 mL de Expectoflui xarope contém:
+
+- guaifenesina 200 mg
+- Excipientes: carmelose sódica, sorbitol, propilenoglicol, metilparabeno, propilparabeno, mentol, sacarina sódica, essência de cereja, corante vermelho de ponceau, álcool etílico, corante marrom caramelo 150a e água purificada.
+
+## Mecanismo como Expectorante
+
+A guaifenesina apresenta a seguinte fórmula química: C10H14O4, e o nome químico de 3-(2- metoxifenoxi) propano-1,2-diol.
+
+A guaifenesina é um expectorante que aumenta a eliminação da secreção brônquica pela redução da adesividade e tensão superficial.
+
+As secreções com menor viscosidade facilitam a ação ciliar da mucosa do trato respiratório, transformando a tosse seca e improdutiva em uma tosse mais produtiva e com menor frequência.
+
+Além disso, a redução da viscosidade melhora a eficácia do _clearance_ mucociliar na remoção de secreções acumuladas.
+
+A guaifenesina parece atuar como irritante dos receptores vagais muscarínicos do estômago, recrutando reflexos eferentes do parassimpático que levam à exocitose glandular de muco com menor viscosidade.
+
+RESPOSTA B:
+## Composição do Expectoflui
+
+Cada 15 mL de Expectoflui xarope contém:
+
+* Guaifenesina 200 mg
+* Excipientes:
+ + Carmelose sódica
+ + Sorbitol
+ + Propilenoglicol
+ + Metilparabeno
+ + Propilparabeno
+ + Mentol
+ + Sacarina sódica
+ + Essência de cereja
+ + Corante vermelho de ponceau
+ + Álcool etílico
+ + Corante marrom caramelo 150ª
+ + Água purificada
+
+## Mecanismo de Ação como Expectorante
+
+A guaifenesina, componente ativo do Expectoflui, apresenta o seguinte mecanismo de ação como expectorante:
+
+* Aumenta a eliminação da secreção brônquica pela redução da adesividade e tensão superficial.
+* Reduz a viscosidade das secreções, facilitando a ação ciliar da mucosa do trato respiratório.
+* Transforma a tosse seca e improdutiva em uma tosse mais produtiva e com menor frequência.
+* Melhora a eficácia do _clearance_ mucociliar na remoção de secreções acumuladas.
+* Pode atuar como irritante dos receptores vagais muscarínicos do estômago, recrutando reflexos eferentes do parassimpático que levam à exocitose glandular de muco com menor viscosidade.
+
+
+Lembre-se: Retorne APENAS o array JSON válido como saída final (após o pensamento). Nada mais.

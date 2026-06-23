@@ -7,6 +7,7 @@
  *
  * All bula data comes from MongoDB - no web scraping.
  */
+require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
@@ -20,6 +21,7 @@ const modelsHandler = require('./api/models');
 const evaluateSessionHandler = require('./api/evaluate-session');
 const submitEvaluationHandler = require('./api/submit-evaluation');
 const importDadosHandler = require('./api/import-dados');
+const ragHandler = require('./api/rag');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -52,6 +54,7 @@ app.get('/api/evaluate-session', evaluateSessionHandler);
 app.post('/api/submit-evaluation', submitEvaluationHandler);
 app.get('/api/import-dados', importDadosHandler);
 app.post('/api/import-dados', importDadosHandler);
+app.post('/api/rag', ragHandler);
 
 // Serve evaluate.html for evaluation route
 app.get('/evaluate', (req, res) => {
@@ -95,7 +98,11 @@ async function connectToDatabase() {
 async function startServer() {
   await connectToDatabase();
   
-  app.listen(PORT, '0.0.0.0', () => {
+  // Initialize hybrid extraction cache
+  const { initExtractor } = require('./lib/drug_extractor');
+  await initExtractor();
+  
+  const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`
 ╔═══════════════════════════════════════════════════════════╗
 ║                                                           ║
@@ -120,6 +127,10 @@ async function startServer() {
 ╚═══════════════════════════════════════════════════════════╝
     `);
   });
+  
+  // Aumentar o timeout do Node.js (padrão é 2 min) para 20 minutos
+  // Isso evita que a conexão caia ("fetch failed") quando o Ollama demora para processar a bula.
+  server.setTimeout(1200000);
 }
 
 // Handle graceful shutdown

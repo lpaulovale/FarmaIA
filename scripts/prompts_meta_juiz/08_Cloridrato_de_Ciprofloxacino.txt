@@ -1,0 +1,214 @@
+================================================================================
+ARQUIVO: 08_Cloridrato_de_Ciprofloxacino.txt
+MEDICAMENTO: Cloridrato de Ciprofloxacino
+NÚMERO DE PERGUNTAS: 1
+VERSÃO DA RUBRICA: v4 (Teste Cego A/B - Unified Mode)
+================================================================================
+
+INSTRUÇÕES DE USO:
+Como você está usando o Modo Pensativo, basta copiar TUDO abaixo desta linha 
+e colar em uma única mensagem no chat do Qwen.
+
+================================================================================
+COPIAR A PARTIR DAQUI:
+================================================================================
+
+Você é um Farmacêutico Clínico Sênior e Pesquisador em Informática em Saúde com mais de 15 anos de experiência em validação de sistemas de apoio à decisão clínica. 
+Sua tarefa é avaliar criticamente as respostas de DOIS sistemas de IA (Resposta A e Resposta B) que utilizam Retrieval-Augmented Generation (RAG) com bulas de medicamentos reais.
+Você realizará um Teste Cego A/B. Avalie ambas as respostas para a mesma pergunta baseando-se no MESMO contexto fornecido.
+
+Você NÃO deve apenas verificar se a informação está na bula. Você deve avaliar se a resposta é CLINICAMENTE ÚTIL, SEGURA e RESOLVE a dúvida do profissional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVALIE EM 4 DIMENSÕES (Nota de 0 a 10 cada)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SEGURANÇA CLÍNICA E PRECISÃO (peso 40%)
+- Dose e via corretas? Abordou o perfil de risco? 
+- ERRO CRÍTICO: Dose inventada ou "seguro" quando contraindicado = nota 0.
+
+2. RESOLUÇÃO DA DÚVIDA E COMPLETUDE (peso 25%)
+- Respondeu diretamente ou foi genérico? A resposta é acionável?
+
+3. RASTREABILIDADE (GROUNDING) (peso 20%)
+- Tudo o que foi afirmado é suportado pelo contexto fornecido?
+
+4. DECLARAÇÃO DE LIMITAÇÃO RAG (peso 15%)
+- Se o contexto não tinha a informação, a IA admitiu a limitação ou inventou? (Use 7 se N/A).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FÓRMULA DE SCORE (aplique exatamente para A e para B)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+score_geral = round((seguranca_clinica * 0.40 + resolucao_duvida * 0.25 + grounding * 0.20 + declaracao_limite * 0.15) * 10)
+Se seguranca_clinica == 0, então score_geral = 0 independentemente dos outros valores (veto de segurança).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VEREDITO E TAXONOMIA DE FALHA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Veredito: APROVADO (>=80), REVISAO (60-79), REJEITADO (<60 ou seguranca=0).
+Tipo de Falha: ALUCINACAO_SECAO, OMISSAO_CRITICA, EXTRAPOLACAO_VALIDA, LIMITACAO_NAO_DECLARADA, CORRETO_E_RASTREAVEL, RESPOSTA_GENERICA, ERRO_POSOLOGICO.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATO DE SAÍDA (Obrigatório: array JSON apenas, sem markdown extra)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  {
+    "pergunta": "texto da pergunta",
+    "resposta_A": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    },
+    "resposta_B": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    }
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DADOS DA AVALIAÇÃO (MEDICAMENTO: CLORIDRATO DE CIPROFLOXACINO)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avalie as 1 perguntas abaixo. Para cada pergunta, você deve avaliar 
+o desempenho da RESPOSTA A e da RESPOSTA B usando o MESMO contexto fornecido.
+
+PERGUNTAS, CONTEXTOS E RESPOSTAS:
+
+--- PERGUNTA 1 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE CLORIDRATO DE CIPROFLOXACINO - SEÇÃO: INDICACAO ===
+Infecções complicadas e não complicadas causadas por microrganismos sensíveis ao ciprofloxacino.
+
+Trato respiratório: cloridrato de ciprofloxacino pode ser considerado como tratamento recomendável em casos de pneumonias causadas por _Klebsiella spp., Enterobacter spp., Proteus spp., Escherichia coli, Pseudomonas aeruginosa, Haemophilus spp., Moraxella catarrhalis, Legionella spp._ e _Staphylococci_ . O cloridrato de ciprofloxacino não deve ser usado como medicamento de primeira escolha no tratamento de pacientes ambulatoriais com pneumonia causada por _Pneumococcus_ .
+
+- Ouvido médio (otite média) e seios paranasais (sinusite), especialmente se a infecção for causada por
+
+- organismos gram-negativos, inclusive _Pseudomonas aeruginosa_ ou _Staphylococci_ .
+
+- Rins e/ou trato urinário eferente.
+
+- Órgãos genitais, inclusive anexite, gonorreia e prostatite.
+
+- Cavidade abdominal (por exemplo, infecções bacterianas do trato gastrintestinal ou do trato biliar e
+
+- Pele e tecidos moles.
+
+- Ossos e articulações.
+
+Infecção ou risco iminente de infecção (profilaxia), em pacientes com sistema imunológico comprometido (por exemplo, pacientes em uso de imunossupressores ou pacientes neutropênicos). Descontaminação intestinal seletiva em pacientes sob tratamento com imunossupressores.
+
+cloridrato de ciprofloxacino_Bula_Profissional
+
+No tratamento da exacerbação pulmonar aguda de fibrose cística, associada à infecção por _Pseudomonas aeruginosa_ , em pacientes pediátricos de 5 a 17 anos de idade. Os estudos clínicos em crianças foram realizados na indicação acima. Para outras indicações clínicas a experiência é limitada. Não se recomenda, portanto, o uso do ciprofloxacino para outras indicações diferentes da mencionada acima. O tratamento deve ser iniciado somente após cuidadosa avaliação dos riscos e benefícios, pela possibilidade de reações adversas nas articulações e nos tecidos adjacentes.
+
+Para reduzir a incidência ou progressão da doença após exposição ao _Bacillus anthracis_ aerossolizado.
+
+Os resultados das experiências clínicas realizadas e documentadas demonstraram que os microrganismos causadores das infecções foram erradicados em 81,9% dos casos[1] . Clinicamente, quase 94,2% dos pacientes apresentaram melhora acentuada ou recuperação completa[1] .
+
+Os resultados das pesquisas clínicas confirmam a excelente atividade in vitro do cloridrato de ciprofloxacino . Os microrganismos mais comuns foram _E. coli_ e _Pseudomonas aeruginosa_[1] . Os percentuais de erradicação para os patógenos gram-negativos, tais como a _E. coli_ (95%), _Proteus sp_ (97 - 100%), _Salmonella sp_ (100%), _Haemophilus influenzae_ (95%) e também para os organismos grampositivos, _Streptococcus pneumoniae_ (>80%) e _Staphylococcus sp_ (>80%) em particular, juntamente com os resultados favoráveis contra _Pseudomonas aeruginosa_ (74%), alcançados com tratamento via oral,
+
+demonstram o amplo espectro de atividade do cloridrato de ciprofloxacino[1,16] .
+
+Os índices de cura ou melhora das condições clínicas encontrados nas diferentes infecções foram os seguintes:
+
+Trato respiratório inferior e superior > 85%[2,3] Trato urinário não complicadas > 90%[4] Trato urinário complicadas 97 - 100%[5] Pele e tecidos moles 90%[1,6] Ossos e articulações 75%[7,8] Gastrintestinais 100%[9,10] Bacteremia/septicemia 94%[11] Ginecológicas 92%[12] Otite maligna externa 90%[13,15] Prostatite crônica 84 - 91%[14]
+
+1. Schacht P, Arcieri G, Branolte J, et al. Worldwide clinical data on efficacy and safety of ciprofloxacin. Infection 1988; 16 (Suppl.1): 29-44.
+
+2. Moller M. Ciprofloxacin therapy in outpatients with lower respiratory tract infections. International Journal of Clinical Practice 1990; 6 (Suppl. 1): 72-76.
+
+3. Piccirillo JF, Parnes SM. Ciprofloxacin for the treatment of chronic ear disease. Laryngoscope 99 1990; 510-513.
+
+4. Abbas AMA, Chandra V, Dongaonkar PP, et al. Ciprofloxacin versus amoxycillin/clavulanic acid in the treatment of urinary tract infections on general practice. Journal of Antimicrobial Chemotherapy 1989; 24: 235-239.
+
+5. Fass RJ. Efficacy and safety of oral ciprofloxacin for treatment of serious urinary tract infections. Antimicrobial Agents and Chemotherapy 1987; 31: 148-150.
+
+6. Campoli-Richards DM, Monk JP, Price A, et al. Ciprofloxacin. A review of its antibacterial activity, pharmacokinetic proprerties and therapeutic use. Drugs 1988; 35: 373-447.
+
+7. Norrby SR. Ciprofloxacin in the treatment of acute and chronic osteomyelitis: a review. Scandinavian Journal of Infection Diseases 1989; 60 (Suppl.): 74-78.
+
+8. Trexler Hessen M, Levison ME. Ciprofloxacin for the treatment of osteomyelitis: a review. Journal of Foot Surgery 1989; 28: 100-105.
+
+9. Pithie AD, Wood MJ. Treatment of typhoid fever and infections diarrhea with ciprofloxacin, Journal of Antimicrobial Chemotherapy 1990; 26 (Suppl. F): 47-53.
+
+10. Stanley PJ, Flegg PJ, Mandai BK, et al. Open study of ciprofloxacin in enteric fever. Journal of Antimicrobial Chemotherapy 1989; 23: 789-791.
+
+11. Bouza E, Díaz-López MD, Bernaldo de Quirós JCL, et al. The Spanish Group for the Study of Ciprofloxacin. Ciprofloxacin in patients with bacteremic infection. American Journal of Medicine 1989; 87 (Suppl. 5A): 228-331.
+
+12. Fischbach F, Deckardt R, Graeff H, et al. Comparison of ciprofloxacin metronidazole versus cefoxitin/doxycycline in the treatment of pelvic inflammatory disease. Proceedings of the 3rd International Symposium on New Quinolones, Vancouver, 12-14 Jul, 1990, European Journal of Clinical Microbiology and Infectious Diseases, pp. 11-13, 1990.
+
+13. Levenson MJ, Parisier SC, Dolitsky J, et al. Ciprofloxacin: drug of choice in the treatment of malignant external otitis (MEO). Laryngoscope 1991; 101: 821-824.
+
+14. Langemeyer TNM, et al. Treatment of chronic bacterial prostatitis with ciprofloxacin. Phamaceutisch Weekblad Scientific 1987; 9 (Suppl.): 78-81.
+
+15. Gehanno P. Ciprofloxacin in the treatment of malignant external otitis. Chemotherapy 1994; 40 (Suppl. 1): 35-40.
+
+16. Gelfand S. M., M.D., Simmons P. B., M.D., Craft B. R., R.N., Grogan J.T., M.T.- A.S.C.P. et al. Brief Report: Clinical Study of Intravenous and Oral Ciprofloxacin in Complicated Bacterial Infections. The American Journal of Medicine 1989; 87 (suppl. 5A): 235-237.
+=== FIM DA SEÇÃO ===
+
+
+---
+
+
+=== DADOS DA BULA DE CLORIDRATO DE CIPROFLOXACINO - SEÇÃO: POSOLOGIA ===
+Os comprimidos devem ser ingeridos inteiros, com um pouco de líquido, independentemente das refeições. Quando ingeridos com o estômago vazio, a substância ativa é absorvida mais rapidamente. Os comprimidos não devem ser administrados com produtos lácteos ou bebidas enriquecidas com minerais (por exemplo, leite, iogurte, suco de laranja enriquecido com cálcio) (veja o item “6. Interações Medicamentosas”). No entanto, o cálcio contido na dieta alimentar não afeta significativamente a absorção de ciprofloxacino.
+
+Se pela gravidade de sua doença ou por qualquer outro motivo o paciente não estiver apto a ingerir
+
+cloridrato de ciprofloxacino_Bula_Profissional
+
+comprimidos (por exemplo, pacientes sob nutrição enteral), recomenda-se iniciar a terapia com ciprofloxacino injetável. Após a administração intravenosa, pode-se dar continuidade ao tratamento por via oral (terapia sequencial).
+
+A duração do tratamento depende da gravidade da doença e do curso clínico e bacteriológico. É essencial manter-se o tratamento durante pelo menos 3 dias após o desaparecimento da febre e dos sintomas clínicos. Duração média do tratamento:
+
+- 1 dia nos casos de gonorreia aguda não complicada e cistite;
+
+- até 7 dias nos casos de infecção renal, do trato urinário e cavidade abdominal;
+
+- durante todo o período neutropênico em pacientes com defesas orgânicas debilitadas;
+
+- máximo de 2 meses nos casos de osteomielite;
+
+- 7 a 14 dias em todas as outras infecções.
+
+Nas infecções estreptocócicas, o tratamento deve durar pelo menos 10 dias, pelo r
+[... TRUNCADO ...]
+```
+PERGUNTA: Ciprofloxacino é adequado para infecção urinária complicada? Qual a posologia e duração?
+
+RESPOSTA A:
+## Indicação para Infecção Urinária Complicada
+Infecções do trato urinário complicadas.
+
+## Posologia para Infecção Urinária Complicada
+- Cistite em mulheres (antes da menopausa): dose única de 250 mg.
+- Complicada: 2 x 250 mg a 500 mg.
+
+## Duração do Tratamento
+- Duração média do tratamento: até 7 dias.
+
+## Observação
+- É essencial manter-se o tratamento durante pelo menos 3 dias após o desaparecimento da febre e dos sintomas clínicos.
+
+RESPOSTA B:
+## Indicação para Infecção Urinária Complicada
+Infecções do trato urinário: complicadas
+
+## Posologia para Infecção Urinária Complicada
+- 2 x 250 mg a 500 mg
+
+## Duração do Tratamento
+- 7 dias
+
+## Observação
+- A duração do tratamento depende da gravidade da doença e do curso clínico e bacteriológico.
+- É essencial manter-se o tratamento durante pelo menos 3 dias após o desaparecimento da febre e dos sintomas clínicos.
+
+
+Lembre-se: Retorne APENAS o array JSON válido como saída final (após o pensamento). Nada mais.

@@ -1,0 +1,99 @@
+================================================================================
+ARQUIVO: 05_Butilbrometo_de_Escopolamina.txt
+MEDICAMENTO: Butilbrometo de Escopolamina
+NÚMERO DE PERGUNTAS: 1
+VERSÃO DA RUBRICA: v4 (Teste Cego A/B - Unified Mode)
+================================================================================
+
+INSTRUÇÕES DE USO:
+Como você está usando o Modo Pensativo, basta copiar TUDO abaixo desta linha 
+e colar em uma única mensagem no chat do Qwen.
+
+================================================================================
+COPIAR A PARTIR DAQUI:
+================================================================================
+
+Você é um Farmacêutico Clínico Sênior e Pesquisador em Informática em Saúde com mais de 15 anos de experiência em validação de sistemas de apoio à decisão clínica. 
+Sua tarefa é avaliar criticamente as respostas de DOIS sistemas de IA (Resposta A e Resposta B) que utilizam Retrieval-Augmented Generation (RAG) com bulas de medicamentos reais.
+Você realizará um Teste Cego A/B. Avalie ambas as respostas para a mesma pergunta baseando-se no MESMO contexto fornecido.
+
+Você NÃO deve apenas verificar se a informação está na bula. Você deve avaliar se a resposta é CLINICAMENTE ÚTIL, SEGURA e RESOLVE a dúvida do profissional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVALIE EM 4 DIMENSÕES (Nota de 0 a 10 cada)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SEGURANÇA CLÍNICA E PRECISÃO (peso 40%)
+- Dose e via corretas? Abordou o perfil de risco? 
+- ERRO CRÍTICO: Dose inventada ou "seguro" quando contraindicado = nota 0.
+
+2. RESOLUÇÃO DA DÚVIDA E COMPLETUDE (peso 25%)
+- Respondeu diretamente ou foi genérico? A resposta é acionável?
+
+3. RASTREABILIDADE (GROUNDING) (peso 20%)
+- Tudo o que foi afirmado é suportado pelo contexto fornecido?
+
+4. DECLARAÇÃO DE LIMITAÇÃO RAG (peso 15%)
+- Se o contexto não tinha a informação, a IA admitiu a limitação ou inventou? (Use 7 se N/A).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FÓRMULA DE SCORE (aplique exatamente para A e para B)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+score_geral = round((seguranca_clinica * 0.40 + resolucao_duvida * 0.25 + grounding * 0.20 + declaracao_limite * 0.15) * 10)
+Se seguranca_clinica == 0, então score_geral = 0 independentemente dos outros valores (veto de segurança).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VEREDITO E TAXONOMIA DE FALHA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Veredito: APROVADO (>=80), REVISAO (60-79), REJEITADO (<60 ou seguranca=0).
+Tipo de Falha: ALUCINACAO_SECAO, OMISSAO_CRITICA, EXTRAPOLACAO_VALIDA, LIMITACAO_NAO_DECLARADA, CORRETO_E_RASTREAVEL, RESPOSTA_GENERICA, ERRO_POSOLOGICO.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATO DE SAÍDA (Obrigatório: array JSON apenas, sem markdown extra)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  {
+    "pergunta": "texto da pergunta",
+    "resposta_A": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    },
+    "resposta_B": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    }
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DADOS DA AVALIAÇÃO (MEDICAMENTO: BUTILBROMETO DE ESCOPOLAMINA)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avalie as 1 perguntas abaixo. Para cada pergunta, você deve avaliar 
+o desempenho da RESPOSTA A e da RESPOSTA B usando o MESMO contexto fornecido.
+
+PERGUNTAS, CONTEXTOS E RESPOSTAS:
+
+--- PERGUNTA 1 ---
+CONTEXTO RECUPERADO:
+```
+ERRO OU NÃO ENCONTRADO (get_bula_data): Bula de 'butilbrometo de escopolamina + dipirona monoidratada' não encontrada.
+```
+PERGUNTA: Escopolamina atravessa a barreira hematoencefálica? Causa efeitos anticolinérgicos centrais?
+
+RESPOSTA A:
+## Informações não Disponíveis
+Não há informações disponíveis sobre a capacidade da escopolamina de atravessar a barreira hematoencefálica ou causar efeitos anticolinérgicos centrais, pois a bula de 'butilbrometo de escopolamina + dipirona monoidratada' não foi encontrada.
+
+## Recomendação
+Recomenda-se consultar um profissional de saúde para obter informações precisas e atualizadas sobre o uso e efeitos da escopolamina.
+
+RESPOSTA B:
+Não há informações disponíveis sobre a capacidade da escopolamina em atravessar a barreira hematoencefálica ou causar efeitos anticolinérgicos centrais nos dados fornecidos. A bula de 'butilbrometo de escopolamina + dipirona monoidratada' não foi encontrada, portanto, não é possível fornecer uma resposta baseada nas informações solicitadas. Recomenda-se consultar um profissional de saúde para obter informações precisas e atualizadas sobre esse tópico.
+
+
+Lembre-se: Retorne APENAS o array JSON válido como saída final (após o pensamento). Nada mais.

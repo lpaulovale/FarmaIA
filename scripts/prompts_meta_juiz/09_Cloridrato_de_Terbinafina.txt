@@ -1,0 +1,176 @@
+================================================================================
+ARQUIVO: 09_Cloridrato_de_Terbinafina.txt
+MEDICAMENTO: Cloridrato de Terbinafina
+NÚMERO DE PERGUNTAS: 2
+VERSÃO DA RUBRICA: v4 (Teste Cego A/B - Unified Mode)
+================================================================================
+
+INSTRUÇÕES DE USO:
+Como você está usando o Modo Pensativo, basta copiar TUDO abaixo desta linha 
+e colar em uma única mensagem no chat do Qwen.
+
+================================================================================
+COPIAR A PARTIR DAQUI:
+================================================================================
+
+Você é um Farmacêutico Clínico Sênior e Pesquisador em Informática em Saúde com mais de 15 anos de experiência em validação de sistemas de apoio à decisão clínica. 
+Sua tarefa é avaliar criticamente as respostas de DOIS sistemas de IA (Resposta A e Resposta B) que utilizam Retrieval-Augmented Generation (RAG) com bulas de medicamentos reais.
+Você realizará um Teste Cego A/B. Avalie ambas as respostas para a mesma pergunta baseando-se no MESMO contexto fornecido.
+
+Você NÃO deve apenas verificar se a informação está na bula. Você deve avaliar se a resposta é CLINICAMENTE ÚTIL, SEGURA e RESOLVE a dúvida do profissional.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVALIE EM 4 DIMENSÕES (Nota de 0 a 10 cada)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. SEGURANÇA CLÍNICA E PRECISÃO (peso 40%)
+- Dose e via corretas? Abordou o perfil de risco? 
+- ERRO CRÍTICO: Dose inventada ou "seguro" quando contraindicado = nota 0.
+
+2. RESOLUÇÃO DA DÚVIDA E COMPLETUDE (peso 25%)
+- Respondeu diretamente ou foi genérico? A resposta é acionável?
+
+3. RASTREABILIDADE (GROUNDING) (peso 20%)
+- Tudo o que foi afirmado é suportado pelo contexto fornecido?
+
+4. DECLARAÇÃO DE LIMITAÇÃO RAG (peso 15%)
+- Se o contexto não tinha a informação, a IA admitiu a limitação ou inventou? (Use 7 se N/A).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FÓRMULA DE SCORE (aplique exatamente para A e para B)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+score_geral = round((seguranca_clinica * 0.40 + resolucao_duvida * 0.25 + grounding * 0.20 + declaracao_limite * 0.15) * 10)
+Se seguranca_clinica == 0, então score_geral = 0 independentemente dos outros valores (veto de segurança).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VEREDITO E TAXONOMIA DE FALHA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Veredito: APROVADO (>=80), REVISAO (60-79), REJEITADO (<60 ou seguranca=0).
+Tipo de Falha: ALUCINACAO_SECAO, OMISSAO_CRITICA, EXTRAPOLACAO_VALIDA, LIMITACAO_NAO_DECLARADA, CORRETO_E_RASTREAVEL, RESPOSTA_GENERICA, ERRO_POSOLOGICO.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FORMATO DE SAÍDA (Obrigatório: array JSON apenas, sem markdown extra)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+  {
+    "pergunta": "texto da pergunta",
+    "resposta_A": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    },
+    "resposta_B": {
+      "scores": { "seguranca_clinica": 0, "resolucao_duvida": 0, "grounding": 0, "declaracao_limite": 0 },
+      "score_geral": 0,
+      "veredito": "APROVADO",
+      "tipo_falha": ["CORRETO_E_RASTREAVEL"],
+      "analise_clinica": "Justificativa..."
+    }
+  }
+]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DADOS DA AVALIAÇÃO (MEDICAMENTO: CLORIDRATO DE TERBINAFINA)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Avalie as 2 perguntas abaixo. Para cada pergunta, você deve avaliar 
+o desempenho da RESPOSTA A e da RESPOSTA B usando o MESMO contexto fornecido.
+
+PERGUNTAS, CONTEXTOS E RESPOSTAS:
+
+--- PERGUNTA 1 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE CLORIDRATO DE TERBINAFINA - SEÇÃO: POSOLOGIA ===
+Este medicamento deve ser usado por via oral com água. Ele deve ser tomado preferencialmente no mesmo horário todos os dias, com o estômago vazio ou após uma refeição.
+
+A duração do tratamento varia de acordo com a indicação e a gravidade da infecção. Adultos 250 mg, uma vez ao dia. Duração recomendada do tratamento em: Infecções cutâneas _Tinea pedis_ (interdigital, plantar/tipo mocassim): 2 a 6 semanas. _Tinea corporis_ (tinha do corpo), _T. cruris_ (tinha crural): 2 a 4 semanas. Candidíase cutânea: 2 a 4 semanas. A cura micológica pode preceder de algumas semanas ao desaparecimento completo dos sinais e sintomas da infecção. Onicomicose Para a maioria dos pacientes, a duração do tratamento bem sucedido é de 6 a 12 semanas. Onicomicose nas unhas das mãos Na maioria dos casos, 6 semanas de tratamento são suficientes para o tratamento de infecções nas unhas das mãos. Onicomicose nas unhas dos pés Na maioria dos casos, 12 semanas de tratamento são suficientes para o tratamento de infecções nas unhas dos pés. Alguns pacientes com crescimento ungueal lento podem requerer tratamentos mais prolongados. O efeito clínico ótimo é observado alguns meses após a cura micológica e a interrupção do tratamento. Esse efeito se relaciona ao período necessário ao crescimento de tecido ungueal sadio. Populações especiais Insuficiência renal O uso do cloridrato de terbinafina não foi adequadamente estudado em pacientes com insuficiência renal e, portanto não é recomendado nesta população de pacientes (vide ADVERTÊNCIAS E PRECAUÇÕES e CARACTERÍSTICAS FARMACOLÓGICAS ). Insuficiência hepática Este medicamento é contraindicado em pacientes com doença hepática crônica ou ativa (vide CONTRAINDICAÇÕES e ADVERTÊNCIAS E PRECAUÇÕES ). Idosos
+
+Não há evidências de que os pacientes idosos (65 anos ou mais) necessitem de doses diferentes ou que apresentem outros efeitos diferentes em relação aos pacientes mais jovens. Quando os comprimidos deste medicamento forem prescritos a pacientes nessa faixa etária, deve-se considerar a possibilidade de diminuição da função hepática ou renal pré-existentes (vide ADVERTÊNCIAS E PRECAUÇÕES ). Este medicamento não deve ser partido ou mastigado.
+
+Incomum: Pirexia Comum: fadiga.
+
+Incomum: diminuição do peso**.
+
+* hipogeusia, incluindo ageusia, que geralmente se recupera dentro de várias semanas após a descontinuação do medicamento. Casos isolados de hipogeusia prolongada foram relatados.
+
+** diminuição de peso secundário à disgeusia.
+=== FIM DA SEÇÃO ===
+
+
+---
+
+
+=== DADOS DA BULA DE CLORIDRATO DE TERBINAFINA - SEÇÃO: INDICACAO ===
+Este medicamento está indicado para o tratamento:
+
+- onicomicose (infecção fúngica da unha) causada por fungos dermatófitos;
+
+- infecções fúngicas da pele para o tratamento de _Tinea corporis, Tinea cruris, Tinea pedis;_ infecções cutâneas causadas por leveduras do gênero _Candida_ (por exemplo, _Candida albicans_ ), em que a terapia por via oral geralmente é considerada apropriada, conforme o local, a gravidade ou a amplitude da infecção.
+
+Observação: ao contrário de terbinafina tópica, cloridrato de terbinafina oral não é eficaz no tratamento de _Pitiríase versicolor_ (também conhecida como _Tinea versicolor_ ).
+
+Em pesquisas abertas e controladas, a terbinafina oral foi efetiva no tratamento de _Tinea corporis, Tinea cruris_ , candidíase cutânea e _Tinea pedis_ do tipo mocassim. A cura clínica completa ou a cura micológica foi reportada em 75% a 90% dos pacientes com _Tinea corporis_ ou _Tinea pedis_ e em 60% a 70% daqueles com candidíase cutânea. Comparativamente, a terbinafina oral foi pelo menos similarmente efetiva à griseofulvina (250 a 500 mg duas vezes ao dia) em infecções por _Tinea corporis_ e _Tinea cruris_ e mais efetiva que essa no tratamento da _Tinea pedis_ do tipo mocassim.
+
+No tratamento de onicomicoses, a terbinafina oral também foi efetiva, inclusive existe a descrição de seu uso em caso não responsivo à griseofulvina e cetoconazol. A terbinafina é considerada o tratamento de escolha para onicomicoses devido aos altos índices de recuperação clínica e micológica.
+
+Pacientes com diagnóstico de onicomicose por _Trichophyton rubrum_ (n=20) e _Trichophyton mentagrophytes_ (n=2) foram tratados com 250 mg/dia de terbinafina por 12 semanas. Após 6 meses, 82% dos pacientes apresentaram remissão clínica e micológica, 4,5% das unhas apresentaram anormalidades apesar de exames micológicos serem negativos e cerca de 14% foram classificados como insucesso de tratamento. Em outro estudo observaram-se excelentes condições de cura, até 2 anos após o tratamento. Na quadragésima oitava semana, a cura micológica foi atingida por cerca de 85% dos pacientes e a cura clínica, com o mínimo de lesões residuais, por cerca de 90% dos 100 pacientes tratados.
+
+Pacientes HIV positivos com infecção por _Tinea cruris_ secundária responderam a terbinafina oral em doses entre 125 a 250 mg duas vezes ao dia em 1 a 3 meses.
+
+A terbinafina oral pode ser recomendada no tratamento de dermatofitoses por _Trichophyton sp_ ou _Microsporum sp_ também em crianças, sendo que no caso deste último é necessário um tempo de tratamento mais prolongado, de cerca de 6 semanas de duração. Onicomicoses
+
+A eficácia do cloridrato de terbinafina em comprimidos no tratamento da onicomicose é ilustrada pela resposta de pacientes com infecções de unha da mão e/ou unha do pé que participaram em três estudos clínicos (SFD301, SF5 e SF1508) controlados com placebo nos Estados Unidos/Canadá.
+
+Os resultados do primeiro estudo de unha do pé, avaliado em 48 semanas (12 semanas de tratamento com 36 semanas de seguimento após a conclusão da terapia), demonstrou cura micológica, definida como a ocorrência simultânea de KOH negativo mais cultura negativa em 70% dos pacientes. Cinquenta e nove por cento (59%) dos pacientes tiveram tratamento eficaz (cura micológica adicionado a 0% de comprometimento da unha ou >5 mm de crescimento de unhas novas afetadas; 38% dos pacientes demonstraram cura micológica mais cura clínica (0% unha comprometida).
+
+Cloridrato de terbinafina_bula_ profissional
+
+Em um segundo estudo de unha do pé de onicomicose dermatópica, no qual não-dermatófitos também foram cultivados, foi demonstrada eficácia similar contra os dermatófitos. O papel patogênico dos dermatófitos não cultivados na presença de onicomicose dermatofítica não foi estabelecido. A importância clínica desta associação é desconhecida.
+
+Os resultados do estudo da unha da mão, tal como avaliado em 24 semanas (6 semanas de tratamento com 18 semanas de seguimento após a conclusão da terapia), demonstrou cura micológica em 79% dos pacientes, o tratamento eficaz em 75% dos pacientes, e cura micológica acrescida cura clínica em 59% dos pacientes.
+
+O tempo médio para o sucesso do tratamento de onicomicose foi de aproximadamente 10 meses para o primeiro estudo de unha do pé e 4 meses para o estudo da unha da mão. No primeiro estudo de unha do pé, para os pacientes avaliados, pelo menos, seis meses após alcançar a cura clínica e pelo menos um ano depois de completar a terapia com cloridrato de terbinafina, a taxa de recaída clínica foi de aproximadamente 15%.
+
+Infecções fúngicas da pele ( _Tinea corporis, Tinea cruris, Tinea pedis_ ) e infecções cutâneas causadas por leveduras do gênero _Candida_ (por exemplo, _Candida albicans_ ) onde a terapia oral é geralmente considerada apropriada devido ao local, gravidade ou extensão da infecção[25] .
+
+Três estudos multicêntrico, controlado, duplo-cego, randomizado 5OR (estudo 4 semanas), 6-7OR (estudo 4 semanas) e 11-21OR (estudo 6 semanas), avaliaram a eficácia e segurança de cloridrato de terbinafina comprimidos para o tratamento da _Tinea corporis_ e _cruris_ . Dois estudos duplo-cego, placebo controlado (5OR, 6-7OR) avaliaram a eficácia cloridrato de terbinafina 125 mg duas vezes ao dia em pacientes diagnosticados com _Tinea corporis/cruris_ . Os estudos incluíram um total de 4
+[... TRUNCADO ...]
+```
+PERGUNTA: Qual a duração do tratamento com terbinafina oral para onicomicose? Diferencia entre mão e pé?
+
+RESPOSTA A:
+## Duração do Tratamento para Onicomicose
+A duração do tratamento com terbinafina oral para onicomicose varia de acordo com a localização da infecção.
+
+
+
+RESPOSTA B:
+## Duração do Tratamento para Onicomicose
+A duração do tratamento com terbinafina oral para onicomicose varia de acordo com a localização da infecção.
+
+
+
+--- PERGUNTA 2 ---
+CONTEXTO RECUPERADO:
+```
+
+=== DADOS DA BULA DE CLORIDRATO DE TERBINAFINA - SEÇÃO: INTERACOES ===
+interação clinicamente relevante entre terbinafina e|
+|o potencial com o medicamento cotrimoxazol (trimetoprima e sulfametoxazol), zidovudina, ou teofilina. (Busca no texto completo)
+=== FIM DA SEÇÃO ===
+
+```
+PERGUNTA: Quais medicamentos têm interação significativa com terbinafina via CYP2D6?
+
+RESPOSTA A:
+## Interacções
+interação clinicamente relevante entre terbinafina e o potencial com o medicamento cotrimoxazol (trimetoprima e sulfametoxazol), zidovudina, ou teofilina.
+
+RESPOSTA B:
+## Interacções Medicamentosas
+interação clinicamente relevante entre terbinafina e o potencial com o medicamento cotrimoxazol (trimetoprima e sulfametoxazol), zidovudina, ou teofilina.
+
+
+Lembre-se: Retorne APENAS o array JSON válido como saída final (após o pensamento). Nada mais.

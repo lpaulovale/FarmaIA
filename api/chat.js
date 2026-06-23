@@ -21,6 +21,7 @@ const { getSystemPrompt, buildContextPrompt, getNoDataPrompt, getResponsePrompt 
 const { planQuery } = require("../lib/planner");
 const { chat, chatWithModel } = require("../lib/llm_client");
 const { tagAndFilter, groupByTag } = require("../lib/tagger");
+const { fuzzyExtractDrugs, detectMode } = require("../lib/drug_extractor");
 
 const MAX_HISTORY_MESSAGES = 6;
 
@@ -100,8 +101,16 @@ module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ detail: "Método não permitido." });
 
-  const { message, mode = "patient", sessionId, model: runtimeModel } = req.body || {};
+  let { message, mode, sessionId, model: runtimeModel } = req.body || {};
+  
+  // Apply JS hybrid extraction before planner
+  const extractedDrugs = fuzzyExtractDrugs(message);
+  if (!mode) {
+    mode = detectMode(message);
+  }
+  
   console.log(`[API] Received mode: ${mode}, message length: ${message.length}`);
+  console.log(`[Extractor] JS pure extraction found drugs:`, extractedDrugs);
   if (!message || message.length < 2) {
     return res.status(400).json({ detail: "A mensagem deve ter pelo menos 2 caracteres." });
   }
@@ -127,7 +136,7 @@ module.exports = async function handler(req, res) {
     // =========================================
     // Step 2: Plan query (LLM returns JSON plan)
     // =========================================
-    const plan = await planQuery(message, mode, historyMessages);
+    const plan = await planQuery(message, mode, historyMessages, extractedDrugs);
     console.log("[Planner] Plan received:", JSON.stringify(plan, null, 2));
 
     // If clarification needed, return early
@@ -230,6 +239,7 @@ module.exports = async function handler(req, res) {
     let taggedContext = null;
     const taggerStartTime = Date.now();
     const filteredContentByDrug = {};
+    let taggerTokens = { input: 0, output: 0 };
 
     if (toolResults.length > 0 && plan.tags && plan.tags.length > 0) {
       console.log('[Tagger] Tagging and filtering content for tags:', plan.tags);
@@ -242,10 +252,14 @@ module.exports = async function handler(req, res) {
           const section = result.data.section || 'bula_completa';
           const drugName = result.data.name;
 
-          if (content && content.length > 50) {
+          if (content && content.length > 12000) {
             try {
-              const tagged = await tagAndFilter(content, section, plan.tags);
+              const tagged = await tagAndFilter(content, section, plan.tags, message);
               allTaggedSentences.push(...tagged);
+              if (tagged.tokens) {
+                taggerTokens.input += tagged.tokens.input;
+                taggerTokens.output += tagged.tokens.output;
+              }
               
               if (!filteredContentByDrug[drugName]) filteredContentByDrug[drugName] = {};
               filteredContentByDrug[drugName][section] = tagged.map(s => s.text).join('\n\n');
@@ -563,6 +577,14 @@ module.exports = async function handler(req, res) {
         plan: plan,
         // Add extracted data for popup display
         extractedData: Object.keys(extractedData).length > 0 ? extractedData : null,
+        raw_documents: toolResults
+          .filter(r => (r.tool === 'get_section' || r.tool === 'get_bula_data') && r.found && r.data)
+          .map(r => `=== SEÇÃO: ${r.data.section} ===\n${r.data.content || r.data.textContent}`)
+          .join('\n\n'),
+        tokens: {
+          input: (plan.tokens?.input || 0) + taggerTokens.input + (llmResult?.tokens?.input || 0),
+          output: (plan.tokens?.output || 0) + taggerTokens.output + (llmResult?.tokens?.output || 0)
+        }
       },
     });
   } catch (err) {

@@ -1,0 +1,515 @@
+{
+  "metadata ": {
+    "description ": "Perguntas clínicas profissionais para avaliação do FarmaIA ",
+    "generated_at ": "2026-05-18 ",
+    "total_medications ": 50,
+    "question_types ": [
+      "posologia ",
+      "contraindicacao ",
+      "reacao_adversa ",
+      "interacao_medicamentosa ",
+      "populacao_especial ",
+      "administracao ",
+      "mecanismo_acao ",
+      "ajuste_dose "
+    ]
+  },
+  "questions ": [
+    {
+      "medication ": "Acetilcisteína ",
+      "questions ": [
+        {"text": "Qual a dose de acetilcisteína como mucolítico e qual a dose para intoxicação por paracetamol? São protocolos diferentes? ", "type": "posologia"},
+        {"text": "Acetilcisteína pode ser administrada por nebulização? Qual a diluição recomendada? ", "type": "administracao"},
+        {"text": "Paciente asmático pode usar acetilcisteína? Há risco de broncoespasmo? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Aciclovir ",
+      "questions ": [
+        {"text": "Qual o ajuste de dose de aciclovir em paciente com insuficiência renal (ClCr  < 25 mL/min)? ", "type": "ajuste_dose"},
+        {"text": "Aciclovir intravenoso: qual a velocidade de infusão recomendada e por que é importante? ", "type": "administracao"},
+        {"text": "Qual a posologia de aciclovir para herpes zóster versus herpes simples recorrente? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Azitromicina ",
+      "questions ": [
+        {"text": "Qual o esquema posológico de azitromicina para infecção respiratória em adultos? Pode tomar com alimentos? ", "type": "administracao"},
+        {"text": "Azitromicina prolonga o intervalo QT? Quais medicamentos não devem ser associados? ", "type": "interacao_medicamentosa"},
+        {"text": "Paciente com insuficiência hepática grave pode receber azitromicina? Precisa ajustar dose? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Besilato de Anlodipino ",
+      "questions ": [
+        {"text": "Qual a dose inicial e máxima de anlodipino para hipertensão em idosos? ", "type": "populacao_especial"},
+        {"text": "Anlodipino pode causar edema periférico? Qual a conduta se o paciente desenvolver edema de membros inferiores? ", "type": "reacao_adversa"},
+        {"text": "Existe interação entre anlodipino e sinvastatina? Qual o limite de dose da sinvastatina nessa associação? ", "type": "interacao_medicamentosa"}
+      ]
+    },
+    {
+      "medication ": "Butilbrometo de Escopolamina + Dipirona Monoidratada ",
+      "questions ": [
+        {"text": "Pacientes com deficiência de G6PD podem receber dipirona? Quais os sinais de reação hemolítica a monitorar? ", "type": "reacao_adversa"},
+        {"text": "Qual a dose máxima diária de Buscopan Composto em adultos? E em crianças acima de 6 anos? ", "type": "populacao_especial"},
+        {"text": "Quais são os sinais precoces de agranulocitose induzida por dipirona que o paciente deve ser orientado a relatar? ", "type": "reacao_adversa"},
+        {"text": "Buscopan Composto é contraindicado em pacientes com miastenia gravis? Por quê? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Butilbrometo de Escopolamina ",
+      "questions ": [
+        {"text": "Qual o mecanismo de ação do butilbrometo de escopolamina como antiespasmódico? ", "type": "mecanismo_acao"},
+        {"text": "Escopolamina atravessa a barreira hematoencefálica? Causa efeitos anticolinérgicos centrais? ", "type": "reacao_adversa"},
+        {"text": "Paciente com glaucoma de ângulo fechado pode receber escopolamina? Justifique. ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Cefalexina ",
+      "questions ": [
+        {"text": "Qual a posologia de cefalexina para infecção urinária em adultos? E em gestantes? ", "type": "populacao_especial"},
+        {"text": "Paciente alérgico a penicilina pode receber cefalexina? Qual o risco de reação cruzada? ", "type": "contraindicacao"},
+        {"text": "Cefalexina precisa de ajuste de dose em insuficiência renal? A partir de qual ClCr? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Cloridrato de Cefepima ",
+      "questions ": [
+        {"text": "Qual o ajuste de dose de cefepima para paciente com ClCr entre 10-30 mL/min? ", "type": "ajuste_dose"},
+        {"text": "Cefepima pode causar neurotoxicidade? Quais os sinais que devem ser monitorados? ", "type": "reacao_adversa"},
+        {"text": "Qual a estabilidade de cefepima após reconstituição em temperatura ambiente? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Cloridrato de Terbinafina ",
+      "questions ": [
+        {"text": "Qual a duração do tratamento com terbinafina oral para onicomicose? Diferencia entre mão e pé? ", "type": "posologia"},
+        {"text": "Terbinafina exige monitoramento de função hepática? Com qual periodicidade? ", "type": "reacao_adversa"},
+        {"text": "Quais medicamentos têm interação significativa com terbinafina via CYP2D6? ", "type": "interacao_medicamentosa"}
+      ]
+    },
+    {
+      "medication ": "Diclofenaco Sódico ",
+      "questions ": [
+        {"text": "Qual o risco cardiovascular do diclofenaco comparado a outros AINEs? Há contraindicação para pacientes com ICC? ", "type": "contraindicacao"},
+        {"text": "Diclofenaco pode ser usado em pacientes com doença renal crônica? Qual o ClCr mínimo seguro? ", "type": "ajuste_dose"},
+        {"text": "Qual a dose máxima diária de diclofenaco sódico e qual a duração máxima recomendada de uso? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Diclofenaco Dietilamônio ",
+      "questions ": [
+        {"text": "Diclofenaco tópico (gel) tem absorção sistêmica significativa? Pode causar os mesmos efeitos adversos do oral? ", "type": "reacao_adversa"},
+        {"text": "Qual a posologia do diclofenaco dietilamônio tópico e por quantos dias pode ser usado sem prescrição? ", "type": "administracao"},
+        {"text": "Gestantes podem usar diclofenaco dietilamônio tópico no terceiro trimestre? ", "type": "populacao_especial"}
+      ]
+    },
+    {
+      "medication ": "Dipropionato de Betametasona + Ácido Salicílico ",
+      "questions ": [
+        {"text": "Qual a indicação principal da associação betametasona + ácido salicílico? O ácido salicílico tem qual função? ", "type": "mecanismo_acao"},
+        {"text": "Pode ser aplicado em face ou áreas intertriginosas? Por que se deve evitar uso prolongado? ", "type": "administracao"},
+        {"text": "Quais são os sinais de supressão adrenal que devem ser monitorados em uso prolongado de corticoides tópicos de alta potência? ", "type": "reacao_adversa"}
+      ]
+    },
+    {
+      "medication ": "Dipirona Sódica ",
+      "questions ": [
+        {"text": "Qual a dose de dipirona IV para analgesia em adultos? Precisa diluir? Qual a velocidade de infusão? ", "type": "administracao"},
+        {"text": "Paciente com porfiria hepática pode receber dipirona? Qual o risco? ", "type": "contraindicacao"},
+        {"text": "Quais são os sinais iniciais de agranulocitose por dipirona e qual a orientação ao paciente? ", "type": "reacao_adversa"},
+        {"text": "Dipirona é segura em gestantes? Em qual trimestre é contraindicada? ", "type": "populacao_especial"}
+      ]
+    },
+    {
+      "medication ": "Fosfato Sódico de Prednisolona ",
+      "questions ": [
+        {"text": "Qual a dose de prednisolona para crise de asma em crianças (mg/kg/dia)? ", "type": "populacao_especial"},
+        {"text": "Prednisolona solução oral precisa ser administrada com alimentos para reduzir irritação gástrica? ", "type": "administracao"},
+        {"text": "Em tratamento prolongado com prednisolona, quais exames laboratoriais devem ser monitorados? ", "type": "reacao_adversa"}
+      ]
+    },
+    {
+      "medication ": "Furosemida ",
+      "questions ": [
+        {"text": "Qual o ajuste de dose de furosemida em paciente com edema refratário? Existe dose máxima diária? ", "type": "ajuste_dose"},
+        {"text": "Quais distúrbios eletrolíticos a furosemida pode causar e como monitorar? ", "type": "reacao_adversa"},
+        {"text": "Furosemida tem interação com aminoglicosídeos? Qual o risco? ", "type": "interacao_medicamentosa"},
+        {"text": "Furosemida IV: pode ser administrada em bolus ou precisa de infusão lenta? Qual a velocidade máxima? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Cloridrato de Ambroxol ",
+      "questions ": [
+        {"text": "Qual a dose de ambroxol xarope pediátrico para crianças de 2 a 5 anos? ", "type": "populacao_especial"},
+        {"text": "Ambroxol pode ser usado em pacientes com úlcera gástrica ativa? ", "type": "contraindicacao"},
+        {"text": "Existe interação entre ambroxol e antibióticos? Altera a penetração tecidual de algum antimicrobiano? ", "type": "interacao_medicamentosa"}
+      ]
+    },
+    {
+      "medication ": "Cloridrato de Ciprofloxacino ",
+      "questions ": [
+        {"text": "Ciprofloxacino pode ser administrado com antiácidos contendo alumínio ou magnésio? Qual o intervalo mínimo? ", "type": "administracao"},
+        {"text": "Qual o risco de tendinopatia com ciprofloxacino? Quais populações têm maior risco? ", "type": "reacao_adversa"},
+        {"text": "Ciprofloxacino é adequado para infecção urinária complicada? Qual a posologia e duração? ", "type": "posologia"},
+        {"text": "Paciente epiléptico pode usar ciprofloxacino? A fluoroquinolona reduz o limiar convulsivo? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Cloridrato de Oximetazolina ",
+      "questions ": [
+        {"text": "Por quanto tempo pode-se usar oximetazolina nasal sem risco de rinite medicamentosa? ", "type": "administracao"},
+        {"text": "Oximetazolina é contraindicada em pacientes com hipertensão grave? Pode elevar a pressão arterial? ", "type": "contraindicacao"},
+        {"text": "Qual a posologia de oximetazolina para adultos e para crianças acima de 6 anos? ", "type": "populacao_especial"}
+      ]
+    },
+    {
+      "medication ": "Cloridrato de Propranolol ",
+      "questions ": [
+        {"text": "Qual a dose de propranolol para profilaxia de enxaqueca em adultos? ", "type": "posologia"},
+        {"text": "Propranolol pode mascarar sinais de hipoglicemia em pacientes diabéticos? Quais sintomas ficam alterados? ", "type": "reacao_adversa"},
+        {"text": "Paciente asmático pode usar propranolol? Existe betabloqueador seguro para asmáticos? ", "type": "contraindicacao"},
+        {"text": "Como fazer o desmame de propranolol? Pode suspender abruptamente? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Clotrigel ",
+      "questions ": [
+        {"text": "Qual a posologia do clotrimazol gel para candidíase oral? ", "type": "posologia"},
+        {"text": "Clotrimazol tópico é seguro para uso em gestantes? ", "type": "populacao_especial"},
+        {"text": "Qual a duração recomendada do tratamento com clotrimazol para micoses cutâneas? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Dexaneurin ",
+      "questions ": [
+        {"text": "Qual a composição do Dexaneurin e para quais deficiências vitamínicas é indicado? ", "type": "posologia"},
+        {"text": "Dexaneurin pode ser administrado por via intramuscular? Há risco de reação no local da injeção? ", "type": "administracao"},
+        {"text": "Paciente com neuropatia diabética: qual a duração recomendada do tratamento com complexo B? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Doricin ",
+      "questions ": [
+        {"text": "Qual a composição do Doricin e quais são suas indicações terapêuticas? ", "type": "posologia"},
+        {"text": "Doricin contém cafeína? Pode causar insônia se tomado à noite? ", "type": "reacao_adversa"},
+        {"text": "Qual a dose máxima diária do Doricin em adultos? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Dortrirelax ",
+      "questions ": [
+        {"text": "Qual a composição do Dortrirelax e qual o mecanismo de ação do relaxante muscular? ", "type": "mecanismo_acao"},
+        {"text": "Dortrirelax pode causar sonolência? O paciente pode dirigir durante o tratamento? ", "type": "reacao_adversa"},
+        {"text": "Qual a posologia recomendada do Dortrirelax para dor lombar aguda? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Doxuran ",
+      "questions ": [
+        {"text": "Qual a indicação do Doxuran (doxazosina) na hiperplasia prostática benigna? ", "type": "posologia"},
+        {"text": "Doxazosina pode causar hipotensão postural? Como orientar o paciente? ", "type": "reacao_adversa"},
+        {"text": "Qual a dose inicial e a titulação recomendada de doxazosina para HPB? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Elani Ciclo ",
+      "questions ": [
+        {"text": "Qual a composição hormonal do Elani Ciclo e como difere de outros anticoncepcionais combinados? ", "type": "posologia"},
+        {"text": "Paciente fumante acima de 35 anos pode usar Elani Ciclo? Qual o risco trombótico? ", "type": "populacao_especial"},
+        {"text": "Se a paciente esquecer uma pílula de Elani Ciclo, qual a conduta conforme o dia do ciclo? ", "type": "posologia"},
+        {"text": "Elani Ciclo tem interação com antibióticos? Quais medicamentos reduzem a eficácia contraceptiva? ", "type": "interacao_medicamentosa"}
+      ]
+    },
+    {
+      "medication ": "Enalamed ",
+      "questions ": [
+        {"text": "Qual o mecanismo de ação do enalapril como anti-hipertensivo? ", "type": "mecanismo_acao"},
+        {"text": "Enalapril pode causar tosse seca? Qual a incidência e alternativa terapêutica? ", "type": "reacao_adversa"},
+        {"text": "Enalapril é contraindicado em gestantes? A partir de qual trimestre? ", "type": "populacao_especial"},
+        {"text": "Paciente com estenose bilateral de artéria renal pode usar IECA? Qual o risco? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Enoxalow ",
+      "questions ": [
+        {"text": "Qual a dose profilática de enoxaparina para tromboembolismo venoso em paciente cirúrgico? ", "type": "posologia"},
+        {"text": "Enoxaparina precisa de monitoramento de anti-Xa? Em quais situações? ", "type": "reacao_adversa"},
+        {"text": "Qual o intervalo recomendado entre a última dose de enoxaparina e uma punção espinhal? ", "type": "posologia"},
+        {"text": "Paciente com ClCr  < 30 mL/min: precisa ajustar dose de enoxaparina? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Erysidoron-1 ",
+      "questions ": [
+        {"text": "Qual a composição do Erysidoron-1 e para quais condições é indicado? ", "type": "posologia"},
+        {"text": "Erysidoron-1 contém álcool na formulação? Pode ser usado em crianças? ", "type": "populacao_especial"},
+        {"text": "Qual a posologia recomendada do Erysidoron-1 para adultos? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Esbriet ",
+      "questions ": [
+        {"text": "Qual a indicação do Esbriet (pirfenidona) e como é feita a titulação de dose? ", "type": "posologia"},
+        {"text": "Esbriet exige monitoramento de função hepática? Com qual frequência? ", "type": "reacao_adversa"},
+        {"text": "Pirfenidona causa fotossensibilidade? Quais orientações dar ao paciente? ", "type": "reacao_adversa"}
+      ]
+    },
+    {
+      "medication ": "Eskavit ",
+      "questions ": [
+        {"text": "Qual a composição vitamínica do Eskavit e suas indicações? ", "type": "posologia"},
+        {"text": "Eskavit pode ser usado em gestantes? Há risco de hipervitaminose A? ", "type": "populacao_especial"},
+        {"text": "Qual a posologia do Eskavit gotas para lactentes? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Espironolactona ",
+      "questions ": [
+        {"text": "Qual a dose de espironolactona para insuficiência cardíaca com fração de ejeção reduzida? ", "type": "posologia"},
+        {"text": "Espironolactona pode causar hipercalemia? Quais eletrólitos monitorar e com qual frequência? ", "type": "reacao_adversa"},
+        {"text": "Espironolactona pode causar ginecomastia? Qual a alternativa (eplerenona) e quando trocar? ", "type": "reacao_adversa"},
+        {"text": "Paciente com ClCr  < 30 mL/min pode usar espironolactona? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Euphorbium Compositum SN ",
+      "questions ": [
+        {"text": "Qual a composição do Euphorbium Compositum e para quais condições nasais é indicado? ", "type": "posologia"},
+        {"text": "Euphorbium pode ser usado como alternativa em pacientes que desenvolveram rinite medicamentosa por vasoconstritores? ", "type": "contraindicacao"},
+        {"text": "Qual a posologia do Euphorbium Compositum spray nasal para adultos? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Euthyrox ",
+      "questions ": [
+        {"text": "Qual a dose inicial de levotiroxina (Euthyrox) para hipotireoidismo em idosos com cardiopatia? ", "type": "populacao_especial"},
+        {"text": "Euthyrox deve ser tomado em jejum? Qual o intervalo mínimo antes de alimentos ou outros medicamentos? ", "type": "administracao"},
+        {"text": "Quais medicamentos interferem na absorção de levotiroxina? Carbonato de cálcio, ferro, IBP? ", "type": "interacao_medicamentosa"},
+        {"text": "Como ajustar a dose de Euthyrox em gestantes com hipotireoidismo? A necessidade aumenta? ", "type": "populacao_especial"}
+      ]
+    },
+    {
+      "medication ": "Expectoflui ",
+      "questions ": [
+        {"text": "Qual a composição do Expectoflui e seu mecanismo como expectorante? ", "type": "mecanismo_acao"},
+        {"text": "Expectoflui pode ser associado a antitussígenos? Há contraindicação na combinação? ", "type": "interacao_medicamentosa"},
+        {"text": "Qual a posologia do Expectoflui para crianças acima de 2 anos? ", "type": "populacao_especial"}
+      ]
+    },
+    {
+      "medication ": "Farmace Glicose 5% Solução Isotônica ",
+      "questions ": [
+        {"text": "Quais as indicações clínicas de glicose 5% isotônica como solução de manutenção? ", "type": "posologia"},
+        {"text": "Glicose 5% pode ser infundida na mesma linha que hemoderivados? ", "type": "administracao"},
+        {"text": "Qual a velocidade de infusão recomendada de glicose 5% em paciente adulto para hidratação? ", "type": "administracao"},
+        {"text": "Paciente diabético descompensado: glicose 5% é adequada para reposição volêmica? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Fator IX Grifols ",
+      "questions ": [
+        {"text": "Qual a dose de Fator IX para hemofilia B em caso de sangramento articular? ", "type": "posologia"},
+        {"text": "Como calcular a dose de Fator IX necessária para elevar o nível plasmático em X%? ", "type": "posologia"},
+        {"text": "Quais são os sinais de reação anafilática ao Fator IX e como manejar? ", "type": "reacao_adversa"}
+      ]
+    },
+    {
+      "medication ": "Fauldcita ",
+      "questions ": [
+        {"text": "Qual o mecanismo de ação da citarabina (Fauldcita) como antineoplásico? ", "type": "mecanismo_acao"},
+        {"text": "Quais são os efeitos adversos hematológicos da citarabina e como monitorar? ", "type": "reacao_adversa"},
+        {"text": "Citarabina intratecal: qual a dose e quais cuidados na administração? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Fibrogammin P ",
+      "questions ": [
+        {"text": "Qual a indicação do Fibrogammin P (Fator XIII) e em quais coagulopatias é usado? ", "type": "posologia"},
+        {"text": "Qual a dose de Fator XIII para profilaxia de sangramento? ", "type": "posologia"},
+        {"text": "Fibrogammin P pode ser administrado em infusão rápida ou precisa de controle de velocidade? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Fludalibbs ",
+      "questions ": [
+        {"text": "Qual a indicação principal da fludarabina (Fludalibbs) em oncologia? ", "type": "posologia"},
+        {"text": "Fludarabina causa imunossupressão prolongada? Precisa de profilaxia para infecções oportunistas? ", "type": "reacao_adversa"},
+        {"text": "Qual o ajuste de dose de fludarabina em paciente com insuficiência renal? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Frutose 5% ",
+      "questions ": [
+        {"text": "Frutose 5% é uma alternativa para pacientes com intolerância a glicose em hidratação venosa? ", "type": "posologia"},
+        {"text": "Quais são as contraindicações de frutose 5% intravenosa? ", "type": "contraindicacao"},
+        {"text": "Paciente com intolerância hereditária à frutose: qual o risco de administrar frutose IV? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Furoato de Mometasona ",
+      "questions ": [
+        {"text": "Qual a posologia de mometasona nasal para rinite alérgica em adultos e em crianças acima de 3 anos? ", "type": "populacao_especial"},
+        {"text": "Mometasona tópica nasal tem absorção sistêmica significativa? Pode suprimir o eixo HPA? ", "type": "reacao_adversa"},
+        {"text": "Após quantos dias de uso o paciente pode esperar melhora dos sintomas nasais com mometasona? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "FURP Amoxicilina ",
+      "questions ": [
+        {"text": "Qual a dose de amoxicilina para otite média aguda em crianças (mg/kg/dia)? ", "type": "populacao_especial"},
+        {"text": "Amoxicilina com clavulanato: quando está indicada a associação em vez de amoxicilina isolada? ", "type": "interacao_medicamentosa"},
+        {"text": "Paciente com mononucleose pode receber amoxicilina? Qual o risco de rash cutâneo? ", "type": "reacao_adversa"},
+        {"text": "Qual o ajuste de dose de amoxicilina em paciente com ClCr  < 30 mL/min? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Ganfort ",
+      "questions ": [
+        {"text": "Qual a composição do Ganfort (bimatoprosta + timolol) e sua indicação no glaucoma? ", "type": "posologia"},
+        {"text": "Paciente asmático pode usar Ganfort? O componente timolol é contraindicado? ", "type": "contraindicacao"},
+        {"text": "Ganfort pode causar alteração na cor da íris? É reversível? ", "type": "reacao_adversa"}
+      ]
+    },
+    {
+      "medication ": "Gargojuice ",
+      "questions ": [
+        {"text": "Qual a composição do Gargojuice e para quais condições orofaríngeas é indicado? ", "type": "posologia"},
+        {"text": "Gargojuice pode ser usado em crianças menores de 6 anos? ", "type": "populacao_especial"},
+        {"text": "Qual a posologia e modo de uso correto do Gargojuice? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Gastrinon ",
+      "questions ": [
+        {"text": "Qual a composição do Gastrinon e seu mecanismo como antiácido/antiulceroso? ", "type": "mecanismo_acao"},
+        {"text": "Gastrinon pode interferir na absorção de outros medicamentos? Qual o intervalo recomendado? ", "type": "interacao_medicamentosa"},
+        {"text": "Qual a posologia do Gastrinon para dispepsia e por quanto tempo pode ser usado? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Gotas Binelli ",
+      "questions ": [
+        {"text": "Qual a composição de Gotas Binelli e suas indicações terapêuticas? ", "type": "posologia"},
+        {"text": "Gotas Binelli contém álcool? Pode ser usado em crianças? ", "type": "populacao_especial"},
+        {"text": "Qual a posologia de Gotas Binelli para adultos? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Gripinew ",
+      "questions ": [
+        {"text": "Qual a composição do Gripinew e suas indicações para sintomas gripais? ", "type": "posologia"},
+        {"text": "Gripinew contém descongestionante? É contraindicado em hipertensos? ", "type": "contraindicacao"},
+        {"text": "Gripinew pode ser usado junto com outros antigripais? Há risco de sobredose de paracetamol? ", "type": "interacao_medicamentosa"}
+      ]
+    },
+    {
+      "medication ": "Blaubimax ",
+      "questions ": [
+        {"text": "Qual a composição do Blaubimax e suas indicações oftalmológicas? ", "type": "posologia"},
+        {"text": "Blaubimax pode ser usado em pacientes com lentes de contato? ", "type": "contraindicacao"},
+        {"text": "Qual a posologia e frequência de instilação do Blaubimax? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Brontek ",
+      "questions ": [
+        {"text": "Qual a composição do Brontek e sua indicação como broncodilatador/mucolítico? ", "type": "posologia"},
+        {"text": "Brontek pode ser usado em crianças abaixo de 2 anos? ", "type": "populacao_especial"},
+        {"text": "Quais são as contraindicações do Brontek para pacientes cardiopatas? ", "type": "contraindicacao"}
+      ]
+    },
+    {
+      "medication ": "Bup ",
+      "questions ": [
+        {"text": "Qual a composição do Bup (bupropiona) e suas indicações (depressão/cessação tabagismo)? ", "type": "posologia"},
+        {"text": "Bupropiona reduz o limiar convulsivo? Em quais pacientes é contraindicada? ", "type": "contraindicacao"},
+        {"text": "Qual a posologia de bupropiona para cessação do tabagismo e quando iniciar em relação à data de parar? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Algestona Acetofenida + Enantato de Estradiol ",
+      "questions ": [
+        {"text": "Qual o mecanismo contraceptivo da associação algestona + enantato de estradiol injetável? Qual a duração de ação? ", "type": "mecanismo_acao"},
+        {"text": "Qual o intervalo correto entre as aplicações do anticoncepcional injetável mensal? Há tolerância de atraso? ", "type": "posologia"},
+        {"text": "Paciente lactante pode usar anticoncepcional injetável combinado? Qual a alternativa? ", "type": "populacao_especial"}
+      ]
+    },
+    {
+      "medication ": "Angeliq ",
+      "questions ": [
+        {"text": "Qual a composição do Angeliq e sua indicação na terapia hormonal pós-menopausa? ", "type": "posologia"},
+        {"text": "Angeliq pode ser usado em pacientes com histórico de tromboembolismo venoso? Quais as contraindicações absolutas? ", "type": "contraindicacao"},
+        {"text": "Qual a diferença entre Angeliq e outros esquemas de TH combinada contínua? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Avalox ",
+      "questions ": [
+        {"text": "Qual a posologia de moxifloxacino (Avalox) para pneumonia adquirida na comunidade? ", "type": "posologia"},
+        {"text": "Moxifloxacino prolonga o intervalo QT? Quais medicamentos não devem ser co-administrados? ", "type": "interacao_medicamentosa"},
+        {"text": "Avalox precisa de ajuste de dose em insuficiência renal ou hepática? ", "type": "ajuste_dose"}
+      ]
+    },
+    {
+      "medication ": "Azanem ",
+      "questions ": [
+        {"text": "Qual a indicação do Azanem (aztreonam) e qual seu espectro de ação antimicrobiano? ", "type": "posologia"},
+        {"text": "Paciente alérgico a penicilina pode receber aztreonam com segurança? ", "type": "contraindicacao"},
+        {"text": "Qual a posologia de aztreonam para infecções graves e como é feita a administração IV? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Acetato de Dexametasona ",
+      "questions ": [
+        {"text": "Qual a equivalência de dose entre dexametasona e prednisona? Qual a potência anti-inflamatória relativa? ", "type": "posologia"},
+        {"text": "Acetato de dexametasona tópico pode ser usado na face? Qual o risco de uso prolongado? ", "type": "administracao"},
+        {"text": "Em paciente com COVID grave, qual foi a dose de dexametasona que mostrou benefício? Se aplica ao acetato? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Bariogel ",
+      "questions ": [
+        {"text": "Qual a indicação do Bariogel (sulfato de bário) e como é preparado para exame contrastado? ", "type": "administracao"},
+        {"text": "Bariogel é contraindicado em paciente com suspeita de perfuração intestinal? Qual a alternativa? ", "type": "contraindicacao"},
+        {"text": "Quais são os cuidados pós-exame com sulfato de bário para evitar impactação fecal? ", "type": "administracao"}
+      ]
+    },
+    {
+      "medication ": "Benzidrol ",
+      "questions ": [
+        {"text": "Qual a composição do Benzidrol e suas indicações como anti-histamínico? ", "type": "posologia"},
+        {"text": "Benzidrol (difenidramina) causa sonolência? O paciente pode dirigir durante o tratamento? ", "type": "reacao_adversa"},
+        {"text": "Qual a dose de difenidramina em pré-medicação para reações transfusionais? ", "type": "posologia"}
+      ]
+    },
+    {
+      "medication ": "Beriplast P ",
+      "questions ": [
+        {"text": "Qual a composição do Beriplast P (cola de fibrina) e quais as indicações cirúrgicas? ", "type": "posologia"},
+        {"text": "Beriplast P pode ser aplicado em superfícies com sangramento ativo? Qual a técnica de aplicação? ", "type": "administracao"},
+        {"text": "Quais são os riscos de reação alérgica ao Beriplast P considerando a origem do fibrinogênio? ", "type": "reacao_adversa"}
+      ]
+    },
+    {
+      "medication ": "Bialudex ",
+      "questions ": [
+        {"text": "Qual a composição do Bialudex e suas indicações terapêuticas? ", "type": "posologia"},
+        {"text": "Bialudex contém corticosteróide? Quais as precauções para uso prolongado? ", "type": "contraindicacao"},
+        {"text": "Qual a posologia recomendada do Bialudex para adultos? ", "type": "posologia"}
+      ]
+    }
+  ],
+  "summary ": {
+    "total_questions ": 189,
+    "categories ": {
+      "posologia_e_ajuste_dose ": 52,
+      "contraindicacoes ": 34,
+      "reacoes_adversas ": 26,
+      "interacoes_medicamentosas ": 22,
+      "populacoes_especiais ": 24,
+      "administracao_e_estabilidade ": 18,
+      "mecanismo_acao ": 13
+    }
+  }
+}
