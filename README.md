@@ -73,8 +73,8 @@ All data is stored in MongoDB for fast, reliable access - no web scraping or ext
 | **Runtime** | Node.js 18+ |
 | **Framework** | Express.js |
 | **Database** | MongoDB Atlas |
-| **LLM Providers** | HuggingFace, OpenAI, Anthropic, Google AI |
-| **PDF Processing** | pdf-parse |
+| **LLM Provider** | Groq (Llama-3.3-70b-versatile) |
+| **Frontend** | Vanilla HTML/CSS/JS with Claude-style Artifact Side Panel |
 | **Deployment** | Fly.io + Docker |
 
 ---
@@ -108,15 +108,12 @@ cp .env.example .env
 ### Environment Configuration
 
 ```env
-# Primary LLM Configuration
-PRIMARY_PROVIDER=huggingface
-PRIMARY_MODEL=meta-llama/Llama-3.1-8B-Instruct:cerebras
-PRIMARY_API_KEY=your_huggingface_token
+# Groq LLM Configuration
+GROQ_API_KEY=your_groq_api_key
 
-# Fallback LLM (for reliability)
-FALLBACK_PROVIDER=huggingface
-FALLBACK_MODEL=meta-llama/Llama-3.1-8B-Instruct:cerebras
-FALLBACK_API_KEY=your_huggingface_token
+# Optional Fallback Providers
+HUGGINGFACE_API_KEY=your_huggingface_token
+OPENAI_API_KEY=your_openai_key
 
 # MongoDB Atlas
 MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/farmaia
@@ -162,8 +159,7 @@ fly launch --no-deploy
 
 # Set up secrets (MongoDB and API keys)
 fly secrets set MONGODB_URI="your_mongodb_uri"
-fly secrets set PRIMARY_API_KEY="your_huggingface_token"
-fly secrets set FALLBACK_API_KEY="your_fallback_key"
+fly secrets set GROQ_API_KEY="your_groq_api_key"
 
 # Deploy
 fly deploy
@@ -196,8 +192,7 @@ Main chat endpoint for medication queries.
   "sources": [
     {
       "name": "Paracetamol",
-      "displayName": "Bula Paracetamol Richet - MongoDB",
-      "pdfUrl": "https://consultas.anvisa.gov.br/..."
+      "displayName": "Bula Paracetamol"
     }
   ],
   "metadata": {
@@ -211,34 +206,8 @@ Main chat endpoint for medication queries.
       "topics": ["reacoes_adversas"],
       "tools": [...]
     ],
-    "pdfUrl": "https://consultas.anvisa.gov.br/...",
     "drugName": "Paracetamol"
   }
-}
-```
-
-### GET `/api/pdf`
-
-PDF proxy endpoint for viewing MongoDB bulletins (avoids CORS issues).
-
-**Query Parameters:**
-- `url` - The MongoDB PDF URL to stream
-
-**Example:**
-```
-
-### POST `/api/evaluate`
-
-Evaluate response quality using MCP judges.
-
-**Request Body:**
-```json
-{
-  "question": "Quais são os efeitos colaterais?",
-  "response": "Os efeitos incluem...",
-  "documents": "...",
-  "mode": "patient",
-  "sessionId": "..."
 }
 ```
 
@@ -249,9 +218,6 @@ Evaluate response quality using MCP judges.
 | `search_medication` | Search medications by name or active ingredient |
 | `get_bula_data` | Get complete drug bulletin content |
 | `get_section` | Extract specific section (contraindications, posology, etc.) |
-| `check_interactions` | Check drug interactions between medications |
-| `
-| `fetch_anvisa_bula` | Download and extract PDF from MongoDB |
 
 ---
 
@@ -323,18 +289,18 @@ const response = await fetch('/api/chat', {
 farmaia-vercel/
 ├── api/
 │   ├── chat.js           # Main chat endpoint
-│   ├── evaluate.js       # Response evaluation endpoint
-│   └── test-*.js         # Test utilities
+│   ├── models.js         # Endpoint for available LLM models
+│   └── import-dados.js   # Script to populate MongoDB
 ├── lib/
 │   ├── llm_client.js     # Multi-provider LLM client
-│   ├── llm_config.js     # LLM configuration loader
+│   ├── llm_config.js     # LLM configuration (Groq setup)
 │   ├── planner.js        # Query planner
 │   ├── tool_registry.js  # Tool definitions & handlers
-│   ├── anvisa.js         # MongoDB API client
+│   ├── mongodb_tools.js  # MongoDB database interaction
 │   ├── db.js             # MongoDB connection
 │   └── prompt_manager.js # System prompt builder
 ├── public/
-│   └── index.html        # Frontend with PDF viewer
+│   └── index.html        # Frontend with Claude-style Artifact Side Panel
 ├── Dockerfile            # Docker container config
 ├── fly.toml              # Fly.io deployment config
 ├── server.js             # Express.js server entry point
@@ -406,10 +372,10 @@ MIT License - see LICENSE file for details
 
 ## 🙏 Acknowledgments
 
-- **MongoDB** - Brazilian Health Regulatory Agency for public API access
-- **HuggingFace** - Open-source LLM infrastructure
-- **Vercel** - Serverless deployment platform
-- **MongoDB** - Database for session management and caching
+- **ANVISA** - Official Brazilian Health Regulatory Agency drug bulletins
+- **MongoDB** - Fast, reliable database for pre-processed bulletins
+- **Groq** - Lightning-fast LLM inference
+- **Fly.io & Vercel** - Deployment platforms
 
 ---
 
