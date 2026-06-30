@@ -1,0 +1,363 @@
+[
+  {
+    "medicamento": "Acetilcisteína",
+    "pergunta_usuario": "Qual a dose de acetilcisteína como mucolítico e qual a dose para intoxicação por paracetamol? São protocolos diferentes?",
+    "etapa1_roteamento": {
+      "tempo_ms": 6962,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "dose_aplicacao_topica"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 1312,
+      "tamanho_texto_recuperado": 4524,
+      "amostra_texto_cru": "A acetilcisteína, por via intravenosa, tem um pico máximo de concentração em plasma até 20 vezes maior que uma dose semelhante por via oral (Borgstrom L e cols. 1986). A maior disponibilidade da acetilcisteína por via intravenosa acontece tanto na forma total como reduzida e poderia ser atribuída à ..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 1982,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "- Adultos: 1 ampola, 1 ou 2 vezes por dia;\n\n- Crianças acima de 2 anos: meia ampola, 1 ou 2 vezes por dia.\nNa intoxicação acidental ou voluntária por paracetamol, a terapia com acetilcisteína deve ser iniciada o quanto antes.\nO tratamento deve ser iniciado dentro de 0 a 8 horas da ingestão do paracetamol.\nPara uma administração de acetilcisteína durante 15 horas após a superdosagem de paracetamol, o tratamento é praticamente ineficaz, mas há evidência na literatura de um tratamento bem sucedido 16 - 24 horas após a ingestão de paracetamol.\nPara o tratamento como antídoto, são recomendados os seguintes esquemas de tratamento:\n\n- Dose de ataque: 150 mg/kg em 200 mL de solução por 60 min;\n\n- Segunda dose: 50 mg/kg em 500 mL por 4 horas;\n\n- Terceira dose: 100 mg/kg em 1000 mL por16 horas.\n- Dose de ataque: 150 mg/kg em 100 mL de solução por 60 min;\n\n- Segunda dose: 50 mg/kg em 250 mL por 4 horas;\n\n- Terceira dose: 100 mg/kg em 500 mL por 16 horas.\n- Dose de ataque: 150 mg/kg em 3 mL/kg de solução por 60 min;\n\n- Segunda dose: 50 mg/kg em 7 mL/kg por 4 horas;\n\n- Terceira dose: 100 mg/kg em 14 mL/kg por 16 horas."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 1027,
+      "resposta_gerada": "## Posologia para Uso como Mucolítico\n- Adultos: 1 ampola, 1 ou 2 vezes por dia;\n- Crianças acima de 2 anos: meia ampola, 1 ou 2 vezes por dia.\n\n## Posologia para Intoxicação por Paracetamol\n- Dose de ataque: 150 mg/kg em 200 mL de solução por 60 min;\n- Segunda dose: 50 mg/kg em 500 mL por 4 horas;\n- Terceira dose: 100 mg/kg em 1000 mL por 16 horas.\n- Dose de ataque: 150 mg/kg em 100 mL de solução por 60 min;\n- Segunda dose: 50 mg/kg em 250 mL por 4 horas;\n- Terceira dose: 100 mg/kg em 500 mL por 16 horas.\n- Dose de ataque: 150 mg/kg em 3 mL/kg de solução por 60 min;\n- Segunda dose: 50 mg/kg em 7 mL/kg por 4 horas;\n- Terceira dose: 100 mg/kg em 14 mL/kg por 16 horas.\n\n## Comparação dos Protocolos\nSim, são protocolos diferentes. O uso como mucolítico tem doses fixas para adultos e crianças acima de 2 anos, enquanto o tratamento para intoxicação por paracetamol envolve doses calculadas com base no peso do paciente e são administradas em diferentes volumes de solução e durações."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Aciclovir",
+    "pergunta_usuario": "Qual o ajuste de dose de aciclovir em paciente com insuficiência renal (ClCr  < 25 mL/min)?",
+    "etapa1_roteamento": {
+      "tempo_ms": 566,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "advertencias",
+      "tags_geradas": [
+        "ajuste_dose_insuficiencia_renal"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 228,
+      "tamanho_texto_recuperado": 10772,
+      "amostra_texto_cru": "O aciclovir creme não é uma preparação adequada para uso em mucosas (intravaginal, intrabucal e dos olhos, por exemplo), pois pode causar irritação. Deve-se tomar cuidado para evitar a introdução acidental nos olhos.\n\nEm pacientes com comprometimento imune grave (pessoas com Aids ou que sofreram tra..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 826,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "A bula não contém informações específicas relacionadas à sua pergunta nesta seção."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 719,
+      "resposta_gerada": "A bula não contém informações específicas relacionadas ao ajuste de dose de aciclovir em paciente com insuficiência renal (ClCr < 25 mL/min). \n\nRecomenda-se consultar um profissional de saúde para obter orientações personalizadas e adequadas para o tratamento do paciente."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Azitromicina",
+    "pergunta_usuario": "Qual o esquema posológico de azitromicina para infecção respiratória em adultos? Pode tomar com alimentos?",
+    "etapa1_roteamento": {
+      "tempo_ms": 516,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "indicacao",
+      "tags_geradas": [
+        "eficacia_infeccao_respiratoria"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 232,
+      "tamanho_texto_recuperado": 3408,
+      "amostra_texto_cru": "A azitromicina di-hidratada é indicada para o tratamento de infecções do trato respiratório inferior (incluindo bronquite e pneumonia) e superior, incluindo sinusite, faringite e amigdalite; infecções da pele e tecidos moles; em otite média aguda e nas doenças sexualmente transmissíveis devido à cla..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 932,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "Em um estudo controlado, randomizado, duplo-cego de exacerbação bacteriana aguda de bronquite crônica, azitromicina (500 mg, 1 vez ao dia, por 3 dias) foi comparada à claritromicina (500 mg, 2 vezes ao dia, por 10 dias)."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 702,
+      "resposta_gerada": "## Posologia para Adultos\n500 mg, 1 vez ao dia, por 3 dias.\n\n## Administração com Alimentos\nNão há informações sobre a necessidade de tomar com ou sem alimentos."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Besilato de Anlodipino",
+    "pergunta_usuario": "Qual a dose inicial e máxima de anlodipino para hipertensão em idosos?",
+    "etapa1_roteamento": {
+      "tempo_ms": 446,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "finalidade_exames_ajuste_posologia"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 221,
+      "tamanho_texto_recuperado": 640,
+      "amostra_texto_cru": "Besilato de anlodipino deve ser ingerido com quantidade de líquido suficiente para deglutição, com ou sem alimentos.\n\nCada comprimido de besilato de anlodipino 5 mg contém besilato de anlodipino 6,934mg equivalente a 5 mg de anlodipino.\n\nNo tratamento da hipertensão e da angina, a dose inicial usual..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 1060,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "No tratamento da hipertensão e da angina, a dose inicial usual de besilato de anlodipino é de 5 mg 1 vez ao dia, podendo ser aumentada para uma dose máxima de 10 mg, dependendo da resposta individual do paciente.\nNo tratamento da hipertensão e da angina, a dose inicial usual de besilato de anlodipino é de 5 mg 1 vez ao dia, podendo ser aumentada para uma dose máxima de 10 mg, dependendo da resposta individual do paciente."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 725,
+      "resposta_gerada": "## Posologia para Hipertensão\nA dose inicial usual de besilato de anlodipino é de 5 mg 1 vez ao dia, podendo ser aumentada para uma dose máxima de 10 mg, dependendo da resposta individual do paciente.\n\n## Observações\nNão há informações específicas sobre a dose para idosos, portanto, a dose inicial e máxima de anlodipino para hipertensão em idosos é a mesma que para adultos em geral, que é de 5 mg a 10 mg por dia."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Butilbrometo de Escopolamina + Dipirona Monoidratada",
+    "pergunta_usuario": "Pacientes com deficiência de G6PD podem receber dipirona? Quais os sinais de reação hemolítica a monitorar?",
+    "etapa1_roteamento": {
+      "tempo_ms": 491,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "advertencias",
+      "tags_geradas": [
+        "advertencia_reacao_adversa_tontura"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 230,
+      "tamanho_texto_recuperado": 12905,
+      "amostra_texto_cru": "O butilbrometo de escopolamina + dipirona monoidratada solução injetável somente deverá ser utilizado por via parenteral nos casos de espasmos dolorosos muito intensos, como por exemplo cólicas biliares ou renais.\n\nCaso a dor abdominal severa e de causa desconhecida persista ou piore, ou esteja asso..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 1012,
+      "frases_extraidas_qtd": 2,
+      "texto_filtrado_exato": "Em caso de sinais clínicos de reações hematológicas (tais como agranulocitose, anemia aplástica, trombocitopenia ou pancitopenia) o tratamento com butilbrometo de escopolamina + dipirona monoidratada deve ser descontinuado imediatamente e o hemograma (inclusive contagens sanguíneas diferenciais) deve ser monitorado até que os valores retornem para os níveis normais.\n\nTodos os pacientes devem ser aconselhados a procurar atendimento médico imediatamente caso desenvolvam sinais e sintomas sugestivos de discrasias do sangue (como mal-estar geral, infecção, febre persistente, hematomas, sangramento e palidez) durante o tratamento com butilbrometo de escopolamina + dipirona monoidratada."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 1167,
+      "resposta_gerada": "## Informações sobre Uso em Pacientes com Deficiência de G6PD\nNão há informações específicas sobre o uso de dipirona em pacientes com deficiência de G6PD nos dados fornecidos.\n\n## Sinais de Reação Hematológica\nEm caso de sinais clínicos de reações hematológicas (tais como agranulocitose, anemia aplástica, trombocitopenia ou pancitopenia) o tratamento com butilbrometo de escopolamina + dipirona monoidratada deve ser descontinuado imediatamente.\n\n## Sinais e Sintomas Sugestivos de Discrasias do Sangue\nTodos os pacientes devem ser aconselhados a procurar atendimento médico imediatamente caso desenvolvam sinais e sintomas sugestivos de discrasias do sangue, tais como:\n- Mal-estar geral\n- Infecção\n- Febre persistente\n- Hematomas\n- Sangramento\n- Palidez\n\n## Monitoramento\nO hemograma (inclusive contagens sanguíneas diferenciais) deve ser monitorado até que os valores retornem para os níveis normais após a descontinuação do tratamento devido a sinais clínicos de reações hematológicas."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Butilbrometo de Escopolamina",
+    "pergunta_usuario": "Qual o mecanismo de ação do butilbrometo de escopolamina como antiespasmódico?",
+    "etapa1_roteamento": {
+      "tempo_ms": 604,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "farmacodinamica",
+      "tags_geradas": [
+        "mecanismo_acao_antnociceptivo_propostos"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 153,
+      "tamanho_texto_recuperado": 512,
+      "amostra_texto_cru": "O butilbrometo de escopolamina exerce atividade espasmolítica sobre a musculatura lisa do trato gastrintestinal, geniturinário e vias biliares. O butilbrometo de escopolamina, como um derivado de amônio quaternário, não atravessa a barreira hematoencefálica e, deste modo, não produz efeitos colatera..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 1059,
+      "frases_extraidas_qtd": 2,
+      "texto_filtrado_exato": "O butilbrometo de escopolamina exerce atividade espasmolítica sobre a musculatura lisa do trato gastrintestinal, geniturinário e vias biliares.\n\nA ação anticolinérgica periférica resulta de uma ação bloqueadora sobre os gânglios intramurais das vísceras ocas, assim como de uma atividade antimuscarínica."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 520,
+      "resposta_gerada": "## Mecanismo de Ação\nO butilbrometo de escopolamina exerce atividade espasmolítica sobre a musculatura lisa do trato gastrintestinal, geniturinário e vias biliares.\n\n## Ação Anticolinérgica Periférica\nA ação anticolinérgica periférica resulta de uma ação bloqueadora sobre os gânglios intramurais das vísceras ocas, assim como de uma atividade antimuscarínica."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Cefalexina",
+    "pergunta_usuario": "Qual a posologia de cefalexina para infecção urinária em adultos? E em gestantes?",
+    "etapa1_roteamento": {
+      "tempo_ms": 517,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "posologia_tipo_dose_adicional"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 234,
+      "tamanho_texto_recuperado": 2704,
+      "amostra_texto_cru": "A cefalexina é administrada por via oral.\n\nAs doses para adultos variam de 1 a 4 g diários, em doses fracionadas. A dose usual para adultos é de 250 mg a cada 6 horas. Para faringites estreptocócicas, infecções da pele e estruturas da pele e cistites não complicadas em pacientes acima de 15 anos de ..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 1398,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "As doses para adultos variam de 1 a 4 g diários, em doses fracionadas.\nA dose usual para adultos é de 250 mg a cada 6 horas.\nPara faringites estreptocócicas, infecções da pele e estruturas da pele e cistites não complicadas em pacientes acima de 15 anos de idade, uma dose de 500 mg pode ser administrada a cada 12 horas.\nO tratamento de cistites deve ser de 7 a 14 dias.\nA dosagem é como a de adultos."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 664,
+      "resposta_gerada": "## Posologia para Adultos\nA dose usual para adultos é de 250 mg a cada 6 horas.\nPara cistites não complicadas em pacientes acima de 15 anos de idade, uma dose de 500 mg pode ser administrada a cada 12 horas.\nO tratamento de cistites deve ser de 7 a 14 dias.\n\n## Posologia para Gestantes\nA dosagem é como a de adultos."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Cloridrato de Cefepima",
+    "pergunta_usuario": "Qual o ajuste de dose de cefepima para paciente com ClCr entre 10-30 mL/min?",
+    "etapa1_roteamento": {
+      "tempo_ms": 400,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "ajuste_dose_insuficiencia_hepatica"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 291,
+      "tamanho_texto_recuperado": 14655,
+      "amostra_texto_cru": "O cloridrato de cefepima pode ser administrado por via intramuscular ou intravenosa.\n\nATENÇÃO: frequentemente os hospitais reconstituem produtos injetáveis utilizando agulhas 40x12, que aumentam a incidência de pequenos fragmentos de rolha serem levados para dentro do frasco durante o procedimento. ..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 749,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "A bula não contém informações específicas relacionadas à sua pergunta nesta seção."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 577,
+      "resposta_gerada": "A bula não contém informações específicas relacionadas ao ajuste de dose de cefepima para paciente com ClCr entre 10-30 mL/min. Recomenda-se consultar um profissional de saúde para obter orientação adequada sobre o ajuste de dose para pacientes com insuficiência renal."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Cloridrato de Terbinafina",
+    "pergunta_usuario": "Qual a duração do tratamento com terbinafina oral para onicomicose? Diferencia entre mão e pé?",
+    "etapa1_roteamento": {
+      "tempo_ms": 463,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "posologia_onicomicose_duracao_tratamento"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 225,
+      "tamanho_texto_recuperado": 2480,
+      "amostra_texto_cru": "Este medicamento deve ser usado por via oral com água. Ele deve ser tomado preferencialmente no mesmo horário todos os dias, com o estômago vazio ou após uma refeição.\n\nA duração do tratamento varia de acordo com a indicação e a gravidade da infecção. Adultos 250 mg, uma vez ao dia. Duração recomend..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 1126,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "Onicomicose Para a maioria dos pacientes, a duração do tratamento bem sucedido é de 6 a 12 semanas.\nOnicomicose nas unhas das mãos Na maioria dos casos, 6 semanas de tratamento são suficientes para o tratamento de infecções nas unhas das mãos.\nOnicomicose nas unhas dos pés Na maioria dos casos, 12 semanas de tratamento são suficientes para o tratamento de infecções nas unhas dos pés."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 693,
+      "resposta_gerada": "## Duração do Tratamento\nOnicomicose: 6 a 12 semanas.\n\n## Duração do Tratamento por Localização\n"
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Diclofenaco Sódico",
+    "pergunta_usuario": "Qual o risco cardiovascular do diclofenaco comparado a outros AINEs? Há contraindicação para pacientes com ICC?",
+    "etapa1_roteamento": {
+      "tempo_ms": 542,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "contraindicacao",
+      "tags_geradas": [
+        "contraindicacao_infeccoes_nao_controladas"
+      ]
+    },
+    "etapa2_banco_dados": null,
+    "etapa3_tagger_vetorial": null,
+    "etapa4_geracao_final": null,
+    "erro": "Documento não encontrado no banco."
+  },
+  {
+    "medicamento": "Diclofenaco Dietilamônio",
+    "pergunta_usuario": "Diclofenaco tópico (gel) tem absorção sistêmica significativa? Pode causar os mesmos efeitos adversos do oral?",
+    "etapa1_roteamento": {
+      "tempo_ms": 503,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "advertencias",
+      "tags_geradas": [
+        "advertencia_efeitos_sistemicos_absorcao_topica"
+      ]
+    },
+    "etapa2_banco_dados": null,
+    "etapa3_tagger_vetorial": null,
+    "etapa4_geracao_final": null,
+    "erro": "Documento não encontrado no banco."
+  },
+  {
+    "medicamento": "Dipropionato de Betametasona + Ácido Salicílico",
+    "pergunta_usuario": "Qual a indicação principal da associação betametasona + ácido salicílico? O ácido salicílico tem qual função?",
+    "etapa1_roteamento": {
+      "tempo_ms": 522,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "indicacao",
+      "tags_geradas": [
+        "estudo_infeccoes_cutaneas_pediatricas"
+      ]
+    },
+    "etapa2_banco_dados": null,
+    "etapa3_tagger_vetorial": null,
+    "etapa4_geracao_final": null,
+    "erro": "Documento não encontrado no banco."
+  },
+  {
+    "medicamento": "Dipirona Sódica",
+    "pergunta_usuario": "Qual a dose de dipirona IV para analgesia em adultos? Precisa diluir? Qual a velocidade de infusão?",
+    "etapa1_roteamento": {
+      "tempo_ms": 357,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "intervalo_administracao_doses"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 456,
+      "tamanho_texto_recuperado": 4059,
+      "amostra_texto_cru": "Figura 1: Coloque o frasco na posição vertical com a tampa para o lado de cima, gire-a até romper o lacre.\n\nFigura 2: Vire o frasco com o conta-gotas para o lado de baixo e bata levemente com o dedo no fundo do frasco para iniciar o gotejamento.\n\nA princípio, a dose e a via de administração escolhid..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 400,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "Figura 1: Coloque o frasco na posição vertical com a tampa para o lado de cima, gire-a até romper o lacre.\n\nFigura 2: Vire o frasco com o conta-gotas para o lado de baixo e bata levemente com o dedo no fundo do frasco para iniciar o gotejamento.\n\nA princípio, a dose e a via de administração escolhidas dependem do efeito analgésico desejado e das condições do paciente. Em muitos casos, a administração oral é suficiente para obter analgesia satisfatória.\n\nQuando for necessário um efeito analgésico de início rápido ou quando a administração por via oral for contraindicada, recomenda-se a administração por via intravenosa ou intramuscular.\n\nO tratamento pode ser interrompido a qualquer instante sem provocar danos ao paciente, inerentes à retirada da medicação.\n\nAdultos e adolescentes acima de 15 anos: 20 a 40 gotas em administração única ou até o máximo de 40 gotas 4 vezes ao dia.\n\nAs crianças devem receber dipirona monoidratada gotas conforme seu peso seguindo a orientação deste esquema:\n\n|deste esquema:||||\n|---|---|---|---|\n|Peso(média de idade)|Dose|Gotas|mg|\n|5 a 8kg (3 a 11 meses)|Dose única|2 a 5gotas|50 a 125|\n||Dose máxima diária|20(4 tomadas x 5gotas)|500|\n|9 a 15kg (1 a 3 anos)|Dose única|3 a 10gotas|75 a 250|\n||Dose máxima diária|40(4 tomadas x 10gotas)|1.000|\n|16 a 23kg (4 a 6 anos)|Dose única|5 a 15gotas|125 a 375|\n||Dose máxima diária|60(4 tomadas x 15gotas)|1.500|\n|24 a 30kg (7 a 9 anos)|Dose única|8 a 20gotas|200 a 500|\n||Dose máxima diária|80(4 tomadas x 20gotas)|2.000|\n|31 a 45kg (10 a 12anos)|Dose única|10 a 30gotas|250 a 750|\n||Dose máxima diária|120(4 tomadas x 30gotas)|3.000|\n|46 a 53kg (13 a 14anos)|Dose única|15 a 35 gotas|375 a 875|\n||Dose máxima diária|140(4 tomadas x 35gotas)|3.500|\n\nCrianças menores de 3 meses de idade ou pesando menos de 5kg não devem ser tratadas com dipirona monoidratada.\n\nSe o efeito de uma única dose for insuficiente ou após o efeito analgésico ter diminuído, a dose pode ser repetida respeitando-se a posologia e a dose máxima diária, conforme descrito em posologia.\n\nNão há estudos dos efeitos de dipirona monoidratada gotas administrada por vias não recomendadas. Portanto, por segurança e para garantir a eficácia deste medicamento, a administração deve ser somente por via oral.\n\nA princípio, a dose e a via de administração escolhidas dependem do efeito analgésico desejado e das condições do paciente. Em muitos casos, a administração oral ou retal é suficiente para obter analgesia satisfatória.\n\nQuando for necessário um efeito analgésico de início rápido ou quando a administração por via oral ou retal for contraindicada, recomenda-se a administração por via intravenosa ou intramuscular.\n\nAdultos e adolescentes acima de 15 anos: 10 a 20mL em administração única ou até o máximo de 20mL, 4 vezes ao dia.\n\nAs crianças devem receber dipirona monoidratada conforme seu peso seguindo a orientação deste esquema:\n\n|esquema:||||\n|---|---|---|---|\n|Peso(média de idade)|Dose|Solução oral (em mL)|mg**|\n|5 a 8kg (3 a 11meses)|Dose única|1,25 a 2,5|62,5 a 125|\n||Dose máxima diária|10(4 tomadas x 2,5mL)|500|\n|9 a 15kg (1 a 3 anos)|Dose única|2,5 a 5|125 a 250|\n||Dose máxima diária|20(4 tomadas x 5mL)|1.000|\n|16 a 23kg (4 a 6anos)|Dose única|3,75 a 7,5|187,5 a 375|\n||Dose máxima diária|30(4 tomadas x 7,5mL)|1.500|\n|24 a 30kg (7 a 9anos)|Dose única|5 a 10|250 a 500|\n||Dose máxima diária|40(4 tomadas x 10mL)|2.000|\n|31 a 45kg (10 a 12anos)|Dose única|7,5 a 15|375 a 750|\n||Dose máxima diária|60(4 tomadas x 15mL)|3.000|\n|46 a 53kg (13 a 14anos)|Dose única|8,75 a 17,5|437,5 a 875|\n||Dose máxima diária|70(4 tomadas x 17,5mL)|3.500|\n\n*utilizar copo-medida/seringa dosadora\n\nSe o efeito de uma única dose for insuficiente ou após o efeito analgésico ter diminuído, a dose pode ser repetida respeitando-se a posologia e a dose máxima diária, conforme descrito acima.\n\nNão há estudos dos efeitos de dipirona monoidratada administrada por vias não recomendadas. Portanto, por segurança e para garantir a eficácia deste medicamento, a administração deve ser somente por via oral."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 1288,
+      "resposta_gerada": "## Posologia para Adultos\nA dose de dipirona para analgesia em adultos é de 10 a 20 mL em administração única ou até o máximo de 20 mL, 4 vezes ao dia.\n\n## Diluição e Velocidade de Infusão\nNão há informações específicas sobre a necessidade de diluir a dipirona para administração intravenosa ou sobre a velocidade de infusão. A bula não fornece detalhes sobre esses aspectos para a administração intravenosa. \n\n## Uso Recomendado\nA princípio, a dose e a via de administração escolhidas dependem do efeito analgésico desejado e das condições do paciente. Em muitos casos, a administração oral é suficiente para obter analgesia satisfatória. Quando for necessário um efeito analgésico de início rápido ou quando a administração por via oral for contraindicada, recomenda-se a administração por via intravenosa ou intramuscular.\n\n## Considerações Importantes\nNão há estudos dos efeitos de dipirona monoidratada administrada por vias não recomendadas. Portanto, por segurança e para garantir a eficácia deste medicamento, a administração deve ser somente por via oral, a menos que especificamente indicado por um profissional de saúde para administração intravenosa ou intramuscular, seguindo as orientações clínicas adequadas."
+    },
+    "erro": null
+  },
+  {
+    "medicamento": "Fosfato Sódico de Prednisolona",
+    "pergunta_usuario": "Qual a dose de prednisolona para crise de asma em crianças (mg/kg/dia)?",
+    "etapa1_roteamento": {
+      "tempo_ms": 492,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "posologia_dose_maxima_recomendada"
+      ]
+    },
+    "etapa2_banco_dados": null,
+    "etapa3_tagger_vetorial": null,
+    "etapa4_geracao_final": null,
+    "erro": "Documento não encontrado no banco."
+  },
+  {
+    "medicamento": "Furosemida",
+    "pergunta_usuario": "Qual o ajuste de dose de furosemida em paciente com edema refratário? Existe dose máxima diária?",
+    "etapa1_roteamento": {
+      "tempo_ms": 530,
+      "metodo_classificacao": "q2q_llm_autocorrect",
+      "secao_predita": "posologia",
+      "tags_geradas": [
+        "posologia_esquema_dose_fracionada"
+      ]
+    },
+    "etapa2_banco_dados": {
+      "tempo_ms": 218,
+      "tamanho_texto_recuperado": 1085,
+      "amostra_texto_cru": "A dose deve ser a menor possível para atingir o efeito desejado. Os comprimidos devem ser ingeridos com líquido, por via oral e com o estômago vazio. É vantajoso tomar a dose diária de uma só vez, escolhendo-se o horário mais prático, de tal forma que não fique perturbado o ritmo normal de vida do p..."
+    },
+    "etapa3_tagger_vetorial": {
+      "tempo_ms": 309,
+      "frases_extraidas_qtd": 1,
+      "texto_filtrado_exato": "A dose deve ser a menor possível para atingir o efeito desejado. Os comprimidos devem ser ingeridos com líquido, por via oral e com o estômago vazio. É vantajoso tomar a dose diária de uma só vez, escolhendo-se o horário mais prático, de tal forma que não fique perturbado o ritmo normal de vida do paciente pela rapidez da diurese.\n\nA menos que seja prescrito de modo diferente, recomenda-se o seguinte esquema: Adultos\n\nO tratamento geralmente é iniciado com 20 a 80mg por dia. A dose de manutenção é de 20 a 40mg por dia.\n\nA dose máxima depende da resposta do paciente.\n\nA duração do tratamento é determinada pelo médico. Crianças\n\nSe possível, a furosemida deve ser administrada por via oral para lactentes e crianças abaixo de 15 anos de idade.\n\nA posologia recomendada é de 2mg/kg de peso corporal, até um máximo de 40mg por dia. A duração do tratamento é determinada pelo médico.\n\nNão há estudos dos efeitos da furosemida administrada por vias não recomendadas. Portanto, por segurança e para garantir a eficácia deste medicamento, a administração deve ser somente por via oral."
+    },
+    "etapa4_geracao_final": {
+      "tempo_ms": 1273,
+      "resposta_gerada": "## Posologia para Adultos\nA dose deve ser a menor possível para atingir o efeito desejado. \nO tratamento geralmente é iniciado com 20 a 80mg por dia. \nA dose de manutenção é de 20 a 40mg por dia.\n\n## Dose Máxima\nA dose máxima depende da resposta do paciente.\n\n## Administração\nOs comprimidos devem ser ingeridos com líquido, por via oral e com o estômago vazio. \nÉ vantajoso tomar a dose diária de uma só vez, escolhendo-se o horário mais prático, de tal forma que não fique perturbado o ritmo normal de vida do paciente pela rapidez da diurese.\n\n## Posologia para Crianças\nSe possível, a furosemida deve ser administrada por via oral para lactentes e crianças abaixo de 15 anos de idade.\nA posologia recomendada é de 2mg/kg de peso corporal, até um máximo de 40mg por dia.\n\n## Observações\nA duração do tratamento é determinada pelo médico.\nNão há estudos dos efeitos da furosemida administrada por vias não recomendadas. \nPortanto, por segurança e para garantir a eficácia deste medicamento, a administração deve ser somente por via oral.\n\nNão consta na bula informações específicas sobre ajuste de dose para paciente com edema refratário. Recomenda-se consultar um profissional de saúde para obter orientações personalizadas."
+    },
+    "erro": null
+  }
+]
