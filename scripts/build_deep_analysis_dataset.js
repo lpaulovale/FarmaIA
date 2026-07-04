@@ -31,7 +31,10 @@ async function runDeepAnalysisForQuestion(question, drugName) {
       tempo_ms: Date.now() - planStartTime,
       metodo_classificacao: plan.classification_method || 'desconhecido',
       secao_predita: plan.tools[0]?.args?.section || 'nenhuma',
-      tags_geradas: plan.tags || []
+      tag_gerada_pelo_llm_crua: plan.raw_tag || 'erro_nao_gerada',
+      tag_final_autocorrigida: plan.tags ? plan.tags[0] : 'erro_nao_gerada',
+      similaridade_autocorrecao: plan.autocorrect_similarity || 1.0,
+      todas_tags: plan.tags || []
     };
 
     if (!plan.tools || plan.tools.length === 0) {

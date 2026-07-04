@@ -1,0 +1,930 @@
+Você é um Farmacêutico Clínico Especialista em Ontologias Médicas e NLP.
+
+Abaixo, fornecerei vários parágrafos extraídos da seção "POSOLOGIA" de bulas reais.
+Sua tarefa é analisar o texto bruto, encontrar padrões de instruções clínicas e criar uma lista exaustiva de "Tags de Intenção" (Intention Tags) que cubram todas as informações contidas neles.
+
+REGRAS RÍGIDAS:
+1. BOTTOM-UP: Nenhuma tag pode ser inventada se não houver um trecho explícito que a justifique.
+2. GRANULARIDADE: Específica o suficiente para roteamento, mas genérica para servir a várias bulas (ex: "contraindicacao_doenca_cardiaca").
+3. FORMATO: Apenas snake_case (letras minúsculas e sublinhado).
+
+O QUE VOCÊ DEVE RETORNAR PARA CADA TAG IDENTIFICADA (em formato JSON estrito):
+[
+  {
+    "nome_tag": "tag_em_snake_case",
+    "descricao_intencao": "Que tipo de pergunta ativaria essa tag?",
+    "evidencia_extraida": "Frase exata da bula que originou a tag"
+  }
+]
+
+Aqui estão os textos brutos das bulas para a sua análise:
+--- BULA: CLORIDRATO DE PROPRANOLOL ---
+Os comprimidos de cloridrato de propranolol devem ser administrados por via oral, engolidos inteiros com água. Posologia
+
+CLORIDRATO DE PROPRANOLOL_VPS
+
+Dose inicial de 80 mg, duas vezes ao dia, que pode ser aumentada em intervalos semanais, de acordo com a resposta. A dose usual está na faixa de 160-320 mg por dia. Com administração concomitante de diuréticos ou outros medicamentos antihipertensivos obtém-se uma redução adicional da pressão arterial.
+
+O limite máximo diário de administração de cloridrato de propranolol para o tratamento da pressão alta é de 640 mg.
+
+Dose inicial de 40 mg, duas ou três vezes ao dia, que pode ser aumentada em igual quantidade, em intervalos semanais, de acordo com a resposta do paciente. Uma resposta adequada para ansiedade, enxaqueca e tremor essencial é geralmente observada na faixa de 80-160 mg/dia e, para angina, na faixa de 120-240 mg/dia. A mínima dose diária para tremor essencial pode ser de 40 mg.
+
+O limite máximo diário de administração de cloridrato de propranolol para cada um dos tratamentos listados abaixo é de:
+
+- Angina pectoris: 480 mg
+
+Uma faixa de dose de 10 a 40 mg, três ou quatro vezes ao dia, geralmente atinge a resposta desejada.
+
+- Taquicardia por ansiedade: 160 mg
+
+- Cardiomiopatia: 160 mg
+
+- Tireotoxicose: 160 mg
+
+Feocromocitoma (cloridrato de propranolol deve ser usado apenas na presença de efetivo bloqueio alfa) Pré-operatório: recomendam-se 60 mg diários, por três dias.
+
+Casos malignos inoperáveis: 30 mg diários.
+
+O limite máximo diário de administração de cloridrato de propranolol para o tratamento do feocromocitoma é de 60 mg para pré-operatório e de 30 mg para casos malignos inoperáveis.
+
+Tabela - Resumo das doses de cloridrato de propranolol para Adultos (em doses divididas)
+
+||Dose mínima/dia|Dose máxima/dia|
+|---|---|---|
+|Hipertensão|160 mg|640 mg|
+|Angina pectoris|80 mg|480 mg|
+|Arritmias|30 mg|240 mg|
+|Enxaqueca|80 mg|240 mg|
+|Tremor|40 mg|160 mg|
+|Ansiedade|80 mg|160 mg|
+|Taquicardiapor ansiedade|30 mg|160 mg|
+|Tireotoxicose|30 mg|160 mg|
+|Cardiomiopatia|30 mg|160 mg|
+|Feocromocitoma|60 mg (pré-operatório)30 mg (manutenção)|60 mg30 mg|
+
+--- BULA: DIPIRONA SÓDICA ---
+Coloque o frasco na posição vertical com a tampa para o lado de cima, gire-a até romper o lacre. Vire o frasco para o lado de baixo para gotejar a quantidade pretendida de gotas.
+
+A princípio, a dose e a via de administração escolhidas dependem do efeito analgésico desejado e das condições do paciente. Em muitos casos, a administração oral ou retal é suficiente para obter analgesia satisfatória.
+
+Quando for necessário um efeito analgésico de início rápido ou quando a administração por via oral ou retal for contraindicada, recomenda-se a administração por via intravenosa ou intramuscular. O tratamento pode ser interrompido a qualquer instante sem provocar danos ao paciente, inerentes à retirada da medicação.
+
+Cada 1 mL = 20 gotas (quando o frasco for mantido na posição vertical para gotejar a quantidade pretendida de gotas conforme indicado abaixo).
+
+Adultos e adolescentes acima de 15 anos: 20 a 40 gotas em administração única ou até o máximo de 40 gotas, 4 vezes ao dia.
+
+As crianças devem receber dipirona conforme seu peso seguindo a orientação deste esquema:
+
+|Peso(média de idade)|Dose|Gotas|mg|
+|---|---|---|---|
+||Dose única|2 a 5 gotas|50 a 125|
+|5 a 8 kg (3 a 11 meses)|Dose máxima diária|20 (4 tomadas x 5 gotas)|500|
+|9 a 15 kg (1 a 3 anos)|Dose únicaDose máxima diária|3 a 10 gotas40 (4 tomadas x 10 gotas)|75 a 2501000|
+|16 a 23 kg (4 a 6 anos)|Dose únicaDose máxima diária|5 a 15 gotas60(4 tomadas x 15gotas)|125 a 3751500|
+|24 a 30 kg (7 a 9 anos)|Dose únicaDose máxima diária|8 a 20 gotas80(4 tomadas x 20gotas)|200 a 5002000|
+|31 a 45 kg (10 a 12 anos)|Dose únicaDose máxima diária|10 a 30 gotas120(4 tomadas x 30gotas)|250 a 7503000|
+|46 a 53 kg (13 a 14 anos)|Dose únicaDose máxima diária|15 a 35 gotas140(4 tomadas x 35gotas)|375 a 8753500|
+
+Crianças menores de 3 meses de idade ou pesando menos de 5 kg não devem ser tratadas com dipirona. Se o efeito de uma única dose for insuficiente ou após o efeito analgésico ter diminuído, a dose pode ser repetida respeitando-se a posologia e a dose máxima diária, conforme descrito em posologia. Não há estudos dos efeitos da dipirona gotas administrada por vias não recomendadas. Portanto, por segurança e para garantir a eficácia deste medicamento, a administração deve ser somente por via oral.
+
+--- BULA: ENOXALOW ---
+Não foi observado aumento na tendência de hemorragia em idosos com doses profiláticas. Pacientes idosos (especialmente pacientes ≥ 80 anos de idade) podem ter um aumento no risco de complicações hemorrágicas com doses terapêuticas. Portanto, aconselha-se monitorização clínica cuidadosa (vide item Características farmacológicas ).
+
+Técnica de injeção intravenosa.
+
+A seringa contendo o medicamento deve ser aplicada na linha arterial do circuito, no início da sessão de hemodiálise, para prevenção da coagulação do circuito de circulação extracorpórea durante a hemodiálise.
+
+Administração intravenosa
+
+A dose recomendada é de 1 mg/Kg de ENOXALOW[®] (enoxaparina sódica) injetada na linha arterial do circuito, no início da sessão de hemodiálise. O efeito desta dose geralmente é suficiente para uma sessão com duração de 4 horas. No caso de aparecimento de anéis de fibrina ou de uma sessão mais longa que o normal deve-se administrar dose complementar de 0,5 a 1,0 mg/Kg de ENOXALOW[®] (enoxaparina sódica). Em pacientes que apresentam alto risco hemorrágico, a dose deve ser reduzida para 0,5 mg/Kg quando o acesso vascular for duplo ou 0,75 mg/Kg quando o acesso vascular for simples.
+
+Orientações para o uso correto da seringa preenchida com dispositivo de segurança:
+
+A seringa deve ser retirada do blíster segurando pelo corpo.
+
+Remova a proteção da agulha puxando-a diretamente para fora da seringa.
+
+Se for necessário ajustar a dose, o ajuste da dose deve ser feito antes de injetar a dose prescrita.
+
+Injetar usando a técnica padrão, empurrando o êmbolo até o fundo da seringa.
+
+Retire a seringa do local da aplicação mantendo o dedo na haste do êmbolo.
+
+Orientando a agulha para longe de você e de outras pessoas, ative o dispositivo de segurança empurrando firmemente a haste do êmbolo.
+
+Descarte a seringa imediatamente no coletor de objetos cortantes mais próximo.
+
+--- BULA: EUPHORBIUM COMPOSITUM SN ---
+Spray Nasal – Via nasal – Frasco com 20 ml.
+
+Via oral. Tomar as gotas com um pouco de água.
+
+Adultos: em geral, 10 gotas, 3 vezes ao dia. Nos casos agudos, iniciar com 10 gotas a cada 15 minutos e reduzir para 10 gotas 6 vezes ao dia.
+
+Crianças: a dosagem pediátrica deve seguir a tabela abaixo
+
+Grupo etário Dosagem normal Dosagem aguda Crianças de 1 – 6 anos 5 gotas com um pouco de água, 3 Ingerir com um pouco de água 5 vezes ao dia. gotas a cada meia hora ou uma hora, até 12 vezes ao dia. Crianças de 6 – 12 anos 7 gotas com um pouco de água, 3 Ingerir com um pouco de água 7 vezes ao dia. gotas a cada meia hora ou uma hora, até 12 vezes ao dia. Adolescentes acima de 12 anos Dosagem de adulto Dosagem de adulto
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA ---
+O butilbrometo de escopolamina solução injetável deve ser administrado lentamente por via intravenosa, intramuscular ou subcutânea. As doses recomendadas são:
+
+– Adultos e adolescentes acima de 12 anos: 1 a 2 ampolas de butilbrometo de escopolamina (20-40 mg), que pode ser administrado várias vezes ao dia. Não exceder a dose diária máxima de 5 ampolas (100 mg).
+
+- Lactentes e crianças menores de 12 anos: em casos graves, 0,3 mg a 0,6 mg/kg de peso corpóreo, que pode ser administrado várias vezes ao dia. Não exceder a dose máxima diária de 1,5 mg/kg de peso corpóreo.
+
+O butilbrometo de escopolamina não deve ser administrado de forma contínua ou por períodos prolongados sem que a causa da dor abdominal seja investigada.
+
+A ampola de butilbrometo de escopolamina injetável possui sistema de quebra que facilita sua abertura. Este sistema de quebra pode ser por meio de anel de ruptura (Vibrac) ou ponto único (OPC).
+
+No sistema de anel de ruptura (Vibrac) há um anel aplicado no gargalo da ampola composto por tinta específica que fragiliza o vidro e facilita a ruptura neste local.
+
+No sistema de ponto único (OPC) há um ponto de tinta comum que tem função de orientar o local de apoio para que se faça a força que irá gerar o rompimento da ampola no gargalo. Neste caso o gargalo não possui anel de tinta, porém, possui uma incisão superficial (fio cut) que facilita a ruptura neste local. Siga as orientações abaixo para realizar a abertura da ampola de forma correta.
+
+1. Segure a ampola inclinada em um ângulo de 45°.
+
+2. Posicione os dedos polegares no gargalo da ampola, onde possui o anel de ruptura, que corresponde ao local indicado para rompimento.
+
+3. Posicione os dedos indicadores na haste e no corpo da ampola, de forma que o gargalo que é o local da ruptura esteja no centro desta distância.
+
+4. Certifique-se de que não está apertando a haste da ampola, para evitar que ela se quebre.
+
+5. Exerça força com os polegares para frente e com o indicador que está na haste da ampola para trás, para realizar a abertura da ampola.
+
+==> picture [92 x 127] intentionally omitted <==
+
+----- Start of picture text -----
+&----- End of picture text -----
+
+1. Segure a ampola pelo corpo.
+
+2. Com a outra mão segure a haste de forma que o polegar e o indicador estejam posicionados na direção do ponto de tinta.
+
+3. Exerça força sobre a haste fazendo um movimento de rotação para trás para realizar a abertura da ampola.
+
+--- BULA: GOTAS BINELLI ---
+Adultos: 30 gotas, 4 vezes ao dia. Crianças acima de 3 anos: 15 gotas, 4 vezes ao dia. Crianças de 2 a 3 anos: 4 a 8 gotas, 4 vezes ao dia.
+
+Em caso de esquecimento o paciente deve ser orientado a esperar até o horário de tomada da próxima dose. O paciente deve ser orientado a não tomar mais do que a dose normal prescrita.
+
+--- BULA: FUROATO DE MOMETASONA ---
+Uma fina camada de furoato de mometasona deverá ser aplicada de modo a cobrir toda a área afetada, uma vez por dia.
+
+Antes do uso, bata levemente a bisnaga em superfície plana com a tampa virada para cima, para que o conteúdo do produto esteja na parte inferior da bisnaga e não ocorra desperdício ao se retirar a tampa. O furoato de mometasona é indicado para uso dermatológico.
+
+Não fazer curativos sobre a aplicação (curativos oclusivos), a não ser por indicação médica.
+
+No caso de esquecimento de alguma dose, oriente seu paciente a aplicar a medicação assim que possível e a manter o mesmo horário da aplicação até o término do tratamento.
+
+--- BULA: BUP ---
+A bupropiona é destinada apenas para uso oral. A inalação de comprimidos triturados ou a injeção de bupropiona dissolvida foram relatadas, podendo levar a uma rápida liberação e absorção, além de potencial overdose. Convulsões e/ou casos de morte foram relatados quando a bupropiona foi administrada por via intranasal ou por injeção parenteral.
+
+A síndrome da serotonina foi relatada quando a bupropiona é coadministrada com medicamentos conhecidos por estarem associados à síndrome da serotonina, incluindo inibidores seletivos da recaptação da serotonina (ISRSs) ou inibidores da recaptação da serotonina norepinefrina (IRSNs). Se o tratamento concomitante com outros agentes serotoninérgicos for clinicamente justificado, recomenda-se a observação cuidadosa do paciente, particularmente durante o início do tratamento e aumentos de dose (ver Interações Medicamentosas).
+
+A síndrome da serotonina também foi relatada em casos de superdosagem com bupropiona (ver item 10. SUPERDOSE)
+
+Os comprimidos de Bup® (cloridrato de bupropiona) (12 horas) devem ser engolidos inteiros. Os comprimidos não podem ser partidos, triturados e nem mastigados, pois isso pode ocasionar elevação do risco de eventos adversos, inclusive convulsões. Estudos sugerem que a exposição à bupropiona pode ser aumentada quando os comprimidos de ação prolongada são tomados junto com alimentos.
+
+A dose única máxima de Bup® (cloridrato de bupropiona) é de 150 mg.
+
+Bup (cloridrato de bupropiona)_COM REV LIB PROL_VP
+
+Bup® (cloridrato de bupropiona) (12 horas) comprimidos deve ser administrado duas vezes ao dia, com intervalo mínimo de 8 horas entre as doses. Insônia é um efeito adverso muito comum, frequentemente transitório, e pode ser reduzido evitando-se a administração do medicamento próximo ao horário de dormir (contanto que haja intervalo de, no mínimo, 8 horas entre as doses) ou, se clinicamente indicado, uma redução da dose.
+
+A dose inicial é de 150 mg, administrada como dose única diária. Pacientes que não respondem adequadamente à dose de 150 mg/dia podem se beneficiar com o aumento para a dose adulta usual de 300 mg/dia, administrada como 150 mg duas vezes ao dia. A dose diária máxima é de 300 mg.
+
+O início da ação da bupropiona foi observado no período de 14 dias após o começo do tratamento.
+
+O efeito antidepressivo completo de Bup® (cloridrato de bupropiona) pode não ser evidente até depois de algumas semanas de tratamento, assim como acontece com quase todos os antidepressivos.
+
+Considera-se que episódios agudos de depressão necessitam de seis meses ou mais de terapia com drogas antidepressivas. Bup® (cloridrato de bupropiona) (300 mg/dia) tem demonstrado eficácia durante tratamentos prolongados (estudos com até um ano de duração).
+
+Não é indicado o uso de Bup® (cloridrato de bupropiona) em crianças ou adolescentes com menos de 18 anos de idade (ver item 5. ADVERTÊNCIAS E PRECAUÇÕES).
+
+A segurança e a eficácia de Bup® (cloridrato de bupropiona) comprimidos em pacientes com menos de 18 anos não foram estabelecidas.
+
+A maior sensibilidade de alguns pacientes idosos à bupropiona não pode ser ignorada. Dessa forma, a redução na frequência e/ou na dosagem pode ser requerida (ver item 5. ADVERTÊNCIAS E PRECAUÇÕES).
+
+--- BULA: BESILATO DE ANLODIPINO ---
+Besilato de anlodipino deve ser ingerido com quantidade de líquido suficiente para deglutição, com ou sem alimentos.
+
+Cada comprimido de besilato de anlodipino 5 mg contém besilato de anlodipino 6,934mg equivalente a 5 mg de anlodipino.
+
+No tratamento da hipertensão e da angina, a dose inicial usual de besilato de anlodipino é de 5 mg 1 vez ao dia, podendo ser aumentada para uma dose máxima de 10 mg, dependendo da resposta individual do paciente.
+
+Não é necessário ajuste de dose de besilato de anlodipino na administração concomitante com diuréticos tiazídicos, betabloqueadores e inibidores da enzima conversora da angiotensina (ECA).
+
+--- BULA: FLUDALIBBS ---
+Orientações gerais de uso e manuseio: Fludalibbs[®] não deve ser manuseado por gestantes. Devem ser adotados os procedimentos e medidas pertinentes para adequado manuseio e descarte, observando-se as diretrizes empregadas para medicamentos citotóxicos. Qualquer quantidade não utilizada deve ser descartada por incineração.
+
+Fludalibbs[®] deve ser administrado sob a supervisão de médico qualificado e experiente no uso de terapia antineoplásica.
+
+Instruções especiais para preparação para uso intravenoso: Fludalibbs[®] deve ser preparado para uso parenteral por adição de água estéril para injetáveis, em condições assépticas. Quando reconstituído com 2 mL de água estéril para injetáveis, o liofilizado deve dissolver-se completamente no máximo em 15 segundos. Cada mL da solução resultante contém 25 mg de fosfato de fludarabina, 25 mg de manitol e hidróxido de sódio para ajuste do pH a 7,7. A faixa de pH para o produto final é 7,2 a 8,2. Em estudos clínicos, o produto foi diluído em 100 ou 125 mL de solução de glicose 5% ou solução de cloreto de sódio 0,9%.
+
+Após reconstituição, Fludalibbs[®] deve ser utilizado no prazo máximo de 8 horas (em temperatura ambiente), e protegido da luz, pois não contém agentes conservantes.
+
+Medidas adequadas devem ser tomadas para assegurar a esterilidade da solução reconstituída.
+
+Deve-se ter cautela no manuseio e preparação da solução de Fludalibbs[®] . O uso de luvas de látex e óculos de segurança é recomendado para se evitar exposição, em caso de quebra do frasco ou outro derramamento acidental. Se a solução entrar em contato com a pele ou mucosas, a área deve ser lavada cuidadosamente com água e sabão. No caso de contato com os olhos, enxaguá-los cuidadosamente com bastante água. Exposição por inalação deve ser evitada.
+
+1. Inserir a agulha de injeção de, no máximo, 1,20x40 mm de calibre;
+
+2. Encher a seringa com o diluente apropriado;
+
+3. Apoiar o frasco-ampola firmemente na posição vertical;
+
+4. Perfurar a tampa de borracha de Fludalibbs[®] dentro do círculo central demarcado, inserindo assepticamente a agulha a 45º com bisel voltado para cima e, ao longo da perfuração, posicioná-la a 90º (figura abaixo);
+
+5. Evitar que as novas perfurações sejam no mesmo local;
+
+6. É recomendado não perfurar mais de 3 vezes a área demarcada (círculo central);
+
+7. A cada 3 perfurações com uma mesma agulha, substituí-la por uma nova.
+
+Veja abaixo o procedimento:
+
+Após a reconstituição, o profissional da saúde deverá inspecionar cuidadosamente, antes de sua utilização, se a solução no interior do frasco-ampola está fluida, livre de fragmentos ou de alguma substância que possa comprometer a eficácia e a segurança do medicamento. Não é recomendado a utilização do produto ao verificar qualquer alteração que possa prejudicar a saúde do paciente.
+
+Posologia: Fludalibbs[®] deve ser administrado exclusivamente por via intravenosa . Embora não tenha sido relatado nenhum caso no qual a administração paravascular de fosfato de fludarabina tenha ocasionado reações adversas locais graves, deve-se evitar a administração paravascular não intencional deste produto. Não se deve adicionar outros medicamentos à solução para uso intravenoso.
+
+A dose recomendada de Fludalibbs[®] é 25 mg de fosfato de fludarabina/m[2] de área de superfície corpórea administrada diariamente durante 5 dias consecutivos, a cada 28 dias, por via intravenosa. O produto deve ser reconstituído pela adição de 2 mL de água para injetáveis. Cada mL da solução resultante contém 25 mg de fosfato de fludarabina (ver subitem “Instruções especiais para preparação para uso intravenoso”). A dose necessária (calculada baseando-se na área de superfície corpórea do paciente) deve ser retirada com auxílio de uma seringa. Para injeção intravenosa em _bolus_ , esta dose deve ser posteriormente diluída em 10 mL de solução de cloreto de sódio 0,9%. Alternativamente, para infusão, a dose necessária retirada com auxílio de uma seringa pode ser diluída em 100 mL de solução de cloreto de sódio 0,9% e infundida por aproximadamente 30 minutos.
+
+A duração do tratamento depende da resposta e da tolerabilidade ao fármaco.
+
+Em pacientes com LLC, recomenda-se a administração de Fludalibbs[®] até obtenção de resposta máxima (remissão completa ou parcial, geralmente 6 ciclos) e a seguir a descontinuação do uso do produto.
+
+Uso em pacientes com comprometimento renal: As doses devem ser ajustadas para pacientes com função renal reduzida. Se a depuração de creatinina estiver entre 30 e 70 mL/min, a dose deve ser reduzida em até 50% e a toxicidade avaliada por rigoroso controle hematológico. Para informações adicionais, ver item “5. Advertências e Precauções”.
+
+O tratamento com Fludalibbs[®] é contraindicado se a depuração de creatinina for < 30 mL/min.
+
+--- BULA: FIBROGAMMIN P ---
+Necessário aquisição de um dispositivo agulhado do tipo escalpe de calibre 25G.
+
+1 mL de solução equivale a 62,5 UI e 100 UI equivale a 1,6 mL, respectivamente.
+
+A quantidade a ser administrada e a frequência da administração deverão sempre ser orientadas para eficácia clínica, em casos individuais.
+
+O regime de dosagem deve ser individualizado baseado no peso corpóreo, valores laboratoriais e na condição clínica do paciente.
+
+a) Profilaxia de rotina para pacientes em tratamento da deficiência congênita de FXIII
+
+- 40 Unidades Internacionais (UI) por kg de peso corpóreo.
+
+- A velocidade de injeção não deve exceder 4mL por minuto.
+
+- A dosagem deve ser guiada pelo nível de atividade mínima mais recente de FXIII, com dosagem a cada 28 dias (4 semanas) para manter um nível de atividade mínimo de FXIII de aproximadamente 5 a 20%.
+
+- Os ajustes de dosagem recomendados de ± 5 UI/kg devem ser baseados nos níveis de atividade mínimos de FXIII, como apresentado na Tabela 1, e na condição clínica do paciente.
+
+- Os ajustes posológicos devem ser feitos com base em um ensaio específico, sensível para determinar os níveis de FXIII. Um exemplo de ajuste de dose utilizando o ensaio padrão de atividade de FXIII Berichrom[®] está delineado na Tabela 1 logo abaixo.
+
+Tabela 1: Ajuste de dose utilizando o ensaio de atividade de FXIII Berichrom[® ]
+
+|Nível de atividade mínimo de FXIII (%)|Alteração Posológica|
+|---|---|
+|Um nível mínimo <5%|Aumentar 5 unidades/kg|
+|Nível mínimo de 5% a 20%|Sem alteração|
+
+|Dois níveis mínimos >20%|Diminuir 5 unidades/kg|
+|---|---|
+|Um nível mínimo >25%|Diminuir 5 unidades/kg|
+
+A potência expressa em unidades é determinada usando o ensaio de atividade de FXIII Berichrom[®] , referenciado pelo _International Standard for Blood Coagulation Factor XIII Plasma_ atual. Desta forma, uma unidade é equivalente a uma Unidade Internacional.
+
+b) Profilaxia prévia à cirurgia para pacientes em tratamento da deficiência congênita de FXIII
+
+Após a última dose profilática de rotina do paciente, caso uma cirurgia seja programada:
+
+- Entre 21 e 28 dias depois – administrar a dose profilática completa do paciente imediatamente antes da cirurgia e a próxima dose profilática deve ser administrada 28 dias depois.
+
+- Entre 8 e 21 dias depois – uma dose adicional (completa ou parcial) pode ser administrada antes da cirurgia. A dose deve ser guiada pelo nível de atividade de FXIII e pela condição clínica e deve ser ajustada de acordo com a meia-vida de Fibrogammin[®] P .
+
+- Dentro de 7 dias da última dose – pode não ser necessária dosagem adicional.
+
+Ajustes posológicos podem ser diferentes destas recomendações e devem ser individualizados baseados nos níveis de atividade de FXIII e na condição clínica do paciente. Todos os pacientes devem ser cuidadosamente monitorados durante e após a cirurgia.
+
+Portanto, é recomendado o monitoramento do aumento da atividade de FXIII com um ensaio de FXIII. No caso de cirurgias de grande porte e hemorragias graves, o objetivo é obter valores próximos dos normais (pessoas saudáveis: 70% - 140%).
+
+Para o tratamento de diáteses hemorrágicas, administrar pelo menos 15 a 20 UI/kg de peso corporal diariamente, até a melhora dos sintomas e o retorno espontâneo do nível de FXIII ao valor normal.
+
+A posologia e o método de administração em crianças e adolescentes são baseados no peso corporal e, portanto, devem seguir as mesmas recomendações para adultos. A dose e/ou a frequência de administração para cada paciente deve sempre ser guiada pela eficácia clínica e pelos níveis de atividade de FXIII (ver item 3. Características Farmacológicas ).
+
+A posologia e o método de administração em pacientes idosos (> 65 anos) não foram documentados em estudos clínicos.
+
+- Após a reconstituição a solução deve ser clara ou ligeiramente opalescente;
+
+- Deixar o diluente atingir a temperatura ambiente antes da administração;
+
+- Injetar ou infundir lentamente via intravenosa a uma taxa a qual o paciente ache confortável;
+
+- A taxa de injeção/infusão não deve exceder aproximadamente 4 mL/min.
+
+Observe o paciente para qualquer reação imediata. Se qualquer reação ocorrer e que possa estar relacionada à administração de Fibrogammin[® ] P , a taxa de infusão deve ser diminuída ou a infusão deve ser interrompida, conforme a condição clínica do paciente.
+
+- A solução deve ser clara ou ligeiramente opalescente. Após a filtragem/aspiração (ver abaixo), o produto reconstituído deve ser inspecionado visualmente para detecção de partículas e descoloração antes da administração;
+
+- A reconstituição e aspiração devem ser realizadas em condições assépticas;
+
+- Não utilizar se a solução estiver turva ou apresentar resíduos (depósitos/partículas). Fibrogammin[®] P não deve ser misturado a outros medicamentos, diluentes ou solventes e deve ser administrado por linha de infusão separada.
+
+Deixe o diluente atingir a temperatura ambiente. Assegure-se que as tampas dos frascos do produto e do diluente foram retiradas e as tampas de borracha foram tratadas com solução antisséptica e que estejam secas antes da abertura da embalagem do dispositivo de transferência “Mix2Vial”.
+
+1. Abra a embalagem do “Mix2Vial” retirando a tampa. Não remova o “Mix2Vial” da embalagem. wi 2. Coloque o frasco do diluente sobre uma superfície plana e limpa e segure o frasco firmemente. Pegue o “Mix2Vial” junto com a embalagem e empurre a ponta azul do adaptador em linha reta para baixo através da tampa de borracha do frasco do diluente. 3. Retire cuidadosamente a embalagem do conjunto “Mix2Vial” segurando na borda, e puxando verticalmente para cima. Certifiquese de que somente a embalagem seja retirada e não o conjunto & “Mix2Vial”. ~~cee~~
+
+4. Coloque o frasco do produto sobre uma superfície plana e firme. Inverta o frasco de diluente com o conjunto “Mix2Vial” conectado e empurre a ponta do adaptador transparente em linha reta para baixo através da tampa de borracha do frasco do produto. O diluente irá fluir automaticamente para o frasco do produto. z ~~Li~~ 5. Com uma mão segure o lado do produto do conjunto “Mix2Vial” e com a outra mão segure o lado do diluente e desconecte cuidadosamente, no sentido anti-horário, o conjunto em duas partes. Descarte o frasco de diluente com o adaptador azul “Mix2vial” conectado. ~~a~~ 6. Gire suavemente o frasco do produto com o adaptador transparente conectado até que a substância seja completamente dissolvida. Não agite. ~~raf~~ 7. Puxe o ar para dentro de uma seringa vazia e estéril. Enquanto o frasco do produto estiver na posição vertical, conecte a seringa, no sentido horário, ao conector do “Mix2Vial”. Injete o ar no frasco do produto. ~~ie~~
+
+8. Mantendo o êmbolo da seringa pressionado, inverta o sistema de cabeça para baixo e aspire a solução para dentro de uma seringa puxando o êmbolo para trás lentamente. db, 9. Uma vez transferida a solução para a seringa, segure firmemente o corpo da seringa (mantendo o êmbolo da seringa para baixo) e desconecte, no sentido anti-horário, o adaptador transparente “Mix2Vial” da seringa. ~~FL~~ Cuidados devem ser tomados para que não entre sangue na seringa preenchida com o produto, pois existe um risco de que o sangue possa coagular na seringa e coágulos de fibrina podem, portanto, ser administrados ao paciente.
+
+Em caso de ser necessário mais do que um frasco de Fibrogammin[® ] P , é possível associar vários frascos de Fibrogammin[® ] P para uma única infusão por meio de um dispositivo de infusão disponível comercialmente.
+
+A solução de Fibrogammin[® ] P não deve ser diluída.
+
+A solução reconstituída deve ser administrada por uma injeção/linha de infusão independente por injeção intravenosa lenta, a uma velocidade não superior a 4 mL por minuto.
+
+Qualquer produto ou resíduo material não utilizado deve ser eliminado de acordo com os requisitos da legislação local.
+
+--- BULA: DORICIN ---
+Administrar os comprimidos com líquido (aproximadamente ½ a 1 copo), por via oral.
+
+Posologia: 1 a 2 comprimidos, 3 a 4 vezes ao dia. Não ultrapassar estes limites.
+
+Não há estudos dos efeitos de dipirona monoidratada + citrato de orfenadrina + cafeína anidra administrado por vias não recomendadas. Portanto, por segurança e para eficácia deste medicamento, a administração deve ser somente pela via oral.
+
+Este medicamento não deve ser partido ou mastigado.
+
+Conduta necessária caso haja esquecimento de administração: baseando-se nos sintomas, reintroduzir a medicação respeitando sempre os horários e intervalos recomendados. Nunca devem ser administradas duas doses ao mesmo tempo.
+
+Siga as instruções abaixo para utilizar este medicamento:
+
+Posologia: 30 a 60 gotas, 3 a 4 vezes ao dia. Não ultrapassar estes limites.
+
+Não há estudos dos efeitos de citrato de orfenadrina + dipirona monoidratada + cafeína solução oral administrado por vias não recomendadas. Portanto, por segurança e para eficácia deste medicamento, a administração deve ser somente pela via oral.
+
+Conduta necessária caso haja esquecimento de administração: b aseando-se nos sintomas, reintroduzir a medicação respeitando sempre os horários e intervalos recomendados. Nunca devem ser administradas duas doses ao mesmo tempo.
+
+--- BULA: DIPROPIONATO DE BETAMETASONA + ÁCIDO SALICÍLICO ---
+Modo de usar: Coloque a bisnaga com a tampa virada para cima, em seguida, realize leves batidas sobre uma superfície plana e aguarde alguns segundos, para que o produto se deposite na parte inferior da bisnaga e não haja o desperdício na hora de retirar a tampa e romper o lacre, em seguida, aperte vagarosamente a base da bisnaga com os dedos.
+
+Aplicar uma fina camada do produto sobre a região afetada, de manhã e à noite (de 12 em 12 horas). Em alguns pacientes, o medicamento poderá ser aplicado menos vezes, de acordo com a orientação médica. A duração do tratamento também deve ser determinada por critério médico. Deve-se aplicar uma quantidade de dipropionato de betametasona+ácido salicílico suficiente para cobrir a área afetada, massageando levemente o local após sua aplicação.
+
+Como ocorre com todas as preparações tópicas de corticosteroides altamente ativas, o tratamento deverá ser suspenso logo que a afecção dermatológica seja controlada.
+
+Em alguns pacientes, a frequência das aplicações pode ser reduzida de acordo com a evolução do quadro dermatológico.
+
+--- BULA: AVALOX ---
+Dose (adultos): A dose recomendada de Avalox[®] é de 400 mg uma vez por dia (1 comprimido revestido) para as indicações mencionadas nesta bula e não deve ser ultrapassada.
+
+Duração do tratamento: A duração do tratamento deve ser determinada pela gravidade da indicação ou pela resposta clínica. As recomendações gerais para o tratamento das infecções são as seguintes:
+
+Comprimidos Revestidos:
+
+- Bronquite: exacerbação aguda da bronquite crônica: 5 dias
+
+- Pneumonia: pneumonia adquirida na comunidade: 10 dias
+
+0426-VV-LAB-121153-CCDS24
+
+- Sinusite: sinusite aguda: 7 dias
+
+- Infecções não complicadas da pele e anexos: 7 dias
+
+- Doença inflamatória pélvica não complicada: 14 dias
+
+- Infecções complicadas da pele e anexos: duração total do tratamento para o tratamento
+
+- sequencial (tratamento intravenoso seguido de tratamento oral): 7 - 21 dias
+
+- Infecções intra-abdominais complicadas: duração total do tratamento para o
+
+- tratamento sequencial (tratamento intravenoso seguido de tratamento oral): 5 - 14 dias
+
+A duração do tratamento para a indicação dada não deve ser excedida.
+
+Avalox[®] 400 mg comprimidos foi avaliado em estudos clínicos em esquema de até 21 dias de tratamento (em infecções complicadas de pele e anexos).
+
+Modo de administração: os comprimidos devem ser deglutidos inteiros, com um pouco de líquido, independentemente das refeições.
+
+Dose esquecida: Em caso de esquecimento da tomada de uma dose, esta deve ser tomada assim que o paciente se lembrar, desde que seja até 8 horas antes da tomada da próxima dose. Se faltar menos de 8 horas para a tomada do próximo comprimido a dose esquecida não poderá ser tomada e o tratamento continuará como prescrito no horário da próxima dose programada. Não se deve tomar duas doses para compensar a dose esquecida.
+
+--- BULA: BARIOGEL ---
+A suspensão deve ser vigorosamente agitada antes do uso. Para administração oral de sulfato de bário o paciente não deve ingerir alimentos após as 20horas e não deve ingerir líquidos após a meia-noite, no dia anterior ao exame. Após a administração oral há precaução de aumentar a ingestão de líquidos para evitar a compactação.
+
+Administrar por via oral, antes do exame radiológico, um copo ou segundo a orientação do radiologista dependendo do exame. Caso seja necessário, diluir com água destilada e homogeneizar.
+
+--- BULA: ACETATO DE DEXAMETASONA ---
+Limpe cuidadosamente a área afetada antes da aplicação.
+
+Coloque a bisnaga com a tampa virada para cima, em seguida, realize leves batidas sobre uma superfície plana e aguarde alguns segundos para que o produto se deposite na parte inferior da bisnaga e não haja o desperdício ao romper o lacre e retire a tampa.
+
+Aplique uma pequena quantidade de acetato de dexametasona no local afetado, 2 ou 3 vezes por dia. Evite uma aplicação indevidamente vigorosa. Antes de aplicar no ouvido, limpe e seque o conduto auditivo externo. Com um aplicador de ponta de algodão, espalhe nas paredes do conduto auditivo externo, uma camada de creme, 2 ou 3 vezes ao dia.
+
+A aplicação de curativo oclusivo pode ser feita nos pacientes com psoríase ou em casos resistentes ao tratamento simples.
+
+--- BULA: CLOTRIGEL ---
+- Vaginite: introduzir o conteúdo de um aplicador, com cerca de 5 g de creme vaginal, uma vez por dia. A duração do tratamento é de 3 dias consecutivos.
+
+- Vulvite e balanite por _Candida:_ aplicar o creme em camada fina, friccionado as áreas afetadas (na mulher, órgãos genitais externos até o ânus; no homem, glande e prepúcio), 2 a 3 vezes ao dia. O período normal de tratamento é de 1 a 2 semanas.
+
+O creme vaginal deve ser inserido na vagina o mais profundamente possível, à noite. Obtém-se inserção mais facilmente com a paciente deitada de costas, com as pernas levemente fletidas.
+
+Se os sintomas persistirem por mais de 7 dias, a paciente talvez tenha uma condição que necessite de outro tratamento.
+
+Se necessário, o tratamento pode ser repetido, entretanto, infecções recorrentes podem indicar uma outra doença subjacente, incluindo diabetes ou infecção por HIV. As pacientes devem ser orientadas a procurar acompanhamento médico se os sintomas retornarem dentro de dois meses.
+
+Em geral, tanto a vagina como a vulva são afetadas, portanto, deve-se realizar um tratamento combinado (tratamento das duas áreas).
+
+Se a área vulvar e as áreas adjacentes estiverem infectadas simultaneamente, deve-se também ministrar tratamento local com um creme de aplicação externa. O parceiro sexual deve ser igualmente submetido a tratamento local se houver presença de sintomas, como, por exemplo prurido, inflamação etc.
+
+Não se deve realizar o tratamento durante o período menstrual. O tratamento deve ser concluído antes do início da menstruação.
+
+Não se deve usar absorventes internos, duchas intravaginais, espermicidas ou outros produtos vaginais durante o tratamento com Clotrigel[] creme vaginal.
+
+É recomendado evitar relação sexual vaginal quando Clotrigel[] creme vaginal é utilizado, porque a infecção pode ser transmitida para o parceiro, bem como pode ser reduzida a efetividade e a segurança de métodos contraceptivos de barreira à base de látex, tais como preservativos e diafragma. Durante a gravidez, deve-se inserir o comprimido vaginal sem o uso do aplicador.
+
+--- BULA: ENALAMED ---
+Uma vez que a absorção dos comprimidos de Enalamed[®] não é afetada pela ingestão de alimentos, os comprimidos podem ser administrados antes, durante ou após as refeições.
+
+A dose de 2,5 mg é citada apenas para informação. Embora os comprimidos de 2,5 mg de enalapril estejam disponíveis no mercado, Enalamed[®] não é mais comercializado na concentração de 2,5 mg.
+
+Hipertensão essencial: a dose inicial é de 10 mg a 20 mg uma vez ao dia, dependendo do grau de hipertensão. A dose inicial recomendada para a hipertensão leve é de 10 mg ao dia. Para outros graus de hipertensão, a dose inicial é de 20 mg ao dia. A dose usual de manutenção é de um comprimido de 20 mg ao dia. A posologia deve ser ajustada de acordo com a necessidade do paciente até o máximo de 40 mg ao dia.
+
+Hipertensão renovascular: uma vez que a pressão arterial e a função renal nesses pacientes podem ser particularmente sensíveis à inibição da ECA, o tratamento deve ser iniciado com uma dose menor (por exemplo, 5 mg ou menos). A posologia, então, deve ser ajustada de acordo com a necessidade do paciente; espera-se que a maioria dos pacientes responda a um comprimido de 20 mg ao dia. Para os pacientes hipertensos que receberam diuréticos recentemente, recomenda-se cautela (veja a seguir).
+
+Terapia diurética concomitante na hipertensão: pode ocorrer hipotensão sintomática após a dose inicial de Enalamed[®] , principalmente em pacientes tratados concomitantemente com diuréticos, portanto recomenda-se cuidado nesses casos, pois esses pacientes podem apresentar depleção de volume ou de sal. A terapia diurética deve ser descontinuada por 2 a 3 dias antes do início da terapia com Enalamed[®] . Se isso não for possível, a dose inicial de Enalamed[®] deve ser baixa (5 mg ou menos) para determinar o efeito inicial na pressão arterial. A posologia, então, deve ser ajustada de acordo com as necessidades do paciente.
+
+Posologia na insuficiência renal: geralmente, o intervalo entre as doses de enalapril deve ser prolongado e/ou a posologia diminuída.
+
+|Posologia na insuficiência renal:geralmente, o intervalo entre as doses de enalapril deve ser prolongado e/ou a posologiadiminuída.|geralmente, o intervalo entre as doses de enalapril deve ser prolongado e/ou a posologia|geralmente, o intervalo entre as doses de enalapril deve ser prolongado e/ou a posologia|
+|---|---|---|
+|Disfunção Renal|DepuraçãoPlasmáticadeCreatinina(mL/min)|Dose Inicial (mg/dia)|
+|Leve|Menor que 80 e maior que 30 mL/min|5 mg – 10 mg|
+|Moderada|Menor ou igual a 30 e maior que 10 mL/min|2,5 mg – 5 mg|
+|Grave(normalmente esses pacientes estão sob diálise)|Menor ou igual a 10 mL/min|2,5mgnosdiasdediálise|
+
+Veja o item 5. ADVERTÊNCIAS E PRECAUÇÕES, Pacientes sob Hemodiálise.**
+
+** O enalaprilato é dialisável. Nos dias em que o paciente não for submetido à diálise, a posologia deverá ser ajustada à resposta da pressão arterial.
+
+Insuficiência cardíaca/disfunção ventricular esquerda assintomática: a dose inicial para pacientes com insuficiência cardíaca sintomática ou disfunção ventricular esquerda assintomática é de 2,5 mg e deve ser administrada sob rígida supervisão médica para se determinar o efeito inicial na pressão arterial. Enalamed[®] pode ser utilizado para o controle da insuficiência cardíaca sintomática, geralmente com diuréticos e, quando apropriado, com digitálicos. Na ausência de hipotensão sintomática, após o início da terapia de insuficiência cardíaca com Enalamed[®] ou após o controle efetivo da hipotensão, a dose deve ser aumentada gradualmente até a dose de manutenção usual de 20 mg, administrada em dose única diária ou dividida em duas doses, conforme tolerado pelo paciente. Essa titulação da dose pode ser realizada em um período de 2 a 4 semanas ou menos, quando a presença de sinais ou sintomas residuais de insuficiência cardíaca indicar. Em pacientes com insuficiência cardíaca sintomática, esse esquema posológico foi eficaz para reduzir a mortalidade.
+
+A pressão arterial e a função renal devem ser rigorosamente monitorizadas antes e depois de iniciado o tratamento com Enalamed[®] (veja o item 5. ADVERTÊNCIAS E PRECAUÇÕES ), pois foram relatadas hipotensão e, mais raramente, consequente insuficiência renal. Em pacientes que utilizam diuréticos, a dose deverá ser reduzida, se possível, antes do início do tratamento com Enalamed[®] . O aparecimento de hipotensão após a dose inicial de Enalamed[®] não implica que ela voltará a ocorrer durante a terapia crônica e não impede o uso continuado de Enalamed[®] . O potássio sérico também deverá ser monitorizado (veja o item 6. INTERAÇÕES MEDICAMENTOSAS ).
+
+--- BULA: FAULDCITA ---
+Fauldcita[®] não é ativo por via oral. A posologia e o método de administração variam de acordo com o esquema terapêutico a ser utilizado. Fauldcita[®] pode ser administrado por infusão ou por injeção intravenosa, por via subcutânea ou intratecal. Em alguns pacientes ocorreu tromboflebite no local da injeção ou da infusão; raramente relatou-se dor e inflamação nos locais da injeção subcutânea. Na maioria dos casos, entretanto, a medicação foi bem tolerada.
+
+Os pacientes podem tolerar doses totais maiores quando recebem o medicamento por injeção intravenosa rápida quando comparado por infusão lenta. Esse fenômeno está relacionado com a rápida inativação do Fauldcita[®] e com a curta exposição das células normais e neoplásicas susceptíveis a níveis significativos do medicamento, após injeção rápida. Células normais e neoplásicas respondem aparentemente de modo paralelo a esses diferentes modos de administração; nenhuma vantagem clínica expressiva foi demonstrada para qualquer um deles. Doses convencionais: na terapia de indução de leucemia não-linfocítica aguda, a dose habitual de Fauldcita[®] em combinação com outros agentes quimioterápicos antineoplásicos é de 100 mg/m[2] /dia por infusão intravenosa contínua (dias 1 - 7) ou 100 mg/m[2] IV a cada 12 horas (dias 1 - 7).
+
+Doses altas: 2-3 g/m[2] por infusão intravenosa a cada 12 horas por 1-3 horas durante 2-6 dias com ou sem agentes quimioterápicos adicionais.
+
+Doses subcutâneas: em geral, a dose é 20-100 mg/m[2] dependendo da indicação do tratamento e do regime posológico utilizado.
+
+A literatura deve ser consultada sobre as recomendações atuais para o uso em leucemia.
+
+Fauldcita[®] tem sido utilizado por via intratecal em leucemia aguda em doses que variam de 5 mg/m[2] a 75 mg/m[2] de superfície corpórea. A frequência de administração variou de uma vez ao dia por 4 dias a uma vez a cada 4 dias. A dose mais frequentemente usada foi de 30 mg/m² a cada 4 dias até que os achados no líquido cérebro-espinhal fossem normais, seguida por um tratamento adicional.
+
+O regime de doses é usualmente determinado pelo tipo e gravidade das manifestações no sistema nervoso central e pela resposta à terapia prévia.
+
+Fauldcita[®] tem sido utilizado por via intratecal em associação com succinato sódico de hidrocortisona e metotrexato, ambos como profilaxia em crianças recém-diagnosticadas com leucemia linfocítica aguda, bem como no tratamento de leucemia com infiltração meníngea. Sullivan reportou que a terapia profilática tripla preveniu doenças do sistema nervoso central tardias apresentando índices de cura e sobrevida global similares aos daqueles pacientes nos quais a radiação no sistema nervoso central e o metotrexato por via intratecal foram usados com profilaxia inicial do sistema nervoso central. As doses utilizadas nesta terapia foram 30 mg/m[2] de citarabina, 15 mg/m[2] de succinato sódico de hidrocortisona e 15 mg/m[2] de metotrexato (uma dose única máxima absoluta de 15 mg de metotrexato). O médico deve estar ciente deste regime de dose e notar que a dosagem de metotrexato em pacientes pediátricos é diferente, com base na idade ao invés de área de superfície corporal.
+
+A terapia profilática tripla após tratamento bem-sucedido do episódio meníngeo agudo pode ser útil. O médico deve estar familiarizado com a literatura atual antes de instituir este programa.
+
+O uso de Fauldcita[®] por via intratecal pode causar toxicidade sistêmica, recomendando-se um cuidadoso monitoramento do sistema hemopoiético. Pode ser necessária a alteração da terapia antileucêmica. Raramente ocorre toxicidade significativa (ver itens “5. Advertências e Precauções” e “9. Reações Adversas”). Quando Fauldcita[®] é administrado por ambas as vias intratecal e intravenosa num período de poucos dias, existe um risco aumentado de toxicidade espinal; entretanto, quando existe doença associada a risco de morte, o médico deve, a seu critério, decidir sobre o uso concomitante de Fauldcita[®] por via intratecal e intravenosa.
+
+O envolvimento leucêmico focal do sistema nervoso central pode não responder ao Fauldcita[®] por via intratecal, podendo ser melhor o tratamento com radioterapia.
+
+O Fauldcita[®] é compatível com os seguintes medicamentos, em concentrações específicas, em glicose 5% em água durante 8 horas: citarabina 0,8 mg/mL e cefalotina sódica 1,0 mg/mL; citarabina 0,4 mg/mL e fosfato sódico de prednisolona 0,2 mg/mL; citarabina 16 mcg/mL e sulfato de vincristina 4 mcg/mL. Fauldcita[®] também é fisicamente compatível com metotrexato.
+
+Uso em crianças: semelhante ao uso em adultos.
+
+Uso em idosos: não são conhecidas até o momento recomendações especiais para os pacientes idosos, aplicando-se as informações técnicas já descritas.
+
+As especificações da agulha para administração do medicamento devem ser estabelecidas de acordo com a avaliação prática do profissional de saúde, baseadas nas necessidades do paciente.
+
+Recomendações de práticas seguras e adequadas para manipulação do medicamento:
+
+1. Inserir a agulha de injeção de, no máximo, 1,20x40 mm de calibre;
+
+2. Apoiar o frasco-ampola firmemente na posição vertical;
+
+3. Perfurar a tampa de borracha de Fauldcita[®] dentro do círculo central demarcado, inserindo assepticamente a agulha a 45º com bisel voltado para cima e, ao longo da perfuração, posicioná-la a 90º ( figura abaixo );
+
+4. Evitar que as novas perfurações sejam no mesmo local;
+
+5. É recomendado não perfurar mais de 3 vezes a área demarcada (círculo central);
+
+6. A cada 3 perfurações com uma mesma agulha, substituí-la por uma nova.
+
+Veja abaixo o procedimento:
+
+O profissional da saúde deverá inspecionar cuidadosamente, antes de sua utilização, se a solução no interior do frascoampola está fluida, livre de fragmentos ou de alguma substância que possa comprometer a eficácia e a segurança do medicamento. Não é recomendada a utilização do produto ao verificar qualquer alteração que possa prejudicar a saúde do paciente.
+
+--- BULA: DORTRIRELAX ---
+Administrar os comprimidos com líquido (aproximadamente ½ a 1 copo), por via oral.
+
+Posologia: 1 a 2 comprimidos, 3 a 4 vezes ao dia. Não ultrapassar estes limites.
+
+Não há estudos dos efeitos de Dortrirelax[®] administrado por vias não recomendadas. Portanto, por segurança e para eficácia deste medicamento, a administração deve ser somente pela via oral.
+
+Este medicamento não deve ser partido, aberto ou mastigado.
+
+Conduta necessária caso haja esquecimento de administração: baseando-se nos sintomas, reintroduzir a medicação respeitando sempre os horários e intervalos recomendados. Nunca devem ser administradas duas doses ao mesmo tempo.
+
+--- BULA: GANFORT ---
+Este medicamento é de uso tópico ocular. Pacientes devem ser instruídos a não encostar a ponta do frasco nos olhos, nos dedos e nem em outra superfície qualquer, para evitar a contaminação do frasco e do colírio.
+
+A dose recomendada é de 1 gota aplicada no(s) olho(s) afetado(s), uma vez ao dia, administrada de manhã ou à noite. Deve ser administrado todos os dias no mesmo horário. Se a administração for esquecida, o tratamento deve continuar com a próxima dose planejada. A dose não deve exceder uma gota ao dia no(s) olho(s) afetado(s).
+
+Assim como qualquer medicamento oftálmico, para diminuir a possível absorção sistêmica, recomenda-se comprimir o canto medial do saco lacrimal por pelo menos 1 minuto. Este procedimento deve realizado imediatamente após a instilação de cada gota.
+
+Este medicamento é de uso oftálmico. Pacientes devem ser instruídos a lavar as mãos antes do uso e não encostar a ponta do flaconete nos olhos, nos dedos e nem em outra superfície qualquer, para evitar a contaminação do flaconete e do colírio. A solução deve ser usada imediatamente após a abertura do flaconete. A dose recomendada é de 1 gota aplicada no(s) olho(s) afetado(s), uma vez ao dia, administrada de manhã ou à noite. Deve ser administrado todos os dias no mesmo horário.
+
+Bula para o Profissional de Saúde – BU01 10
+
+1. Destacar o flaconete da tira contendo 5 flaconetes.
+
+2. Segurar o flaconete com a tampa para cima e girá-lo até destacar a tampa.
+
+3. Puxar delicadamente a pálpebra inferior para formar uma bolsa. Girar o flaconete para baixo e apertá-lo para liberar uma gota no(s) olho(s) afetado(s). Piscar algumas vezes.
+
+4. Descartar o flaconete após uso.
+
+Se a administração for esquecida, o tratamento deve continuar com a próxima dose planejada. A dose não deve exceder uma gota ao dia no(s) olho(s) afetado(s).
+
+Assim como qualquer medicamento oftálmico, para diminuir a possível absorção sistêmica, recomenda-se comprimir o canto medial do saco lacrimal por pelo menos 1 minuto. Este procedimento deve ser realizado imediatamente após a instilação de cada gota.
+
+Se GANFORT[®] UD for utilizado concomitantemente com outros medicamentos de aplicação tópica ocular, o produto deve ser administrado com intervalos de pelo menos 5 minutos entre as aplicações.
+
+--- BULA: FOSFATO SÓDICO DE PREDNISOLONA ---
+Apresentação com copo-dosador em mL
+
+Este medicamento deve ser administrado, por via oral, com o auxílio do copo-dosador em mL.
+
+Apresentação com seringa-dosadora em mL
+
+Instruções de uso da seringa dosadora em mL:
+
+1. Abrir o frasco do medicamento e desembalar a seringa-dosadora e o adaptador do frasco.
+
+2. Colocar o adaptador no bocal do frasco com firmeza (fig. 1).
+
+3. Adaptar a seringa-dosadora no adaptador de frasco (fig. 2).
+
+4. Virar o frasco e aspirar a medida desejada. Puxar cuidadosamente o êmbolo, medindo a quantidade exata em mL, conforme a posologia recomendada pelo seu médico (fig. 3).
+
+5. Retirar a seringa-dosadora (fig. 4).
+
+6. Esvaziar a seringa lentamente na boca, com a cabeça inclinada para trás (fig. 5).
+
+7. Tampar o frasco sem retirar o adaptador (fig. 6).
+
+8. Lavar bem a seringa-dosadora com água corrente. Deixar secar ao ar livre. Observações:
+
+A seringa-dosadora é de uso exclusivo para administração deste medicamento por via oral. O manuseio deve ser feito somente por adultos.
+
+Fosfato sódico de prednisolona _bula_profissional
+
+ATENÇÃO: utilizar a seringa exclusiva que acompanha o produto. Esta seringa está graduada de mL em mL. Em caso de dúvida consulte seu médico (1 mL de solução equivale a 3 mg prednisolona. Cada mg de prednisolona equivale a 1,34 mg de fosfato sódico de prednisolona). A dosagem inicial deste medicamento pode variar de 5 a 60 mg por dia, dependendo da doença específica que está sendo tratada. As doses deste medicamento requeridas são variáveis e devem ser individualizadas de acordo com a doença em tratamento e a resposta do paciente. Para bebês e crianças, a dosagem recomendada deve ser controlada pela resposta clínica e não pela adesão estrita ao valor indicado pelos fatores idade e peso corporal. Iniciar a terapia com a menor dose da posologia em idosos.
+
+A dosagem deve ser reduzida ou descontinuada gradualmente quando a droga for administrada por mais do que alguns dias. Crianças: A dose pediátrica inicial pode variar de 0,14 a 2 mg/kg de peso por dia, ou de 4 a 60 mg por metro quadrado de superfície corporal por dia, administrados de 3 a 4 vezes por dia. Posologias para recém-nascidos e crianças devem ser orientadas segundo as mesmas considerações feitas para adultos, ao invés de se adotar rigidez estrita aos índices para idade ou peso corporal. Na Síndrome Nefrótica utilizase 60 mg/m[2] /dia em 3 vezes ao dia por 4 semanas, seguidas de 40 mg/m[2] em dias alternados, por 4 semanas.
+
+Em situações de menor gravidade, doses mais baixas, geralmente, são suficientes, enquanto que para alguns pacientes, altas doses iniciais podem ser necessárias. A dose inicial deve ser mantida ou ajustada até que a resposta satisfatória seja notada. Depois disso deve-se determinar a dose de manutenção por pequenos decréscimos da dose inicial a intervalos de tempo determinados, até que se alcance a dose mais baixa para se obter uma resposta clínica adequada. Deve-se ter em mente que é necessária uma constante observação em relação à dosagem deste medicamento. Se por um período razoável de tempo não ocorrer resposta clínica satisfatória, o tratamento com este medicamento deve ser interrompido e o paciente transferido para outra terapia apropriada.
+
+Incluem-se as situações nas quais pode ser necessário ajuste na dose: mudança no estado clínico secundário por remissão ou exacerbação no processo da doença, a suscetibilidade individual do paciente à droga e o efeito da exposição do paciente a situações estressantes nãodiretamente relacionadas à doença em tratamento; se for necessário que o tratamento seja interrompido, é recomendado que a retirada seja gradual e nunca abrupta.
+
+--- BULA: ACICLOVIR ---
+O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, preferencialmente, no início da infecção. O paciente deve lavar as mãos antes e depois da aplicação e evitar a fricção desnecessária da lesão ou toque com toalha, a fim de evitar o agravamento ou transferência da infecção para outros locais.
+
+O aciclovir creme contém uma base especialmente formulada e não deve ser diluído ou usado como base para incorporação de outros medicamentos.
+
+O aciclovir creme deve ser aplicado cinco vezes ao dia, com intervalos de aproximadamente quatro horas, suprimindo-se a aplicação no período noturno. O aciclovir creme deve ser aplicado sobre as lesões existentes ou emergentes, se possível, no início da infecção. É especialmente importante iniciar o tratamento de episódios recorrentes durante o período prodrômico ou aos primeiros sinais de lesão.
+
+O tratamento também pode ser iniciado em estágios mais avançados, como por exemplo quando já observar-se a presença de pápulas.
+
+O tratamento deve continuar por pelo menos quatro dias para herpes labial e por cinco dias para herpes genital. Se não ocorrer cicatrização, o tratamento deverá ser prolongado por mais cinco dias. Se as lesões permanecerem após 10 dias, o paciente deve consultar seu médico.
+
+Lavar bem as mãos antes e depois da aplicação. Aplicar um centímetro da pomada liberada pela bisnaga no interior da pálpebra inferior.
+
+A dose para todos os grupos etários é a mesma.
+
+O aciclovir pomada oftálmica deve ser aplicado cinco vezes ao dia no olho afetado, com um intervalo de aproximadamente quatro horas. Após a cicatrização, deve-se continuar a aplicá-lo, no mínimo, por mais três dias.
+
+Uso exclusivamente oral.
+
+Um comprimido de aciclovir 200 mg, cinco vezes ao dia, com intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento precisa ser mantido por cinco dias, mas deve ser estendido em infecções iniciais graves. Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com distúrbios de absorção intestinal, a dose pode ser duplicada (400 mg) ou, alternativamente, pode-se considerar a administração de doses intravenosas.
+
+A administração das doses deve ser iniciada tão cedo quanto possível, após o surgimento da infecção. Para os episódios recorrentes, isso deve ser feito, de preferência, durante o período prodrômico ou imediatamente após aparecerem os primeiros sinais ou sintomas.
+
+Um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Muitos pacientes podem ser convenientemente controlados com um regime de 400 mg, duas vezes ao dia, com intervalos de aproximadamente 12 horas. Uma redução da dose para 200 mg, três vezes ao dia, em intervalos de aproximadamente oito horas, ou até duas vezes ao dia, em intervalos de aproximadamente 12 horas, podem mostrar-se eficazes. Em alguns pacientes, podem ocorrer reinfecções em regime de doses totais diárias de 800 mg de aciclovir.
+
+O tratamento deve ser interrompido periodicamente, em intervalos de seis a doze meses, a fim de que se possa avaliar o progresso obtido na história natural da doença.
+
+Em pacientes imunocomprometidos, recomenda-se um comprimido de aciclovir 200 mg, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+Para pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, a dose pode ser dobrada (400 mg) ou, alternativamente, considerada a administração de doses intravenosas.
+
+A duração da administração profilática é determinada pela duração do período de risco.
+
+Doses de 800 mg de aciclovir, cinco vezes ao dia, em intervalos de aproximadamente quatro horas, omitindo-se a dose noturna. O tratamento deve ter a duração de sete dias.
+
+Em pacientes gravemente imunocomprometidos (por exemplo, após transplante de medula óssea) ou com problemas de absorção intestinal, deve ser considerada a administração de doses intravenosas.
+
+A administração das doses deve ser instituída tão cedo quanto possível, após o surgimento da infecção. O tratamento proporciona melhores resultados se for iniciado assim que apareçam as erupções cutâneas.
+
+Doses de 800 mg de aciclovir, quatro vezes ao dia, em intervalos de aproximadamente seis horas.
+
+No tratamento de pacientes receptores de medula óssea, esta dose deve ser precedida por terapia de um mês com aciclovir intravenoso.
+
+A duração do tratamento estudada em pacientes após transplante de medula óssea foi de seis meses (de um a sete meses após o transplante). Em pacientes portadores de HIV avançado, o tratamento estudado foi de 12 meses, mas é desejável que estes pacientes continuem o tratamento por um período maior.
+
+Para tratamento, assim como para profilaxia, de infecções por vírus _Herpes simplex_ em crianças imunocomprometidas com mais de 6 anos de idade, as doses são as mesmas indicadas para adultos.
+
+Não há dados disponíveis relativos à supressão de infecções por _Herpes simplex_ ou ao tratamento de infecção de Herpes zoster em crianças imunocompetentes.
+
+A indicação de aciclovir comprimidos na população pediátrica deve ser avaliada pelo médico de acordo com a capacidade de deglutição da criança.
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA ---
+A princípio, deve ser utilizada a menor dose eficaz para controle da dor.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável só deve ser administrado por via parenteral por injeção intravenosa lenta, cujo tempo da aplicação deve ser de, no mínimo, 5 minutos. O paciente deve permanecer em posição supina. O butilbrometo de escopolamina + dipirona monoidratada pode ser injetado por via intramuscular profunda, mas nunca por via subcutânea. O uso intra-arterial inadvertido pode provocar necrose da área vascular distal. A solução deve ser aquecida à temperatura do corpo antes da injeção.
+
+O butilbrometo de escopolamina + dipirona monoidratada só deve ser injetado por via intravenosa ou intramuscular. O uso intra-arterial inadvertido pode provocar necrose da área vascular distal.
+
+Para injeção intramuscular as seguintes técnicas devem ser cuidadosamente observadas:
+
+|Local de injeção:|Apenas noquadrante súpero-lateral (externo) das nádegas|
+|---|---|
+|Direção:|Direcionada sagitalmentepara a crista ilíaca.|
+|Profundidade:|Uso de agulha suficientemente longapara assegurarque a injeção atinja os músculos.|
+
+Por causa de possíveis incompatibilidades butilbrometo de escopolamina + dipirona monoidratada não deve ser misturado com outras medicações na mesma seringa.
+
+Em adultos aplicar 1 ampola de 5 mL, até 2 - 3 vezes ao dia, com intervalo de 6 a 8 horas.
+
+Cada mL da solução injetável contém 4 mg de butilbrometo de escopolamina e 500 mg de dipirona monoidratada.
+
+Devem estar presentes para a administração parenteral equipamentos adequados para tratamento em casos raros de choque.
+
+A causa mais comum de queda crítica na pressão arterial e choque é a injeção muito rápida. Portanto a injeção intravenosa deve ser administrada lentamente (não mais do que 1 mL por minuto) com o paciente em posição supina. A pressão arterial, frequência cardíaca e respiratória devem ser monitoradas. Assumindo que uma queda não-alérgica da pressão arterial é dose-dependente, a indicação de doses superiores a 1 g de dipirona deve ser considerada de forma particularmente cuidadosa.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável pode ser misturado ou diluído em solução de glicose a 5% ou solução salina a 0,9%.
+
+Caso a dor persista ou piore, um médico deverá ser consultado para investigar a causa dos sintomas.
+
+O butilbrometo de escopolamina + dipirona monoidratada não deve ser usado por períodos prolongados ou em altas doses sem prescrição do médico ou do dentista.
+
+Em caso de uso prolongado, o hemograma (incluindo contagem diferencial de leucócitos) deve ser monitorado.
+
+--- BULA: CLORIDRATO DE CIPROFLOXACINO ---
+Os comprimidos devem ser ingeridos inteiros, com um pouco de líquido, independentemente das refeições. Quando ingeridos com o estômago vazio, a substância ativa é absorvida mais rapidamente. Os comprimidos não devem ser administrados com produtos lácteos ou bebidas enriquecidas com minerais (por exemplo, leite, iogurte, suco de laranja enriquecido com cálcio) (veja o item “6. Interações Medicamentosas”). No entanto, o cálcio contido na dieta alimentar não afeta significativamente a absorção de ciprofloxacino.
+
+Se pela gravidade de sua doença ou por qualquer outro motivo o paciente não estiver apto a ingerir
+
+cloridrato de ciprofloxacino_Bula_Profissional
+
+comprimidos (por exemplo, pacientes sob nutrição enteral), recomenda-se iniciar a terapia com ciprofloxacino injetável. Após a administração intravenosa, pode-se dar continuidade ao tratamento por via oral (terapia sequencial).
+
+A duração do tratamento depende da gravidade da doença e do curso clínico e bacteriológico. É essencial manter-se o tratamento durante pelo menos 3 dias após o desaparecimento da febre e dos sintomas clínicos. Duração média do tratamento:
+
+- 1 dia nos casos de gonorreia aguda não complicada e cistite;
+
+- até 7 dias nos casos de infecção renal, do trato urinário e cavidade abdominal;
+
+- durante todo o período neutropênico em pacientes com defesas orgânicas debilitadas;
+
+- máximo de 2 meses nos casos de osteomielite;
+
+- 7 a 14 dias em todas as outras infecções.
+
+Nas infecções estreptocócicas, o tratamento deve durar pelo menos 10 dias, pelo risco de complicações posteriores.
+
+As infecções causadas por _Chlamydia spp_ . também devem ser tratadas durante um período mínimo de 10 dias.
+
+Antraz (após exposição) em adultos e crianças: A duração total do tratamento para exposição ao antraz por inalação (após exposição) com ciprofloxacino é de 60 dias.
+
+Nos casos de exacerbação pulmonar aguda de fibrose cística, associada à infecção por _Pseudomonas aeruginosa_ , em pacientes pediátricos com idade entre 5 e 17 anos, a duração do tratamento deve ser de 10 a 14 dias.
+
+Salvo prescrição médica contrária, recomendam-se as seguintes doses:
+
+Dose diária recomendada de ciprofloxacino oral em adultos:
+
+|dultosose diária recomendada de ciprofloxacino oral em adultos:|dultosose diária recomendada de ciprofloxacino oral em adultos:||
+|---|---|---|
+|Indicações||Dose diária para adultos deciprofloxacino (mg) via oral|
+|Infecções do trato respiratório (dependendo da gravidade e domicrorganismo)||2 x 250 a 500 mg|
+|Infecções do trato urinário:|Aguda, não complicada|1 a 2 x 250 mg|
+||Cistite em mulheres (antes damenopausa)|dose única 250 mg|
+||Complicada|2 x 250 mg a 500 mg|
+|Diarreia||1 a 2 x 500 mg|
+
+|Gonorreia- extragenital- aguda, não complicada|Gonorreia- extragenital- aguda, não complicada|dose única 250 mgdose única 250 mg|
+|---|---|---|
+|Outras infecções (vide indicações)||2 x 500 mg|
+|Infecções graves, com riscopara a vida, principalmentequando causadas por_Pseudomonas, Staphylococcus_ou_Streptococcus_|Pneumonia estreptocócica|2 x 750 mg|
+||Infecções recorrentes em fibrosecística||
+||Infecções ósseas e dasarticulações||
+||Septicemia||
+||Peritonite||
+
+Dados clínicos e farmacocinéticos dão suporte ao uso de ciprofloxacino em pacientes pediátricos com fibrose cística (idade entre 5 e 17 anos) e com exacerbação pulmonar aguda associada à infecção por _Pseudomonas aeruginosa_ , na dose oral de 20 mg de ciprofloxacino/kg de peso corporal, duas vezes por dia (dose máxima diária de 1.500 mg de ciprofloxacino).
+
+Adultos: Administração oral: 500 mg de ciprofloxacino, duas vezes por dia.
+
+Crianças: Administração oral: 15 mg de ciprofloxacino/kg de peso corporal, duas vezes por dia. Não se deve exceder o teto máximo de 500 mg por dose (dose diária máxima: 1000 mg). A administração do medicamento deve começar o mais rapidamente possível após suspeita ou confirmação de exposição.
+
+Se uma dose for esquecida, ela deve ser tomada imediatamente se faltarem mais de 6 horas até a próxima dose programada. Se faltarem menos de 6 horas para a próxima dose programada, a dose esquecida não deve ser tomada, e o tratamento deve continuar conforme prescrito com a próxima dose programada. Não se deve tomar duas doses para compensar a dose esquecida.
+
+--- BULA: CLORIDRATO DE OXIMETAZOLINA ---
+O cloridrato de oximetazolina adulto deve ser administrado com a cabeça elevada. Durante a administração, inclina-se a cabeça suavemente para trás e se inspira durante a compressão do frasco.
+
+O cloridrato de oximetazolina pediátrico deve ser administrado com a cabeça da criança para trás; pingue duas ou três gotas de cloridrato de oximetazolina em cada narina, duas vezes ao dia, pela manhã e à noite. O uso do frasco por mais de uma pessoa pode propagar uma infecção.
+
+Cloridrato de oximetazolina adulto solução a 0,5 mg/mL - 2 ou 3 atomizações em cada narina, de 12 em 12 horas. Com a cabeça elevada, coloque a ponta do frasco em cada narina sem fechá-la completamente. Durante cada administração, o paciente deve inclinar a cabeça suavemente para trás e inspirar ativamente enquanto comprime o frasco.
+
+Com a cabeça da criança voltada para trás, pingue duas ou três gotas de cloridrato de oximetazolina pediátrico, solução a 0,25 mg/mL em cada narina, duas vezes ao dia, pela manhã e à noite.
+
+Usar somente quando indicado pelo médico.
+
+--- BULA: AZITROMICINA ---
+A azitromicina di-hidratada deve ser administrada por via oral em dose única diária. Pode ser administrada com ou sem alimentos, acompanhada de líquido. O medicamento deve ser ingerido inteiro, respeitando sempre os horários.
+
+USO EM ADULTO: Para o tratamento das Infecções Sexualmente Transmissiveis (IST) causadas por _Chlamydia trachomatis, Haemophilus ducreyi_ e _Neisseria gonorrhoeae_ suscetível, a dose é de 1000 mg em dose única.
+
+USO EM PACIENTES IDOSOS: A mesma dose utilizada em pacientes adultos pode ser utilizada em pacientes idosos.
+
+USO EM PACIENTES COM INSUFICIÊNCIA RENAL: Não é necessário ajuste de dose em pacientes com insuficiência renal leve a moderada (taxa de filtração glomerular 10 – 80 mL/min) ou grave (taxa de filtração glomerular < 10 mL/min) (vide “Advertências e Precauções”).
+
+USO EM PACIENTES COM INSUFICIÊNCIA HEPÁTICA: As mesmas doses que são administradas a pacientes com a função hepática normal poderão ser utilizadas em pacientes com insuficiência hepática de leve a moderada.
+
+--- BULA: CLORIDRATO DE CEFEPIMA ---
+O cloridrato de cefepima pode ser administrado por via intramuscular ou intravenosa.
+
+ATENÇÃO: frequentemente os hospitais reconstituem produtos injetáveis utilizando agulhas 40x12, que aumentam a incidência de pequenos fragmentos de rolha serem levados para dentro do frasco durante o procedimento. Agulhas 30x8 ou 25x8, embora dificultem o processo de reconstituição, têm menor probabilidade de carregarem partículas de rolhas para dentro dos frascos. Deve-se, no entanto, sempre inspecionar visualmente os produtos antes da administração, descartando-os se contiverem partículas.
+
+O tamanho da agulha para administração deve ser escolhido de acordo com a prática do profissional de saúde baseado nas características clínicas do paciente.
+
+O cloridrato de cefepima pó para solução injetável deve ser reconstituído por um profissional de saúde, utilizando-se os volumes de diluentes descritos na Tabela 6 ; os diluentes a serem utilizados são identificados após a tabela a seguir.
+
+Tabela 6: Preparo das soluções de cloridrato de cefepima.
+
+|Administração|Volume de diluente a seradicionado (mL)|Volume final aproximado nomedicamento preparado (mL)|Concentração final aproximada decefepima no medicamentopreparado(mg/mL)|
+|---|---|---|---|
+|Intravenosa1 g2g|1010|11,412,8|90160|
+|Intramuscular1g|3|4,4|230|
+
+ATENÇÃO: o produto preparado em capela de fluxo unidirecional (laminar) qualificado pode ser armazenado pelos tempos descritos a seguir. Para produtos preparados fora desta condição, recomenda-se o uso imediato.
+
+Diluente: água para injetáveis, lidocaína 1%, cloreto de sódio 0,9% ou glicose 5%. Volume: 3 mL. Aparência da solução reconstituída: amarelo claro a amarelo escuro. Estabilidade após reconstituição:
+
+Temperatura ambiente (de 15ºC a 30ºC): 4 horas.
+
+Em geladeira (de 2ºC a 8ºC): 3 dias.
+
+ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução reconstituída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada.
+
+Administração: por injeção intramuscular profunda em uma grande massa muscular, como o quadrante superior externo da região glútea. Não injetar mais do que 1 g de cefepima em cada glúteo.
+
+É a via de administração preferencial para pacientes com infecções graves ou com risco de morte, principalmente se existe a possibilidade de choque. Reconstituição:
+
+Diluente: água para injetáveis, cloreto de sódio 0,9% ou glicose 5%. Volume: 10 mL. Aparência da solução reconstituída: amarelo claro a amarelo escuro.
+
+Estabilidade após reconstituição:
+
+ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução reconstituída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada. Tempo de injeção: 3 a 5 minutos. A solução reconstituída deve ser injetada diretamente na veia ou no tubo do equipo de administração, enquanto o paciente estiver recebendo líquido intravenoso compatível.
+
+Diluente: água para injetáveis, cloreto de sódio 0,9% ou glicose 5%. Volume : 10 mL.
+
+Aparência da solução reconstituída: amarelo claro a amarelo escuro.
+
+Temperatura ambiente (de15°C a 30°C): 4 horas.
+
+Em geladeira (de 2°C a 8°C): 3 dias.
+
+Diluente: cloreto de sódio 0,9% ou glicose 5% . Volume: 50 a 100 mL.
+
+Aparência da solução diluída: amarelo claro a amarelo escuro.
+
+Estabilidade após diluição:
+
+ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução diluída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada.
+
+Tempo de Infusão: 30 minutos.
+
+O frasco-ampola do medicamento deve ser acoplado à bolsa conforme ilustrações abaixo.
+
+ATENÇÃO: devem ser observados cuidados usuais para evitar contaminação na montagem do sistema fechado, conforme ilustração a seguir:
+
+ATENÇÃO: o frasco deve ser mantido acoplado à bolsa. Isso garante o fechamento do circuito de infusão e o próprio frasco é o indicador do produto que está sendo administrado.
+
+Diluente: cloreto de sódio 0,9%. Volume: 100 mL.
+
+Temperatura ambiente (de 15ºC a 30ºC): 4 horas. Em geladeira (de 2°C a 8°C): 3 dias.
+
+ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução reconstituída/diluída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada. Tempo de Infusão: 30 minutos.
+
+Diluente: água para injetáveis, cloreto de sódio 0,9% ou glicose 5%. Volume: 10 mL. Aparência da solução reconstituída: amarelo claro a amarelo escuro. Estabilidade após reconstituição:
+
+Temperatura ambiente (de 15ºC a 30ºC): 4 horas. Em geladeira (de 2ºC a 8ºC): 3 dias. ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução reconstituída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada. Tempo de injeção: 3 a 5 minutos. A solução reconstituída deve ser injetada diretamente na veia ou no tubo do equipo de administração, enquanto o paciente estiver recebendo líquido intravenoso compatível.
+
+Diluente: água para injetáveis, cloreto de sódio 0,9% ou glicose 5%. Volume : 10 mL. Aparência da solução reconstituída: amarelo claro a amarelo escuro. Estabilidade após reconstituição: Temperatura ambiente (de 15°C a 30°C): 4 horas. Em geladeira (de 2°C a 8°C): 3 dias. ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução reconstituída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada. Diluição: Diluente: cloreto de sódio 0,9% ou glicose 5% . Volume: 50 a 100 mL. Aparência da solução diluída: amarelo claro a amarelo escuro. Estabilidade após diluição: Temperatura ambiente (de 15ºC a 30ºC): 4 horas. Em geladeira (de 2ºC a 8ºC): 3 dias. ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução diluída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada. Tempo de Infusão: 30 minutos.
+
+CEFEPIMA 2 g (Sistema Fechado) O frasco-ampola do medicamento deve ser acoplado à bolsa conforme ilustrações acima. ATENÇÃO: devem ser observados cuidados usuais para evitar contaminação na montagem do sistema fechado, conforme ilustração. Reconstituição e Diluição (realizadas simultaneamente): Diluente: cloreto de sódio 0,9%. Volume: 100 mL. Aparência da solução diluída: amarelo claro a amarelo escuro. Estabilidade após diluição: Temperatura ambiente (de 15ºC a 30ºC): 4 horas. Em geladeira (de 2°C a 8°C): 3 dias. ATENÇÃO: como ocorre com outras cefalosporinas, a cor da solução reconstituída/diluída de cloridrato de cefepima pode escurecer durante a armazenagem, porém a potência do produto permanece inalterada. Tempo de Infusão: 30 minutos. Diluentes IV (compatíveis com cefepima): cloreto de sódio 0,9%; glicose 5%; glicose 5% + cloreto de sódio 0,9%;
+
+Os medicamentos de uso parenteral devem ser visualmente inspecionados antes da administração com relação a materiais estranhos, e não devem ser utilizados se estes estiverem presentes.
+
+As soluções de cloridrato de cefepima, assim como a maioria dos antibióticos betalactâmicos, não devem ser associadas com soluções de metronidazol, vancomicina, gentamicina, sulfato de tobramicina ou sulfato de netilmicina, devido à incompatibilidade física e química. Entretanto, caso a terapia concomitante com cloridrato de cefepima seja indicada, cada um desses antibióticos poderá ser administrado separadamente.
+
+O cloridrato de cefepima pode ser administrado por via intravenosa ou por via intramuscular. A dose e a via de administração variam de acordo com a gravidade da infecção, com a função renal e com a condição geral do paciente.
+
+Um guia para as doses de cloridrato de cefepima em adultos e pacientes pediátricos com peso corpóreo superior a 40 kg com função renal normal é apresentado na Tabela 7 .
+
+Tabela 7: Esquema de Dosagem Recomendada para Adultos e Pacientes Pediátricos com peso corpóreo superior a 40 kg com Função Renal Normal*
+
+|Gravidade da Infecção|Dose e Via de Administração|Intervalo da dose|
+|---|---|---|
+|Infecções leves a moderadas do trato urinário|500 mg a 1 gIV ou IM|A cada 12 horas|
+|Outras infecções leves a moderadas, diferentes dasinfecções do trato urinário|1 gIV ou IM|A cada 12 horas|
+|Infecções graves|2 gIV|A cada 12 horas|
+|Infecções muito graves ou com risco de morte|2 gIV|A cada 8 horas|
+
+* A duração normal do tratamento é de 7 a 10 dias; porém, infecções mais graves podem necessitar de tratamento mais prolongado. Para o tratamento empírico de neutropenia febril, a duração usual da terapia deve ser de pelo menos 7 dias ou até a resolução da neutropenia.
+
+A dose recomendada para a profilaxia de infecções em pacientes submetidos à cirurgia de cólon e reto segue abaixo:
+
+Uma dose única de 2 g IV de cloridrato de cefepima (infusão com duração de 30 min - vide 8. POSOLOGIA E MODO DE USAR e 7. CUIDADOS DE ARMAZENAMENTO DO MEDICAMENTO ) iniciando 60 min antes da incisão cirúrgica inicial. Uma dose única de 500 mg IV de metronidazol deve ser administrada imediatamente após o término da infusão de cloridrato de cefepima. O metronidazol deve ser preparado e administrado de acordo com a bula oficial do produto. Devido à incompatibilidade, cloridrato de cefepima e metronidazol não devem ser misturados no mesmo recipiente (vide 8. POSOLOGIA E MODO DE USAR - Compatibilidade e 7. CUIDADOS DE ARMAZENAMENTO DO MEDICAMENTO ); recomenda-se enxaguar o equipo de administração intravenosa com um líquido compatível antes da infusão do metronidazol. Caso o procedimento cirúrgico se prolongue por mais de 12 horas a partir da dose profilática inicial, uma segunda dose de cloridrato de cefepima seguida por metronidazol deve ser administrada 12 horas após a dose profilática inicial.
+
+Doses comumente recomendadas:
+
+Pacientes pediátricos com mais de 2 meses de idade e peso corpóreo inferior ou igual a 40 kg: 50 mg/kg a cada 12 horas durante 10 dias. Para infecções mais graves pode ser usado um intervalo de 8 horas entre as doses.
+
+Pacientes pediátricos com mais de 2 meses de idade e peso corpóreo inferior ou igual a 40 kg: 50 mg/kg a cada 8 horas durante 7 – 10 dias. A experiência com o uso de cloridrato de cefepima em pacientes pediátricos com menos de 2 meses de idade é limitada.
+
+Embora esta experiência tenha sido alcançada usando-se a dose de 50 mg/kg, os dados farmacocinéticos obtidos em pacientes com mais de 2 meses de idade sugerem que a dose de 30 mg/kg a cada 8 ou 12 horas pode ser considerada para pacientes entre 1 e 2 meses de idade. As doses de 50 mg/kg para pacientes com mais de 2 meses de idade e de 30 mg/kg para pacientes entre 1 e 2 meses de idades são comparáveis à dose de 2 g para adultos. A administração de cloridrato de cefepima nestes pacientes deverá ser cuidadosamente monitorada. Para pacientes pediátricos com peso corpóreo acima de 40 kg, aplicam-se as doses recomendadas para adultos (vide Posologia - Adultos e Pacientes Pediátricos com peso corpóreo superior a 40 kg – Tabela 7 ). A dose recomendada para pacientes pediátricos não deve exceder a dose máxima recomendada para adultos (2 g a cada 8 horas). A experiência com a administração intramuscular em pacientes pediátricos é limitada.
+
+Em pacientes com disfunção renal, a dose de cefepima deve ser ajustada para compensar o índice menor de eliminação renal. A dose inicial recomendada de cefepima em pacientes com insuficiência renal leve a moderada deve ser a mesma que em pacientes com função renal normal. As doses de manutenção recomendadas de cefepima em pacientes adultos com insuficiência renal estão presentes na Tabela 8 . Quando somente a medida da creatinina sérica está disponível, a seguinte fórmula (equação de Cockcroft e Gault) pode ser usada para estimar o _clearance_ da creatinina. A creatinina sérica deve representar uma condição normal da função renal:
+
+Homens: _clearance_ da creatinina (mL/min) = peso (kg) x (140-idade) / 72 x creatinina sérica (mg/dL)
+
+Mulheres: 0,85 x valor calculado usando a fórmula para homens.
+
+Tabela 8: Esquema de doses de manutenção recomendada em pacientes adultos com disfunção renal*
+
+|_Clearance_deCREATININA(mL/min)||DOSE DE MANUTENÇÃO RECOMENDADA|DOSE DE MANUTENÇÃO RECOMENDADA|DOSE DE MANUTENÇÃO RECOMENDADA|
+|---|---|---|---|---|
+|>50||(Dose usual, sem ajuste necessário)|||
+||2ga cada 8 horas|2ga cada 12 horas|1ga cada 12 horas|500 mga cada 12 horas|
+|30-50|2ga cada 12 horas|2ga cada 24 horas|1ga cada 24 horas|500 mga cada 24 horas|
+|11-29|2 g a cada 24 horas|1 g a cada 24 horas|500 mg a cada24 horas|500 mg a cada 24 horas|
+|≤ 10|1 g a cada 24 horas|500 mg a cada24 horas|250 mg a cada24 horas|250 mg a cada 24 horas|
+|Hemodiálise*|500 mg a cada24 horas|500 mg a cada24 horas|500 mg a cada24 horas|500 mg a cada 24 horas|
+
+*O modelo farmacocinético indica que a redução de dose é necessária para estes pacientes.
+
+Para pacientes que estão submetidos a hemodiálise e concomitantemente recebendo cefepima, a dose de cefepima deve ser como segue: 1 g de cefepima como dose de ataque no primeiro dia de tratamento e 500 mg por dia a partir do 2º dia para todas as infecções exceto neutropenia febril, para a qual a dose é de 1 g por dia. Nos dias de diálise, cefepima deve ser administrada após a diálise. Sempre que possível cefepima deve ser administrada na mesma hora a cada dia.
+
+Em pacientes submetidos à hemodiálise, aproximadamente 68% da quantidade total de cefepima presente no organismo no início da diálise será removida durante um período de 3 horas de diálise. Em pacientes submetidos à diálise peritoneal contínua em ambulatório, a cefepima pode ser administrada nas mesmas doses
+
+recomendadas para pacientes com função renal normal, isto é, 500 mg, 1 g ou 2 g, dependendo da gravidade da infecção, porém com intervalo entre as doses de 48 horas.
+
+Uma vez que a excreção urinária é a principal via de eliminação da cefepima em pacientes pediátricos (vide 3. CARACTERÍSTICAS FARMACOLÓGICAS ), o ajuste das doses de cloridrato de cefepima deve ser considerado nesta população.
+
+Como recomendado anteriormente na Tabela 8 , os mesmos aumentos nos intervalos entre doses e/ou reduções de doses devem ser usados. Quando somente o valor da creatinina sérica estiver disponível, o _clearance_ de creatinina pode ser estimado utilizando-se um dos seguintes métodos:
+
+_clearance_ de creatinina (mL/min/1,73 m²) _= clearance_ de creatinina (mL/min/1,73 m²) _=_
+
+Não é necessário ajuste de dose para pacientes com alterações da função hepática. Para segurança e eficácia desta apresentação, cloridrato de cefepima injetável não deve ser administrado por vias não recomendadas. A administração deve ser somente pela via intravenosa ou intramuscular.
+
+--- BULA: ELANI CICLO ---
+Os comprimidos revestidos devem ser ingeridos na ordem indicada na cartela, por 21 dias consecutivos, mantendo-se aproximadamente o mesmo horário e, se necessário, com pequena quantidade de líquido. Cada nova cartela é iniciada após um intervalo de pausa de sete dias sem a ingestão de comprimidos, durante o qual deve ocorrer sangramento por privação hormonal (em 2-3 dias após a ingestão do último comprimido). Este sangramento pode não haver cessado antes do início de uma nova cartela.
+
+Quando nenhum outro contraceptivo hormonal foi utilizado no mês anterior ao uso do Elani[®] Ciclo: no caso da usuária não ter utilizado contraceptivo hormonal no mês anterior, a ingestão deve ser iniciada no 1º dia do ciclo (1º dia de sangramento menstrual).
+
+Mudando de outro contraceptivo oral combinado (COC), anel vaginal ou adesivo transdérmico (contraceptivo) para Elani[®] Ciclo: se a usuária estiver mudando de um outro COC, deve começar preferencialmente no dia posterior a ingestão do último comprimido ativo (contendo hormônio) do contraceptivo usado anteriormente ou, no máximo, no dia seguinte ao último dia de pausa ou de tomada de comprimidos inativos (sem hormônio).
+
+Se estiver mudando de anel vaginal ou adesivo transdérmico, deve começar preferencialmente no dia da retirada do último anel ou adesivo do ciclo ou, no máximo, no dia previsto para a próxima aplicação.
+
+Mudando de um método contraceptivo contendo somente progestógeno (minipílula, injeção, implante ou Sistema Intrauterino (SIU) com liberação de progestógeno) para Elani[®] Ciclo : se a usuária estiver mudando de um método contraceptivo contendo somente progestógenos (minipílula, injeção, implante ou Sistema Intrauterino (SIU) com liberação de progestógeno), poderá iniciar o COC em qualquer dia no caso da minipílula, ou no dia da retirada do implante ou do SIU, ou no dia previsto para a próxima injeção. Em todos esses casos (uso anterior de minipílula, injeção, implante ou Sistema Intrauterino com liberação de progestógeno), recomenda-se usar adicionalmente um método de barreira nos sete primeiros dias de ingestão de Elani[®] Ciclo .
+
+Após abortamento de primeiro trimestre: pode-se iniciar o uso de Elani Ciclo imediatamente, sem necessidade de adotar medidas contraceptivas adicionais.
+
+Após parto ou abortamento no segundo trimestre: após parto ou abortamento de segundo trimestre, é recomendável iniciar o COC no período entre o 21º e o 28º dia após o procedimento. Se começar em período posterior, deve-se aconselhar o uso adicional de um método de barreira nos sete dias iniciais de ingestão. Se já tiver ocorrido relação sexual, deve certificar-se de que a mulher não esteja grávida antes de iniciar o uso do COC ou, então, aguardar a primeira menstruação.
+
+Para amamentação, veja “Gravidez e Lactação” no item “Advertências e Precauções”.
+
+Comprimidos esquecidos: se houver transcorrido menos de 12 horas do horário habitual de ingestão, a proteção contraceptiva não será reduzida. A usuária deve tomar imediatamente o comprimido esquecido e continuar o restante da cartela no horário habitual.
+
+Se houver transcorrido mais de 12 horas , a proteção contraceptiva pode estar reduzida neste ciclo. Nesse caso, deve-se ter em mente duas regras básicas: 1) a ingestão dos comprimidos nunca deve ser interrompida por mais de sete dias; 2) são necessários sete dias de ingestão contínua dos comprimidos para conseguir supressão adequada do eixo hipotálamohipófise-ovário. Consequentemente, na prática diária, pode-se usar a seguinte orientação:
+
+Se o esquecimento ocorreu na 1ª semana: a usuária deve ingerir imediatamente o último comprimido esquecido, mesmo que isto signifique a ingestão simultânea de dois comprimidos. Os comprimidos restantes devem ser tomados no horário habitual. Além disso, deve-se adotar um método de barreira (por exemplo, preservativo) durante os sete dias subsequentes. Se tiver ocorrido relação sexual nos sete dias anteriores, deve-se considerar a possibilidade de gravidez. Quanto mais comprimidos forem esquecidos e mais perto estiverem do intervalo normal sem tomada de comprimidos (pausa), maior será o risco de gravidez.
+
+Se o esquecimento ocorreu na 2ª semana: a usuária deve tomar imediatamente o último comprimido esquecido, mesmo que isto signifique a ingestão simultânea de dois comprimidos e deve continuar tomando o restante da cartela no horário habitual. Se, nos sete dias precedentes ao primeiro comprimido esquecido, todos os comprimidos tiverem sido tomados conforme as instruções, não é necessária qualquer medida contraceptiva adicional. Porém, se isto não tiver ocorrido, ou se mais do que um comprimido tiver sido esquecido, deve-se aconselhar a adoção de precauções adicionais por sete dias. Se o esquecimento ocorreu na 3ª semana: o risco de redução da eficácia é iminente pela proximidade do intervalo sem ingestão de comprimidos (pausa). No entanto, ainda se pode minimizar a redução da proteção contraceptiva ajustando o esquema de ingestão dos comprimidos. Se, nos sete dias anteriores ao primeiro comprimido esquecido a ingestão foi feita corretamente, a usuária poderá seguir qualquer uma das duas opções abaixo, sem precisar usar métodos contraceptivos adicionais. Se não for este o caso, ela deve seguir a primeira opção e usar medidas contraceptivas adicionais durante os sete dias seguintes.
+
+1) Tomar o último comprimido esquecido imediatamente, mesmo que isto signifique a ingestão simultânea de dois comprimidos e continuar tomando os comprimidos seguintes no horário habitual. A nova cartela deve ser iniciada assim que acabar a cartela atual. É pouco provável que ocorra sangramento por privação até o final da segunda cartela, mas pode ocorrer gotejamento ou sangramento de escape durante os dias de ingestão dos comprimidos.
+
+2) Suspender a ingestão dos comprimidos da cartela atual, fazer um intervalo de pausa de até sete dias sem ingestão de comprimidos (incluindo os dias em que esqueceu de tomá-los) e, a seguir, iniciar uma nova cartela.
+
+Se não ocorrer sangramento por privação no primeiro intervalo normal sem ingestão de comprimido (pausa), deve-se considerar a possibilidade de gravidez.
+
+Procedimento em caso de distúrbios gastrintestinais: no caso de distúrbios gastrintestinais graves, a absorção pode não ser completa e medidas contraceptivas adicionais devem ser tomadas.
+
+Se ocorrer vômito dentro de 3 a 4 horas após a ingestão de um comprimido, deve-se seguir o mesmo procedimento usado no item “Comprimidos esquecidos”. Se a usuária não quiser alterar seu esquema habitual de ingestão, deve retirar o(s) comprimido(s) adicional(is) de outra cartela.

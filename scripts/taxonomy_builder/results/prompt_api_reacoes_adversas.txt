@@ -1,0 +1,1006 @@
+Você é um Farmacêutico Clínico Especialista em Ontologias Médicas e NLP.
+
+Abaixo, fornecerei vários parágrafos extraídos da seção "REACOES_ADVERSAS" de bulas reais.
+Sua tarefa é analisar o texto bruto, encontrar padrões de instruções clínicas e criar uma lista exaustiva de "Tags de Intenção" (Intention Tags) que cubram todas as informações contidas neles.
+
+REGRAS RÍGIDAS:
+1. BOTTOM-UP: Nenhuma tag pode ser inventada se não houver um trecho explícito que a justifique.
+2. GRANULARIDADE: Específica o suficiente para roteamento, mas genérica para servir a várias bulas (ex: "contraindicacao_doenca_cardiaca").
+3. FORMATO: Apenas snake_case (letras minúsculas e sublinhado).
+
+O QUE VOCÊ DEVE RETORNAR PARA CADA TAG IDENTIFICADA (em formato JSON estrito):
+[
+  {
+    "nome_tag": "tag_em_snake_case",
+    "descricao_intencao": "Que tipo de pergunta ativaria essa tag?",
+    "evidencia_extraida": "Frase exata da bula que originou a tag"
+  }
+]
+
+Aqui estão os textos brutos das bulas para a sua análise:
+--- BULA: CLORIDRATO DE PROPRANOLOL ---
+O cloridrato de propranolol é geralmente bem tolerado. Em estudos clínicos, as possíveis reações adversas relatadas são geralmente atribuíveis às ações farmacológicas do cloridrato de propranolol.
+
+As seguintes reações adversas têm sido relatadas com cloridrato de propranolol:
+
+Geral: fadiga e/ou lassitude (frequentemente transitória).
+
+Cardiovascular: bradicardia, extremidades frias, fenômeno de Raynaud.
+
+Sistema Nervoso Central: distúrbios do sono e pesadelos.
+
+Reação incomum (≥ 1/1.000 e < 1/100):
+
+Gastrointestinal: distúrbios gastrointestinais, assim como náuseas, vômito e diarreias.
+
+Reação rara (≥ 1/10.000 e < 1/1.000):
+
+Sangue: trombocitopenia
+
+Cardiovascular: piora da insuficiência cardíaca, precipitação do bloqueio cardíaco, hipotensão postural que pode estar associada com síncope e exacerbação de claudicação intermitente.
+
+Sistema Nervoso Central: alucinações, psicoses, alterações de humor, confusão.
+
+Pele: púrpura, alopecia, reações cutâneas psoriasiformes, agravamento da psoríase, exantema. Neurológico: parestesia.
+
+Olhos: olhos secos, distúrbios visuais.
+
+Respiratório: pode ocorrer broncoespasmo em pacientes com asma brônquica ou história de queixas asmáticas (algumas vezes com resultado fatal).
+
+Sistema endócrino: foi relatada hipoglicemia em neonatos, lactentes, crianças, pacientes idosos, pacientes submetidos a hemodiálise, pacientes em terapia antidiabética concomitante, pacientes em jejum prolongado e pacientes com doença hepática crônica.
+
+Investigações: aumento dos anticorpos antinucleares (ANA), entretanto, a relevância clínica deste evento não está clara. Sistema Nervoso Central: síndrome do tipo miastenia grave ou exacerbação da miastenia grave.
+
+A descontinuação do tratamento deve ser considerada se, a critério médico, o bem-estar do paciente estiver sendo afetado por qualquer uma das reações acima. A interrupção do tratamento com um betabloqueador deve ser gradual. Na rara possibilidade
+
+CLORIDRATO DE PROPRANOLOL_VPS
+
+de intolerância, manifestada como bradicardia e hipotensão, o fármaco deve ser suspenso e, se necessário, deve-se instituir tratamento para superdosagem.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: DIPIRONA SÓDICA ---
+As frequências das reações adversas estão listadas a seguir de acordo com a seguinte convenção: Reação muito comum (ocorre em mais de 10% dos pacientes que utilizam este medicamento). Reação comum (ocorre entre 1% e 10% dos pacientes que utilizam este medicamento).
+
+Reação incomum (ocorre entre 0,1% e 1% dos pacientes que utilizam este medicamento). Reação rara (ocorre entre 0,01% e 0,1% dos pacientes que utilizam este medicamento). Reação muito rara (ocorre em menos de 0,01% dos pacientes que utilizam este medicamento). Reação desconhecida (não pode ser estimada a partir dos dados disponíveis).
+
+Síndrome de Kounis (aparecimento simultâneo de eventos coronarianos agudos e reações alérgicas ou anafilactoides. Engloba conceitos como infarto alérgico e angina alérgica).
+
+A dipirona pode causar choque anafilático, reações anafiláticas/anafilactoides que podem se tornar graves com risco à vida e, em alguns casos, serem fatais. Estas reações podem ocorrer mesmo após a dipirona ter sido utilizada previamente em muitas ocasiões sem complicações.
+
+Estas reações medicamentosas podem desenvolver-se imediatamente após a administração de dipirona ou horas mais tarde; contudo, a tendência normal é que estes eventos ocorram na primeira hora após a administração. Normalmente, reações anafiláticas/anafilactoides leves manifestam-se na forma de sintomas cutâneos ou nas mucosas (tais como: prurido, ardor, rubor, urticária, edema), dispneia e, menos frequentemente, doenças/sintomas gastrintestinais.
+
+Estas reações leves podem progredir para formas graves com urticária generalizada, angioedema grave (até mesmo envolvendo a laringe), broncoespasmo grave, arritmias cardíacas, queda da pressão sanguínea (algumas vezes precedida por aumento da pressão sanguínea) e choque circulatório.
+
+Em pacientes com síndrome da asma analgésica, reações de intolerância aparecem tipicamente na forma de crises asmáticas.
+
+Além das manifestações de mucosas e cutâneas de reações anafiláticas/anafilactoides mencionadas acima, podem ocorrer ocasionalmente erupções medicamentosas fixas; raramente exantema, e, em casos isolados, síndrome de Stevens-Johnson (SSJ) (reação alérgica grave, envolvendo erupção cutânea na pele e mucosas) ou síndrome de Lyell ou Necrólise Epidérmica Tóxica (NET) (síndrome bolhosa rara e grave, caracterizada clinicamente por necrose em grandes áreas da epiderme. Confere ao paciente aspecto de grande queimadura). Reação Cutânea Associada à Eosinofilia e Sintomas Sistêmicos (DRESS) (manifestação rara induzida por hipersensibilidade aos medicamentos levando ao surgimento de erupções cutâneas, alterações hematológicas [no sangue]) também foi relatada com frequência desconhecida (vide “Advertências e Precauções”).
+
+Anemia aplástica, agranulocitose (vide “Advertências e Precauções) e pancitopenia, incluindo casos fatais, leucopenia e trombocitopenia. Estas reações são consideradas imunológicas por natureza. Elas podem ocorrer mesmo após a dipirona ter sido utilizada previamente em muitas ocasiões, sem complicações.
+
+Para os sinais típicos de agranulocitose, consulte a seção 5 (“Advertências e Precauções”).. A taxa de sedimentação eritrocitária é extensivamente aumentada, enquanto o aumento de nódulos linfáticos é tipicamente leve ou ausente.
+
+Os sinais típicos de trombocitopenia incluem uma maior tendência para sangramento e aparecimento de petéquias na pele e membranas mucosas.
+
+--- BULA: ENOXALOW ---
+A classificação descrita abaixo para os efeitos indesejáveis encontra-se de acordo com a classificação MedDRA:
+
+Muito comuns: >1/10;
+
+Comuns: >1/100, 1/1.000, 1/10.000, <1/1.000; Muito raros: <1/10.000 (incluindo comunicações isoladas)
+
+Tal como com outros anticoagulantes, podem ocorrer hemorragias na presença de fatores de risco associados, tais como: lesões orgânicas susceptíveis de hemorragia, procedimentos invasivos e certas associações medicamentosas.
+
+Casos de trombocitopenia ligeira e transitória têm sido observados durante os primeiros dias de tratamento.
+
+Foram relatados casos de hemorragias graves, incluindo hemorragia retroperitoneal e intracraniana. Alguns destes casos foram fatais. Foram relatados casos de hematomas neuraxiais com o uso concomitante de enoxaparina e anestesia espinhal/epidural ou punção espinhal. Estes eventos produziram graus variados de danos neurológicos, incluindo paralisia prolongada ou permanente.
+
+Foram relatados casos raros de trombocitopenia imunoalérgica com trombose. Em alguns casos a trombose foi complicada por infarto do órgão ou isquemia dos membros.
+
+Podem ocorrer casos de reações alérgicas cutâneas (erupções bolhosas) ou sistêmicas devido à ingestão da enoxaparina, que levam por vezes à suspensão do tratamento.
+
+Foram relatados casos de hipersensibilidade com vasculite cutânea devida a ingestão da enoxaparina.
+
+Raramente, surgem nódulos inflamatórios no local da injeção, devido à administração da enoxaparina, que não são bolsas císticas de enoxaparina. Estes casos desaparecem após alguns dias sem necessidade de descontinuar o tratamento.
+
+Foram observados alguns casos excepcionais de necrose cutânea no local da injeção, devida à administração da enoxaparina, quer com a heparina convencional quer com as heparinas de baixo peso molecular.
+
+Estes efeitos são precedidos do aparecimento de púrpura ou de placas eritematosas, infiltradas e dolorosas, com ou sem sintomas gerais. Neste caso, é necessário suspender imediatamente o tratamento.
+
+Foram relatados aumentos assintomáticos e reversíveis do número de enzimas hepáticas.
+
+Foram relatados aumentos assintomáticos e reversíveis do número de plaquetas.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+Muito comuns: >1/10; Comuns: >1/100, 1/1.000, 1/10.000, <1/1.000; Muito raros: <1/10.000 (incluindo comunicações isoladas)
+
+Doenças do Sangue e do Sistema Linfático Frequentes Tal como com outros anticoagulantes, podem ocorrer hemorragias na presença de fatores de risco associados, tais como: lesões orgânicas susceptíveis de hemorragia, procedimentos invasivos e certas associações medicamentosas. Casos de trombocitopenia ligeira e transitória têm sido observados durante os primeiros dias de tratamento.
+
+Muito raros Foram relatados casos de hemorragias graves, incluindo hemorragia retroperitoneal e intracraniana. Alguns destes casos foram fatais. Foram relatados casos de hematomas neuraxiais com o uso concomitante de enoxaparina e anestesia espinhal/epidural ou punção espinhal. Estes eventos produziram graus variados de danos neurológicos, incluindo paralisia prolongada ou permanente.
+
+Doenças do Sistema Imune Raros
+
+--- BULA: EXPECTOFLUI ---
+Reação muito rara (< 1/10.000): Gastrintestinais: náuseas, vômitos, diarreias e dor de estômago; Renais: urolitíase (cálculos nas vias urinárias); Dermatológicos: erupções cutâneas e urticária; Neurológicos: dor de cabeça, sonolência e vertigem.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: EUPHORBIUM COMPOSITUM SN ---
+Este medicamento contém algumas substâncias em baixas dinamizações e, portanto, algumas reações indesejáveis podem ocorrer.
+
+O médico deve informar ao paciente para entrar em contato, caso os sintomas persistam por mais de 2 dias, ou se agravem. No caso do tratamento ser longo, acompanhar a evolução do paciente durante todo o período do tratamento.
+
+Em casos de eventos adversos, notifique ao Sistema de Notificação de Eventos Adversos a Medicamentos - VIGIMED, disponível em http://portal.anvisa.gov.br/vigimed, ou para a Vigilância Sanitária Estadual ou Municipal.
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA ---
+Muitos dos efeitos indesejáveis de butilbrometo de escopolamina podem ser atribuídos às propriedades anticolinérgicas.
+
+Em geral, os eventos são leves e desaparecem espontaneamente.
+
+– Reações comuns (>1/100 e <1/10): distúrbios da acomodação visual, taquicardia, tontura, boca seca.
+
+– Reações com frequência desconhecida*: hipersensibilidade, reações anafiláticas, choque anafilático incluindo ocorrências fatais, dispneia, reações cutâneas, urticária, rash, eritema, prurido, diminuição da pressão arterial, rubor, disidrose, retenção urinária, midríase, aumento da pressão intraocular.
+
+* Essas reações adversas foram observadas nas experiências pós-comercialização. A frequência não é maior que comum (3/185), mas deve ser menor, com 95% de certeza. Não é possível uma estimativa precisa da frequência, uma vez que as reações adversas não ocorreram no banco de dados do estudo clínico com 185 pacientes.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no portal da Anvisa.
+
+--- BULA: GOTAS BINELLI ---
+Raramente são observadas reações adversas com as doses terapêuticas recomendadas. Em caso de doses elevadas ou de hipersensibilidade, as reações mais frequentes são hipotensão ortostática, náusea, sonolência, rash e eritema.
+
+Em casos de eventos adversos, notifique à empresa e ao Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: FUROATO DE MOMETASONA ---
+As reações adversas locais, muito raramente relatadas com o uso de furoato de mometasona creme, incluem parestesia, prurido e sinais de atrofia cutânea. Em menos de 1% dos pacientes que fizeram uso de furoato de mometasona creme 0,1%, foram relatados abscessos, queimação, exacerbação de infecções, pele seca, eritema e furunculose.
+
+Reações adversas adicionais reportadas com o uso de furoato de mometasona incluem erupções acneiformes, reações no local de aplicação e foliculite.
+
+O componente propilenoglicol é potencialmente irritante e pode causar sensação de queimação se usado sobre área inflamada.
+
+As seguintes reações adversas locais foram relatadas pouco frequentemente com o uso de outros corticosteroides tópicos: queimação, irritação, ressecamento, hipertricose, hipopigmentação, dermatite perioral, dermatite de contato alérgica, maceração da pele, infecção secundária, estrias e miliária.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: BUP ---
+Os dados abaixo fornecem informações sobre as reações adversas, identificadas em estudos clínicos. Reações muito comuns (>1/10): insônia, cefaleia, boca seca, transtornos gastrintestinais como náusea e vômito.
+
+Reações comuns (>1/100 e 1<10): reações de hipersensibilidade, como urticária; anorexia, agitação, ansiedade; tremor, vertigem, transtornos no paladar; transtornos na visão; tinido; aumento da pressão sanguínea (em alguns casos, grave), calor e rubor; dor abdominal, constipação; rash, prurido, sudorese; febre, dor no peito, astenia.
+
+Reações incomuns (>1/1000 e <1/100): perda de peso; depressão, confusão mental; taquicardia; distúrbios de concentração.
+
+Reação rara (>1/10.000 e <1/1.000): convulsões (ver item 5. ADVERTÊNCIAS E PRECAUÇÕES).
+
+Reações muito raras (<1/10.000): reações de hipersensibilidade mais graves, incluindo angioedema, dispneia, broncoespasmo e choque anafilático; artralgia, mialgia e febre também foram relatadas em associação com rash e outros
+
+sintomas sugestivos de hipersensibilidade tardia. Esses sintomas podem lembrar a Doença do soro. Agressão, hostilidade, irritabilidade, inquietação, alucinações, sonhos anormais, despersonalização, delírio, ideação paranoide; alterações da glicemia; hiponatremia; distonia, ataxia, parkinsonismo, alterações na coordenação motora, alterações de memória, parestesias, síncopes; palpitações; vasodilatação, hipotensão postural; elevação no nível de enzimas hepáticas, icterícia, hepatite; eritema multiforme, síndrome de _Stevens-Johnson_ ; movimentos involuntários; aumento da frequência urinária ou retenção urinária; incontinência
+
+Bup (cloridrato de bupropiona)_COM REV LIB PROL_VP
+
+As reações adversas a seguir foram identificadas durante o uso pós-aprovação de cloridrato de bupropiona. Uma vez que essas reações foram relatadas voluntariamente por uma população com tamanho incerto, nem sempre é possível estimar a frequência ou estabelecer uma relação de exposição à droga.
+
+Gerais: artralgia, mialgia e febre com erupção cutânea e outros sintomas sugestivos de hipersensibilidade tardia. Estes sintomas podem assemelhar-se à doença do soro (ver item 5. ADVERTÊNCIAS E PRECAUÇÕES);
+
+Cardiovascular: hipertensão (em alguns casos grave), hipotensão ortostática, bloqueio cardíaco de terceiro grau; Endócrino: síndrome da secreção inapropriada de hormônio antidiurético, hiperglicemia e hipoglicemia; Gastrintestinal: esofagite e hepatite;
+
+Circulatório e linfático: equimose, leucocitose, leucopenia e trombocitopenia. Alterações no INR e/ou TP, raramente associadas a complicações hemorrágicas ou trombóticas, foram observadas quando a bupropiona foi coadministrada com varfarina;
+
+Musculoesquelético: rigidez muscular/rabdomiólise e fraqueza muscular;
+
+Sistema nervoso: agressão, coma, suicídio completo, delírio, sonhos anormais, ideias paranoicas, parestesia, inquietação, tentativa de suicídio e discinesia tardia desmascarada;
+
+Pele e anexos da pele: síndrome de _Stevens–Johnson_ , angioedema, dermatite esfoliativa e urticária;
+
+Sentidos especiais: tinido e aumento da pressão intraocular. Metabólicos e nutricionais: apetite aumentado, apetite diminuído. Psiquiátricos: libido aumentada, perda de libido, ataque de pânico Infecções: nasofaringite. Respiratório, torácico e do mediastino: dor orofaringea.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: BESILATO DE ANLODIPINO ---
+Besilato de anlodipino é bem tolerado. Em estudos clínicos placebo-controlados envolvendo pacientes com hipertensão ou angina, os efeitos colaterais mais comumente observados foram:
+
+|Classificação por Sistema Orgânico (MedDRA)|Efeitos Indesejáveis|
+|---|---|
+|Distúrbios do Sistema Nervoso|dores de cabeça, tontura, sonolência|
+|Distúrbios Cardíacos|palpitações|
+|Distúrbios Vasculares|rubor|
+|Distúrbios Gastrintestinais|dor abdominal, náusea|
+|Distúrbios gerais e condições dolocalde administração|edema,fadiga|
+
+Nestes estudos clínicos não foram observados padrões de anormalidades laboratoriais clinicamente significantes relacionados ao anlodipino.
+
+Os efeitos colaterais menos comumente observados na experiência pós-comercialização incluem:
+
+|Classificação por Sistema Orgânico (MedDRA)|Efeitos Indesejáveis|
+|---|---|
+|Distúrbios Sanguíneos e Sistema Linfático|leucopenia, trombocitopenia|
+|Distúrbios do Metabolismo e Nutrição|hiperglicemia|
+|DistúrbiosPsiquiátricos|insônia ehumoralterado|
+|Distúrbios do Sistema Nervoso|hipertonia, hipoestesia/parestesia, neuropatiaperiférica, síncope, disgeusia, tremor, transtorno extrapiramidal|
+|Distúrbios Visuais|deficiência visual|
+|Distúrbios do Ouvido e Labirinto|tinido|
+|Distúrbios Vasculares|hipotensão, vasculite|
+|DistúrbiosRespiratórios,Torácicos eMediastinal|tosse, dispneia,rinite|
+|Distúrbios Gastrintestinais|Mudança da função intestinal, boca seca, dispepsia (incluindogastrite),hiperplasia gengival, pancreatite, vômito|
+|Distúrbios da Pele e Tecido Subcutâneo|alopecia, hiperidrose, púrpura, alteração da cor da pele,urticária|
+|Distúrbios Musculoesqueléticos e Tecido Conjuntivo|artralgia, dor nas costas, espasmos musculares, mialgia|
+|Distúrbios Renais e Urinários|polaciúria, distúrbios miccionais, noctúria|
+|Distúrbios do SistemaReprodutivo eMamas|ginecomastia, disfunção erétil|
+|Distúrbios Gerais e condições do local de administração|astenia, mal estar, dor|
+|Investigações|aumento/redução de peso|
+
+Os eventos raramente relatados foram as reações alérgicas, incluindo prurido, rash, angiodema e eritema multiforme.
+
+Foram raramente relatados casos de hepatite, icterícia e elevações da enzima hepática (a maioria compatível com colestase). Alguns casos graves requerendo hospitalização foram relatados em associação ao uso do anlodipino. Em muitos casos, a relação de causalidade é incerta.
+
+Assim como com outros bloqueadores do canal de cálcio, os seguintes eventos adversos foram raramente relatados e não podem ser distinguidos da história natural da doença de base: infarto do miocárdio, arritmia (incluindo bradicardia, taquicardia ventricular e fibrilação atrial) e dor torácica.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: FLUDALIBBS ---
+Infecções oportunistas têm ocorrido em pacientes tratados com fosfato de fludarabina. Fatalidades foram relatadas como consequência de eventos adversos sérios.
+
+A tabela abaixo mostra as reações adversas conforme classificação MedDRA por sistema corpóreo (MedDRA SOCs). As frequências baseiam-se em dados provenientes de estudos clínicos, independentemente da relação causal com o fosfato de fludarabina. As reações adversas raras foram identificadas principalmente na experiência pós-comercialização:
+
+|Classificação porsistema corpóreoMedDRA|Muito comum≥ 1/10|Comum≥ 1/100 a ≥ 1/1.000 a ≥ 1/10.000 a 1/1.000|
+|---|---|---|---|---|
+|Infecções einfestações|Infecções / infecçõesoportunistas (porreativação viral|||Distúrbiolinfoproliferativo(associado ao EBV)|
+
+|~~Tot~~|latente, por exemplo,vírus herpes zoster,vírus Epstein-Barr,leucoencefalopatiamultifocalprogressiva),pneumonia~~Tot~~|~~Tot~~|~~Tot~~|~~Tot~~|
+|---|---|---|---|---|
+|Neoplasmabenigno, malignoe não específico(incluindo pólipose cistos)||Síndromemielodisplásica eleucemia mieloideaguda(principalmenteassociada comtratamentoanterior,concomitante ousubsequente comagentesalquilantes,inibidores datopoisomerase ouradioterapia)|||
+|Distúrbios nosistema sanguíneoe linfático|Neutropenia,anemia,trombocitopenia|Mielossupressão|||
+|Distúrbios nosistemaimunológico|||Distúrbioautoimune(incluindoanemia hemolíticaautoimune, púrpuratrombocitopênica,pênfigo, síndromede Evans, hemofiliaadquirida)~~de~~|~~de~~|
+|Distúrbiosnutricionais emetabólicos~~Ltt~~|~~Ltt~~|Anorexia~~Ltt~~|Síndrome da lisetumoral (incluindoinsuficiência renal,hipercalemia,acidose metabólica,hematúria,cristalúria de urato,hiperuricemia,hiperfosfatemia,hipocalcemia)~~Ltt~~~~de~~|~~Ltt~~~~de~~|
+|Distúrbios nosistema nervoso~~Ltt~~|~~Ltt~~|Neuropatiaperiférica~~Ltt~~|Confusão~~Ltt~~~~de~~|Agitação, convulsões,coma~~Ltt~~~~de~~|
+|Distúrbios nosolhos~~ee~~|~~ee~~|Distúrbios visuais~~ee~~|~~de~~~~ee~~|Neurite óptica,neuropatia óptica,cegueira~~de~~~~ee~~|
+|Distúrbioscardíacos~~————EE~~|~~————EE~~|~~————EE~~|~~————EE~~|Insuficiênciacardíaca, arritmia~~————EE~~|
+|DistúrbiosVasculares~~————EE~~~~Pf~~|~~————EE~~~~Pf~~~~t~~|~~————EE~~~~t~~~~f~~|Hemorragiagastrointestinal~~————EE~~|~~————EE~~|
+|Distúrbiosrespiratórios,torácicos emediastinal~~Pf~~|Tosse~~Pf~~~~t~~|~~t~~~~f~~|Toxicidadepulmonar(incluindo dispneia,fibrose pulmonar epneumonite)~~f~~|~~f~~|
+
+|Distúrbiosgastrintestinais|Náusea, vômito,diarreia|Estomatite|Alterações nasenzimaspancreáticas||
+|---|---|---|---|---|
+|Distúrbioshepatobiliares|||Alterações nasenzimas hepáticas||
+|Distúrbios detecidossubcutâneos e pele||Erupção cutânea|Câncer de pele,síndrome deStevens-Johnson,necróliseepidérmica tóxica(tipo Lyell)||
+|Distúrbios gerais econdições no localde administração|Febre, fadiga,astenia|Calafrios, mal-estar, edema,mucosite|||
+
+Foi utilizado o termo MedDRA mais apropriado (versão 12.0) para descrever uma determinada reação. Sinônimos ou condições relacionadas não foram listados, mas também devem ser considerados.
+
+- Distúrbios do sistema nervoso:
+
+- Leucoencefalopatia (ver item “5. Advertências e Precauções”);
+
+- Leucoencefalopatia tóxica aguda (ver item “5. Advertências e Precauções”);
+
+- Síndrome da leucoencefalopatia posterior reversível (LEPR) (ver item “5. Advertências e Precauções”).
+
+- Distúrbios vasculares:
+
+- Hemorragia (incluindo hemorragia cerebral, hemorragia pulmonar, cistite hemorrágica).
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: FIBROGAMMIN P ---
+Visto que os ensaios clínicos são realizados em condições muito variáveis, as taxas de reações adversas observadas nos ensaios clínicos de um medicamento não podem ser diretamente comparadas com as taxas observadas na prática.
+
+Doze ensaios clínicos foram conduzidos com o Concentrado de Fator XIII humano, com um total de 188 indivíduos. Pelo menos 4.314 doses de Concentrado de Fator XIII humano foram administradas nos estudos, dos quais pelo menos 3.954 doses foram administradas a indivíduos com deficiência congênita rara de fator XIII.
+
+Os seguintes termos foram considerados associados ao uso do Concentrado de Fator XIII humano a uma taxa > 1% (≥2 indivíduos): hipersensibilidade (incluindo alergia, erupção cutânea, prurido, eritema, hipersensibilidade), inflamação articular, hematoma, calafrios/aumento da temperatura, artralgia, complexo trombina-antitrombina III aumentado, cefaléia, lactato desidrogenase sérica aumentada e aumento de enzimas hepáticas (incluindo TGO aumentado, aumento de TGP, aumento de Gama GT e aumento de enzima hepática).
+
+As seguintes reações adversas são baseadas na experiência pós-comercialização.
+
+A tabela apresentada abaixo está de acordo com o Sistema de Classificação de Órgãos do MedDRA.
+
+As frequências foram avaliadas de acordo com a seguinte convenção: muito comum (≥ 1/10); comum (≥ 1/100 e <1/10); incomum (≥ 1/1.000 e <1/100); rara (≥ 1/10.000 e <1/1.000) e muito rara (<1/10.000).
+
+|Sistema de Classificação deÓrgãos do MedDRA|Reações adversas|Frequência|
+|---|---|---|
+|Doenças do sistema imune|Reações alérgicas /anafiláticas (como urticáriageneralizada, erupçõescutâneas, queda na pressãoarterial,dispneia)|Raras|
+||Desenvolvimento deinibidores contra FXIII|Muito rara|
+|Perturbações gerais ealterações no local deadministração|Aumento na temperaturacorporal|Rara|
+
+Se ocorrerem reações alérgicas/anafiláticas, a administração de Fibrogammin[® ] P deve ser descontinuada imediatamente e o tratamento adequado deve ser iniciado (ver item 5.
+
+Advertências e Precauções ). O procedimento padrão atual para o tratamento de choque deve ser seguido.
+
+O perfil de segurança para pacientes pediátricos não se diferencia do perfil de segurança para pacientes adultos nos estudos clínicos.
+
+Para a segurança relativa a agentes transmissíveis ver item 5. Advertências e Precauções .
+
+Os relatos de suspeitas de reações adversas após aprovação do medicamento são importantes. Eles permitem o monitoramento contínuo da relação risco/benefício do medicamento. Os profissionais de saúde são solicitados a relatar quaisquer suspeitas de reações adversas.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: DORICIN ---
+As frequências das reações adversas estão listadas a seguir de acordo com a seguinte convenção: Reação muito comum (ocorre em mais de 10% dos pacientes que utilizam este medicamento). Reação comum (ocorre entre 1% e 10% dos pacientes que utilizam este medicamento). Reação incomum (ocorre entre 0,1% e 1% dos pacientes que utilizam este medicamento). Reação rara (ocorre entre 0,01% e 0,1% dos pacientes que utilizam este medicamento). Reação muito rara (ocorre em menos de 0,01% dos pacientes que utilizam este medicamento). Reação desconhecida (não pode ser estimada a partir dos dados disponíveis).
+
+Distúrbios cardíacos: síndrome de Kounis (aparecimento simultâneo de eventos coronarianos agudos e reações alérgicas ou anafilactoides.
+
+Engloba conceitos como infarto alérgico e angina alérgica), redução ou aumento do ritmo cardíaco, arritmias cardíacas, palpitações.
+
+Distúrbios do sistema imunológico: choque anafilático e reações anafiláticas/anafilactoides, que podem se tornar graves e com risco de vida, às vezes fatal. Estas reações podem ocorrer mesmo após DORICIN[®] ter sido utilizado previamente em muitas ocasiões sem complicações. Podem se manifestar com sintomas cutâneos ou nas mucosas (tais como: prurido, ardor, rubor, urticária, inchaço), dispneia e, menos frequentemente, sintomas gastrintestinais, podendo progredir para formas mais severas de urticária generalizada, angioedema grave (até mesmo envolvendo a laringe), broncoespasmo grave, arritmias cardíacas, queda da pressão sanguínea (algumas vezes precedida por aumento da pressão sanguínea) e choque circulatório.
+
+Em pacientes com síndrome da asma analgésica, reações de intolerância aparecem tipicamente na forma de ataques asmáticos. Tais reações medicamentosas podem desenvolver-se imediatamente após a administração de dipirona sob a forma de comprimidos ou horas mais tarde; contudo, a tendência normal é que estes eventos ocorram na primeira hora após a administração.
+
+Distúrbios da pele e tecido subcutâneo: erupções fixadas por medicamentos; raramente, exantema; e, em casos isolados, síndrome de Stevens-Johnson (SSJ) ou síndrome de Lyell [Necrólise Epidérmica Tóxica (NET)] fatais. Reação Cutânea Associada à Eosinofilia e Sintomas Sistêmicos (DRESS), também foi relatada com frequência desconhecida (vide “Advertências e Precauções”).
+
+Distúrbios do sangue e sistema linfático: anemia aplástica, agranulocitose (vide “Advertências e Precauções”), e pancitopenia, incluindo casos fatais, leucopenia e trombocitopenia. Estas reações são consideradas imunológicas e podem ocorrer mesmo após DORICIN[®] ter sido utilizado previamente em muitas ocasiões, sem complicações.
+
+Foram relatados casos muito raros de anemia aplástica associada ao uso de orfenadrina.
+
+Para os sinais típicos de agranulocitose consulte a seção (“Advertências e Precauções”). A taxa de sedimentação eritrocitária é extensivamente aumentada, enquanto que o aumento de nódulos linfáticos é tipicamente leve ou ausente.
+
+Sinais típicos de trombopenia incluem maior tendência para sangramento e aparecimento de petéquias na pele e membranas mucosas.
+
+Distúrbios vasculares: reações hipotensivas isoladas. Podem ocorrer ocasionalmente após a administração, reações hipotensivas transitórias isoladas (possivelmente por mediação farmacológica e não acompanhadas por outros sinais de reações anafiláticas/anafilactoides); em casos raros, estas reações apresentam-se sob a forma de queda crítica da pressão sanguínea.
+
+Distúrbios renais e urinários: em casos muito raros, especialmente em pacientes com histórico de doença renal, pode ocorrer agravamento da função renal (insuficiência renal aguda), em alguns casos com oligúria, anúria ou proteinúria. Em casos isolados, pode ocorrer nefrite intersticial aguda.
+
+Coloração avermelhada pode ser observada algumas vezes na urina. Isso pode ocorrer devido à presença do metabólito ácido rubazônico, em baixas concentrações.
+
+Distúrbios gastrointestinais: foram reportados casos de sangramento gastrointestinal.
+
+Distúrbios hepatobiliares: lesão hepática induzida por medicamentos, incluindo hepatite aguda, icterícia, aumento das enzimas hepáticas podem ocorrer com frequência desconhecida (vide “Advertências e Precauções”).
+
+Outros sintomas: boca seca, sede, diminuição da sudorese _,_ retenção ou hesitação urinária, visão borrada, dilatação da pupila, aumento da pressão intraocular, fraqueza, náusea, vômitos, dor de cabeça, tonturas, constipação, sonolência, reações alérgicas, coceira, alucinações, agitação, tremor, irritação gástrica. Não frequentemente, pacientes idosos podem sentir certo grau de confusão mental. Estas reações adversas podem ser normalmente eliminadas pela redução da dose. Em doses tóxicas podem ocorrer, além dos sintomas mencionados, ataxia, distúrbio da fala, disfagia, pele seca e quente, disúria,
+
+diminuição dos movimentos peristálticos intestinais, delírio e coma.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+Distúrbios cardíacos: síndrome de Kounis (aparecimento simultâneo de eventos coronarianos agudos e reações alérgicas ou anafilactoides. Engloba conceitos como infarto alérgico e angina alérgica), redução ou aumento do ritmo cardíaco, arritmias cardíacas, palpitações.
+
+Distúrbios do sistema imunológico: choque anafilático e reações anafiláticas/anafilactoides que podem se tornar graves e com risco de vida, às vezes fatal. Estas reações podem ocorrer mesmo após DORICIN[®] ter sido utilizado previamente em muitas ocasiões sem complicações.
+
+Podem se manifestar com sintomas cutâneos ou nas mucosas (tais como: prurido, ardor, rubor, urticária, inchaço), dispneia e, menos frequentemente, sintomas gastrintestinais, podendo progredir para formas mais severas de urticária generalizada, angioedema grave (até mesmo envolvendo a laringe), broncoespasmo grave, arritmias cardíacas, queda da pressão sanguínea (algumas vezes precedida por aumento da pressão sanguínea) e choque circulatório.
+
+Em pacientes com síndrome da asma analgésica, reações de intolerância aparecem tipicamente na forma de ataques asmáticos. Tais reações medicamentosas podem desenvolver-se imediatamente após a administração de dipirona ou horas mais tarde; contudo, a tendência normal é que estes eventos ocorram na primeira hora após a administração.
+
+Para os sinais típicos de agranulocitose consulte a seção 5 (“Advertências e Precauções”). A taxa de sedimentação eritrocitária é extensivamente aumentada, enquanto que o aumento de nódulos linfáticos é tipicamente leve ou ausente. Sinais típicos de trombocitopenia incluem maior tendência para sangramento e aparecimento de petéquias na pele e membranas mucosas.
+
+Distúrbios renais e urinários: em casos muito raros, especialmente em pacientes com histórico de doença renal, pode ocorrer agravamento da função renal (insuficiência renal aguda), em alguns casos com oligúria, anúria ou proteinúria. Em casos isolados, pode ocorrer nefrite intersticial aguda. Coloração avermelhada pode ser observada algumas vezes na urina. Isso pode ocorrer devido à presença do metabólito ácido rubazônico, em baixas concentrações.
+
+Outros sintomas: boca seca, sede, diminuição da sudorese _,_ retenção ou hesitação urinária, visão borrada, dilatação da pupila, aumento da pressão intraocular, fraqueza, náusea, vômitos, dor de cabeça, tonturas, constipação, sonolência, reações alérgicas, coceira, alucinações, agitação, tremor e irritação gástrica. Não frequentemente, pacientes idosos podem sentir certo grau de confusão mental. Estas reações adversas podem ser normalmente eliminadas pela redução da dose. Em doses tóxicas podem ocorrer, além dos sintomas mencionados, ataxia, distúrbio da fala, disfagia, pele seca e quente, disúria,
+
+--- BULA: DIPROPIONATO DE BETAMETASONA + ÁCIDO SALICÍLICO ---
+Em estudos clínicos, o dipropionato de betametasona+ácido salicílico foram bem tolerados.
+
+As seguintes reações adversas locais têm sido relatadas com o uso de corticosteroides dermatológicos:
+
+Reações incomuns (entre 0,1% e 1%): ardor, prurido, irritação, infecção cutânea, inflamação cutânea, telangiectasias, equimoses, foliculite.
+
+Reações raras (entre 0,01% e 0,1%): estrias atróficas, hipertricose, erupções acneiformes, úlcera cutânea, urticária, hipopigmentação da pele, hiperestesia, alopecia, dermatite por pele seca, vesículas, eritema e irritação na pele.
+
+Reações cuja incidência não está determinada: dermatite perioral, dermatite alérgica de contato, maceração da pele, miliária, exantema, descamação da pele (laminar e perilesional) e parestesia.
+
+As seguintes reações adversas podem ocorrer mais frequentemente quando se faz uso de curativo oclusivo: maceração da pele, infecção secundária, atrofia da pele, estrias e miliária.
+
+A aplicação contínua de preparações contendo ácido salicílico pode causar dermatite.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: AVALOX ---
+Seguem abaixo as reações adversas ao medicamento baseadas em todos os estudos clínicos com moxifloxacino 400 mg (oral e sequencial [IV/oral]/ somente administração intravenosa) classificadas por categoria de frequência CIOMS III (total de n = 17.951, incluindo n = 4.583 de estudos de terapia sequencial/ intravenosa; posição de maio/2010). As reações adversas classificadas como “comuns” foram observadas com frequência inferior a 3%, com exceção de náusea e diarreia.
+
+As reações adversas baseadas em relatos pós-comercialização (posição: maio/2010) estão impressas em negrito e em letras maiúsculas.
+
+As reações adversas são apresentadas em ordem decrescente de gravidade, de acordo com cada grupo de frequência. As frequências são definidas como:
+
+Comum (  1/100 a < 1/10)
+
+Incomum (  1/1.000 a <1/100) Rara (  1/10.000 a <1/1.000) Muito rara (< 1/10.000)
+
+Desconhecida: a frequência não pode ser estimada a partir dos dados disponíveis.
+
+|Classificaçãopor sistemacorpóreo(MedDRA)|Comum|Incomum|Rara|Muito rara|Desconhecida|
+|---|---|---|---|---|---|
+|InfecçõeseInfestações|Superinfecçõesmicóticas|||||
+|DistúrbiosdoSistemaLinfáticoeSanguíneo||AnemiaLeucopenia(s)NeutropeniaTrombocitopeniaTrombocitemiaTempo deprotrombinaaumentado/aumento de RNI|Nível anormaldetromboplastina|Nível deprotrombinaaumentado/diminuição de RNIAnomalias no valorde protrombina/RNI||
+|Distúrbios doSistemaImunológico||Reação alérgicaPruridoRashUrticáriaEosinofiliasanguínea|Reaçãoanafilática /anafilactoideEdema alérgico/ angioedema(incl. edemalaríngeo, compotencial riscopara a vida)|Choque anafilático /anafilactoide (compotencial risco para avida)|potencial risco para a|
+
+0426-VV-LAB-121153-CCDS24
+
+|DistúrbiosMetabólicoseNutricionais||Hiperlipidemia|HiperglicemiaHiperuricemia|Hipoglicemia||
+|---|---|---|---|---|---|
+|DistúrbiosPsiquiátricos||Reações deansiedadeHiperatividadepsicomotora /agitação|LabilidadeemocionalDepressão (EMCASOSMUITORAROSPOTENCIALMENTECULMINANDO EMCOMPORTAMENTOAUTODESTRUTIVO, COMOIDEAÇÃO DESUICÍDIO /PENSAMENTOS SUICIDASOUTENTATIVASDE SUICÍDIO)Alucinações|DespersonalizaçãoReações psicóticas(POTENCIALMENTECULMINANDOEMCOMPORTAMENTOAUTODESTRUTIVO, COMOIDEAÇÃO DESUICÍDIO /PENSAMENTOSSUICIDAS OUTENTATIVAS DESUICÍDIO)||
+|DistúrbiosdoSistemaNervoso|CefaleiaTontura|Parestesia edisestesiaDistúrbios dopaladar (incl.ageusia emcasos muitoraros)Confusão edesorientaçãoDistúrbios dosonoTremorVertigensSonolência|HipoestesiaDistúrbios doolfato (incl.anosmia)SonhosanormaisDistúrbio dacoordenação(incl. distúrbioda marcha,espec. devido àtontura ouvertigem; EMCASOSMUITORAROSLEVANDO AQUEDA COMLESÕES,ESPEC. EMIDOSOS)Convulsões comdiferentes|Hiperestesia||
+
+||||manifestaçõesclínicas (incl.convulsões degrande mal)Distúrbio deatençãoDistúrbios dafalaAmnésiaNeuropatiaperiférica epolineuropatia|||
+|---|---|---|---|---|---|
+|DistúrbiosOculares||Distúrbiosvisuais(especialmenteno curso dereações doSNC)||Perda transitória davisão (especialmenteno curso de reaçõesdo SNC)||
+|DistúrbiosdoOuvidoeLabirinto|||ZumbidoDeficiênciaauditiva,incluindo surdez(geralmentereversível)|||
+|DistúrbiosdoSistemaCardiovascular|Prolongamento dointervalo QT empacientes comhipocalemia|Prolongamentodo intervalo QTPalpitaçõesTaquicardiaVasodilatação|TaquiarritmiasventricularesSíncopeHipertensãoHipotensão|ArritmiasinespecíficasTORSADE DEPOINTES__PARADACARDÍACA(ESPECIALMENTENOS PACIENTESCOM CONDIÇÕESPRÓ-ARRÍTMICASSUBJACENTESGRAVES TAISCOMO:BRADICARDIACLINICAMENTESIGNIFICATIVA,ISQUEMIAMIOCÁRDICAAGUDA)|Síndrome deKounis#|
+|Distúrbiosrespiratórios,||Dispneia(incluindo||||
+
+|torácicosemediastinais||condiçõesasmáticas)||||
+|---|---|---|---|---|---|
+|DistúrbiosGastrintestinais|NáuseasVômitosDoresgastrintestinais eabdominaisDiarreia|Diminuição deapetite e deingestão dealimentosConstipaçãoDispepsiaFlatulênciaGastroenterite(excetogastroenteriteerosiva)Aumento daamilase|DisfagiaEstomatiteColite associadaa antibiótico(em casos muitoraros associadaa complicaçõescom risco para avida)|||
+|DistúrbiosHepatobiliares|Aumento detransaminases|Alteraçãohepática (incl.aumento deLDH)Aumento debilirrubinaAumento dagama-glutamil-transferaseAumento dafosfatasealcalina sérica|IcteríciaHepatite(predominantemente colestática)|HEPATITEFULMINANTEPOTENCIALMENTE LEVANDO ÀINSUFICIÊNCIAHEPÁTICA COMRISCO PARA AVIDA DOPACIENTE(INCLUINDOCASOS FATAIS)||
+|DistúrbiosdaPele e TecidoSubcutâneo||||REAÇÕES DEPELE BOLHOSACOMO SÍNDROMEDE STEVENS-JOHNSON OUNECRÓLISEEPIDÉRMICATÓXICA(POTENCIALRISCO PARA AVIDA)|COMO SÍNDROME|
+|DistúrbiosMusculoesqueléticos,doTecidoConjuntivoedos Ossos||ArtralgiaMialgia|TendiniteAumento dotônus musculare cãibrasFraquezamuscular|RUPTURA DOTENDÃOArtriteDISTÚRBIO DAMARCHA(CAUSADO PORSINTOMASMUSCULARES,DOS TENDÕES||
+
+==> picture [397 x 248] intentionally omitted <==
+
+----- Start of picture text -----
+OUARTICULARES)EXACERBAÇÃODOS SINTOMASDE MIASTENIAGRAVISDistúrbios DESIDRATAÇ Alteração renalRenais e ÃO InsuficiênciaUrinários (CAUSADA renal (devida àPOR desidrataçãoDIARREIA OU espec. emINGESTÃO idosos comREDUZIDA DE distúrbios renaisLÍQUIDOS) preexistentes)Distúrbios Mal-estar EdemaGerais e Dor inespecíficaCondições do SudoreseLocal deAdministração----- End of picture text -----
+
+#Isquemia miocárdica aguda, com ou sem infarto do miocárdio, como parte de uma reação de hipersensibilidade (veja o item “Advertências e precauções”).
+
+Em casos isolados, algumas reações adversas medicamentosas graves podem ser de longa duração (> 30 dias) e incapacitantes, tais como: tendinite, ruptura de tendão, distúrbios musculoesqueléticos e outras reações que afetam o sistema nervoso, incluindo distúrbios psiquiátricos e dos sentidos.
+
+As reações adversas a seguir têm uma frequência maior nos pacientes tratados sequencialmente por via i.v. e oral:
+
+Comum: aumento de gama-glutamil-transferase. Incomum: taquiarritmias ventriculares, hipotensão, edema, colite associada a antibióticos (em casos muito raros associada a complicações com risco para a vida), convulsões com diferentes manifestações clínicas (incluindo convulsões de grande mal), alucinações, alteração renal e insuficiência renal (devido à desidratação, especialmente em idosos com distúrbios renais preexistentes).
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: BARIOGEL ---
+Reação muito comum (ocorre em 10% dos pacientes que utilizam este medicamento)
+
+Reação comum (ocorre entre 1% e 10% dos pacientes que utilizam este medicamento)
+
+Reação incomum (ocorre entre 0,1% e 1% dos pacientes que utilizam este medicamento)
+
+Reação rara (ocorre entre 0,01% e 0,1% dos pacientes que utilizam este medicamento)
+
+Reação muito rara (ocorre em menos de 0,01% dos pacientes que utilizam este medicamento)
+
+Mais comuns: Náusea, vômitos, diarreia, constipação, cólica abdominal.
+
+Menos comum: Inchaço, constipação grave ou continuada, cólicas intensas, náuseas / vômitos, dor abdominal ou estomacal, sensação de aperto no peito, dispneia ou sibilância.
+
+Raro : Reação alérgica como prurido, eritema ou urticária, reação anafilática (falta de ar, aperto no peito, ou problemas de respiração), edema de laringe, pneumonia por aspiração, formação de granulomas, peritonite por perfuração intestinal, síncope vasogal, broncoespasmo ou hipotensão.
+
+Muito Raro: De forma muito rara, as complicações de um procedimento podem levar ao óbito.
+
+Reações alérgicas: Em pacientes com história de atopia, as reações alérgicas podem aparecer com graus diferentes de intensidade.
+
+- Moderada: Prurido, eritema. (1:250.000). Respondem a um anti-histamínico como a difenidramina ou equivalente.
+
+- • Grave: Edema de laringe, broncoespasmo, dispneia, hipotensão por vasodilatação importante. (1:1000.000). Necessárias medidas de suporte cardiovascular e respiratória, vasopressores, broncodilatadores, e uma equipe treinada.
+
+Referência: http://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=8fd650c3-9f4c-42f9-aea5-799e2f656a49
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: ACETATO DE DEXAMETASONA ---
+A incidência e a gravidade das reações adversas, locais ou sistêmicas, aumenta diretamente com o aumento da absorção cutânea.
+
+Reação comum (ocorre entre 1% e 10% dos pacientes que utilizam este medicamento): prurido, sensação de queimação, secura e mudanças na cor da pele.
+
+Reação rara (ocorre entre 0,01% e 0,1% dos pacientes que utilizam este medicamento): foliculite, síndrome de Cushing, dermatite perioral, equimose, edema, úlcera gástrica secundária, hisurtismo, hipertricose, hipertensão, síndrome hipocalêmica, hipopigmentação, alterações na pigmentação da pele, miliária rubra, depleção protéica (fraqueza muscular), laceração e maceração epidérmica, estrias, atrofia tecidual subcutânea, perda de cabelo.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: CLOTRIGEL ---
+As reações adversas listadas foram baseadas em estudos clínicos.
+
+|Classedesistemasorgânicos|Comum(>1/100;(>1/1000;(>1/10000;gastrintestinais||dor abdominal||
+|Distúrbios do sistemaimune|||reação alérgica|
+|Distúrbios do sistemareprodutivo emamas|ardência|pruridoeritema/irritação|edema erupção cutâneahemorragia vaginal|
+
+* Pode ser grave levando à reação anafilática (síncope, hipotensão, dispneia, urticária).
+
+Frequência desconhecida. As reações adversas listadas a seguir foram identificadas durante o uso pósaprovação de clotrimazol. Considerando que as reações são reportadas voluntariamente a partir de uma população de tamanho incerto, nem sempre é possível estimar com acuracidade a frequência.
+
+Doenças do sistema imunológico: reação anafilática, angioedema, hipersensibilidade Desordem vascular: síncope, hipotensão
+
+Doenças respiratórias, torácicas e do mediastino: dispneia Doenças gastrointestinais: dor abdominal, náuseas Distúrbios do tecido cutâneo e subcutâneo: erupção cutânea, urticária
+
+Doenças do sistema reprodutivo e da mama: descamação vaginal, corrimento vaginal, hemorragia vaginal, desconforto vulvovaginal, eritema vulvovaginal, sensação de queimação vulvovaginal, prurido vulvovaginal, dor pélvica vulvovaginal.
+
+Distúrbios gerais e alterações no local de administração: irritação no local de aplicação, edema, dor.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: ENALAMED ---
+Em geral, Enalamed[®] é bem tolerado. Em estudos clínicos, a incidência global de reações adversas não foi maior com Enalamed[®] do que com placebo. Na maioria dos casos, as reações adversas foram leves e transitórias e não requereram a interrupção do tratamento.
+
+As seguintes reações adversas foram associadas ao uso de Enalamed[®] : tontura e cefaleia foram as reações mais comumente relatadas; fadiga e astenia foram relatadas por 2% a 3% dos pacientes. Outras reações adversas ocorreram em menos de 2% dos pacientes e incluíram hipotensão, hipotensão ortostática, síncope, náuseas, diarreia, cãibras musculares, erupções cutâneas e tosse; menos frequentemente, houve relatos de disfunção renal, insuficiência renal e oligúria.
+
+Hipersensibilidade/edema angioneurótico: edema angioneurótico de face, lábios, língua, glote e/ou laringe e extremidades foi relatado raramente (veja o item 5. ADVERTÊNCIAS E PRECAUÇÕES ). Em casos muito raros, foi relatado angioedema intestinal com inibidores da enzima conversora de angiotensina, inclusive com o enalapril.
+
+Reações adversas que ocorreram muito raramente em estudos clínicos controlados ou após a comercialização incluem: Cardiovasculares: infarto do miocárdio ou acidente vascular cerebral (possivelmente decorrentes de hipotensão excessiva em pacientes de alto risco [veja o item 5. ADVERTÊNCIAS E PRECAUÇÕES ]), dor torácica, distúrbios do ritmo cardíaco, palpitações, angina _pectoris_ e fenômeno de _Raynaud_ .
+
+Endócrino : síndrome da secreção inapropriada do hormônio antidiurético (SIADH).
+
+Gastrintestinais: íleo paralítico, pancreatite, insuficiência hepática, hepatite (hepatocelular ou colestática), icterícia, vômitos, constipação, estomatite, dor abdominal, dispepsia, anorexia.
+
+Sistemas nervoso/psiquiátrico: depressão, confusão mental, sonolência, insônia, nervosismo, parestesia, vertigem, anormalidades no padrão de sonhos.
+
+Metabolismo: foram relatados casos de hipoglicemia em pacientes diabéticos recebendo agentes antidiabéticos orais ou insulina (veja o item 6. INTERAÇÕES MEDICAMENTOSAS ). Respiratórios: infiltrados pulmonares, broncospasmo/asma, dispneia, rinorreia, dor de garganta e rouquidão. Pele: diaforese, eritema polimorfo, dermatite esfoliativa, síndrome de _Stevens-Johnson_ , necrólise epidérmica tóxica, pênfigo, prurido, urticária, alopecia. Outros: impotência, rubor (vermelhidão repentina da pele, principalmente no rosto, pescoço e parte superior do tórax), alteração do paladar, visão embaçada, glossite e zumbido.
+
+Foi relatado um complexo sintomático que pode incluir alguns, ou todos, dos seguintes sintomas: febre, serosite, vasculite, mialgia/miosite, artralgia/artrite, fator antinúcleo positivo, VHS elevada, eosinofilia e leucocitose. Podem ocorrer erupções cutâneas, fotossensibilidade ou outras manifestações dermatológicas.
+
+Achados de testes laboratoriais: alterações clinicamente importantes dos parâmetros laboratoriais padrão raramente foram associadas com a administração de Enalamed[®] . Foram observados aumentos de ureia sanguínea e creatinina sérica e elevações das enzimas hepáticas e/ou da bilirrubina sérica, geralmente reversíveis com a descontinuação de Enalamed[® ] . Ocorreram hipercalemia e hiponatremia.
+
+Foram relatadas reduções de hemoglobina e hematócrito.
+
+Após a comercialização, foram relatados alguns casos de neutropenia, trombocitopenia, depressão de medula óssea e agranulocitose nos quais não se pôde excluir relação causal com o uso de Enalamed[®] .
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: FAULDCITA ---
+|Infecções e Infestações|Infecções e Infestações|
+|---|---|
+|Frequência não conhecida|Abcesso do fígado.|
+|Distúrbios Psiquiátricos||
+|Frequência não conhecida|Mudança de personalidadea.|
+|Distúrbios do Sistema Nervoso||
+|Muito comuns|Disfunções cerebrais, disfunção cerebelar, sonolência.|
+|Frequência não conhecida|Coma, convulsão, neuropatia periférica motora, neuropatia sensorialperiférica.|
+|Distúrbios Oculares||
+|Muito comum|Distúrbios da córnea.|
+|Distúrbios Cardíacos||
+|Frequência não conhecida|Cardiomiopatiab, bradicardia sinusal|
+|Distúrbios Respiratórios, Torácicos e Mediastinais||
+|Muito comuns|Síndrome de angústia respiratória aguda, edema pulmonar.|
+|Distúrbios Gastrintestinais||
+|Comum|Colite necrosante.|
+|Frequência não conhecida|Necrose gastrintestinal, úlcera gastrintestinal, pneumatose intestinal,peritonite.|
+
+|Libbs|Libbs|
+|---|---|
+|Distúrbios Hepatobiliares||
+|Frequência não conhecida|Dano hepático, hiperbilirrubinemia.|
+|Distúrbios da Pele e Tecido Subcutâneo||
+|Comum|Esfoliação da pele.|
+
+a Mudança de personalidade foi relatada em associação com disfunção cerebral e cerebelar. b Com morte subsequente.
+
+Uma pneumonite intersticial difusa, sem causa evidente, que pode ter sido relacionada à citarabina foi relatada por pacientes tratados com doses experimentais intermediárias de citarabina (1 g/m[2] ) com e sem outros agentes quimioterápicos (metaAMSA, daunorrubicina, VP-16).
+
+Relatou-se uma síndrome de angústia respiratória súbita rapidamente progredindo para edema pulmonar e cardiomegalia radiograficamente pronunciada, após a administração experimental de citarabina em altas doses, no tratamento de recidiva de leucemia; resultados fatais foram relatados.
+
+As reações adversas mais frequentemente reportadas após a administração intratecal foram náusea, vômito e febre; estas reações foram leves e autolimitadas. Foi reportado ainda paraplegia. Foi relatada leucoencefalopatia necrosante com ou sem convulsão; em alguns destes casos os pacientes estavam sendo tratados com metotrexato e/ou hidrocortisona também via intratecal, bem como irradiação do sistema nervoso central. Neurotoxicidade isolada foi relatada. Ocorreu cegueira em 2 pacientes em remissão, cujos tratamentos consistiam da combinação sistêmica de quimioterápicos, irradiação profilática do sistema nervoso central e uso de citarabina por via intratecal.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: DORTRIRELAX ---
+As frequências das reações adversas estão listadas a seguir de acordo com a seguinte convenção: Reação muito comum (ocorre em mais de 10% dos pacientes que utilizam este medicamento). Reação comum (ocorre entre 1% e 10% dos pacientes que utilizam este medicamento). Reação incomum (ocorre entre 0,1% e 1% dos pacientes que utilizam este medicamento). Reação rara (ocorre entre 0,01% e 0,1% dos pacientes que utilizam este medicamento). Reação muito rara (ocorre em menos de 0,01% dos pacientes que utilizam este medicamento). Reação desconhecida (não pode ser estimada a partir dos dados disponíveis).
+
+Distúrbios cardíacos: síndrome de Kounis (aparecimento simultâneo de eventos coronarianos agudos e reações alérgicas ou anafilactoides. Engloba conceitos como infarto alérgico e angina alérgica), redução ou aumento do ritmo cardíaco, arritmias cardíacas, palpitações. Distúrbios do sistema imunológico: choque anafilático e reações anafiláticas/anafilactoides, que podem se tornar graves e com risco de vida, às vezes fatal. Estas reações podem ocorrer mesmo após Dortrirelax[®] ter sido utilizado previamente em muitas ocasiões sem complicações. Podem se manifestar com sintomas cutâneos ou nas mucosas (tais como: prurido, ardor, rubor, urticária, inchaço), dispneia e, menos frequentemente, sintomas gastrintestinais, podendo progredir para formas mais severas de urticária generalizada, angioedema grave (até mesmo envolvendo a laringe), broncoespasmo grave, arritmias cardíacas, queda da pressão sanguínea (algumas vezes precedida por aumento da pressão sanguínea) e choque circulatório.
+
+Em pacientes com síndrome da asma analgésica, reações de intolerância aparecem tipicamente na forma de ataques asmáticos.
+
+Tais reações medicamentosas podem desenvolver-se imediatamente após a administração de dipirona sob a forma de comprimidos ou horas mais tarde; contudo, a tendência normal é que estes eventos ocorram na primeira hora após a administração.
+
+Distúrbios da pele e tecido subcutâneo: erupções fixada por medicamentos; raramente, exantema; e, em casos isolados, síndrome de Stevens-Johnson (SSJ) ou síndrome de Lyell [Necrólise Epidérmica Tóxica (NET)] fatais. Reação Cutânea Associada à Eosinofilia e Sintomas Sistêmicos (DRESS), também foi relatada com frequência desconhecida (vide “ Advertências e Precauções ”).
+
+Distúrbios do sangue e sistema linfático: anemia aplástica, agranulocitose (vide “ Advertências e Precauções ”), e pancitopenia, incluindo casos fatais, leucopenia e trombocitopenia. Estas reações são consideradas imunológicas e podem ocorrer mesmo após DORFLEX ter sido utilizado previamente em muitas ocasiões, sem complicações.
+
+Foram relatados casos muito raros de anemia aplástica associada ao uso de orfenadrina.
+
+Para os sinais típicos de agranulocitose consulte a seção 5 (“ Advertências e Precauções ”). A taxa de sedimentação eritrocitária é extensivamente aumentada, enquanto que o aumento de nódulos linfáticos é tipicamente leve ou ausente.
+
+Sinais típicos de trombopenia incluem maior tendência para sangramento e aparecimento de petéquias na pele e membranas mucosas.
+
+Distúrbios renais e urinários: em casos muito raros, especialmente em pacientes com histórico de doença renal, pode ocorrer agravamento da função renal (insuficiência renal aguda), em alguns casos com oligúria, anúria ou proteinúria. Em casos isolados, pode ocorrer nefrite intersticial aguda.
+
+Coloração avermelhada pode ser observada algumas vezes na urina. Isso pode ocorrer devido à presença do metabólito ácido rubazônico, em baixas concentrações.
+
+Distúrbios gastrointestinais: foram reportados casos de sangramento gastrointestinal.
+
+Distúrbios hepatobiliares: lesão hepática induzida por medicamentos, incluindo hepatite aguda, icterícia, aumento das enzimas hepáticas podem ocorrer com frequência desconhecida (vide “ Advertências e Precauções ”).
+
+Outros sintomas: boca seca, sede, diminuição da sudorese _,_ retenção ou hesitação urinária, visão borrada, dilatação da pupila, aumento da pressão intraocular, fraqueza, náusea, vômitos, dor de cabeça, tonturas, constipação, sonolência, reações alérgicas, coceira, alucinações, agitação, tremor, irritação gástrica. Não frequentemente, pacientes idosos podem sentir certo grau de confusão mental. Estas reações adversas podem ser normalmente eliminadas pela redução da dose.
+
+Em doses tóxicas podem ocorrer, além dos sintomas mencionados, ataxia, distúrbio da fala, disfagia, pele seca e quente, disúria, diminuição dos movimentos peristálticos intestinais, delírio e coma.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: GANFORT ---
+As reações adversas observadas nos estudos clínicos realizados com GANFORT[® ] (bimatoprosta e maleato de timolol), por ordem de frequência foram:
+
+Reação muito comum (> 1/10): hiperemia conjuntival.
+
+Reação comum (> 1/100 e ≤1/10): sensação de ardor nos olhos, aumento de pelos na região dos olhos, prurido ocular, ceratite superficial puntacta, secura nos olhos, sensação de corpo estranho nos olhos, pigmentação palpebral, fotofobia, sensação de pontada nos olhos, piora na acuidade visual, eritema palpebral, dor ocular, erosão da córnea, distúrbios visuais, blefarite, secreção ocular, edema palpebral, irritação ocular, epífora, hirsutismo, dor de cabeça, rinite.
+
+Reação incomum (> 1/1.000 e ≤1/100): edema ocular, dor palpebral, irite, triquíase, astenopia.
+
+Outras reações adversas relatadas após a comercialização de GANFORT[® ] (bimatoprosta e maleato de timolol) foram:
+
+Desordens cardíacas: bradicardia.
+
+Desordens oculares: edema macular cistóide, inchaço ocular, hiperpigmentação da íris, sulco aprofundado da pálpebra (enoftalmo), visão borrada, desconforto ocular.
+
+Desordens gerais e alterações no local da administração: fadiga.
+
+Desordens do sistema Imunológico: reações de hipersensibilidade incluindo sinais e sintomas de dermatite alérgica, angioedema e alergia ocular.
+
+Desordens do sistema nervoso central: tontura e disgeusia.
+
+Desordens Psiquiátricas: insônia, pesadelo.
+
+Desordens respiratórias, torácicas e do mediastino: asma, dispneia.
+
+Desordens da pele e do tecido cutâneo: alopecia, hiperpigmentação da pele (periocular), descoloração da pele (periocular).
+
+Desordens vasculares: hipertensão.
+
+GANFORT[® ] - VPS - BU02
+
+As reações adversas adicionais listadas abaixo tem sido reportadas com a substância ativa bimatoprosta e timolol e pode ocorrer potencialmente com GANFORT[® ] (bimatoprosta e maleato de timolol):
+
+Distúrbios oculares: conjuntivite alérgica, astenopia, edema conjuntival, eritema periorbital, escurecimento dos cílios, irite, alteração periorbital e palpebral associadas à atrofia da gordura periorbital e rigidez da pele resultando no aprofundamento do sulco palpebral, ptose palpebral, enoftalmia e retração palpebral.
+
+Distúrbios gastrointestinais: náusea
+
+Distúrbios vasculares: hipertensão
+
+Distúrbios oculares: sensibilidade corneana diminuída, diplopia, ptose, descolamento coroidal (após cirurgia de filtração), pseudopenfigóide, alterações da refração, sinais e sintomas de irritação ocular incluindo conjuntivite, ceratite.
+
+Distúrbios psiquiátricos: alterações comportamentais incluindo ansiedade, confusão, depressão, desorientação, alucinações, nervosismo, perda da memória e sonolência.
+
+Distúrbios do sistema nervoso: síncope, aumento dos sinais e sintomas de miastenia gravis, parestesia, acidente vascular cerebral e isquemia cerebral.
+
+Distúrbios do ouvido e labirinto: tinido.
+
+Distúrbios cardíacos: bloqueio cardíaco, parada cardíaca, arritmias, dor no peito, edema, palpitação, edema pulmonar, insuficiência cardíaca, insuficiência cardíaca congestiva, hipotensão, hipertensão, agravamento da angina de peito.
+
+Distúrbios vasculares: hipotensão, claudicação, fenômeno de Raynaud, mãos e pés frios.
+
+Distúrbios respiratórios, torácicos e mediastinais: broncoespasmo (predominantemente em pacientes
+
+com doença bronco espástica preexistente), tosse, congestão nasal, falência respiratória, infecção do trato respiratório superior.
+
+Distúrbios gastrointestinais: dor abdominal, anorexia, náusea, diarreia, vômito, dispepsia e boca seca. Distúrbios cutâneos e do tecido subcutâneo: erupção psoriasiforme ou exacerbação de psoríase, rash cutâneo.
+
+Distúrbios musculoesqueléticos, ósseos e do tecido conjuntivo: mialgia.
+
+Distúrbios gerais e condições do local de administração: astenia.
+
+Distúrbios do sistema imune: reações alérgicas sistêmicas incluindo anafilaxia, urticária, lúpus eritematoso sistêmico.
+
+Distúrbios do metabolismo e nutricional: hipoglicemia em pacientes diabéticos.
+
+Distúrbios do sistema reprodutivo e das mamas: diminuição da libido, doença de Peyronie, fibrose retroperitoneal, disfunção sexual.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+As reações adversas observadas no estudo clínico realizado com GANFORT[® ] UD, por ordem de frequência foram:
+
+Reação comum (> 1/100 e 1/1.000 e < 1/100): prurido palpebral, sensação anormal nos olhos, descoloração dos cílios, edema palpebral, astenopia, fadiga.
+
+Outras reações adversas relatadas após a comercialização de GANFORT[® ] UD foram: Desordens cardíacas: bradicardia.
+
+Bula para o Profissional de Saúde – BU01 11
+
+Desordens oculares: edema macular cistóide, inchaço ocular, hiperpigmentação da íris, sulco aprofundado da pálpebra (enoftalmo), visão borrada, desconforto ocular. Desordens gerais e alterações no local da administração: fadiga.
+
+As reações adversas adicionais listadas abaixo têm sido reportadas com a substância ativa bimatoprosta e timolol e podem ocorrer potencialmente com GANFORT[® ] UD: Bimatoprosta
+
+Distúrbios oculares: conjuntivite alérgica, astenopia, edema conjuntival, eritema periorbital, escurecimento dos cílios, irite, crescimento anormal de pêlos, secreção ocular, alteração periorbital e palpebral associadas à atrofia da gordura periorbital e rigidez da pele resultando no aprofundamento do sulco palpebral, ptose palpebral, enoftalmia e retração palpebral.
+
+Disturbios gastrointestinais: náusea.
+
+Distúrbios vasculares: hipertensão.
+
+Distúrbios oculares: sensibilidade corneana diminuída, diplopia, ptose, descolamento coroidal (após cirurgia de filtração), alterações da refração, sinais e sintomas de irritação ocular incluindo conjuntivite, ceratite, blefarite, secreção ocular e pseudopenfigóide.
+
+Distúrbios psiquiátricos: alterações comportamentais incluindo ansiedade, confusão, depressão, desorientação, alucinações, nervosismo, perda da memória e sonolência. Distúrbios do sistema nervoso: síncope, aumento dos sinais e sintomas de miastenia gravis, parestesia, acidente vascular cerebral e isquemia cerebral.
+
+Distúrbios cadíacos: bloqueio cardíaco, parada cardíaca, arritmias, bradicardia, dor no peito, edema, palpitação, edema pulmonar, insuficiência cardíaca, insuficiência
+
+Bula para o Profissional de Saúde – BU01 12
+
+cardíaca congestiva, hipotensão, hipertensão, bloqueio atrioventricular, agravamento da angina de peito e angioedema.
+
+Distúrbios vasculares: claudicação, fenômeno de Raynaud, mãos e pés frios, hipotensão.
+
+Distúrbios respiratórios, torácicos e mediastinais: broncoespasmo (predominantemente em pacientes com doença broncoespástica preexistente), tosse, congestão nasal, falência respiratória, infecção do trato respiratório superior. Distúrbios gastrointestinais: dor abdominal, anorexia, náusea, diarréia, vômito, boca seca e dispepsia.
+
+Distúrbios cutâneos e do tecido subcutâneo: erupção psoriasiforme ou exacerbação da psoríase e rash cutâneo.
+
+Distúrbios do sistema imune: reações alérgicas sistêmicas incluindo anafilaxia, urticária, lúpus eritematoso sistêmico, rash generalizado e localizado, prurido. Distúrbios do metabolismo e nutricional: hipoglicemia em pacientes diabéticos.
+
+Distúrbios do sistema reprodutivo e das mamas: diminuição da libido, doença de Peyronie, fibrose retroperitonial, disfunção sexual.
+
+--- BULA: FOSFATO SÓDICO DE PREDNISOLONA ---
+As reações adversas de fosfato sódico de prednisolona têm sido do mesmo tipo das relatadas para outros corticosteroides e normalmente podem ser revertidas ou minimizadas com a redução da dose, sendo isto preferível à interrupção do tratamento com o fármaco. Ocorrem efeitos tóxicos com todas as preparações de corticosteroides e sua incidência eleva-se se a dose aumenta muito acima de 8 mg/dia de prednisolona ou seu equivalente.
+
+Reações comuns (> 1/100 e ≤ 1/10)
+
+Gastrintestinais: aumento do apetite; indigestão; úlcera péptica (ulceração do estômago e/ou duodeno) com possível perfuração e hemorragia; pancreatite e esofagite ulcerativa.
+
+Neurológicas: nervosismo, fadiga e insônia.
+
+Dermatológicas: reações alérgicas locais.
+
+Oftálmicas: catarata; glaucoma e exoftalmia. O estabelecimento de infecções secundárias por fungos ou vírus dos olhos pode também ser intensificado.
+
+Endócrinas: redução da tolerância aos carboidratos (pré-diabetes), manifestação de diabetes _mellitus_ latente e aumento das necessidades de insulina ou hipoglicemiantes orais em diabéticos. O tratamento com doses elevadas de corticosteroides pode induzir o aumento acentuado dos triglicérides no sangue, com plasma leitoso.
+
+Reações incomuns (> 1/1.000 e ≤ 1/100)
+
+Dermatológicas: retardo da cicatrização, atrofia cutânea; petéquias e equimoses; eritema/rubor facial; sudorese excessiva; supressão a reações de alguns testes cutâneos; urticária, edema angioneurótico (edema nos olhos e lábios) e dermatite alérgica. Facilidade em ter hematoma, acne na face, peito e costas e estrias avermelhadas nas coxas, nádegas e ombros.
+
+Neurológicas: convulsões, aumento da pressão intracraniana com papiledema (pseudotumor cerebral), usualmente após tratamento; cefaleia; vertigem; atividade motora aumentada, alterações isquêmicas de nervos, alterações no eletroencefalograma e crises.
+
+Psiquiátricas: euforia, depressão grave com manifestações psicóticas, alterações da personalidade, hiperirritabilidade e alterações do humor. Endócrinas: irregularidades menstruais; desenvolvimento de estado cushingoide; supressão do crescimento fetal ou infantil; ausência de resposta secundária adrenocortical e hipofisária, especialmente em situações de estresse, como trauma, cirurgia ou doença. Em alguns homens, o uso de corticosteroides resultou em aumento ou diminuição da motilidade e do número de espermatozoides.
+
+Gastrintestinais: distensão abdominal; diarreia ou constipação; náuseas; vômitos; perda do apetite (que pode resultar em perda de peso), irritação do estômago.
+
+Hidroeletrolíticas: retenção de sódio; retenção de líquido; insuficiência cardíaca congestiva em pacientes suscetíveis; alcalose hipocalêmica e aumento da pressão arterial.
+
+Musculoesqueléticas: miopatia (fraqueza muscular); perda de massa muscular; osteoporose, necrose asséptica da cabeça umeral e femoral; fratura patológica de ossos longos e das vértebras; agravamento dos sintomas da _miastenia gravis_ e ruptura do tendão. Metabólicas: balanço negativo de nitrogênio devido ao catabolismo proteico.
+
+Fosfato sódico de prednisolona _bula_profissional
+
+Durante a experiência pós-comercialização, foram observadas as seguintes reações adversas sem incidência definida : arritmias (taquicardia ou bradicardia); albuminúria; aumento de peso; dor no peito; dorsalgia; mal estar geral; palidez; sensação de calor ou de frio; descoloração da língua; sensibilidade dos dentes; sialorreia; soluço; xerostomia; dispneia; rinite; tosse; frequência miccional aumentada; isquemia de origem periférica; perda ou alteração do paladar; parosmia; hipertonia; nistagmo; paralisia facial; tremor; aumento da libido; confusão; distúrbio do sono e sonolência.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: ACICLOVIR ---
+Reações incomuns (≥ 1/1.000 e ≤1/100): ardência e queimação transitória após a aplicação; ressecamento leve e descamação da pele; prurido.
+
+Reação rara (>1/10.000 e ≤1/1.000): eritema, dermatite de contato após a aplicação. Verificou-se que as substâncias da composição provocaram mais reação de sensibilidade que o próprio aciclovir.
+
+Reação muito rara (≤1/10.000): reações de hipersensibilidade imediata, incluindo angioedema.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+As categorias de frequência associadas com as reações adversas são definidas como:
+
+Reação muito comum (≥1/10)
+
+Reação comum (≥ 1/100 e < 1/10) Reação incomum ≥ 1/1.000 e < 1/100) Reação rara (≥1/10.000 e < 1/1.000) Reação muito rara (< 1/10.000)
+
+Dados clínicos experimentais foram usados para atribuir categorias de frequência às reações adversas observadas durante experimentações clínicas com o aciclovir pomada oftálmica. Quanto à natureza dos eventos adversos, não foi possível determinar realmente quais estão relacionados à administração da droga e quais estão relacionados à doença. Os dados reportados foram baseados na frequência dos eventos observados após comercialização.
+
+Reação muito comum (≥1/10): ceratite superficial punctata. Essa condição não exige descontinuação do tratamento e resolvese sem sequela aparente.
+
+Reações comuns (≥1/100 e <1/10): sensação transitória de picadas no olho, que ocorre imediatamente após a aplicação; conjuntivite.
+
+Reação rara (≥1/10.000 e <1.000): blefarite.
+
+Reação muito rara (<1/10.000): reações de hipersensibilidade imediata, incluindo angiodema.
+
+Foram relatadas irritação e inflamação local, assim como blefarite e conjuntivite em pacientes que receberam aciclovir pomada oftálmica.
+
+Casos de reações adversas cutâneas graves (SCARs), incluindo necrólise epidérmica tóxica (NET), síndrome de _StevensJohnson_ (SSJ), pustulose exantemática generalizada aguda (PEGA), reação medicamentosa com eosinofilia e sintomas sistêmicos (DRESS), e eritema multiforme (EM) foram relatados em pacientes tratados com aciclovir.
+
+Como as SCARs podem ser potencialmente fatais ou levar à morte, se sinais e sintomas sugestivos de SCARs aparecerem, o tratamento com aciclovir deve ser interrompido imediatamente, e um tratamento alternativo deve ser administrado. Pacientes que desenvolveram SCARs com o uso de aciclovir ou valaciclovir não devem usar aciclovir (ver Contraindicações e Reações Adversas).
+
+As categorias de frequência associadas às reações adversas listadas abaixo são estimadas. Para a maioria dos eventos, não estavam disponíveis dados adequados para estimar a incidência. Além disso, eventos adversos podem variar sua incidência dependendo da indicação.
+
+Reação muito comum (> 1/10) Reação comum (> 1/100 e ≤1/10) Reação incomum (> 1/1.000 e ≤ 1/100)
+
+Reação rara (> 1/10.000 e ≤1/1.000) Reação muito rara (≤ 1/10.000)
+
+- Dor de cabeça, tonteira. Estas reações são reversíveis, e geralmente relatadas por pacientes com distúrbios renais, ou com outros fatores predisponentes (ver Advertências e Precauções).
+
+- Náusea, vômito, diarreia, dores abdominais;
+
+- Prurido, erupções cutâneas (incluindo fotossensibilidade);
+
+- Urticária, alopecia difusa acelerada. Esta última reação está associada a uma grande variedade de doenças e medicamentos. A relação deste evento com a terapia com aciclovir é incerta.
+
+- Aumentos reversíveis da bilirrubina e das enzimas hepáticas;
+
+- Aumento nos níveis de ureia e creatinina sanguínea.
+
+- Anemia, leucopenia e trombocitopenia;
+
+- Agitação, confusão, tremor, ataxia, disartria, alucinações, sintomas psicóticos, convulsões, sonolência, encefalopatia e coma. Estas reações são reversíveis, e geralmente relatadas por pacientes com distúrbios renais, ou com outros fatores predisponentes (ver Advertências e Precauções);
+
+- Hepatite, icterícia;
+
+- Insuficiência renal aguda, dor renal. Esta última reação pode estar associada com insuficiência renal.
+
+- Necrólise epidérmica tóxica (NET), síndrome de Stevens-Johnson (SSJ), pustulose exantemática generalizada aguda (PEGA), reação medicamentosa com eosinofilia e sintomas sistêmicos (DRESS), e eritema multiforme (EM) (ver Advertências e Precauções).
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA ---
+- Reações comuns (>1/100 e < 1/10): hipotensão, tontura, boca seca.
+
+- Reações incomuns (> 1/1.000 e < 1/100): agranulocitose (incluindo casos fatais), leucopenia, erupção cutânea medicamentosa, erupção medicamentosa fixa, reações cutâneas, distúrbios da acomodação visual, choque, dor no local de injeção, rubor.
+
+- Reações raras (>1/10.000 e < 1/1.000): reação anafilática e reação anafilactoide principalmente após administração parenteral, asma em pacientes com síndrome de asma causada por analgésicos, erupção maculopapular.
+
+- Reações muito raras (<1/10.000): trombocitopenia, Necrólise Epidérmica Tóxica, Síndrome de Stevens-Johnson, flebite, insuficiência renal aguda, anúria, nefrite intersticial, proteinúria, oligúria e insuficiência renal.
+
+• Reações com frequência desconhecida: sepse incluindo casos fatais, choque anafilático incluindo casos fatais principalmente após administração parenteral, dispneia, hipersensibilidade, sudorese anormal, midríase, aumento da pressão intraocular, taquicardia, reações no local da injeção, hemorragia gastrintestinal, retenção urinária, cromatúria, anemia aplástica, pancitopenia (incluindo casos fatais) e Síndrome de Kounis.
+
+Agranulocitose e sepse subsequente, incluindo casos fatais; leucopenia, trombocitopenia, anemia aplástica e pancitopenia (incluindo casos fatais) são, presumivelmente reações imunológicas. Elas podem ocorrer mesmo que butilbrometo de escopolamina + dipirona monoidratada tenha sido administrado em outras ocasiões sem complicações. Há sinais que sugerem que o risco de agranulocitose pode estar elevado se butilbrometo de escopolamina + dipirona monoidratada for utilizado por mais de uma semana. A agranulocitose se manifesta na forma de febre, calafrios, dor orofaríngea, disfagia, estomatite, rinite, faringite, inflamação do trato genital e inflamação anal. Estes sinais podem ser mínimos em pacientes em uso de antibióticos. A linfadenopatia ou esplenomegalia pode ser leve ou ausente. A taxa de hemossedimentação pode estar acentuadamente aumentada; os granulócitos se encontram consideravelmente reduzidos ou totalmente ausentes. As contagens de hemoglobina, eritrócitos e plaquetas podem estar alteradas.
+
+Em caso de deterioração imprevista do estado geral do paciente, se a febre não ceder ou reaparecer, ou se houver alterações dolorosas da mucosa oral, nasal e da garganta, recomenda-se enfaticamente que butilbrometo de escopolamina + dipirona monoidratada seja imediatamente suspenso e que seja consultado um médico mesmo que os resultados dos exames laboratoriais ainda não estejam disponíveis.
+
+Reações mais leves (ex.: reações cutâneas e nas mucosas, como prurido, sensação de queimação, eritema, edema assim como dispneia e distúrbios gastrintestinais) podem levar a reações mais graves (ex.: urticária generalizada, angioedema grave com envolvimento da região laríngea, broncoespasmo grave, arritmia, diminuição da pressão arterial com eventual aumento inicial da pressão arterial). O butilbrometo de escopolamina + dipirona monoidratada deve, portanto, ser imediatamente suspenso se ocorrerem reações cutâneas. Em caso de reações cutâneas graves, consultar imediatamente um médico.
+
+Podem ocorrer reações anafiláticas durante ou imediatamente após a injeção, porém estas também podem aparecer algumas horas após a injeção. Entretanto em geral as reações ocorrem na primeira hora após a administração. O tratamento apropriado deve ser iniciado logo que surgirem sinais/sintomas de anafilaxia. Reações de hipotensão que ocorrem durante ou após o uso podem ser induzidas pela medicação, e não se comportam de forma relacionada com sinais de reações anafilactoides e/ou anafiláticas. Estas reações podem levar a grave queda da pressão arterial. A injeção intravenosa rápida aumenta o risco de reações de hipotensão.
+
+Em caso de aumento da temperatura após injeção muito rápida, pode haver uma queda crítica e dose-dependente na pressão arterial sem qualquer outro sinal de intolerância à medicação.
+
+A excreção de ácido rubazônico, um metabólito inativo da dipirona, pode produzir uma coloração avermelhada na urina, que desaparece com a descontinuação do tratamento.
+
+Em casos de eventos adversos, notifique ao Sistema VigiMed, disponível no portal da Anvisa.
+
+--- BULA: CLORIDRATO DE CIPROFLOXACINO ---
+As reações adversas relatadas com base em todos os estudos clínicos com ciprofloxacino (oral e parenteral) classificadas por categoria de frequência segundo CIOMS III estão listadas abaixo (Total n= 51.621).
+
+As frequências das reações adversas relatadas com cloridrato de ciprofloxacino estão resumidas abaixo.
+
+Dentro dos grupos de frequência, as reações adversas estão apresentadas em ordem decrescente de gravidade.
+
+Frequências são definidas como:
+
+cloridrato de ciprofloxacino_Bula_Profissional
+
+muito comum (≥ 1/10)
+
+comum (≥ 1/100 a < 1/10)
+
+incomum (≥ 1/1.000 a ≤ 1/100)
+
+rara (≥ 1/10.000 a ≤ 1/1.000)
+
+muito rara (< 1/10.000)
+
+Desconhecida: a frequência não pode ser estimada a partir dos dados disponíveis.
+
+As reações adversas identificadas apenas durante a observação pós-comercialização e, para as quais a
+
+frequência não pode ser estimada, estão listadas como “Frequência desconhecida”.
+
+Reações incomuns: superinfecções micóticas.
+
+Reações raras: colite associada a antibiótico (muito raramente com possível evolução fatal).
+
+Reações incomuns: eosinofilia.
+
+Reações raras: leucopenia, anemia, neutropenia, leucocitose, trombocitopenia e plaquetose.
+
+Reações muito raras: anemia hemolítica, agranulocitose, pancitopenia (com risco para a vida) e depressão
+
+da medula óssea (com risco para a vida).
+
+Reações raras: reação alérgica e edema alérgico/angioedema.
+
+Reações muito raras: reação anafilática, choque anafilático (com risco para a vida) e reações similares à doença do soro.
+
+Reações incomuns: apetite e ingestão de alimentos diminuídos.
+
+Reações raras: hiperglicemia, hipoglicemia.
+
+Reações incomuns: hiperatividade psicomotora/agitação.
+
+Reações raras: confusão e desorientação, reação de ansiedade, sonhos anormais, depressão (potencialmente
+
+culminando em comportamento autodestrutivo como ideias/pensamentos suicidas, tentativa de suicídio ou suicídio) e alucinações.
+
+Reações muito raras: reações psicóticas (potencialmente culminando em comportamento autodestrutivo
+
+como ideias/pensamentos suicidas, tentativa de suicídio ou suicídio).
+
+Reações incomuns: cefaleia, tontura, distúrbios do sono e alterações do paladar.
+
+Reações raras: parestesia e disestesia, hipoestesia, tremores, convulsões (incluindo estado epilético) e vertigem.
+
+Reações muito raras: enxaqueca, transtornos da coordenação, alterações do olfato, hiperestesia e hipertensão intracraniana (pseudotumor cerebral).
+
+Frequência desconhecida: neuropatia periférica e polineuropatia.
+
+Reações raras: distúrbios visuais.
+
+Reações muito raras: distorção visual das cores.
+
+Reações raras: zumbido e perda da audição.
+
+Reações muito raras: alteração da audição.
+
+Reações raras: taquicardia.
+
+Frequência desconhecida: prolongamento do intervalo QT, arritmia ventricular, “torsades de pointes”*,
+
+síndrome de Kounis[#] .
+
+--- BULA: CLORIDRATO DE OXIMETAZOLINA ---
+As reações adversas listadas baseiam-se em relatos espontâneos feitos na pós-comercialização ou na literatura médica, portanto a sua organização de acordo com as categorias de frequência CIOMS III não é relevante.
+
+|Classificação por sistemacorpóreo(MedDRA)|Reações adversas|
+|---|---|
+|Distúrbios do sistema imune|Reação de hipersensibilidade|
+|Distúrbios psiquiátricos|Nervosismo, agitação, ansiedade|
+|Distúrbios do sistema nervoso|Tontura ou sensação de cabeça vazia, dificuldade de dormir, sonolência,tremores, cefaleia, alucinações (particularmente em crianças)|
+|Distúrbios oculares|Visão embaçada|
+|Distúrbios cardíacos|Taquicardia, palpitações|
+|Distúrbios vasculares|Aumento da pressão arterial, hiperemia reativa|
+|Distúrbios respiratórios,torácicos e do mediastino|Sensação de queimação nasal e ardor nasal, espirros, aumento dasecreção nasal, aumento da obstrução nasal, ressecamento nasal, bocaseca, irritação nasal, irritação da garganta, congestão nasal recorrente|
+|Distúrbios gastrointestinais|Náusea|
+|Distúrbios da pele e dostecidos subcutâneos|Erupção cutânea|
+|Distúrbiosmusculosqueléticose dos tecidos conjuntivos|Convulsões (particularmente em crianças)|
+|Distúrbios gerais|Fraqueza|
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: AZITROMICINA ---
+Reações comuns (> 1/100 e ≤ 1/10): náusea, vômito, diarreia (raramente resultando em desidratação), desconforto abdominal, dor de cabeça, irritação gastrintestinal, prurido de pele, anorexia e tontura.
+
+Reações raras (> 1/10.000 e ≤ 1/1.000): doença renal aguda, comportamento agressivo, reações alérgicas, anafilaxia, angioedema, ansiedade, escurecimento das fezes, dor torácica, tontura, sonolência, alteração do paladar, dispneia, eritema multiforme, desmaio, fadiga, sentir-se agitado, flatulência, fraqueza geral, dor de cabeça, perda de audição, necrose hepática, nervosismo, bloqueio neuromuscular (bloqueio da passagem dos estímulos), candidíase oral, palpitações, pancreatite, parestesia, intervalo QT prolongado, enterocolite pseudomembranosa, transtorno de fotossensibilidade cutânea, exantema cutâneo, síndrome de Stevens-Johnson, estomatite, trombocitopenia, zumbido, vaginite, vertigem, necrólise epidérmica tóxica e torsades de pointes.
+
+Reações de frequência desconhecida: vasculite cutânea, pustulose exantemática aguda generalizada (PEGA).
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: CLORIDRATO DE CEFEPIMA ---
+Os seguintes eventos adversos e alterações em testes laboratoriais foram relatados para os antibióticos da classe das cefalosporinas: síndrome de Stevens-Johnson, eritema multiforme, necrólise epidérmica tóxica, nefropatia tóxica, anemia aplásica, anemia hemolítica, hemorragia e testes falso positivo para glicose na urina.
+
+Em estudos clínicos (=5598), os eventos adversos mais comuns foram sintomas gastrointestinais e as reações de hipersensibilidade. Eventos adversos em relação ao cloridrato de cefepima estão relacionados a seguir.
+
+Reações Adversas Comuns (ocorrem entre 1% e 10% dos pacientes que utilizam este medicamento):
+
+- Reações no local da administração da infusão IV ocorreram em 5,2% dos pacientes; estas reações incluíram flebite (2,9%);
+
+- A administração intramuscular de cloridrato de cefepima foi muito bem tolerada; apenas 2,6% dos pacientes apresentaram dor ou inflamação no local da aplicação;
+
+- Erupções da pele (1,8%);
+
+Reações Adversas Incomuns (ocorre entre 0,1% e 1% dos pacientes que utilizam este medicamento):
+
+- Hipersensibilidade: prurido, urticária;
+
+- Gastrintestinais: náuseas, vômitos, candidíase oral, colite (inclusive colite pseudomembranosa);
+
+- Outros: febre, vaginite, eritema.
+
+- Sistema nervoso central: cefaleia;
+
+Reações Adversas Raras (ocorre entre 0,01% e 0,1% dos pacientes que utilizam este medicamento):
+
+Dor abdominal, constipação, vasodilatação, dispneia, tontura, inflamação no local da infusão IV (0,1%), parestesia, prurido genital, alteração de paladar, calafrios e candidíase inespecífica.
+
+Eventos de significância clínica que ocorreram com incidência muito rara (inferior a 0,05%) incluem anafilaxia e convulsões.
+
+O perfil de segurança de cloridrato de cefepima em crianças e lactentes é similar ao dos adultos.
+
+As anormalidades nos testes laboratoriais que ocorreram durante estudos clínicos em pacientes com valores basais normais foram transitórias. Aqueles que ocorreram com uma frequência entre 1% e 2% foram: elevações na alanina aminotransferase (3,6%), aspartato aminotransferase (2,5%), fosfatase alcalina, bilirrubina total, anemia, eosinofilia, tempo de protrombina prolongado, tempo de tromboplastina parcial (2,8%) e teste de Coombs positivo sem hemólise (18,7%). Elevações transitórias de nitrogênio ureico plasmático e/ou creatinina sérica e trombocitopenia transitória foram observadas em 0,5% a 1% dos pacientes. Leucopenia transitória e neutropenia também foram constatadas (<0,5%).
+
+Em adição aos eventos relatados durante os estudos clínicos na América do Norte com cefepima, os seguintes eventos adversos foram relatados durante a experiência de comercialização em todo o mundo. Assim como outras drogas desta classe, foram relatados: encefalopatia (reação adversa grave, consiste em distúrbios de consciência incluindo confusão, alucinação, torpor e coma), convulsões, mioclonia, e/ou falência renal. A maioria dos casos ocorreu em pacientes com disfunção renal que receberam doses de cloridrato de cefepima que excederam as recomendações (vide 5. ADVERTÊNCIAS E PRECAUÇÕES - uso em idosos, crianças e outros grupos de risco ). Assim como outras cefalosporinas, foram relatadas reações anafiláticas, incluindo choque anafilático, leucopenia transitória, neutropenia, agranulocitose e trombocitopenia.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.
+
+--- BULA: ELANI CICLO ---
+Resumo do perfil de segurança: as reações adversas relatadas mais frequentemente com Elani[®] Ciclo são náuseas e dor nas mamas. Estas reações ocorrem em mais de 6% das usuárias. As reações adversas graves são tromboembolismo venoso e arterial.
+
+Resumo tabulado das reações adversas: a frequência das reações adversas relatadas nos estudos clínicos com etinilestradiol 0,03 mg + drospirenona 3 mg (N=4.897) está resumida na tabela abaixo. As reações adversas são apresentadas em ordem decrescente de gravidade, de acordo com cada grupo de frequência. As frequências são definidas como comum (≥ 1/100 a < 1/10) e rara (≥ 1/10.000 a < 1/1.000). Reações adversas adicionais identificadas somente após a comercialização, e para as quais, portanto não se pode estimar uma frequência, estão descritas na coluna “frequência desconhecida”.
+
+|desconhecida”.||||
+|---|---|---|---|
+|Classificação por sistemacorpóreo (MedDRA)|Comum|Rara|Frequênciadesconhecida|
+|Distúrbios psiquiátricos|Instabilidade emocional,depressão / estadosdepressivos, diminuição eperda da libido|||
+|Distúrbios no sistema nervoso|Enxaqueca|||
+|Distúrbios vasculares||Eventostromboembólicosarteriais e venosos*||
+|Distúrbios gastrintestinais|Náuseas|||
+|Distúrbios cutâneos e nostecidos subcutâneos|||Eritema multiforme|
+|Distúrbios no sistemareprodutivo e nas mamas|Dor nas mamas, sangramentouterino inesperado,sangramento não específicodo trato genital|||
+
+As reações adversas provenientes de estudos clínicos foram descritas utilizando termo MedDRA (versão 12.1). Diferentes termos MedDRA que representem o mesmo fenômeno foram agrupados como uma única reação adversa para evitar diluir ou ocultar o verdadeiro efeito.
+
+* - frequência estimada, a partir de estudos epidemiológicos envolvendo um grupo de usuárias de contraceptivo oral combinado. A frequência foi limítrofe a muito rara.
+
+- “Eventos tromboembólicos arteriais e venosos” resumem as seguintes entidades médicas: oclusão venosa periférica profunda, trombose e embolia/oclusão vascular pulmonar, trombose, embolia e infarto/infarto do miocárdio/infarto cerebral e acidente vascular cerebral não especificado como hemorrágico.
+
+Para os eventos tromboembólicos arteriais e venosos e enxaqueca veja itens “Contraindicações” e “Advertências e Precauções”.
+
+O termo MedDRA preferencial é usado para determinadas reações e seus sinônimos e condições relacionadas. As reações adversas foram baseadas na versão 12.1 do MedDRA.
+
+Descrição das reações adversas selecionadas: as reações adversas com frequência muito baixa ou com início tardio dos sintomas relatadas no grupo de usuárias de contraceptivo oral combinado estão listadas abaixo, veja também itens “Contraindicações” e “Advertências e Precauções”.
+
+- A frequência de diagnóstico de câncer de mama é ligeiramente maior em usuárias de CO. Como o câncer de mama é raro em mulheres abaixo de 40 anos o aumento do risco é pequeno em relação ao risco geral de câncer de mama. A causalidade com uso de COC é desconhecida;
+
+- Tumores hepáticos (benignos e malignos).
+
+- mulheres com hipertrigliceridemia (aumento do risco de pancreatite em usuárias de COCs);
+
+- ocorrência ou piora de condições para as quais a associação com o uso de COC não é conclusiva: icterícia e/ou prurido relacionado à colestase; formação de cálculos biliares, porfiria, lúpus eritematoso sistêmico, síndrome hemolítico urêmica, Coreia de Sydenham, herpes gestacional, otosclerose – relacionada à perda de audição;
+
+- em mulheres com angioedema hereditário, estrogênios exógenos podem induzir ou intensificar sintomas de angioedema; - distúrbios das funções hepáticas;
+
+- alterações na tolerância à glicose ou efeitos sobre a resistência periférica a insulina;
+
+- doença de Crohn, colite ulcerativa;
+
+- hipersensibilidade (incluindo sintomas como _rash_ , urticária).
+
+Sangramento de escape e/ou diminuição da eficácia contraceptiva podem ser resultado de interações medicamentosas entre contraceptivos orais e outros fármacos (indutores enzimáticos), veja item “Interações medicamentosas”.
+
+Em casos de eventos adversos, notifique pelo Sistema VigiMed, disponível no Portal da Anvisa.

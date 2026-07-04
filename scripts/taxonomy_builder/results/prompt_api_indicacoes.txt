@@ -1,0 +1,1156 @@
+Você é um Farmacêutico Clínico Especialista em Ontologias Médicas e NLP.
+
+Abaixo, fornecerei vários parágrafos extraídos da seção "INDICACOES" de bulas reais.
+Sua tarefa é analisar o texto bruto, encontrar padrões de instruções clínicas e criar uma lista exaustiva de "Tags de Intenção" (Intention Tags) que cubram todas as informações contidas neles.
+
+REGRAS RÍGIDAS:
+1. BOTTOM-UP: Nenhuma tag pode ser inventada se não houver um trecho explícito que a justifique.
+2. GRANULARIDADE: Específica o suficiente para roteamento, mas genérica para servir a várias bulas (ex: "contraindicacao_doenca_cardiaca").
+3. FORMATO: Apenas snake_case (letras minúsculas e sublinhado).
+
+O QUE VOCÊ DEVE RETORNAR PARA CADA TAG IDENTIFICADA (em formato JSON estrito):
+[
+  {
+    "nome_tag": "tag_em_snake_case",
+    "descricao_intencao": "Que tipo de pergunta ativaria essa tag?",
+    "evidencia_extraida": "Frase exata da bula que originou a tag"
+  }
+]
+
+Aqui estão os textos brutos das bulas para a sua análise:
+--- BULA: CLORIDRATO DE PROPRANOLOL ---
+O cloridrato de propranolol é um betabloqueador indicado para:
+
+- Controle de hipertensão;
+
+- Controle de angina pectoris;
+
+- Controle das arritmias cardíacas;
+
+- Profilaxia da enxaqueca;
+
+- Controle do tremor essencial;
+
+- Controle da ansiedade e taquicardia por ansiedade;
+
+- Controle adjuvante da tireotoxicose e crise tireotóxica;
+
+- Controle da cardiomiopatia hipertrófica obstrutiva;
+
+- Controle de feocromocitoma.
+
+Neste caso, o tratamento com cloridrato de propranolol deve apenas ser iniciado na presença de um bloqueio alfa efetivo.
+
+Há amplas evidências que demonstram que os antagonistas do adrenoceptor beta diminuem a pressão arterial e são úteis no manejo da hipertensão. O grau de redução na pressão arterial depende dos níveis iniciais. Os pacientes com uma pressão arterial inicial de 180/100 mmHg apresentam uma queda de 12 a 20 mmHg na pressão sistólica e de 6-12 mmHg na diastólica [propranolol (hydrochloride). In: Dollery C Therapeutic Drugs, 1991; 2: P272-8]. O propranolol é eficaz em 70 a 90 % dos pacientes com hipertensão arterial (Ahlquist RP. Am Heart J 1979; 97 (2): 137-40). Aumentando-se a dosagem, não há um aumento correspondente na redução de pressão arterial [Conway J & Amery A. Central Action of Drugs in Blood Pressure 1975; 277-89].
+
+O propranolol reduziu a incidência de batimentos ventriculares prematuros em 76% (Kubik MM & Dawes PM. Curr Med Res Op 1986;10(4): 215-20). Em outro estudo, o número médio de complexos ventriculares prematuros (VCP/h) foi reduzido em 70% de 71% dos pacientes que fizeram uso de propranolol [Aronow WS _et al_ . Am J of Cardiol 1995; 75(7): 514-6].
+
+CLORIDRATO DE PROPRANOLOL_VPS
+
+O propranolol demonstrou ser uma medicação efetiva para a prevenção de enxaqueca: 72% dos pacientes responderam ao seu uso e, a longo prazo, 46% mantiveram a melhora apesar da descontinuação do tratamento (Diamond S _et al_ . Headache 1982; 22(6): 268-71).
+
+Após o uso do propranolol, os pacientes apresentaram maior tolerância ao exercício, sendo que 50% destes apresentaram angina induzida por exercício físico [Santamaria F _et al_ . Minerva Cardioangiol 1993; 41(4): 139-45].
+
+O propranolol demonstrou ser eficaz no manejo das síndromes de ansiedade, controlando tanto os sintomas somáticos (palpitações, temor e taquicardia) como os psíquicos [Suzman MM. Postgrad Med J 1976; 52(suppl.4): 168-74].
+
+Um estudo que avaliou a adição de propranolol à terapia do tremor essencial demonstrou redução desta desordem pela sua ação bloqueadora nos receptores periféricos (Murrray TJ. CMA J 1972; 18 (107): 984-6).
+
+O propranolol reduz a taquicardia e o aumento de débito cardíaco presentes na tireotoxicose [propranolol (hydrochloride). In: Dollery C Therapeutic Drugs 1991; 2: P272-8].
+
+O propranolol inibe a taquicardia e a taquiarritmia causada pelo excesso de catecolaminas circulantes, podendo ser usado no período pré-operatório diariamente por três dias e, diariamente, na dosagem de 30 mg nos tratamentos a longo prazo. O propranolol deve ser usado concomitantemente às drogas alfa-bloqueadoras, uma vez que elas também inibem os efeitos beta-2 vasodilatadores [propranolol (hydrochloride). In: Dollery C Therapeutic Drugs 1991;2: P272-8].
+
+O propranolol inibe o efeito inotrópico da estimulação simpática e pode reduzir o gradiente de pressão intraventricular [propranolol (hydrochloride). In: Dollery C Therapeutic Drugs 1991; 2: P272-8].
+
+--- BULA: DIPIRONA SÓDICA ---
+Este medicamento é indicado como analgésico e antitérmico.
+
+Estudo clínico comparativo, multinacional, randomizado, duplo-cego, comparou a eficácia antipirética de dipirona, paracetamol e ibuprofeno em 628 crianças com febre, com idade entre 6 meses a 6 anos. Os três fármacos foram eficazes em baixar a temperatura em 555 pacientes que completaram o estudo. Taxas de normalização de temperatura no grupo dipirona e ibuprofeno (82% e 78%, respectivamente) foram significativamente maiores do que no grupo paracetamol (68%, p=0,004). Depois de 4 a 6 horas, a temperatura média no grupo da dipirona foi significativamente menor que os demais grupos, demonstrando maior normalização da temperatura com a dipirona (Wong et al, 2001).
+
+Em outro estudo clínico aberto, não comparativo foi usada dipirona oral na dose de 10-15 mg/kg cada 6-8 horas para avaliar a redução de temperatura em 93 pacientes pediátricos (3 meses a 12 anos) com febre (> 38,5ºC). Resposta boa ou satisfatória foi observada em 92% dos pacientes (Izhar T, 1999).
+
+Em estudo clínico, randomizado, duplo-cego, de grupos paralelos, controlado por placebo, foi comparada a eficácia analgésica de dipirona solução oral 500 mg/mL (gotas), cetoprofeno formulação líquida (25 mg ou 50 mg) e placebo em 108 pacientes com idade acima de 18 anos (26 a 28 pacientes por tratamento) com dor pós episiotomia. Todos os tratamentos ativos foram significativamente superiores ao placebo para várias medidas de analgesia, incluindo 4-horas e 6-horas SPID e pontuações TOTPAR. A avaliação global foi considerada como "bom" ou "excelente" por mais de 75% dos pacientes nos grupos de tratamento ativo comparado com 7,4% dos pacientes no grupo placebo (Olsonet al, 1999).
+
+• Wong A, Sibbald A, Ferrero F, Plager M, Santolaya ME, Escobar AM, et al. Antipyretic effects of dipyrone versus ibuprofen versus acetaminophen in children: results of a multinational, randomized, modified double-blind study. Clinical pediatrics. 2001;40(6):313-24.
+
+• Izhar, T. Novalgin in Pain and Fever. J Pak Med Assoc. 1999 Sep;49(9):226-7
+
+• Olson NZ, Sunshine A, Zighelboim I, Lange R. Analgesic Efficacy of Liquid Ketoprofen Compared to Liquid Dipyrone and Placebo Administered Orally as Drops in Postepisiotomy Pain. Int J Clin Pharmacol Ther. 1999 Apr;37(4):168-74.
+
+--- BULA: ENOXALOW ---
+ENOXALOW[®] (enoxaparina sódica) é destinado à prevenção da formação de trombo na circulação extracorpórea durante a hemodiálise (método artificial para filtrar o sangue). em pacientes renais crônicos.
+
+Um estudo clínico aberto, aleatório, cruzado amostral e intervencionista avaliou a eficácia e tolerabilidade do medicamento ENOXALOW[®] (enoxaparina sódica) em voluntários sadios versus outros medicamentos existentes no mercado brasileiro contendo enoxaparina. Nesse estudo foram avaliadas a inibição da atividade Xa e a dosagem TTPa (tempo de tromboplastina parcial ativada). O medicamento ENOXALOW[®] (enoxaparina sódica) mostrou-se não inferior ao medicamento comparador para enoxaparina obtendo uma atividade média de anti-Xa de 0,34 UI/mL durante 4 horas de confinamento.
+
+Não houve reações inesperadas para ambos os medicamentos garantindo a segurança de ENOXALOW[®] (enoxaparina sódica). Em outro estudo realizado em pacientes insuficientes renais crônicos realizando tratamento de hemodiálise cujo objetivo era comprovar a segurança do uso do medicamento ENOXALOW[®] (enoxaparina sódica) e a avaliação de não inferioridade clínica, observada pelos critérios de manutenção da coagulação do circuito extra corpóreo durante a hemodiálise e a curva de efeito farmacodinâmico da enoxaparina sódica verificada pela dosagem dos marcadores TTPa, anti-Xa e anti-IIa, o medicamento ENOXALOW[®] (enoxaparina sódica) mostrou-se não inferior ao medicamento comparador para enoxaparina sódica.
+
+ENOXALOW[®] (enoxaparina sódica) é destinado prevenção da formação de trombo na circulação extracorpórea durante a hemodiálise (método artificial para filtrar o sangue). em pacientes renais crônicos.
+
+--- BULA: EXPECTOFLUI ---
+Expectoflui xarope é um expectorante destinado ao tratamento da tosse em gripes e resfriados.
+
+Em revisão realizada pelo FDA, a guaifenesina revelou-se como um expectorante efetivo. Foram avaliados mais de 500 pacientes em estudos com a utilização da guaifenesina na dose de 200 mg 4 vezes ao dia, comparados ao placebo. Houve melhora significativa com maior facilidade à expectoração, frequência de tosse e melhora da avaliação global. Além disso, o autor também demonstrou que a guaifenesina produz melhora significativa na facilidade de expectoração das secreções de vias aéreas, diminuição da viscosidade da secreção e melhora no _clearance_ da secreção quando comparados ao placebo.
+
+Thomas J. Guaiphenesin - an old drug now found to be effective. Aust J Pharm 1990; 71:101-3.
+
+Martindale Guaifenesin. Disponível em: . Acesso em 05/2009.
+
+Drugdex Evaluations Guaifenesin. Disponível em: . Acesso em 05/2009.
+
+--- BULA: EUPHORBIUM COMPOSITUM SN ---
+Euphorbium compositum SN é indicado como auxiliar no tratamento da sinusite aguda e crônica, com inflamação do sinus maxilar, sinus frontal, sinus etimoidal e sinus esfenóide, catarro nas passagens auditivas e hidropisia do ouvido médio.
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA ---
+O butilbrometo de escopolamina é indicado para o tratamento sintomático de cólicas agudas dos tratos gastrintestinal e geniturinário, assim como cólicas e discinesias das vias biliares.
+
+O butilbrometo de escopolamina injetável é ainda indicado como auxiliar em procedimentos diagnósticos e tratamentos, nos quais o espasmo pode constituir um problema, por exemplo, em endoscopia gastrintestinal e radiologia.
+
+Em estudo conduzido para avaliar o efeito analgésico de 20 mg intravenoso de butilbrometo de escopolamina em cólica biliar, foram avaliados 32 pacientes (26 mulheres e 6 homens, com idade média de 47 anos, variando entre 38-55 anos) alocados aleatoriamente para butilbrometo de escopolamina ou tenoxicam. A intensidade da dor foi avaliada em escala de 5 pontos. Os resultados, no grupo de butilbrometo de escopolamina, foram: 7 (43,24%) dos 16 pacientes tiveram melhora significante da dor na avaliação de 30 minutos e outros 3 pacientes (18,75%) aos 60 minutos. Em acompanhamento de 24 horas, 4 (25%) pacientes tiveram que recorrer a medicação de resgate (petidina) e desenvolveram colecistite. Os autores concluem que ambos os tratamentos foram rápidos no alívio da dor abdominal de origem biliar.[1]
+
+Em estudo que envolveu 104 pacientes, ao todo, sofrendo de dor em cólica classificada como grave ou excruciante devido a cálculo das vias urinárias altas, confirmado, 33 pacientes foram alocados aleatoriamente para receber butilbrometo de escopolamina injetável (20 mg IV) em estudo multicêntrico, com observador cego, randomizado em oito centros na Alemanha. Foi utilizada a Escala Visual analógica (EVA) para medir a intensidade da dor. O SIDP (início de ação) para butilbrometo de escopolamina foi de 16,22 ± 15,4 minutos.
+
+Eventos adversos foram relatados em 4 pacientes do grupo butilbrometo de escopolamina.[2 ]
+
+1-Al-Waili N, Saloom KY. The analgesic effect of intravenous tenoxican in symptomatic treatment of biliary colic: a comparison with hyoscine
+
+N-butylbromide. Eur J Med Res.Eur J Med Res. 1998 Oct 14;3(10):475-9.
+
+2- Stankov G, Schmieder G, Zerle G, Schinzel S, Brune K. Double blind study with dipyrone versus tramadol and butylscopolamine in acute renal colic pain. World J Urol.World J Urol. 1994;12(3):155-61.
+
+--- BULA: GOTAS BINELLI ---
+Este medicamento é destinado ao tratamento sintomático da tosse improdutiva ou exagerada, irritativa, espasmódica e seca, causadas por processos inflamatórios, infecciosos, irritativos e alérgicos das vias aéreas superiores e brônquicas.
+
+Em estudo duplo-cego, randomizado, prospectivo, Banderali e cols. demonstraram que o número de episódios de tosse em crianças de 2 a 14 anos foram reduzidos significativamente já no primeiro dia de tratamento, reduzindo de 12,1 ± 1,1 episódios de tosse ao dia, para 8,2 ± 0,8 episódios no primeiro dia de tratamento (p<0.025) e para 4,4 ± 0,6 após 3 dias de tratamento (p<0.001). O número de episódios de despertar noturno decorrentes de tosse também foi significativamente reduzido, sendo de 1,4 ± 0,2 antes do início do tratamento, 0,9 ± 0,2 após o primeiro dia de tratamento (p<0.025) e 0,4 ± 0,1 após 3 dias de tratamento (p<0.025).
+
+Banderali G, et al. Efficacy and Tolerability of Levodropropizine and Dropropizine in Children with Non- productive cough. J Int Med Res, 1995; 23:175-83.
+
+--- BULA: FUROATO DE MOMETASONA ---
+O furoato de mometasona é indicado para o alívio das manifestações inflamatórias e pruriginosas das dermatoses sensíveis aos corticosteroides como psoríase, dermatite atópica e ou dermatite alérgica de contato.
+
+Psoríase - Um estudo multicêntrico, duplo-cego e de grupos paralelos comparou a eficácia do furoato de mometasona 0,1% em creme com aquela de seu veículo isolado, em pacientes com psoríase moderada a grave.[1] O furoato de mometasona creme 0,1% aplicado uma vez por dia (1x/dia) foi eficaz na melhora dos sinais de psoríase: foi significativamente (P menor que 0,01) mais eficaz que o veículo isolado na redução do escore total dos sinais da doença. Depois de uma semana de tratamento, a melhora nos escores totais dos sinais da doença foi, em média, de 25% para o grupo tratado com a mometasona e de 15% para o grupo tratado com o veículo, demonstrando uma diferença estatisticamente significativa (P menor que 0,01). Depois de três semanas de tratamento, uma diferença estatisticamente significativa (P menor que 0,01) foi novamente observada com o creme ativo. A melhora nos escores totais dos sinais da doença foi, em média, de 44% e 22% nos pacientes tratados com a mometasona em creme e com o veículo, respectivamente. Os resultados da análise de endpoint também demonstraram que o furoato de mometasona foi significativamente (P menor que 0,01) mais eficaz que o veículo na redução dos escores totais dos sinais da doença. Além disso, a avaliação global da alteração geral no status da doença feita pelo médico indicou uma melhora significativamente (P menor que 0,01) maior nos pacientes tratados com a mometasona em comparação com os pacientes tratados com o veículo em cada avaliação, ao longo do curso inteiro de três semanas de terapia.
+
+Em outros dois estudos multicêntricos e de grupos paralelos, a eficácia do furoato de mometasona creme 0,1% aplicado 1 x/dia foi comparada com aquela do acetonido de fluocinolona 0,025% em creme aplicado três vezes por dia (3 x/dia) durante três semanas, e com aquela do acetonido de triancinolona 0,1% em creme aplicado duas vezes por dia (2 x/dia) durante três semanas.[2]
+
+Com base na melhora nos escores totais dos sinais da doença e na avaliação global feita pelo médico das alterações gerais no status da doença nos dois estudos, o furoato de mometasona creme 0,1% foi significativamente (P menor que 0,01) mais eficaz que o acetonido de fluocinolona, e comparável ao acetonido de triancinolona em creme. A melhora nos escores totais dos sinais da doença, que variou de 22% a 26%, foi observada já a partir do 4º dia nos pacientes tratados com o furoato de mometasona. Uma melhora comparável (22%) foi observada no grupo tratado com a triancinolona.
+
+Em contraste, os pacientes tratados com a fluocinolona tinham obtido 16% de melhora até o 4º dia. Ao final do estudo, a melhora percentual variou de 44% a 55% com o furoato de mometasona creme, em comparação com 51% e 33% com a triancinolona e a fluocinolona, respectivamente.
+
+Os escores globais médios para os pacientes tratados com o furoato de mometasona também indicaram uma melhora contínua ao longo do curso do tratamento. Ao final de cada período do estudo, foi observada uma
+
+melhora moderada nos grupos de tratamento do furoato de mometasona e do acetonido de triancinolona. Ainda assim, pouca melhora foi observada no grupo de tratamento com o acetonido de fluocinolona durante o mesmo período. Os escores globais médios nesse grupo nunca foram indicativos de uma melhora maior que discreta em qualquer momento durante o estudo.
+
+Em um estudo comparativo bilateral-pareado, o furoato de mometasona creme 0,1% e o valerato de betametasona 0,1% em creme foram aplicados 2 x/dia durante duas semanas em pacientes com psoríase.[3] Apesar de ambos os agentes do estudo terem sido igualmente eficazes em muitos pacientes, alguns responderam melhor à terapia com mometasona. Embora no 4º dia as lesões em mais da metade dos pacientes tivessem respondido igualmente às duas preparações do estudo, a maioria dos pacientes com diferenças na resposta da lesão favoreceu significativamente o tratamento com o furoato de mometasona (P menor que 0,03). No 15º dia, os escores dos sinais totais indicaram que 56% dos pacientes se beneficiaram do tratamento com o furoato de mometasona, em comparação com 13% que se beneficiaram do tratamento com o valerato de betametasona, e 31% cujas lesões responderam igualmente aos dois agentes (P menor que 0,01). Do mesmo modo, os escores de avaliação global feitos pelo médico no 15º dia indicaram que as lesões em 51% dos pacientes responderam mais favoravelmente ao furoato de mometasona em creme, em comparação com as lesões em 10% dos pacientes que responderam mais favoravelmente ao valerato de betametasona em creme (P menor que 0,01). Ao final do tratamento, a melhora dos escores totais dos sinais da doença foi, em média, de 59% nas lesões tratadas com o furoato de mometasona, e de 49% naquelas tratadas com o valerato de betametasona em creme.
+
+Dermatite Atópica - Outro estudo multicêntrico, duplo-cego e de grupos paralelos comparou a eficácia do furoato de mometasona creme 0,1% com aquela de seu veículo isolado em pacientes com dermatite atópica moderada a grave.[4] O furoato de mometasona em creme aplicado 1 x/dia foi eficaz na melhora dos sinais e sintomas da dermatite atópica, sendo significativamente (P menor que 0,01) mais eficaz que o veículo isolado. Uma resposta rápida ao furoato de mometasona foi evidente após sete dias de tratamento, quando a melhora nos escores totais dos sinais/sintomas da doença foi, em média, de 50% e 28% nos grupos de tratamento com o furoato de mometasona em creme e com o veículo, respectivamente, demonstrando uma diferença estatisticamente significativa (P menor que 0,01). No 22º dia, a melhora nos escores foi, em média, de 77% e 51% nos grupos de tratamento com o creme ativo e com o veículo, respectivamente. Além do mais, a análise de endpoint revelou uma melhora de 76% nos pacientes tratados com o furoato de mometasona em creme, em comparação com uma melhora de 44% nos pacientes tratados com o veículo. Os escores da avaliação global feitos pelo médico indicaram que os pacientes tratados com o creme ativo tiveram uma melhora significativamente (P menor que 0,01) maior no status da doença que os pacientes tratados com o veículo em cada avaliação, durante todo o curso da terapia.
+
+Em dois estudos cegos, o furoato de mometasona 0,1% em creme aplicado 1 x/dia foi comparado com o butirato de hidrocortisona 0,05% em creme e com o valerato de betametasona 0,1% em creme, cada um aplicado 2 x/dia durante três semanas.[5,6]
+
+Os resultados no primeiro estudo demonstraram que o furoato de mometasona foi significativamente (P menor 0,05) mais eficaz que o butirato de hidrocortisona, durante todo o estudo.[5] No 4º dia, a melhora percentual foi, em média, de 35% nos pacientes tratados com o furoato de mometasona, em comparação com 30% no grupo de pacientes do butirato de hidrocortisona. No 22º dia, a melhora percentual foi, em média, de 88% e 84% nos grupos tratados com o furoato de mometasona e com a hidrocortisona, respectivamente. Os escores globais médios para os pacientes tratados com o furoato de mometasona foram indicativos de melhora moderada já a partir do 4º dia, embora tenha sido observada uma melhora apenas discreta no grupo da hidrocortisona.
+
+No segundo estudo, o grau de melhora nos pacientes tratados com o furoato de mometasona foi semelhante àquele observado em outros estudos; uma melhora comparável foi observada no grupo tratado com a betametasona.[6] No 4º dia, os pacientes em ambos os
+
+grupos de tratamento exibiram uma melhora de aproximadamente 40%, que progrediu durante todo o estudo. Ao final do período do estudo, os escores globais médios nos dois grupos de tratamento foram indicativos de melhora acentuada.
+
+Dermatoses Responsivas a Corticosteroide - A eficácia do furoato de mometasona 0,1% em creme aplicado 1 x/dia foi comparada com aquela do valerato de betametasona 0,1% em creme aplicado 2 x/dia no tratamento de diversas dermatoses responsivas a corticosteroide.[7] O furoato de mometasona em creme 1 x/dia foi tão eficaz quanto o valerato de betametasona aplicado 2 x/dia, conforme indicado pela melhora percentual nos escores totais dos sinais/sintomas da doença e pela avaliação global feita pelo médico da alteração geral no status da doença. O início de ação foi rápido com ambas as preparações, e ocorreu melhora progressiva em ambos os grupos de tratamento durante todo o período de estudo de três semanas. No 22º dia, a melhora percentual foi, em média, de 94% e 97% nos pacientes tratados com a mometasona
+
+e com a betametasona, respectivamente. Os escores globais médios para os dois grupos de tratamento foram indicativos de melhora moderada já no 4º dia. Ao final do estudo, os escores globais médios nos grupos da mometasona e da betametasona indicaram desaparecimento total das lesões na maioria dos pacientes em cada grupo de tratamento.
+
+Dermatoses Responsivas a Corticosteroide em Pacientes Pediátricos - Dois estudos randomizados e de grupos paralelos avaliaram a eficácia do furoato de mometasona creme 0,1% no tratamento de várias dermatoses responsivas a corticosteroide em pacientes pediátricos.[8,9]
+
+No primeiro estudo, o furoato de mometasona creme 0,1% aplicado 1 x/dia foi comparado com o butirato de clobetasona creme 0,05% aplicado 2 x/dia durante três semanas.[8] No segundo estudo, o furoato de mometasona creme 0,1% aplicado 1 x/dia foi comparado com o valerato de betametasona creme 0,1% aplicado 2 x/dia durante três semanas.[9]
+
+Os resultados dos dois estudos demonstraram que aplicações únicas diárias de furoato de mometasona creme 0,1% foram tão eficazes quanto a clobetasona 0,05% e a betametasona 0,1%, cada uma aplicada duas vezes por dia, na melhora dos sinais/sintomas de dermatoses responsivas a corticosteroide. Com o furoato de mometasona em creme, a melhora sintomática foi observada já a partir do 4º dia e variou de 36% a 46%. Do mesmo modo, ocorreu uma melhora de 28% com o butirato de clobetasona em creme e
+
+de 52% com o valerato de betametasona em creme. No 22º dia, a melhora percentual variou de 94% a 99% com o furoato de mometasona em creme, e foi de 90% e 94% com a clobetasona e a betametasona, respectivamente. Os escores globais médios em todos os grupos de tratamento foram indicativos de uma melhora rápida e progressiva no status da doença durante todo o estudo. Ao final do estudo, os escores globais médios indicaram desaparecimento total e melhora acentuada na maioria dos pacientes tratados com a mometasona, desaparecimento total nos pacientes tratados com a betametasona, e melhora acentuada no grupo da clobetasona.
+
+1Katz, H.I., et al, Double-blind, Parallel-group, Cooperative Efficacy and Safety Study in Psoriasis Comparing Once Daily Applications of SCH 32088 Cream 0,1% and Its Vehicle, (C84-075), Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering International, 1987.
+
+2Medansky, R.S., et al, Mometasone Furoate Ointment and Cream 0,1% in Treatment of Psoriasis: Comparison with Ointment and Cream Formulations of Fluocinolone Acetonide 0,25% and Triamcinolone Acetonide 0,1%, Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering International, 1988.
+
+3Cornell, R.C., et al, Bilateral Comparison Study of SCH 32088 Cream 0,1% and VALISONE Cream 0,1% in Psoriasis, (C85-008), Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering International, 1987. 4McCormick, G.E., et al, Double-blind Parallel-group, Cooperative Efficacy and Safety Study in Atopic Dermatitis Comparing Once Daily Applications of SCH 32088 Cream 0,1% and Its Vehicle, (C84-076), Mometasone Furoate Cream 0,1%Health Registration Dossier, Schering International, 1987.
+
+5Gip, L., et al, Single-blind Efficacy and Safety Study in Atopic and Seborrheic Dermatitis Patients Comparing Once Daily Applications of Mometasone Furoate Cream 0,1% and Twice Daily Applications of LOCOID® Cream 0,1% (I86313), Mometasone Furoate Cream 0,1%, Health Registration Dossier, Schering International, 1988.
+
+6CDvorkin D., et al, Single-blind Efficacy and Safety Study in Atopic Dermatitis Comparing Once Daily Applications of Mometasone (SCH 32088) Cream 0,1% and Twice Daily Applications of Betamethasone Valerate Cream 0,1% (C84084), Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering International, 1988.
+
+7Viglioglia, P., Single-blinf Efficacy and Safety Study in Steroid Responsive Dermatitis Comparing Once Daily Applications of Mometasone Furoate Cream 0,1% and Twice Daily Applications of BETNOVATE® Cream 0,05% (I86-116), Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering International, 1988.
+
+8Dominguez, L., Single-blind Efficacy and Safety Study in Steroid-responsive Dermatoses Patients 6 to 12 Years of Age Comparing Once Daily Applications of Mometasone Furoate Cream 0,1% and Twice Daily Applications of EUMOVATE® Cream 0,05%, (I86-112), Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering International, 1988. 9Falabella, R., Single-blind Efficacy and Safety Study in Steroid-responsive Dermatoses Patients 6 to 12 Years of Age Comparing Once Daily Applications of Mometasone Furoate Cream 0,1% and Twice Daily Applications of BETNOVATE® Cream 0,1% (I86-117), Mometasone Furoate Cream 0,1% Health Registration Dossier, Schering international, 1988
+
+--- BULA: BUP ---
+Bup® (cloridrato de bupropiona) é indicado no tratamento de transtorno depressivo maior (TDM) ou na prevenção de recaídas e recorrências de episódios depressivos após resposta inicial satisfatória.
+
+A bupropiona também é usada para ajudar a parar de fumar. Entretanto, as informações desta bula são específicas para pacientes em tratamento de depressão. Doses e outras instruções são diferentes para pacientes em tratamento para deixar de fumar.
+
+A eficácia de cloridrato de bupropiona (12 horas) no tratamento da depressão em adultos foi demonstrada em dois estudos controlados com placebo, de oito semanas de duração. No primeiro estudo, que utilizou dose fixa, cloridrato de bupropiona (12 horas) 150 mg/dia e 300 mg/dia foi superior ao placebo no escore total da escala HAM-D (Escala de _Hamilton_ para Depressão), no escore de Impressão Clínica Global de Gravidade (CGI-S) e Impressão Clínica Global de Melhora (CGI-I). No estudo com dose flexível, cloridrato de bupropiona (12 horas) 50 mg-150 mg administrado uma vez ao dia foi superior ao placebo no escore total da HAM-D, MADRS (Escala de _Montgomery-Asberg_ para Depressão), CGI-S e CGI-I, enquanto o cloridrato de bupropiona (12 horas) 50 mg-150 mg administrado duas vezes ao dia alcançou superioridade estatisticamente significante em todas as quatro escalas de depressão[1,][2] .
+
+O cloridrato de bupropiona (12 horas) também demonstrou eficácia antidepressiva comparável aos ISRSs sertralina, fluoxetina e paroxetina em estudos controlados com pacientes, com até 16 semanas de duração. O primeiro deles foi um ensaio em indivíduos adultos comparando cloridrato de bupropiona (12 horas) 150 mg-300 mg/dia com sertralina 50 mg200 mg/dia. Em seguida, dois estudos controlados com placebo de oito semanas de duração, em pacientes adultos, comparando cloridrato de bupropiona(12 horas) 150 mg-400 mg/dia com sertralina 50 mg-200 mg/dia; e dois comparando cloridrato de bupropiona (12 horas) 150 mg-400 mg/dia com fluoxetina 20 mg-60 mg/dia. Em idosos, um estudo controlado de seis semanas comparou cloridrato de bupropiona (12 horas) 100 mg-300 mg/dia com paroxetina 10 mg-40 mg/dia. Em todos os estudos cloridrato de bupropiona (12 horas) e os ISRSs tiveram eficácia semelhante no tratamento de depressão pelas escalas HAM-D, CGI-I e CGI-S. A incidência de disfunção sexual (baseada no critério DSM-IV e medida por entrevistas) foi significativamente maior com os ISRSs fluoxetina e sertralina do que com cloridrato de bupropiona. Adicionalmente, o cloridrato de bupropiona foi associada à menor incidência de sedação quando comparada a todos os ISRSs[3,][4,][5,][6,][7,][8] .
+
+A eficácia de cloridrato de bupropiona (12 horas) em prevenir a recaída da depressão foi estabelecida em um estudo de longa duração (52 semanas) em adultos.
+
+Pacientes que responderam ao tratamento de oito semanas com cloridrato de bupropiona (12 horas) 300 mg/dia foram randomizados para continuar tomando a mesma dosagem de cloridrato de bupropiona (12 horas) ou placebo. Os pacientes que continuaram recebendo cloridrato de bupropiona (12 horas) experimentaram índices de recaída significativamente menores nas 44 semanas subsequentes, quando comparados àqueles submetidos a placebo. A bupropiona foi bem tolerada durante uma terapia de longo prazo, sem alterações clinicamente significativas nos sinais vitais e com perda de peso modesta, que aumentava quanto maior o peso corporal no início do tratamento[9] .
+
+1. GlaxoSmithKline internal document. A multicenter evaluation of the safety and efficacy of 150 mg/day and 300 mg/day of bupropion HCl sustained-release versus placebo in depressed outpatients. THRS/93/0024/00 (protocol 203).
+
+Bup (cloridrato de bupropiona)_COM REV LIB PROL_VP_V10
+
+2. GlaxoSmithKline internal document. A multicenter evaluation of the safety and efficacy of two flexible doses of Wellbutrin® sustained-release versus placebo in depressed outpatients. THRS/94/0033 (protocol 212).
+
+3. Kavoussi RJ, Segraves RT, Hughes AR, et al. Double-blind comparison of bupropion sustained release and sertraline in depressed outpatients. J Clin Psychiatry 1997; 58: 532-537.
+
+4. Croft H, Settle E, Houser T, et al. A placebo-controlled comparison of the antidepressant efficacy and effects on sexual functioning of sustained-release bupropion and sertraline. Clin Ther 1999; 12: 643-658.
+
+5. Coleman CC, Cunningham LA, Foster VJ, et al. Sexual dysfunction associated with the treatment of depression: a placebo-controlled comparison of bupropion sustained release and sertraline treatment. Annals of Clinical Psychiatry 1999; 11(4): 205-215.
+
+6. Coleman C, King B, Bolden-Watson C, et al. A placebo-controlled comparison of the effects on sexual functioning of bupropion sustained release and fluoxetine. Clin Ther 2001; 23(7): 1040-1058.
+
+7. GlaxoSmithKline internal document. A multicenter, double-blind, placebo-controlled comparison of the safety and efficacy and effects on sexual functioning of Wellbutrin® (bupropion HCl) sustained release (SR) and fluoxetine in outpatients with moderate to severe recurrent major depression. RM2000/00500/00 (protocol AK1A4006).
+
+8. Weihs KL, Settle EC, Batey SR, et al. Bupropion sustained release versus paroxetine for the treatment of depression in the elderly. J Clin Psychiatry 2000; 61(3): 196-202.
+
+9. Weihs KL, Houser TL, Batey SR et al. Continuation phase treatment with bupropion SR effectively decreases the risk for relapse of depression Biol Psychiatry 2002; 51: 753-7613.
+
+--- BULA: BESILATO DE ANLODIPINO ---
+Besilato de anlodipino é indicado como fármaco de primeira linha no tratamento da hipertensão, podendo ser utilizado na maioria dos pacientes como agente único de controle da pressão sanguínea. Pacientes que não são adequadamente controlados com um único agente anti-hipertensivo (diferente do anlodipino) podem ser beneficiados com a adição de anlodipino, que tem sido utilizado em combinação com diuréticos tiazídicos, alfa-bloqueadores, agentes beta-bloqueadores adrenérgicos ou inibidores da enzima conversora da angiotensina (ECA).
+
+Besilato de anlodipino é indicado no tratamento da isquemia miocárdica como fármaco de primeira linha, devido tanto à obstrução fixa (angina estável) e/ou ao vasoespasmo/vasoconstrição (angina de Prinzmetal ou angina variante) da vasculatura coronária. besilato de anlodipino pode ser utilizado em situações clínicas sugestivas, mas não confirmadas, de possível componente vasoespástico/vasoconstritor. Pode ser utilizado isoladamente, como monoterapia, ou em combinação com outros fármacos antianginosos em pacientes com angina refratária a nitratos e/ou doses adequadas de beta-bloqueadores.
+
+Os efeitos do anlodipino na morbidade e mortalidade cardiovascular, a progressão de aterosclerose coronária e aterosclerose carótida foram estudados no estudo clínico Avaliação Prospectiva Randomizada dos Efeitos Vasculares de besilato de anlodipino (PREVENT – Prospective Randomized Evaluation of the Vascular Effects of Norvasc Trial). Este estudo multicêntrico, randomizado, duplo-cego, placebo-controlado, acompanhou por 3 anos 825 pacientes com doença arterial coronária (DAC) definida angiograficamente. A população incluiu pacientes com infarto prévio do miocárdio (IM) (45%), angioplastia coronária percutânea transluminal (ACPT) na linha de base (42%) e história de angina (69%). A gravidade da DAC variou de 1 vaso doente (45%) a 3 ou mais vasos doentes (21%). Os pacientes com hipertensão não controlada (pressão arterial diastólica [PAD]> 95 mmHg) foram excluídos do estudo. Um comitê de avaliação de desfecho avaliou, de modo cego, os principais eventos cardiovasculares. Embora não tenha existido nenhum efeito demonstrável da taxa de progressão das lesões na artéria coronária, oanlodipino impediu a progressão do espessamento da íntima-média da carótida. Foi observada uma redução significante (- 31%) em pacientes tratados com anlodipino no desfecho combinado de morte cardiovascular, infarto do miocárdio, derrame, angioplastia coronária percutânea transluminal (ACPT), revascularização cirúrgica do miocárdio (CABG – coronary artery by-pass graft), hospitalização para angina instável e piora da insuficiência cardíaca congestiva. Uma redução significante (- 42%) nos procedimentos de revascularização (ACPT e revascularização cirúrgica do miocárdio) também foi observada em pacientes tratados com anlodipino. Foi observado um número de hospitalizações (- 33%) menor para angina instável em pacientes tratados quando comparado ao grupo placebo.
+
+A eficácia do anlodipino na prevenção de eventos clínicos em pacientes com DAC foi avaliada de forma independente, multicêntrico, randomizado, duplo cego, controlado por placebo em 1997 pacientes, a comparação de anlodipino versus enalapril para limitar a ocorrência de trombose (CAMELOT). Destes pacientes, 663 foram tratados com anlodipino de 5 mg a 10 mg e 655 pacientes foram tratados com o placebo, em adição ao tratamento padrão das estatinas, beta-bloqueadores, diuréticos, e aspirina, por 2 anos. Os resultados da eficácia são apresentados na Tabela 1. Os resultados indicam que o tratamento com anlodipino foi associado com menos hospitalizações por angina e procedimentos de revascularização em pacientes com DAC.
+
+Tabela 1. Incidência de desfechos clínicos significativos no estudo CAMELOT
+
+CAMELOT Resultados Clínicos anlodipino Placebo Redução de risco N(%) (n = 663) (n = 655) (valor-p)
+
+|Desfecho|110|151|31%|
+|---|---|---|---|
+|Cardiovascular|(16.6)|(23.1)|(0.003)|
+|Composto*||||
+|Hospitalização por|51|84|42%|
+|Angina|(7.7)|(12.8)|(0.002)|
+|Revascularização|78|103|27%|
+|Coronária|(11.8)|(15.7)|(0.033)|
+
+*1) Definido no estudo CAMELOT como a morte cardiovascular, enfarte do miocárdio não fatal, parada cardíaca com ressuscitação, revascularização coronária, hospitalização por angina de peito, hospitalização por CHF, acidente vascular cerebral fatal ou não fatal ou ataque isquêmico transitório (AIT), qualquer diagnóstico das doenças vasculares periféricas doença (DVP) em um sujeito não previamente diagnosticado como tendo DVP ou qualquer admissão para um processo para o tratamento de DVP. 2) O desfecho cardiovascular composta (CV) foi o objetivo primário de eficácia em CAMELOT.
+
+Estudos hemodinâmicos e estudos clínicos controlados baseados na resposta ao exercício em pacientes portadores de insuficiência cardíaca classes NYHA II a IV, demonstraram que o anlodipino não levou a uma deterioração clínica quando avaliada em relação à tolerância ao exercício, fração de ejeção ventricular esquerda e sintomatologia clínica.
+
+Um estudo placebo-controlado (PRAISE) para avaliar pacientes portadores de insuficiência cardíaca classes NYHA III e IV recebendo digoxina, diuréticos e inibidores da enzima conversora de angiotensina (ECA) demonstrou que o anlodipino não leva a um aumento no risco da mortalidade ou mortalidade e morbidade combinadas em pacientes com insuficiência cardíaca.
+
+Em um estudo placebo-controlado com anlodipino, de acompanhamento de longo prazo (PRAISE-2), em pacientes com insuficiência cardíaca classes NYHA III e IV, sem sintomas clínicos ou sinais sugestivos de doença isquêmica preexistente, em doses estáveis de inibidores da ECA, digitálicos e diuréticos, o anlodipino não teve qualquer efeito na mortalidade total ou cardiovascular. Nesta mesma população, o anlodipino foi associado a um aumento de relatos de edema pulmonar, apesar de não existir qualquer diferença significante na incidência de piora da insuficiência cardíaca quando comparada ao placebo.
+
+1. de Bruijn B, Cocco G, Tyler HM, et al. Multicenter placebo-controlled comparison of amlodipine and atenolol in mild to moderate hypertension. J CardiovascPharmacol 1988; 12[Suppl 7]:S107-S109.
+
+2. Frick MH, McGibney D, Tyler HM, et al. Amlodipine: a double-blind evaluation of the dose-response relationship in mild to moderate hypertension. J CardiovascPharmacol 1988;12[Suppl 7]:S76-S78.
+
+3. Webster J, Robb OJ, Jeffers TA, Scott AK, Petrie JC. Once daily amlodipine in the treatment of mild to moderate hypertension. J CardiovascPharmacol 1988;12[Suppl 7]:S72-S75.
+
+4. Rofman BA. Long term open evaluation of amlodipine versus hydrochlorothiazide in patients with essential hypertension. J CardiovascPharmacol 1988;12[Suppl 7]:S94-S97.
+
+5. Lorimer AR, Smedsrud T, Walker P, Tyler HM. Comparison of amlodipine and verapamil in the treatment of mild to moderate hypertension. J CardiovascPharmacol 1988;12[Suppl 7]:S89-S93.
+
+6. Heber ME, Brigden G, Al-Khawaja I, Raftery EB. 24h blood pressure control with the once daily antagonist amlodipine. Br J ClinPharmacol 1989;27:359-365.
+
+7. Ram CVS, Kaplan NM, Burris JF, et al. Amlodipine or hydrochlorothiazide in the treatment of hypertension: effects on blood pressure and lipids. J ClinPharmacol 1988:28[Abstract]:913.
+
+8. Chrysant SG, Chrysant C, Trus J, Hitchcock A. Antihypertensive effectiveness of amlodipine in combination with hydrochlorothiazide. Am J Hypertens 1989;2:537-541.
+
+9. Glasser SP, Chrysant SG, Graves J, Rofman B, Koehn DK. Safety and efficacy of amlodipine added to hydrochlorothiazide therapy in essential hypertension. Am J Hypertens 1989;2:154-157.
+
+10. Maclean D, Mitchell ET, Wilcox RG, Walker P, Tyler HM. A double-blind crossover comparison of amlodipine and placebo added to captopril in moderate to severe hypertension. J CardiovascPharmacol 1988;12 [Suppl 7]:S85-S88.
+
+11. Glasser SP, West TW. Clinical safety and efficacy of once-a-day amlodipine for chronic stable angina pectoris. Am J Cardiol 1988;62:518-522.
+
+12. Glasser SP, Wizda West T. Clinical safety and efficacy of once-a-day amlodipine for chronic stable angina pectoris. Am Heart J 1989;118:1127-1128.
+
+13. Ezekowitz MD, Edmiston A, Hossack K, et al. Eight week double-blind crossover comparison of amlodipine and placebo in patients with stable exertional angina. Circulation 1989;80 [Suppl II]:I-I268.
+
+14. Thadani U, Wombolt DG, Chesnie BM, et al. Amlodipine: a once daily calcium antagonist in the treatment of angina pectoris: a parallel dose-response, placebo-controlled study. Am Heart J 1989;118:1135.
+
+15. Chahine RA, Feldman RL, Giles TD, et al. Efficacy and safety of amlodipine in vasospastic angina: an interim report of a multicenter, placebo-controlled trial. Am Heart J 1989;118:1128-1130.
+
+16. Pitt B, Byington RP, Furberg CD, Hunninghake DB, Mancini GB, Miller ME, Riley W. Effect of amlodipine on the progression of atherosclerosis and the occurrence of clinical events. PREVENT Investigators. 2000;102(13):1503-10.
+
+17. Packer M, O’Connor CM, Ghali JK, Pressler ML, Carson PE, Belkin RN, Miller AB, Neuberg GW, Frid D, Wertheimer JH, Cropp AB, DeMets DL. Effect of amlodipine on morbidity and mortality in severe chronic heart failure.ProspectiveRandomizedAmlodipineSurvivalEvaluationStudyGroup. 1996; 335(15):1107-14.
+
+--- BULA: FLUDALIBBS ---
+Fludalibbs[®] é indicado para o tratamento inicial de pacientes com leucemia linfocítica crônica das células B (LLC) e para pacientes que não tenham respondido a, ou cuja doença tenha progredido, durante ou após pelo menos um tratamento padrão contendo um agente alquilante.
+
+Foram realizados estudos randomizados comparativos sobre o uso de fosfato de fludarabina injetável com esquema de tratamento de 25 mg/m[2 ] intravenoso, por cinco dias, a cada quatro semanas, por seis ciclos. (Tabela 1)
+
+Tabela 1: Comparação dos índices de remissão completa e resposta global dos quatro estudos randomizados
+
+|Tabela 1: Comparação dos índices de remissão completa e resposta global dos quatro estudosrandomizados|Tabela 1: Comparação dos índices de remissão completa e resposta global dos quatro estudos|Tabela 1: Comparação dos índices de remissão completa e resposta global dos quatro estudos|Tabela 1: Comparação dos índices de remissão completa e resposta global dos quatro estudos|
+|---|---|---|---|
+|Referência|Tratamento(número depacientes1) |Resposta completa|Resposta global|
+|_French Cooperative Group__on CLL_, Johnson S, SmithAG, Löffler H, JulliussonG, et al. 1996 [_Inveresk__Clinical Study Report_11220 (_Study Report_A03156 e AD86)]|F (n=53)_vs_CAP(n=52)|17,0%_vs_7,7%p = 0,30|66%_vs_51,9%p = 0,24|
+|Rai KR. 2000. (_Study__Report_A03105/2001)|F (n=175)_vs_Clb(n=178)|14,9%_vs_3,4%p=0,0002|61,1%_vs_37,6%p(_Study Report_A00545/2001)|F (n=69)_vs_Clb(n=73)2F (n=69)_vs_Clb(n=73)3, 5|19%_vs_11%; p = 0,2428%_vs_22%; p = 0,56|74%_vs_74%; p = 1,075%_vs_74%; p = 1,0|
+|Leporrier M, 2001.|F (n=336)_vs_CAP(n=237)F (n=336)_vs_CHOP(n=351)|40,1%_vs_15,2%4;p 40,1%_vs_29,6%;p=0,004|71,1%_vs_58,2%; n. f.71,1%_vs_71,5%; n. f.|
+
+- 1 = População de eficácia: pacientes que receberam tratamento
+
+- 2 = Avaliação após 6 ciclos
+
+- 3 = Melhor resposta alcançada durante o tratamento (para remissão completa)
+
+- 4 = Remissão clínica sem resposta de medula óssea (para remissão completa)
+
+- 5 = Avaliação no final do tratamento (para resposta global)
+
+F = fosfato de fludarabina
+
+CAP = ciclofosfamida, doxorrubicina, prednisona
+
+CHOP = ciclofosfamida, doxorrubicina, vincristina, prednisona
+
+Para avaliação de eficácia de fosfato de fludarabina comprimidos, foram realizados cinco estudos (incluindo comparação da biodisponibilidade i.v./oral e um estudo de Fase II de segurança/eficácia), que demonstraram que o emprego da formulação oral em doses de 40 mg/m[2] /dia durante cinco dias, a cada 28 dias, apresentou resultados de eficácia semelhantes aos obtidos com a dose i.v. padrão de 25 mg/m[2] /dia durante 5 dias, a cada 28 dias, em pacientes previamente tratados.
+
+1. Binet JL et al. A new prognostic classification of chronic lymphocytic leukemia derived from a multivariate survival analysis. Cancer 1981; 48: 198 - 206.
+
+2. French Cooperative Group on CLL. Is the CHOP regimen a good treatment for advanced CLL? Results from two randomized clinical trials. Leuk Lymph 1994; 13: 449 - 456.
+
+3. French Cooperative Group on CLL, Johnson S, Smith AG, Löffler H, Julliusson G, et al. Multicenter prospective randomized trial of fludarabine versus cyclophosphamide, doxorubicin, and prednisone (CAP) for treatment of advanced-stage chronic lymphocitc leukemia. Lancet, 1996;347:1432-1438.
+
+4. Leporrier M et al. Randomized comparison of fludarabine, CAP and ChOP in 938 previously untreated stage B and C Chronic Lymphocytic Leukemia patients. Blood 2001; 98 (8): 2319 - 2325.
+
+5. Spriano M, Leoni P, Liso V, et al. Multicenter prospective randomized trial of fludarabine versus chlorambucil and prednisone in previously untreated patients with active B-chronic lymphocitic leukemia (B-CLL): final report. Haematologica 1999;84(suppl 9):37-38. [Study Report A00545. Dated June 19, 2001].
+
+6. Study Report AD86. Dated October, 25, 1994. Fludara in the treatment of chronic Iymphocytic leukemia (CLL). Complete subgroup analysis of previously untreated patients from protocol CLL 101. Inveresk Clinical Study Report 11220. Data on file.
+
+7. Study Report A03105. Dated July 16, 2001. Independent analysis conducted by Schering AG of data obtained during “Rai KR. et al. A Phase III comparison of Fludarabine Phosphate vs. Chlorambucil vs. Fludarabine Phosphate + Chlorambucil in previously untreated B-cell Chronic Lymphatic Leukemia (Protocol CALBG 9011). Pub. Ref. Rai KR et al. Fludarabine compared with chlorambucil as primary therapy for chronic lymphocitic leukemia. N Engl J Med 2000;343(24):1750-1757.”
+
+8. Study Report A03156. Dated July 20, 2001. Fludarabine phosphate (Fludara) in the treatment of chronic Iymphocytic leukemia (CLL). Complete subgroup analysis of previously untreated patients from protocol CLL 101 -Follow-up. Data on File.
+
+--- BULA: FIBROGAMMIN P ---
+Fibrogammin[® ] P é indicado para pacientes adultos e pediátricos no:
+
+- Tratamento profilático da deficiência congênita de FXIII;
+
+- Controle perioperatório de hemorragias cirúrgicas em indivíduos com deficiência congênita de FXIII.
+
+Fibrogammin[® ] P é também indicado para:
+
+- Diáteses hemorrágicas causadas completamente ou em parte por deficiência adquirida de FXIII (em sangramento perioperatório grave).
+
+Os dados de eficácia clínica do concentrado de FXIII são fornecidos por 5 estudos clínicos. Homens e mulheres de todas as idades foram incluídos nos estudos caso fosse documentada deficiência congênita do FXIII, com necessidade de tratamento profilático de reposição do FXIII. O estudo 2002 foi um estudo multicêntrico pivotal, prospectivo, aberto e não controlado. A dose do concentrado de FXIII utilizada foi de 40 UI/kg de peso corporal a cada 4 semanas, em um total de 3 doses em 12 semanas. A variável de eficácia foi o alcance de um nível mínimo de atividade do FXIII ≥ 5%. Treze pacientes receberam 3 doses e 1 paciente recebeu 2 doses. Com exceção de
+
+um, todos os pacientes na população farmacocinética alcançaram o nível de atividade de FXIII ≥ 5%, baseados nos ensaios padrão Berichrom[®] , na pré-infusão (mínimo), 30 e 60 minutos após a dose 2 e a dose 3. Um paciente apresentou nível de atividade de FXIII < 5%, baseado nos ensaios padrão Berichrom[®] , na pré-infusão e após a dose 3. Estes dados sugerem que o esquema de administração proposto fornece exposição suficiente para manter níveis aceitáveis na maioria dos pacientes durante todo o intervalo entre as administrações. Não ocorreu nenhum episódio de sangramento durante o estudo.
+
+O estudo 3001 foi um estudo prospectivo, multicêntrico e aberto. Seu objetivo primário foi coletar e avaliar dados observacionais de eficácia em longo prazo, em termos de frequência e gravidade dos episódios de sangramento. Os objetivos secundários foram avaliar a associação entre o nível mínimo de atividade do FXIII e a eficácia clínica, bem como hemostática, no tratamento de episódios agudos de sangramento e para a profilaxia em cirurgias. Os pacientes receberam inicialmente uma dose de 40 UI/kg de peso corporal do concentrado de FXIII. As doses subsequentes foram individualizadas de acordo com os níveis de atividade de FXIII, com o objetivo de administração a cada 4 semanas para manutenção de um nível de atividade mínimo de FXIII de aproximadamente 5 a 20%, por cerca de 12 meses. Foram triados 43 pacientes, 41 foram incluídos e receberam pelo menos uma dose do concentrado FXIII. Quarenta e um pacientes (100%) completaram o estudo. A duração média do tratamento foi de 337,8 dias. Entre os 41 pacientes, todos (100%) receberam 13 infusões, resultando num total de 533 infusões do concentrado de FXIII. Por dose, a dose média única e o volume administrados foram 41,213 UI/kg de peso corporal e 35,912 mL, respectivamente. Ao longo de um ano, um total de 14 episódios de sangramento foram reportados em 9 pacientes. Cinco episódios foram espontâneos, 8 episódios foram induzidos por um evento traumático e 1 episódio foi secundário à cirurgia. Entre os 5 episódios espontâneos de sangramento, nenhum requereu tratamento com FXIII de coagulação. A taxa anual de sangramento para episódios espontâneos de sangramento requerendo tratamento foi, portanto, de 0,000 episódios/paciente/ano (95% de intervalo de confiança [IC] 0,000 a 0,097). O tratamento profilático com concentrado de FXIII prévio a cirurgias também preveniu efetivamente ou tratou o sangramento perioperatório. Esses resultados suportam a adequação e suficiência do emprego de um nível mínimo de FXIII ≥ 5%, como marcador de manutenção de hemostasia efetiva em um esquema profilático de tratamento com concentrado de FXIII em pacientes com deficiência congênita de FXIII.
+
+O estudo 3002 foi um estudo prospectivo, multicêntrico e aberto. As doses foram calculadas pelos níveis de atividade mais recentes de FXIII de cada paciente, com o objetivo de administração a cada 4 semanas para manutenção de um nível mínimo de FXIII de aproximadamente 5 a 20%. Sessenta e um pacientes foram triados, incluídos no estudo e receberam pelo menos uma dose do concentrado de FXIII. Cinquenta e quatro pacientes (88,5%) completaram o estudo. Durante o período de tratamento com o concentrado de FXIII (61 pacientes para uma duração média de 237,2 dias, o que corresponde aproximadamente a 475 paciente meses), foram relatados 14 episódios de sangramento em 10 pacientes. A maioria dos sangramentos foi leve e todos foram considerados não relacionados ou provavelmente não relacionados ao concentrado de FXIII. Nenhum caso de hemorragia intracraniana (episódio de sangramento espontâneo potencialmente mais grave) foi reportado. Somente um paciente apresentou um episódio de sangramento que requereu tratamento com produto contendo FXIII (sangramento devido a uma laceração do dedo direito que resultou na administração da próxima dose do concentrado de FXIII). O estudo 5001 foi um estudo multicêntrico, prospectivo, aberto e de vigilância de fase 4, desenhado para avaliar a incidência cumulativa de episódios de sangramento atribuíveis à deficiência congênita de FXIII subjacente, como variável de eficácia. Para tratamento profilático,
+
+aproximadamente 10 UI/kg de peso corporal foram administradas a cada 4 semanas. O intervalo foi reduzido no caso de ocorrência de sangramentos espontâneos. Antes de procedimentos cirúrgicos, os pacientes recebiam até 35 UI/kg de peso corporal imediatamente antes da cirurgia e aproximadamente 10 UI/kg de peso corporal a cada dia nos 5 dias seguintes ou até a cicatrização completa. Dezenove pacientes foram tratados em média por 677,2 dias, o que corresponde a aproximadamente 423 pacientes meses. Episódios de sangramento foram relatados em 10 dos 19 pacientes inscritos, independentemente do tipo de sangramento. Dentre os 12 pacientes em tratamento profilático, nenhum episódio de sangramento foi reportado em 8 pacientes e pelo menos 19 episódios de sangramento foram reportados nos pacientes remanescentes. Os 19 episódios de sangramento incluíram 17 sangramentos de escape, 1 sangramento articular, devido a fratura do dedo indicador esquerdo, e 1 hematoma pós-traumático do dedo. Entre os 3 pacientes tratados somente com FXIII sob demanda, um total de 8 episódios de sangramento foram relatados. Entre os 4 pacientes que foram tratados com ambos os regimes, 3 reportaram um total de 16 episódios de sangramento.
+
+No estudo de iniciativa BB-IND 5986, conduzido pela IND, a primeira dose do concentrado de FXIII foi administrada como 20 UI/kg de peso corporal, com doses subsequentes de 10 a 20 UI/kg de peso corporal até a dose ser adaptada ao perfil farmacocinético do paciente. Vinte e dois (30,6%) dos 72 pacientes tiveram 34 episódios de sangramento que requereram administração adicional do concentrado de FXIII. A resposta ao tratamento foi excelente/boa para 30 dos eventos de sangramento (88,2%) e moderada/fraca para 1 evento de sangramento (2,9%). Resposta ao tratamento não foi reportada em 3 eventos de sangramento.
+
+A eficácia cirúrgica da infusão do concentrado de FXIII foi avaliada para 16 procedimentos cirúrgicos que foram realizados em 15 pacientes. A eficácia cirúrgica foi classificada como excelente/boa para todos os 15 procedimentos aos quais uma avaliação foi fornecida.
+
+- Asahina T, Kobayashi T, Takeuchi K, Kanayama N. Congenital Blood Coagulation Factor XIII Deficiency and Successful Deliveries: A Review of the Literature. Obstet Gynecol Surv. 2007;62(4):255-60.
+
+- Brown KE, Young NS. Parvovirus B19 infection and hematopoiesis. Blood Rev. 1995;9:17682.
+
+- Daly HM, Carson PJ, Smith JK. Intracerebral haemorrhage due to acquired Factor XIII inhibitor-successful response to Factor XIII Concentrate. Blood Coagulation and Fibrinolysis. 1991;2:507-14.
+
+- Dargaud Y, de Mazancourt P, Rugeri L, et al. An unusual clinical presentation of Factor XIII deficiency and issues relating to the monitoring of Factor XIII replacement therapy. Blood Coagul Fibrinolysis. 2008;19:447–52.
+
+- Dreyfus M, Arnuti B, Beurrier B, et al. Safety and efficacy of Fibrogammin P for the treatment of patients with severe Factor XIII deficiency. J Thromb Haemost. 2003;1(S1):P0299 Abstract.
+
+- Fear JD, Miloszewski KJA, Losowsky MS. An acquired inhibitor of Factor XIII with a qualitative abnormality of fibrin cross-linking. Acta Haemat. 1984;71:304-9.
+
+- Fukue H, Anderson K, McPhedran P, Clyne L, McDonagh J. A unique Factor XIII inhibitor to a fibrin-binding site on Factor XIIIA. Blood. 1992;79:65-74.
+
+- Gailani D. An IgG inhibitor against coagulation Factor XIII: Resolution of bleeding after plasma immunoadsorption with staphylococcal protein A. Amer J Med. 1992;92:110-2.
+
+- Kobayashi T, Terao T, Kojima T, Takamatsu J, Kamiya T, Saito H. Congenital Factor XIII deficiency with treatment of Factor XIII concentrate and normal vaginal delivery. Gynecol Obstet Invest. 1990;29(3):235-8.
+
+- Krumdieck R, Shaw DR, Huang ST, Poon M-C, Rustagi PK. Hemorrhagic disorder due to an isoniazid-associated acquired Factor XIII inhibitor in a patient with Waldenström’s macroglobulinemia. Amer J Med. 1991;90:639-45.
+
+- Lusher J, Pipe SW, Alexander S, Nugent D. Prophylactic therapy with Fibrogammin® P is associated with a decreased incidence of bleeding episodes: a retrospective study. Haemophilia 2010;16:316-321.
+
+- Shires L, Gomperts ED, Bradlow BA. An acquired inhibitor of Factor XIII. S Afr Med J. 1979;56:70-2.
+
+- Tosetto A, Castaman G, Rodeghiero F. Acquired plasma Factor XIII deficiencies. Haematologica. 1993;78(6 Suppl 2):5-10.
+
+--- BULA: DORICIN ---
+DORICIN[®] é indicado no alívio da dor associada a contraturas musculares, incluindo cefaleia tensional.
+
+A eficácia da combinação, em um mesmo comprimido, de dipirona 300 mg + citrato de orfenadrina 35 mg + cafeína 50 mg foi avaliada em três estudos clínicos abertos, prospectivos, não randomizados, com braço único de tratamento. As indicações incluíam dor secundária às desordens músculo esqueléticas agudas, crônicas e cefaleia.
+
+No primeiro estudo, a combinação de dipirona 300 mg, citrato de orfenadrina 35 mg e cafeína 50 mg, na posologia de 1 a 2 comprimidos 3 a 4 vezes ao dia, foi avaliada em 100 pacientes submetidos ao tratamento de dor em diversas desordens musculo esqueléticas, das quais predominaram lombalgias, cervicalgias, entorses e torcicolos. Os pacientes foram classificados conforme intensidade da dor em intensa (59%) e moderada (41%) e à capacidade funcional em Grau III (47 casos), Grau IV (40 casos) e Grau V (13 casos). Os resultados referentes à resolução do fenômeno doloroso totalizaram 88%, sendo avaliados como excelentes (38%), bons (20%) e moderados (30%). (Frasca et al, 1970)
+
+No segundo estudo, foram incluídos 22 pacientes com processo álgico de diferentes etiologias. A posologia ficava a critério médico, sendo que a dose máxima admitida seria 2 comprimidos a cada 6 horas. Ao final de 60 minutos a combinação conseguiu eliminar a dor em 68,18% dos pacientes e promoveu redução acentuada da intensidade da dor em 27,27% dos pacientes, totalizando eficácia global de 95,45%, com 100% de tolerabilidade da medicação. (Silva et al,1998).
+
+O terceiro estudo avaliou a eficácia clínica e tolerabilidade da associação de analgésicos contida no citrato de orfenadrina + dipirona monoidratada + cafeína, em 208 pacientes submetidos a procedimentos odontológicos. Aproximadamente 74% dos pacientes submetidos à extração dentária simples e 78% submetidos a intervenções cirúrgicas mais complexas, tiveram resultados favoráveis, ao considerar-se a eficácia analgésica. Os autores também relatam um bom perfil de tolerabilidade (94%). (Galvão de Sá, 1973).
+
+1. Frasca ID, et al. Novo analgésico miorrelaxante em ortopedia e traumatologia (Avaliação final de 100 casos tratados). O Hospital (Rio de Janeiro) Agosto, 1970. 78 (2)597-604.
+
+2. Galvão de Sá ML. Estudo clínico de uma associação analgésica e miorrelaxante em odontologia. Folha Med. 1973;66(4):875-82.
+
+3. Silva JHC. Eficácia terapêutica no alívio de dores agudas do sistema musculoesquelético, enxaqueca e processo inflamatório bucal, usando uma combinação de dipirona anidra, cafeína e citrato de orfenadrina. RBM - Rev. Bras. Méd1998:55(6)397-99.
+
+A eficácia da combinação de dipirona 300 mg + citrato de orfenadrina 35 mg + cafeína 50 mg foi avaliada em três estudos clínicos abertos, prospectivos, não randomizados, com braço único de tratamento. As indicações incluíam dor secundária às desordens musculoesqueléticas agudas, crônicas e cefaleia.
+
+No primeiro estudo, a combinação de dipirona 300 mg, citrato de orfenadrina 35 mg e cafeína 50 mg, na posologia de 1 a 2 comprimidos 3 a 4 vezes ao dia, foi avaliada em 100 pacientes submetidos ao tratamento de dor em diversas desordens musculoesqueléticas, das quais predominaram lombalgias, cervicalgias, entorses e torcicolos. Os pacientes foram classificados conforme intensidade da dor em intensa (59%) e moderada (41%) e à capacidade funcional em Grau III (47 casos), Grau IV (40 casos) e Grau V (13 casos). Os resultados referentes à resolução do fenômeno doloroso totalizaram 88%, sendo avaliados como excelentes (38%), bons (20%) e moderados (30%). (Frasca et al, 1970).
+
+No segundo estudo, foram incluídos 22 pacientes, com processo álgico de diferentes etiologias. A posologia ficava a critério médico, sendo que a dose máxima admitida seria 2 comprimidos a cada 6 horas. Ao final de 60 minutos a combinação conseguiu eliminar a dor em 68,18% dos pacientes e promoveu redução acentuada da intensidade da dor em 27,27% dos pacientes, totalizando eficácia global de 95,45%, com 100% de tolerabilidade da medicação. (Silva et al,1998). O terceiro estudo avaliou a eficácia clínica e tolerabilidade da associação de analgésicos contida no citrato de orfenadrina + dipirona monoidratada + cafeína, em 208 pacientes submetidos a procedimentos odontológicos. Aproximadamente 74% dos pacientes submetidos à extração dentária simples e 78% submetidos a intervenções cirúrgicas mais complexas, tiveram resultados favoráveis, ao considerar-se a eficácia analgésica. Os autores também relatam um bom perfil de tolerabilidade (94%). (Galvão de Sá, 1973).
+
+--- BULA: DIPROPIONATO DE BETAMETASONA + ÁCIDO SALICÍLICO ---
+Este medicamento é indicado para o tratamento de dermatoses inflamatórias hiperquerostáticas ou hiperceratóticas responsivas aos corticosteroides, tais como: psoríase, dermatite atópica crônica, neurodermatite, líquen plano, eczema numular, eczema da mão e dermatite eczematosa, disidrose, dermatite seborreica do couro cabeludo, ictiose vulgar, condições ictióticas em geral, para o alívio da inflamação e do prurido nas doenças de pele crônicas que respondem ao tratamento com corticoides de uso dermatológico, e em outras condições que apresentam ressecamento e espessamento importantes da pele.
+
+Em um estudo clínico comparativo duplo-cego de quatro semanas de duração, 90 pacientes com psoríase no couro cabeludo receberam uma das seguintes preparações de corticosteroides: betametasona+ácido salicílico, dipropionato de betametasona (0,05%) ou acetonida de triancinolona (0,2%) com ácido salicílico (2%) em solução alcoólica. Cada paciente recebeu duas aplicações diárias de apenas uma das preparações. O dipropionato de betametasona+ácido salicílico mostrou-se mais efetivo e exibiu início de ação mais rápido que a solução de dipropionato de betametasona (0,05%). O dipropionato de betametasona+ácido salicílico e a solução de dipropionato de betametasona (0,05%) foram superiores à solução de triancinolona
+
+(0,02%). Não foram observadas reações adversas durante o tratamento com nenhuma das preparações.[1]
+
+Em outro estudo duplo-cego, dipropionato de betametasona+ácido salicílico foi comparado à solução de valerato de betametasona no tratamento da psoríase de couro cabeludo em 78 pacientes durante um período de três semanas. Ambos os tratamentos foram eficazes, mas dipropionato de betametasona+ácido salicílico mostrou maior rapidez de início de ação e cura que a solução de valerato de betametasona. Não foram observadas reações adversas em nenhum grupo. A vantagem da combinação de ácido salicílico com um corticosteroide foi claramente demonstrada. Essa combinação é preferencialmente indicada nos casos de psoríase no couro cabeludo com sinais de hiperceratose que dificulta a ação efetiva do corticosteroide.[2]
+
+O dipropionato de betametasona+ácido salicílico mostrou-se eficaz e bem tolerado no tratamento da psoríase no couro cabeludo e dermatoses responsivas a corticosteroides. Pacientes foram tratados duas vezes por dia, pela manhã e à noite, com quantidade de solução suficiente para cobrir toda a área afetada. A avaliação geral após três semanas de tratamento indicou cura (ausência de 100% de sinais e sintomas) ou significativa melhora na maioria dos pacientes. Houve redução temporária e reversível das concentrações plasmáticas de cortisol.[3]
+
+Em um estudo clínico cego, dipropionato de betametasona+ácido salicílico pomada foi comparado, em termos de eficácia e segurança com uma pomada contendo acetato trimetilado de dexametasona 0,1% e ácido salicílico 4% em 110 pacientes com dermatoses responsivas a esteroides como psoríase e eczema crônico. Ambos os tratamentos foram efetivos e seguros. O dipropionato de betametasona + ácido salicílico pomada mostrou-se superior e a taxa de reincidência foi significativamente menor.[4 ]
+
+1. Fredrikkson I. A clinical comparison of three corticosteroid alcoholic solutions in the treatment of psoriasis of the scalp. Pharmatherapeutica. 1976; 1:252-6.
+
+2. Hillstrom, L., Peterson, L. Studies with betamethasone dipropionate lotion with salicylic acid (Diprosalic[®] ) in psoriasis and seborrheic eczema of the scalp. Curr Ther Res. 1978; 24(1):46-50.
+
+3. Nolting B, Niebauer G, Baran R, et al. nonscalp body lesions – Pooled studies. Data on file.
+
+4. Chattopadhyay SP, Arora PN, Anand S, et al. Betamethasone dipropionate (0.05 percent) plus salicylic acid (3 percent) ointment versus dexamethasone trimethyl acetate (1 percent) and salicylic acid 4 percent ointments in chronic dermatoses. Indian J Dermatol. 1987;32(2): 41-4.
+
+--- BULA: AVALOX ---
+Avalox[®] é indicado para o tratamento de adultos (com idade igual ou acima de 18 anos) com:
+
+- infecções das vias respiratórias superiores e inferiores;
+
+- exacerbações agudas de bronquite crônica;
+
+- pneumonia adquirida na comunidade (PAC) incluindo PAC causada por cepas multirresistentes*;
+
+- infecções não complicadas de pele e tecidos moles;
+
+- doença inflamatória pélvica não complicada (isto é, doenças do trato genital superior feminino, inclusive salpingite e endometrite);
+
+- infecções complicadas de pele e anexos (incluindo infecções do pé diabético);
+
+- infecções intra-abdominais complicadas, incluindo infecções polimicrobianas, como abscessos.
+
+* _Streptococcus pneumoniae_ multirresistentes, incluindo isolados conhecidos como _S. pneumoniae_ resistente a penicilina e cepas resistentes a dois ou mais dos seguintes antibióticos: penicilina (CIM ≥ 2 μg/mL), cefalosporinas de 2ª geração (por exemplo, cefuroxima), macrolídeos, tetraciclinas e trimetoprima/sulfametoxazol.
+
+Devem-se considerar as recomendações relacionadas ao uso apropriado de agentes antibióticos.
+
+0426-VV-LAB-121153-CCDS24
+
+|Sensível|Intermediário|Resistente|
+|---|---|---|
+|Bactérias Gram-positivas|||
+|_Gardnerella vaginalis_|||
+|_Streptococcus pneumoniae_inclusive cepas de_Streptococcus pneumoniae_multirresistentes [MDRSP],incluindo cepas conhecidascomo PRSP (_S. pneumoniae_penicilino-resistente) e cepasresistentes a dois ou mais dosseguintes antibióticos:penicilina (CIM ≥ 2 µg/mL),cefalosporinas de 2ª geração(p.ex. cefuroxima),macrolídeos, tetraciclinas etrimetoprima/sulfametoxazol|||
+|_Streptococcus pyogenes_(grupoA)|||
+|Grupo_Streptococcus milleri_(_S.anginosus, S. constellatus,_e_S. intermedius_)|||
+|Grupo_Streptococcus viridans_(_S.viridans, S. mutans, S. mitis,__S. sanguinis, S. salivarius, S.__thermophilus, S. constellatus_)|||
+|_Streptococcus agalactiae_|||
+|_Streptococcus dysgalactiae_|||
+|_Staphylococcus aureus_(cepassensíveis à meticilina)||_Staphylococcus__aureus_(cepasresistentesameticilina/ofloxacino)+|
+|Staphylococci coagulasenegativa (_S. cohnii, S.__epidermidis, S. haemolyticus, S.__hominis, S. saprophyticus, S._||Staphylococcicoagulasenegativa (_S. cohnii, S.__epidermidis,__S.__haemolyticus, S. hominis,_|
+
+|_simulans_) cepas sensíveis àmeticilina||_S.__saprophyticus,__S.__simulans_) cepas resistentesà meticilina|
+|---|---|---|
+||_Enterococcus faecalis_(somente cepas sensíveis àvancomicina/gentamicina)||
+||_Enterococcus avium_||
+||_Enterococcusfaecium*_||
+
+* A eficácia clínica foi demonstrada para cepas sensíveis em indicações clínicas
+
+> + Avalox® não é recomendado no tratamento de infecções _S. aureus_ resistente à
+
+meticilina (MRSA). Em casos de suspeita ou confirmação de infecção devido à MRSA, deve–se iniciar um tratamento com antibiótico apropriado.
+
+|Sensível|Intermediário|Resistente|
+|---|---|---|
+|Bactérias Gram-negativas|||
+|_Haemophilus influenzae_(incluindo cepas β-lactamasenegativas epositivas)|||
+|_Haemophilusparainfluenzae_|||
+|_Moraxella catarrhalis_(incluindocepas β-lactamase negativas epositivas)|||
+|_Bordetellapertussis_|||
+|_Legionellapneumophila_|_Escherichia coli_||
+|_Acinetobacter baumanii_|_Klebsiellapneumoniae_||
+||_Klebsiella oxytoca_||
+||_Citrobacterfreundii_||
+||_Enterobacter_species(_E.__aerogenes,__E.__intermedius,__E.__sakazaki_)||
+||_Enterobacter cloacae_||
+||_Pantoea agglomerans_||
+|||_Pseudomonas__aeruginosa_|
+||_Pseudomonas__fluorescens_||
+||_Burkholderia cepacia_||
+
+||_Stenotrophomonas__maltophilia_||
+|---|---|---|
+||_Proteus mirabilis_||
+|_Proteus vulgaris_|||
+||_Morganella morganii_||
+||_Neisseriagonorrhoeae_||
+||_Providencia_species (_P.__rettgeri, P. stuartii_)||
+
+- A eficácia clínica foi demonstrada para cepas sensíveis em indicações clínicas aprovadas.
+
+|Sensível|Intermediário|Resistente|
+|---|---|---|
+|Anaeróbios|||
+||_Bacteroides sp_(_B.__fragilis, B. distasoni,__B. thetaiotaomicron,__B. ovatus, B.__uniformis, B.__vulgaris_)||
+|_Fusobacterium_spp|||
+||_Peptostreptococcus_spp||
+|_Porphyromonas_spp|||
+|_Prevotella_spp|||
+|_Propionibacterium_spp|||
+||_Clostridium_sp||
+
+A eficácia clínica foi demonstrada para cepas sensíveis em indicações clínicas aprovadas. Sensível Intermediário Resistente Atípicos _Chlamydia pneumoniae Chlamydia trachomatis Mycoplasma pneumoniae Mycoplasma hominis Mycoplasma genitalium Coxiella burnettii_ * A eficácia clínica foi demonstrada para cepas sensíveis em indicações clínicas ~~[==>]~~ aprovadas. 0426-VV-LAB-121153-CCDS24
+
+A frequência de resistência adquirida pode variar geograficamente e com o tempo para certas espécies. Informações locais sobre a resistência de microrganismos são desejáveis, particularmente no tratamento de infecções graves. A informação acima é fornecida como guia sobre a probabilidade de um microrganismo ser sensível ao moxifloxacino.
+
+Comparação dos parâmetros de farmacocinética/farmacodinâmica para administração intravenosa e oral de uma dose única de 400 mg de Avalox[®] .
+
+Em pacientes que necessitam de hospitalização, os parâmetros de ASC/CIM90 maiores que 125 e Cmax/CIM90 de 8 - 10 são preditivos à cura clínica (Schentag). Em pacientes ambulatoriais estes parâmetros indiretos geralmente são menores, ou seja, ASC/CIM90 maior que 30 - 40 (Dudley e Ambrose).
+
+A tabela a seguir indica os respectivos parâmetros de farmacocinética/farmacodinâmica para administração intravenosa e oral de 400 mg de moxifloxacino calculados a partir de dados de dose única:
+
+==> picture [413 x 107] intentionally omitted <==
+
+----- Start of picture text -----
+|||||||
+|---|---|---|---|---|---|
+|Modo de administração|Intravenoso|Oral|
+|Parâmetro|ASCI [h]|Cmax/CIM90|[a) ]|ASCI [h]|Cmax/CIM90|
+|(mediana)|
+|CIM90 0,125|mg/L|313|32,5|279|23,6|
+|CIM90 0,25|mg/L|156|16,2|140|11,8|
+|CIM90 0,5|mg/L|78|8,1|70|5,9|
+|a) infusão de 1 hora|
+
+----- End of picture text -----
+
+--- BULA: BARIOGEL ---
+O BARIOGEL[®] suspensão a 100% está indicado como o meio de contraste radiológico do tubo gastrointestinal.
+
+Sulfato de Bário é utilizado como meio de contraste radiológico do tubo gastroduodenal.
+
+Referência: Miller RE. _Barium Sulfate_ . Radiology. A91:A96 (January) 1967.
+
+Contraste Radiológico à base de Sulfato de Bário mostrou ser seguro no diagnóstico pós-operatório da anastomose do esôfago.
+
+Referência: Gollub MJ, Bains MS. _Barium Sulfate: A New (Old) Constrast Agent for Diagnosis of Postoperative Esophageal Leaks._ Radiology. 1997; 202: 360- 362.
+
+Sulfato de Bário é utilizado como meio de contraste radiológico do tubo gastroduodenal. Indicado também para radiografia de aparelho digestivo e também no chamado “enema opaco” (estudo radiológico contrastado do intestino grosso que requer um preparo intestinal prévio adequado).
+
+Referência: Ott DJ. _Accuracy of double-contrast barium enema in diagnosing colorectal polyps and cancer_ . Semin Roentgenol. 2000;35(4):333-41.
+
+Estudo realizado para determinar segurança no procedimento esofagograma somente com o uso de bário. Foi realizada uma revisão de 29 esofagogramas no pós-operatório e o resultado mostrou que o contraste radiológico à base de Sulfato de Bário é seguro no diagnóstico pós-operatório da anastomose do esôfago.
+
+Referência: Gollub MJ, Bains MS. Barium Sulfate: A New (Old) Constrast Agent for Diagnosis of Postoperative Esophageal Leaks. Radiology. 1997; 202: 360- 362.
+
+--- BULA: ACETATO DE DEXAMETASONA ---
+Este medicamento é destinado ao tratamento de muitas formas de dermatoses. Prurido anogenital inespecífico, dermatoses alérgicas tais como as dermatites de contato, dermatite atópica (eczema alérgico), líquen simples crônico, pruridos com liquenificações, dermatite eczematóide, dermatite devido a ingestão de alimentos, dermatite seborreica infantil e dermatite actínica, tratamento sintomático da dermatite seborreica, miliária, impetigo, queimadura devido aos raios solares, picadas de insetos e otite externa (não havendo perfuração da membrana do tímpano). Esta preparação é recomendada como um auxiliar ao tratamento e não como uma substituição à orientação convencional.
+
+As referências de estudos que suporte as indicações acima podem ser encontradas na seguinte fonte: Martindale. The complete drug reference, 34 ed, 2005. Páginas 1074-1075 e 1097-1099.
+
+--- BULA: CLOTRIGEL ---
+Clotrigel[®] é indicado para o tratamento de infecções da região genital (vaginite) e corrimento vaginal infeccioso causados por fungos (geralmente _Candida_ ).
+
+Clotrigel[®] também é indicado para o tratamento de infecções da área vulvar e áreas adjacentes e também inflamação da glande e prepúcio do parceiro sexual, causadas por fungos (vulvite e balanite por _Candida_ ).
+
+Estudos clínicos foram realizados com comprimido vaginal de clotrimazol 500 mg e creme vaginal de clotrimazol 1% ou 2% em pacientes com candidíase vulvovaginal (p.ex. Mendling _et al._ 2004, Becker _et al._ 1996, Petersen 1994, Romanowski 1994, Arendt 1989, Weisberg 1989, Hajman 1988, Brewster _et al._ 1986, Lebherz _et al._ 1985, Loendersloot _et al._ 1985, Siedentopf 1985, Palacio-Hernanz _et al._ 1984, Granitzka 1982, Keuser 1981, Wurst 1980). Esses estudos clínicos foram conduzidos com diferentes desenhos: abertos, controlados e, parte deles, como duplo-cegos. O diagnóstico clínico foi confirmado microscopicamente.
+
+Clotrimazol foi aplicado tanto em infecções primárias como em casos de reinfecções, sendo a maioria das pacientes tratadas em ambulatório. Em muitos estudos, além do tratamento intravaginal, o creme vaginal de clotrimazol 1% ou 2% foi também aplicado às partes externas comprometidas da pele (p.ex. Mendling _et al._ 2004, Woolley _et al._ 1995, Lawrence _et al._ 1990, Pavic _et al._ 1988, Loendersloot _et al._ 1985). Para se impedir reinfecção, em alguns estudos, o parceiro foi tratado concomitantemente com creme vaginal de clotrimazol 1% (Wallin _et al._ 1977).
+
+Estudos em pacientes com micose vulvovaginal aguda compararam clotrimazol com o tratamento placebo. Dois estudos usaram o tratamento de dose única com comprimido vaginal de clotrimazol 500 mg em comparação com o placebo. Nestes estudos clínicos duplo-cegos randomizados, as taxas de cura clínica e micológica foram significativamente mais altas com clotrimazol. Em um estudo, as taxas de cura micológica foram de 90% com clotrimazol (comprimido) e 0% com placebo e em outro estudo os valores correspondentes foram de 62% versus 25% (Hughes _et al._ 1984, Bro 1990). Em outros dois estudos randomizados abertos, os comprimidos vaginais de 200 mg de clotrimazol por 3 dias foram comparados com itraconazol oral e placebo oral. Em um estudo, observaram-se taxas de cura micológica de 95% para o clotrimazol (comprimido) contra 44% para o placebo no primeiro acompanhamento e 80% versus 44%
+
+no segundo acompanhamento (Stein _et al._ 1989). Em outro estudo, as taxas de cura clínica e micológica foram significativamente maiores nos grupos de tratamento ativo em comparação com o placebo. As taxas de cura micológica foram de 95% para clotrimazol (comprimido) quando comparado a placebo (32%). Dos pacientes com cura micológica, 17% tiveram recidiva versus 43% do grupo de placebo no segundo acompanhamento, 4 semanas após o término do tratamento (Stein _et al._ 1993).
+
+O tratamento com comprimido vaginal de 500 mg de clotrimazol e creme vaginal de clotrimazol 1% ou 2% correlacionou-se a índices elevados de cura micológica (83 – 94%). Em estudos controlados por placebo, os índices de cura micológica do placebo variaram de 0 a 44%. A melhora do quadro clínico foi observada dentro de um período de três dias a 5 dias após o início da terapia. A tolerabilidade foi boa.
+
+De acordo com Sobel e outros pesquisadores importantes neste campo, as diferenças nas formulações não são consideradas relevantes no resultado terapêutico e a escolha do tratamento é questão de preferência da paciente (Sobel _et al._ 2005, BASHH 2007, Achkar _et al._ 2010, Mendeling _et al._ 2012).
+
+--- BULA: ENALAMED ---
+Enalamed[®] é indicado para o tratamento de todos os graus de hipertensão essencial, tratamento da hipertensão renovascular e todos os graus de insuficiência cardíaca.
+
+Em pacientes com insuficiência cardíaca sintomática, Enalamed[®] também é indicado para aumentar a sobrevida, retardar a progressão da insuficiência cardíaca e reduzir as hospitalizações por insuficiência cardíaca. Prevenção de insuficiência cardíaca sintomática: em pacientes com disfunção ventricular esquerda assintomáticos, maleato de enalamed[®] é indicado para retardar o desenvolvimento de insuficiência cardíaca sintomática e reduzir as hospitalizações por insuficiência cardíaca.
+
+Prevenção de eventos coronarianos isquêmicos : em pacientes com disfunção ventricular esquerda, Enalamed[®] é indicado para reduzir a incidência de infarto do miocárdio e as hospitalizações por angina instável.
+
+Um estudo multicêntrico, duplo-cego e controlado com placebo sobre disfunção ventricular esquerda ( _Studies of Left Ventricular Dysfunction_ , SOLVD) avaliou os efeitos de maleato de enalapril em 6.797 pacientes; destes, 2.569 pacientes com todos os graus de insuficiência cardíaca sintomática (principalmente leve a moderada, classes II e III da _New York Heart Association_ - NYHA) foram distribuídos de modo randômico para o braço de tratamento e 4.228 pacientes com disfunção assintomática do ventrículo esquerdo, para o braço de prevenção. Os resultados combinados demonstraram redução do risco global dos principais eventos isquêmicos. Maleato de enalapril reduziu a incidência de infarto do miocárdio e o número de hospitalizações decorrentes de angina instável em pacientes com disfunção ventricular esquerda.
+
+Além disso, no braço de prevenção, maleato de enalapril preveniu de forma significativa o desenvolvimento da insuficiência cardíaca sintomática e reduziu o número de hospitalizações por insuficiência cardíaca. No braço de tratamento, maleato de enalapril, como adjuvante ao tratamento convencional, reduziu significativamente a taxa global de mortalidade e hospitalização por insuficiência cardíaca e melhorou a classificação funcional de acordo com os critérios da NYHA. Em um estudo semelhante que envolveu 253 pacientes com insuficiência cardíaca grave (classe IV da NYHA), demonstrou-se que maleato de enalapril melhorou os sintomas e reduziu a mortalidade significativamente.
+
+As propriedades cardioprotetoras de maleato de enalapril foram demonstradas nesses estudos pelos efeitos benéficos na sobrevida e no retardamento da progressão da insuficiência cardíaca em pacientes com insuficiência cardíaca sintomática, no retardamento do desenvolvimento de insuficiência cardíaca sintomática em pacientes assintomáticos com disfunção ventricular esquerda e na
+
+prevenção de eventos isquêmicos coronarianos em pacientes com disfunção ventricular esquerda, especificamente na redução da incidência de infarto do miocárdio e de hospitalização por angina instável.
+
+--- BULA: FAULDCITA ---
+Fauldcita[®] é principalmente indicado na indução e manutenção da remissão de leucemias não-linfocíticas agudas em adultos e crianças. É também útil no tratamento de outras leucemias, como leucemia linfocítica aguda e leucemia mielocítica crônica (fase blástica).
+
+Fauldcita[®] pode ser utilizado sozinho ou em combinação com outros agentes antineoplásicos; frequentemente, os melhores resultados são obtidos na terapia combinada. Têm sido curtas as remissões induzidas por Fauldcita[®] e não acompanhadas por terapias de manutenção.
+
+Em regimes de altas doses com ou sem agentes quimioterápicos adicionais, Fauldcita[®] mostrou-se efetivo para o tratamento de leucemia de alto risco, leucemia refratária e leucemia recidivante aguda.
+
+Fauldcita[®] sozinho ou em combinação com outros fármacos (metotrexato, succinato sódico de hidrocortisona) é utilizado por via intratecal para profilaxia e tratamento da leucemia com infiltração meníngea.
+
+A citarabina é um dos agentes individuais mais eficazes no tratamento da leucemia não-linfocítica aguda ou leucemia mieloide aguda (LMA). A citarabina faz parte da maioria dos regimes de indução em LMA e as doses comumente empregadas são 100-200 mg/m[2] e pode ser coadministrada com outras drogas/quimioterápicos. Até 80% de remissão completa (RC) foi alcançada em pacientes com menos de 40 anos de idade. Apesar da terapia de manutenção, muitos destes pacientes tiveram uma recaída e apenas 20% - 30% dos pacientes obtiveram sobrevida em 5 anos. Assim livre de doença, o desafio é erradicar a doença subclínica em remissão.
+
+A eficácia pode ser melhorada pelo emprego de doses superiores a 100-200 mg/m[2] , particularmente em pacientes que não respondem a regimes de dose padrão ou naqueles que tem recaída. Altas doses de citarabina (HDARAC), de 1-3 g/m[2] , foram empregadas para superar resistência aos medicamentos e penetrar no SNC. A citarabina pode ser administrada sozinha como um tratamento de indução ou em combinação com antraciclinas, ansacrina ou L-asparaginase (ASP). Foram observadas taxas RC de 25% - 84%.
+
+Altas doses de citarabina em combinação com etoposídeo e daunorrubicina são eficazes no tratamento de LMA. Taxas de RC 82,4% e 74,8% foram observadas em pacientes com idade mais jovens do que 46 anos e para os pacientes com idade de 46 anos e mais velhos, respectivamente. Uma alta dose de citarabina em regime de consolidação produziu resultados superiores em pacientes com LMA com idade acima de 60 anos com citogenética de risco intermediário.
+
+A citarabina em combinação com análogos da purina e antraciclinas foi eficaz em pacientes com LMA que recaíram ou que não foram tratados previamente. Altas doses de citarabina também foram administradas no tratamento pós-remissão de leucemias e observaram-se melhorias na duração média da remissão e sobrevida livre de doença. Em sua pesquisa, Schiller _et al_ utilizou citarabina numa dose de 200-500 mg/m[2] por via intravenosa em 2-3 cursos, intermitente ou continuamente até 7 dias, em 123 pacientes adultos. O período de acompanhamento médio de 4,8 anos mostrou que 40 pacientes ficaram vivos (28 em RC), com uma duração mediana de 12,8 meses e a sobrevida livre de doença aos 5 anos de 26% ± 8%. Eles sugeriram que a idade acima de 45 anos e sexo masculino foram fatores prognósticos negativos.
+
+A citarabina foi eficaz em combinação com fludarabina e ansacrina, seguida de regimes de condicionamento de intensidade reduzida e transplante alogênico de células hematopoiéticas estaminais em pacientes com LMA refratária ou recidivante. A citarabina em combinação com inibidores da topoisomerase (ansacrina, mitoxantrona), análogos da purina e do fator estimulante de colônia granulócitos, demostraram atividade encorajadora no tratamento da LMA.
+
+Estudos combinando gentuzumabe ozogamicina, homoharringtonina, antraciclinas, vorinostate e citarabina encontraram resultados eficazes no tratamento da LMA.
+
+O uso de uma dose intermediária de Ara-C (1 g/m[2 ] de 12h × 12h) verificou-se ser eficaz no tratamento principalmente da falha e recaída da LMA, leucemia linfocítica aguda (LLA) e linfoma não-Hodgkin linfoblástico.
+
+A citarabina em baixas doses (LD-AraC) é considerada como o padrão de tratamento em doentes idosos com leucemia mieloide aguda (LMA) que não podem receber quimioterapia intensiva. Entre 2000 e 2014, 60 pacientes receberam 20 mg uma ou duas vezes ao dia por via subcutânea durante 10 dias consecutivos a cada 4-6 semanas. Taxa de remissão completa com LD-AraC foi de 7% _versus_ 56% com quimioterapia intensiva e 21% com agentes de hipometilação. Sobrevida global (SG) mediana dos pacientes tratados com LD-AraC foi de 9,6 meses com SG de 12% em 3 anos. Sobrevida com LD-AraC foi melhor do que com apenas os melhores cuidados de suporte - BSC (P = 0,001). Apesar de não ser estatisticamente significativa, agentes quimioterápicos e hipometilantes em dose intensa tendem a ser melhor do que LD-AraC em termos de SG (mediana: 12,4 meses e 16,1 meses, respectivamente). Apesar de uma tendência a favor de esquemas intensivos de agentes quimioterápicos e hipometilantes sobre LD-AraC, nenhuma vantagem real foi demonstrada, enquanto LD-AraC mostrou uma vantagem significativa comparativamente ao BSC.
+
+Ciclos de altas doses de citarabina (HDC) foram associados com maior sobrevida livre de falhas e sobrevida global do que 1 curso de HDC. Os pacientes incluídos no estudo - CALGB - com leucemia mieloide aguda e o cariótipo t (8; 21) foram analisados retrospectivamente para determinar o desfecho após 1 (n = 29) 3 ou 4 ciclos (n = 21) de HDC. A terapia de indução consistiu em citarabina e daunorrubicina. Terapia de intensificação incluía um curso ou até 4 cursos de citarabina. Todos os pacientes obtiveram uma resposta completa após a terapia de indução. Apenas 4 pacientes tiveram uma recaída da LMA após 3 ou mais cursos de HDC. A sobrevida livre de doença em 5 anos e sobrevida global em 5 anos foram de 38% e 44% após um curso de HDC, respectivamente, e 71% e 76% após 3 ou mais cursos de HDC, respectivamente. Altas doses de citarabina foram eficazes quando usado com o transplante autólogo de medula óssea (TMO) em um estudo de 60 pacientes com leucemia mieloide aguda (LMA). Os pacientes com LMA em remissão foram primeiramente tratados com dose elevada de citarabina 3 g/m[2] como terapia de consolidação. Após a recuperação hematopoiética e avaliação da medula óssea, 44 pacientes foram submetidos ao TMO. A probabilidade cumulativa de 2 anos de sobrevida livre de doença foi de 49% para todos os pacientes que entraram no estudo, e 61% para os pacientes que receberam TMO autólogo. A probabilidade de recaída para todos os pacientes foi de 44%, e 33% para os pacientes que foram submetidos a TMO.
+
+Em uma análise ITT de adolescentes e adultos não tratados previamente (idade entre 16 e 55 anos) com leucemia mieloide aguda (LMA) que receberam quimioterapia de indução padrão, não houve diferenças significativas na sobrevida livre de doença entre os pacientes randomizados para receber altas doses de citarabina (n = 117) ou aqueles que se submeteram ao transplante autólogo de medula óssea (n = 116), ou aqueles elegíveis que se submeteram ao transplante alogênico de medula (n = 113). Sobrevida pós-remissão no grupo que se submeteu a altas doses de citarabina foi melhor do que no grupo de transplante autólogo de medula (p = 0,05) ou o grupo de transplante alogênico de medula (p = 0,04). A sobrevida global pode ter sido afetada por um maior número de transplante alogênico de medula no grupo submetido à citarabina em dose elevada.
+
+O regime FLAG (fludarabina, citarabina e filgrastim) provocou uma taxa de remissão completa de 56% em uma coorte de 41 pacientes com leucemia mieloide aguda (LMA) de má-prognóstico (resistente, reincidente ou secundária). Os indivíduos receberam um curso de indução única de FLAG, seguido por um curso de consolidação se bem-sucedida. O início mediano e duração da remissão completa foram 27 dias e 15 meses, respectivamente. Não foram observadas diferenças significativas de gênero ou relacionadas com a idade nas taxas de resposta. As toxicidades de FLAG foram toleráveis, com uma notável ausência de neurotoxicidade. A sobrevida global mediana desta coorte foi de 11 meses.
+
+O regime de CAT (ciclofosfamida, citarabina e topotecana) resultou na remissão completa em 17% dos pacientes com leucemia aguda recidivante ou refratária. 52 pacientes tinham leucemia mieloide aguda (LMA - 12 refratárias, 40 recidivantes) e 11 pacientes tiveram leucemia linfocítica aguda (LLA - 3 refratárias, 8 recidivantes). A remissão completa (RC) foi alcançada em 11 pacientes (10 pacientes com LMA, 1 paciente com LLA). A duração média da RC foi de 9 semanas e sobrevida média foi de 10 semanas; 10% dos pacientes ainda estavam vivos aos 12 meses.
+
+Altas doses de citarabina em associação com mitoxantrona foi eficaz no tratamento da leucemia mieloide aguda (LMA) e pacientes com anemia refratária com excesso de blastos em transformação (RAEBIT - n = 47). Remissão completa ocorreu em 45% dos pacientes (11 de 14 com LMA em primeira recaída, 4 de 8 com RAEBIT; e 4 de 6 pacientes com LMA) idosos não tratados anteriormente. Após reindução, 8 dos 9 doentes com LMA (menos de 60 anos de idade) foram capazes de submeter-se a terapia intensiva (ou seja, transplante de medula óssea) com recuperação hematológica bem-sucedida.
+
+A terapia de combinação com altas doses de etoposídeo e citarabina (sem uma antraciclina) resultou em remissão completa em 26 de 41 pacientes (63%) com leucemia mieloide aguda recidiva ou refratária. A remissão completa também foi observada em 10 dos 18 pacientes (56%) com leucemia linfocítica aguda refratária ou recidivante. Em 9 pacientes com leucemia reincidente após o transplante de medula óssea alogênico, maus resultados foram alcançados em apenas 2 pacientes que atingiram remissão completa de curta duração. Foram observadas 7 mortes relacionadas com o tratamento. Este estudo indica que a taxa de resposta elevada pode ser conseguida em pacientes com leucemia mieloide aguda recidivante ou refratária, sem a utilização de uma antraciclina.
+
+Doses intermediárias de citarabina, a uma taxa de infusão moderada ao longo de um período de tempo prolongado demonstrou alta eficácia e baixa mortalidade relacionada ao tratamento (leucemia mieloide aguda /n = 40). Foram utilizadas
+
+três estratégias de dosagem variantes. No geral, 32 dos 40 pacientes (80%) obtiveram remissão completa (RC) após o tratamento de indução (27 após um único curso e 5 depois de um segundo curso de indução). 2 indivíduos alcançaram remissão parcial e 5 não tiveram resposta. Aos 3 anos, a taxa de sobrevida global estimada foi de 56%, com 47% de todos os pacientes livres de falha do tratamento. 10 dos 32 que alcançaram RC tiveram uma recaída, enquanto 59% daqueles que atingiram RC estavam livres de leucemia após 2 anos. Coleta de células tronco foi bem sucedida em 71% dos elegíveis para altas doses de quimioterapia. A mortalidade relacionada com o tratamento ocorreu em 1 paciente (2,5%).
+
+A adição de citarabina em dose elevada e mitoxantrona (HAM) para o tratamento de crianças com leucemia mieloide aguda de alto risco (LMA; n = 310) produziu uma taxa de remissão completa de 78% e uma probabilidade de sobrevida livre de eventos em 5 anos (SLE) de 44%. Pacientes recém-diagnosticados com LMA com idades entre 0 e 17 anos (n = 471) foram randomizados para terapia de indução com citarabina (Ara-C), daunorrubicina, e etoposídeo (ADE) ou citarabina, idarrubicina e etoposídeo (AIE) imediatamente após o diagnóstico. Após a terapia de indução, os pacientes foram randomizados de acordo com o nível de risco. Pacientes de alto risco (n = 310) receberam HAM seguido de terapia de consolidação ou terapia de consolidação seguido de HAM. Os doentes aleatorizados para HAM precoce (n = 98) atingiram uma RC de 88% e uma probabilidade de SLE em 5 anos de 52% e os doentes randomizados para HAM tardiamente (n = 98) atingiram uma RC de 85% e uma SLE em 5 anos de 45%. Houve uma melhora significativa na RC e na SLE em 5 anos em pacientes de alto risco no presente estudo em comparação com controles históricos de pacientes de alto risco que receberam dois ciclos de intensificação após o tratamento de consolidação com citarabina em altas doses e etoposídeo, mas não receberam HAM (CR = 78% _versus_ 68%; p = 0,007; 5 anos EFS = 44% _versus_ 33%; p = 0,01).
+
+A fludarabina seguida por citarabina com fator estimulador de colônias de granulócitos (regime FLAG) provocou remissão completa em 70% de 19 crianças (média de idade de 6,4 anos) com leucemia mieloide aguda reincidente ou refratária (LMA) ou leucemia linfocítica aguda (LLA). 20% e 10% foram classificados como respondedores parciais e não respondedores, respectivamente. 13 pacientes receberam transplante de medula óssea. Em uma média de 11,7 meses de seguimento após a terapia FLAG, a taxa de sobrevivência foi de 37%. Os investigadores concluíram que o esquema FLAG é um regime aceitável em termos de eficácia e tolerabilidade nesta população de alto risco, especialmente quando a quimioterapia intensiva prévia predispõe cardiotoxicidade relacionada com a antraciclina.
+
+Remissão completa foi alcançada em 11 de 22 crianças com leucemia mieloide aguda após 2 ciclos de citarabina com daunorrubicina. A terapia de consolidação consistiu de 3 cursos de citarabina mais tioguanina e 1 curso de ciclofosfamida. A quimioterapia intensiva, incluindo a daunorrubicina, como parte do regime de indução e tratamento, foi semelhante ao transplante autólogo de medula óssea (TMO) na sobrevida livre de eventos em crianças com leucemia mieloide aguda (LMA). As crianças com LMA passaram por duas sessões de quimioterapia de indução que consistia no seguinte esquema: daunorrubicina 45mg/m[2] nos dias 1, 2 e 3; citarabina 100mg/m[2] através de infusão contínua nos dias 1 a 7; tioguanina via oral 100 mg/m[2] nos dias 1 a 7; altas doses de citarabina 3g/m[2] em infusão de 3 horas a cada 12 horas em 6 doses; citarabina intratecal de 40 mg/m[2] nos dias 1 e 8. O segundo ciclo foi repetido no dia 15, mas sem a citarabina. Os pacientes que estavam em remissão foram então randomizados para quimioterapia intensiva ou transplante de medula óssea (TMO). Todos os pacientes foram submetidos a etoposídeo e terapia de consolidação com azacitidina. Quimioterapia intensiva de consolidação consistiu de vários agentes, incluindo a daunorrubicina, a citarabina, tioguanina, etoposídeo e azacitidina. Dos pacientes elegíveis para a randomização (n = 232), a taxa de sobrevivência livre de eventos em 3 anos foi de 36% para o grupo que realizou quimioterapia intensiva e 38% para o grupo de TMO. No entanto, o grupo TMO apresentou uma menor taxa de recaída (31% _versus_ 58%, p inferior a 0,05), mas uma maior taxa de mortalidade relacionada ao tratamento (15% _versus_ 2,7%, p inferior a 0,05) do que o grupo que recebeu quimioterapia.
+
+A citarabina em alta dose foi um regime eficaz para o tratamento da leucemia mieloide crônica (LMC) na fase blástica. Regimes de tratamento com vindesina - prednisolona (VDSP) ou citosina - arabinosídeo - vindesina - prednisolona (VDSCP) ou citosina-arabinosideo-vindesina-prednisolona-mercaptopurina-6, devem ser os tratamentos de escolha em pacientes com crise blástica da leucemia mieloide crônica também com morfologia linfoide ou mieloide.
+
+A daunorrubicina combinada com doses fixas de mesilato de imatinibe e citarabina, seguidos pelo transplante de células tronco ou terapia de manutenção com agente único foi bem tolerado e apresentou uma alta taxa de resposta. Mais de 55% dos pacientes obtiveram resposta completa hematológica (RCH).
+
+A adição de citarabina ao imatinibe como uma terapia inicial para doentes com LMC foi associada a uma elevada taxa de resposta molecular completa. As taxas de sobrevida livre de progressão e as taxas de sobrevida global em 5 anos foram de 92% e 96%, respectivamente.
+
+Em pacientes com LMC, a combinação de _interferon_ alfa com citarabina demonstrou uma melhora na resposta hematológica completa, resposta citogenética superior e taxas de sobrevida superiores em 3 e 5 anos em comparação com _interferon_ alfa isolado.
+
+A combinação de duas vezes por dia de fludarabina e citarabina parece ser ativa, com uma taxa de resposta global de 26% em pacientes com LMA refratária/recidivante, síndrome mielodisplásica de alto risco e na fase blástica da LMC. A homoharringtonina combinada com citarabina também foi um tratamento eficaz da crise blástica da LMC. Num estudo de pacientes com leucemia mieloide crônica (LMC) (n = 538), não houve diferença significativa na sobrevivência de 5 anos e a resposta hematológica completa (RHC) aos 6 meses, nos doentes que receberam _interferon_
+
+alfa-2a e baixa dose de citarabina e aqueles que receberam _interferon_ alfa-2a isoladamente; sobrevida de 5 anos foi de 68% e 65%, respectivamente, e RHC aos 6 meses foi de 62% e 55%, respectivamente. Houve uma diferença significativa na resposta citogenética (MCgR - 66% a 100% para o cromossoma Filadélfia (Ph) metáfases-negativo) entre o _interferon_ alfa2a em associação com citarabina _versus_ e-2A alfa isoladamente aos 12 meses (21% contra 13%; p = 0,014) e 24 meses (28% e 18%; p = 0,003).
+
+12 pacientes com menos de 18 anos de idade foram incluídos no estudo randomizado CML 91. Após a aleatorização, 6 doentes receberam _interferon_ (IFN) e citarabina (ARA-C 20 mg/m[2] durante 10 dias de cada mês) e 6 pacientes receberam _interferon_ isolado. 6 meses após o início do tratamento, a resposta hematológica completa foi obtida em todos os pacientes do grupo de IFN mais Ara-C e em 4 pacientes do grupo de IFN isolado. Uma resposta citogenética superior foi observada em 3 pacientes do grupo de IFN mais Ara-C e em 2 doentes do grupo de IFN isolado. A combinação de IFN e Ara-C induz resposta hematológica completa e respostas citogenéticas superiores e é bem tolerado em pacientes com menos de 18 anos de idade com LMC. Esta combinação pode oferecer uma alternativa ao transplante de medula óssea em crianças na fase crônica da LMC, sem um doador histocompatível.
+
+Aos 5 anos, observou-se uma taxa de sobrevida global de 35%, com a administração de um curso de indução de VP16-213 (etoposídeo), ansacrina, dose intermediária de aracitina durante 6 dias, prednisona e metotrexato intratecal, seguido por um ciclo de consolidação com vincristina, ansacrina, alta dose de Ara-C durante 4 dias, prednisona e metotrexato intratecal. A sobrevida livre de doença foi de 45% em 5 anos. A sobrevivência a longo prazo para pacientes com leucemia linfocítica aguda tipo B ou T foi de aproximadamente 60% em comparação com 15% para aqueles com LLA pré-B.
+
+Os adultos com LLA e translocação (1; 19) teve um excelente prognóstico com ciclofosfamida hiperfracionada, vincristina, doxorrubicina e dexametasona alternadas com metotrexato e altas doses de citarabina. Todos os pacientes (n=12) conseguiram RC, e a taxa de sobrevivência em 3 anos foi de 73%.
+
+Sequenciamento de fludarabina, citarabina, ansacrina, globulina anti-timócitos (GAT-Fresenius) e regime fracionado de irradiação total de corpo foi eficaz em pacientes com LLA refratária ou de alto risco representando uma alternativa viável à ciclofosfamida/irradiação total do corpo especialmente para adultos mais jovens.
+
+A combinação de fludarabina com citarabina, fator estimulante de colônias de granulócitos (FLAG) e doxorrubicina lipossomal não peguilada foi usada em um grupo de muito alto risco de crianças para o tratamento da leucemia aguda recidivante ou refratária e resultou num regime eficaz com uma remissão encorajadora.
+
+A irradiação total do corpo em associação com ciclofosfamida e citarabina em dose elevada foi um plano exequível e eficaz de condicionamento para pacientes adultos com LLA, tanto em remissão como em estágios avançados, com uma resposta completa de 63,6%.
+
+Altas doses de citarabina (3g/m[2] ) a cada 12 horas - 8 doses, seguidas de um segundo ciclo de 4 doses a partir do dia 21, foi eficaz no tratamento de leucemia meníngea em doentes de alto risco com leucemia linfocítica aguda (LLA) e linfoma nãoHodgkin. Todos os pacientes que atingiram remissão do sistema nervoso central e da medula óssea receberam consolidação em doses mensais com altas doses de citarabina. A remissão completa foi observada em 13 dos 20 pacientes (65%), incluindo um adulto com leucemia granulocítica crônica em crise blástica linfoide.
+
+31 doentes receberam um regime de indução de dose intensa de citarabina por dia (3 g/m[2] ) durante 5 dias; mitoxantrona (80 mg/m[2] ), no dia 3, e G-CSF. A resposta completa foi alcançada em 31 pacientes (84%), com uma duração de remissão mediana de 17 meses e a sobrevida média de 20 meses. Toxicidade aceitável foi relatada, no entanto, todos os doentes tiveram neutropenia febril e necessitaram de antibióticos. Os autores sugeriram que este regime se comparou favoravelmente ao esquema incluindo 4-vincristina, prednisona, ciclofosfamida e doxorrubicina.
+
+Remissão com toxicidade tolerável foi relatada em 66 pacientes adultos com recidiva ou LLA refratária. A terapia consistia de: primeira fase - vindesina, daunorrubicina, erwinia-asparaginase e prednisona; segunda fase - citarabina e etoposídeo. 64% dos doentes em primeira recidiva teve uma remissão completa. Sobrevida global mediana para o estudo foi de 6,6 meses.
+
+Em um estudo realizado pela Southwest Oncology Group (SWOG), uma taxa de resposta completa (RC) de 68% foi alcançada em pacientes com leucemia linfocítica aguda (LLA), utilizando um esquema quimioterápico intensivo; a taxa de RC foi de 35% em pacientes acima de 50 anos de idade e 79% em pacientes com menos de 50 anos de idade. A duração média de remissão, sobrevida livre de recidiva e sobrevida global foram 22.9, 20.9 e 17.7 meses, respectivamente. Para doentes que atingiram remissão após a indução, a consolidação consistiu de 3 ciclos de citarabina e metotrexato alternando com 3 ciclos de citarabina e tioguanina. Os pacientes receberam também vincristina, prednisona, e asparaginase seguido por ciclofosfamida; metotrexato intratecal também foi administrado.
+
+A utilização de um regime de quimioterapia intratecal intensificada com metotrexato, hidrocortisona e citarabina reduziu o risco de recidiva do sistema nervoso central (SNC) em pacientes pediátricos com leucemia linfocítica aguda. Os pacientes (n = 165) com 18 anos de idade ou mais jovens, receberam tratamento inicial com metotrexato, seguido de terapia de indução da remissão com prednisona, vincristina, daunorrubicina, asparaginase, etoposídeo e citarabina. Após a remissão completa, todos os pacientes receberam terapia de consolidação com o metotrexato em altas doses e mercaptopurina. Foi
+
+realizada terapia intratecal com doses adequadas à idade como indução da remissão. 163 dos 165 pacientes obtiveram remissão completa. O risco cumulativo de uma recaída no SNC isolado em 5 anos pós-remissão foi de 1,2% e de qualquer recaída no SNC foi de 3,2%. Os autores atribuem a baixa incidência de recaída no SNC à intensificação precoce da terapia intratecal. A estimativa de sobrevida livre de eventos em 5 anos foi de 80,2%.
+
+A citarabina intratecal tem atividade terapêutica nos casos de leucemia meníngea e foi tolerada por crianças em uma dosagem de 70 mg/m[2] de superfície corporal.
+
+Altas doses de citarabina (HDARAC) foram eficazes por via intratecal na profilaxia e tratamento de leucemia ou linfoma das meninges, eliminando a necessidade de irradiação craniana.
+
+Uma RC de 65% foi alcançada em um subgrupo de pacientes de prognóstico reservado extensivamente pré-tratado onde a dose elevada de citarabina (HDara-C) foi útil numa abordagem relativamente bem tolerada no tratamento de leucemia meníngea, bem como na doença sistêmica em adultos com LLA e linfoma não-Hodgkin.
+
+O tratamento com dose elevada de citarabina (HiDAC)/ASP resultou no completo clareamento do líquor em 6 (86%) de 7 pacientes com doença meníngea.
+
+A combinação de metotrexato intraventricular e citarabina demonstrou uma taxa de resposta completa de mais de 90% em doentes até os 21 anos de idade com leucemia ou linfoma meníngeo recidivante. Os pacientes receberam ambas as drogas através de um cateter Ommaya em 3 fases (indução, consolidação e manutenção) por até 43 meses. 19 pacientes (n = 21) ficaram livres de doença meníngea por uma média de 15 meses. Em geral, o regime foi bem tolerado, com pacientes que experimentam aracnoidite química (6), dor de cabeça leve (6), náusea (2), e confusão (1).
+
+1. Armentrout SA, Burns CP. Cytosine arabinoside as a single agent in the therapy of adult acute leukemia. Am J Med Sci 1974; 268(3):163-8.
+
+2. Keating MJ, Smith TL, McCredie KB, et al. A four-year experience with anthracycline, cytosine arabinoside, vincristine and prednisone combination chemotherapy in 325 adults with acute leukaemia. Cancer 1981; 47:2779-88.
+
+3. Omura GA, Vogler WR, Lefante J, et al. Treatment of acute myelogenous leukaemia. Influence of three induction regimens and maintenance with chemotherapy or BCG immunotherapy. Cancer 1982; 49:1530-6.
+
+4. Preisler HD, Rustum Y, Henderson ES, et al. Treatment of acute nonlymphocytic leukaemia: use of anthracyclinecytosine arabinoside induction therapy and comparison of two maintenance regimens. Blood 1979; 53:455-64.
+
+5. Rai KR, Holland JF, Glidewell OJ, et al. Treatment of acute myelocytic leukaemia. A study by Cancer and Leukaemia Group B. Blood 1981; 58:1203-12.
+
+6. Yates J, Glidewell O, Wiernik P, et al. Cytosine arabinoside with daunorubicin or adriamycin for therapy of acute myelocytic leukaemia: a CALGB study. Blood 1982; 60:454-62.
+
+7. Willemze R, Zwaan FE, Colpin G, et al. High dose cytosine arabinoside in the management of refractory acute leukaemia. Scand J Haematol 1982; 29(2):141-6.
+
+8. Schiller G, Gajewski J, Territo M, et al. Long-term outcome of high-dose cytarabine-based consolidation chemotherapy for adults with acute myelogenous leukaemia. Blood 1992; 80:2977-82.
+
+9. Arlin ZA, Gaddipati J, Ahmed T, et al. Treatment of acute leukaemia with amsacrine and high-dose cytarabine. Cancer Treatment Reports 1985; 69:1001-2.
+
+10. Capizzi RL, Poole M, Cooper MR, et al. Treatment of poor-risk acute leukaemia with sequential high-dose ARA-C and asparaginase. Blood 1984; 63:694-700.
+
+11. Fiere D, Campos L, Van HV, et al. Intensive timed chemotherapy protocol for 37 resistant or relapsing acute myeloid leukaemias. Cancer Treatment Reports 1986; 70:285-6.
+
+12. Gore M, Powles R, Lakhani A, et al. Treatment of relapsed and refractory acute leukaemia with high-dose cytosine arabinoside and etoposide. Cancer Chemotherapy Pharmacol 1989; 23:373-6.
+
+13. Herzig RH, Wolff SN, Lazarus HM, et al. High-dose cytosine arabinoside therapy for refractory leukaemia. Blood 1983; 62:361-9.
+
+14. Cassileth PA, Begg CB, Silber R, et al. Prolonged unmaintained remission after intensive consolidation therapy in adult acute nonlymphocytic leukaemia. Cancer Treatment Reports 1987; 71:137-40.
+
+15. Lazarus HM, Vogler WR, Burns CP, et al. High-dose cytosine arabinoside and daunorubicin as primary therapy in elderly patients with acute myelogenous leukaemia. A Phase 1-11 study of the Southeastern Cancer Study Group. Cancer 1989; 63:1055-9.
+
+16. Low M, Lee D, Coutsouvelis J, et al. High-dose cytarabine (24 g/m2) in combination with idarubicin (HiDAC-3) results in high first-cycle response with limited gastrointestinal toxicity in adult acute myeloid leukaemia. Intern Med J 2013; 43(3):294-7.
+
+17. Willemze R, Suciu S, Meloni G, et al. High-dose cytarabine in induction treatment improves the outcome of adult patients younger than age 46 years with acute myeloid leukemia: Results of the EORTC-GIMEMA AML-12 Trial. J Clin Oncol 2013; 32:219-28.
+
+18. Hassanein M, Atenafu EG, Schuh AC, et al. High-dose cytarabine-based consolidation shows superior results for older AML patients with intermediate risk cytogenetics in first complete remission. Leuk Res 2013; 37(5):556-60.
+
+19. Kim I, Koh Y, Yoon SS, et al. Fludarabine, cytarabine, and attenuated dose idarubicin (m-FLAI) combination therapy for elderly acute myeloid leukemia patients. Am J Hematol 2013; 88(1):10-5.
+
+20. Nazha A, Kantarjian H, Ravandi F, et al. Clofarabine, idarubicin, and cytarabine (CIA) as frontline therapy for patients ≤60 years with newly diagnosed acute myeloid leukemia. Am J Hematol 2013; 88(11):961-6.
+
+21. Faderl S, Wetzler M, Rizzieri D, et al. Clofarabine plus cytarabine compared with cytarabine alone in older patients with relapsed or refractory acute myelogenous leukemia: results from the CLASSIC I Trial. J Clin Oncol 2012; 30(20):2492-9.
+
+22. Krejci M, Doubek M, Dusek J, et al. Combination of fludarabine, amsacrine, and cytarabine followed by reducedintensity conditioning and allogeneic hematopoietic stem cell transplantation in patients with high-risk acute myeloid leukemia. Ann Hematol 2013;92(10):1397-403.
+
+23. Schneidawind D, Federmann B, Faul C, et al. Allogeneic hematopoietic cell transplantation with reduced-intensity conditioning following FLAMSA for primary refractory or relapsed acute myeloid leukemia. Ann Hematol 2013; 92(10):1389-95.
+
+24. Fong CY, Grigoriadis G, Hocking J, et al. Fludarabine, cytarabine, granulocyte-colony stimulating factor and amsacrine: an effective salvage therapy option for acute myeloid leukemia at first relapse. Leuk Lymphoma 2013; 54(2):336-41. 25. Jaglal MV, Duong VH, Bello CM, et al. Cladribine, cytarabine, filgrastim, and mitoxantrone (CLAG-M) compared to standard induction in acute myeloid leukemia from myelodysplastic syndrome after azanucleoside failure. Leuk Res 2014; 38(4):443-6.
+
+26. Yu W, Mao L, Qian J, et al. Homoharringtonine in combination with cytarabine and aclarubicin in the treatment of refractory/relapsed acute myeloid leukemia: a single-center experience. Ann Hematol 2013;92(8):1091-100.
+
+27. Garcia-Manero G, Tambaro FP, Bekele NB, et al. Phase II trial of vorinostat with idarubicin and cytarabine for patients with newly diagnosed acute myelogenous leukemia or myelodysplastic syndrome. J Clin Oncol 2012; 30(18):2204-10.
+
+28. Attar EC, Johnson JL, Amrein PC, et al. Bortezomib added to daunorubicin and cytarabine during induction therapy and to intermediate-dose cytarabine for consolidation in patients with previously untreated acute myeloid leukemia age 60 to 75 years: CALGB (Alliance) Study 10502. J Clin Oncol 2013; 31(7):923-9.
+
+29. Peters WG, Willemze R, Colly LP. Results of induction and consolidation treatment with intermediate and high-dose ara-C and m-AMSA containing regimens in patients with primarily failed or relapsed acute leukemia and non-Hodgkin's lymphoma. Scand J Haematol Suppl 1986; 44:7-16.
+
+30. Heiblig M et al. Treatment with Low-Dose Cytarabine in Elderly Patients (Age 70 Years or Older) with Acute Myeloid Leukemia: A Single Institution Experience. Mediterr J Hematol Infect Dis. 2016 Jan 1; 8(1):e2016009. doi: 10.4084/MJHID.2016.009. eCollection 2016.
+
+31. Byrd JC, Dodge RK, Carroll A, et al: Patients with t(3;21)(q22;q22) and acute myeloid leukemia have superior failurefree and overall survival when repetitive cycles of high-dose cytarabine are administered. J Clin Oncol 1999; 17(12):37673775.
+
+32. Stein AS, O'Donnell MR, Chai A, et al: In vivo purging with high-dose cytarabine followed by high-dose chemoradiotherapy and reinfusion of unpurged bone marrow for adult acute myelogenous leukemia in first complete remission. J Clin Oncol 1996; 14:2206-2216.
+
+33. Cassileth PA, Harrington DP, Appelbaum FR, et al: Chemotherapy compared with autologous or allogeneic bone marrow transplantation in the management of acute myeloid leukemia in first remission. N Engl J Med 1998; 339(23):16491656.
+
+34. Carella AM, Cascavilla N, Greco MM, et al: Treatment of poor risk acute myeloid leukemia with fludarabine, cytarabine, and g-csf (FLAG regimen): a single center study. Leuk Lymphoma 2001; 40(3-4):295-303
+
+35. Cortes J, Estey E, Beran M, et al: Cyclophosphamide, ara-C and topotecan (CAT) for patients with refractory or relapsed acute leukemia. Leukemia and Lymphoma 2000; 36(5-6):479-484.
+
+36. Reece DE, Elmongy MB, Barnett MJ, et al: Chemotherapy with high-dose cytosine arabinoside and mitoxantrone for poor-prognosis myeloid leukemias. Cancer Invest 1993; 11:509-516.
+
+37. Gore M, Powles R, Lakhani A, et al: Treatment of relapsed and refractory acute leukaemia with high-dose cytosine arabinoside and etoposide. Cancer Chemother Pharmacol 1989; 23:373-376.
+
+38. Mantovani L, Hasenclever D, Krahl R, et al: Intermediate-dose cytarabine treatment delivered at moderate infusion rates for de novo acute myeloid leukemia-results of a phase I-II study; the East German Hematology and Oncology Group (OSHO). Leukemia Lymphoma 2002; 43(2):265-274.
+
+39. [25] Creutzig U, Ritter J, Zimmermann M, et al: Improved treatment results in high-risk pediatric acute myeloid leukemia patients after intensification with high-dose cytarabine and mitoxantrone: results of study Acute Myeloid Leukemia - Berlin-Frankfurt-Munster 93. J Clin Oncol 2001; 19(10):2705-2713
+
+40. McCarthy AJ, Pitcher LA, Hann IM, et al: FLAG (Fludarabine, high-dose cytarabine, and g-csf) for refractory and high-risk relapsed acute leukemia in children. Med Pediatr Oncol 1999; 32:411-415.
+
+41. Paton CM, Ekert H, Waters KD, et al: Treatment of acute myeloid leukemia in children. Aust N Z J Med 1982; 12:143146
+
+42. Ravindranath Y, Yeager A, Chang N, et al: Autologous bone marrow transplant versus intensive consolidation chemotherapy for acute myeloid leukemia in childhood. N Engl J Med 1996; 334:1428-1434.
+
+43. Lacoboni SJ, Plunkett W, Kantarjian HM, et al. High-dose cytosine arabinoside: treatment and cellular pharmacology of chronic myelogenous leukemia blast crisis. J Clin Oncol 1986; 4(7):1079-88.
+
+44. Uzuka Y, Saito Y. Treatment of the blastic crisis of chronic myelogenous leukemia with the combination of vindesine and prednisolone, and cytosine arabinoside. Tohoku J Exp Med 1983;139(4):419-20.
+
+45. Deau B, Nicolini FE, Guilhot J, et al. The addition of daunorubicin to imatinib mesylate in combination with cytarabine improves the response rate and the survival of patients with myeloid blast crisis chronic myelogenous leukemia (AFR01 study). Leuk Res 2011; 35(6):777-82.
+
+46. Deenik W, Janssen JJ, Van der Holt B, et al. Efficacy of escalated imatinib combined with cytarabine in newly diagnosed patients with chronic myeloid leukemia. Haematologica 2010; 95(6):914-21.
+
+47. Chen R, Ma B, Yang K, et al. Interferon alfa versus interferon alfa Plus cytarabine combination therapy for chronic myeloid leukemia: a meta analysis of randomized controlled trials. Curr Ther Res Clin Exp 2011; 72(4):150-63.
+
+48. Jabbour E, Garcia-Manero G, Cortes J, et al. Twice-daily fludarabine and cytarabine combination with or without gentuzumab ozogamicin is effective in patients with relapsed/refractory acute myeloid leukemia, high-risk myelodysplastic syndrome, and blast- phase chronic myeloid leukemia. Clin Lymphoma Myeloma Leuk 2012; 12(4):244-51.
+
+49. Li Y, Deng Z, Zhu J, et al. Homoharringtonine combined with cytarabine to treat chronic myelogenous leukemia in myeloid blast crisis and its impact on bone marrow CD34+CD7+ cells. Acta Haematol 2014; 132(2):172-6.
+
+50. Baccarani M, Rosti G, de Vivo A, et al: A randomized study of interferon-alfa versus interferon-alfa and low-dose arabinosyl cytosine in chronic myeloid leukemia. Blood 2002; 99(5):1527-1535.
+
+51. Millot F et al. Alpha-interferon in combination with cytarabine in children with Philadelphia chromosome-positive chronic myeloid leukemia. J Pediatr Hematol Oncol. 2002 Jan; 24(1):18-22.
+
+52. Willemze R, Zijlmans JM, den Ottolander GJ, et al. High-dose Ara-C for remission induction and consolidation of previously untreated adults with ALL or lymphoblastic lymphoma. Ann Hematol 1995; 70(2):71-4.
+
+53. Garg R, Kantarjian H, Thomas D, et al. Adults with acute lymphoblastic leukemia and translocation (1;19) abnormality have a favorable outcome with hyperfractionated cyclophosphamide, vincristine, doxorubicin, and dexamethasone alternating with methotrexate and high-dose cytarabine chemotherapy. Cancer 2009; 115(10):2147-54.
+
+54. Zohren F, Czibere A, Bruns I, et al. Fludarabine, amsacrine, highdosecytarabine and 12 Gy total body irradiation followed by allogeneic hematopoietic stem cell transplantation is effective in patients with relapsed or high-risk acute lymphoblastic leukemia. Bone Marrow Transplant 2009; 44(12):785-92.
+
+55. Quarello P1, Berger M, Rivetti E, et al. FLAG-liposomal doxorubicin (Myocet) regimen for refractory or relapsed acute leukemia pediatricpatients. J Pediatr Hematol Oncol 2012; 34(3):208-16.
+
+56. Mori T, Aisa Y, Kato J, et al. Safety and efficacy of total body irradiation, cyclophosphamide, and cytarabine as a conditioning regimen for allogeneic hematopoietic stem cell transplantation in patients with acute lymphoblastic leukemia. Am J Hematol 2012;87(4):349-53.
+
+57. Morra E, Lazzarino M, Inverardi D, et al: Systemic high-dose ara-C for the treatment of meningeal leukemia in adult acute lymphoblastic leukemia and non-Hodgkin's lymphoma. J Clin Oncol 1986; 4:1207-1211.
+
+58. Weiss M, Maslak P, Feldman E, et al: Cytarabine with high-dose mitoxantrone induces rapid complete remissions in adult acute lymphoblastic leukemia without the use of vincristine or prednisone. J Clin Oncol 1996; 14:2480-2485.
+
+59. Freund M, Diedrich H, Ganser A, et al: Treatment of relapsed or refractory adult acute lymphocytic leukemia. Cancer 1992; 69:709-716.
+
+60. Hussein KK, Dahlberg S, Head D, et al: Treatment of acute lymphoblastic leukemia in adults with intensive induction, consolidation, and maintenance chemotherapy. Blood 1999; 73(1):57-63.
+
+61. Pui CH, Mahmoud HH, Rivera GK, et al: Early intensification of intrathecal chemotherapy virtually eliminates central nervous system relapse in children with acute lymphoblastic leukemia. Blood 1998; 92(2):411-415
+
+62. Wang JJ, Pratt CB. Intrathecal arabinosyl cytosine in meningeal leukaemia. Cancer 1970; 25(3):531-4.
+
+63. Frick J, Ritch PS, Hansen RM, et al. Successful treatment of meningeal leukemia using systemic high-dose cytosine arabinoside. J Clin Oncol 1984; 2(5):365-8.
+
+64. Bolwell BJ, Cassileth PA, Gale RP. High dose cytarabine: a review. Leukaemia 1988; 2:253-60.
+
+65. Morra E, Lazzarino M, Inverardi D, et al. Systemic high-dose ara-C for the treatment of meningeal leukaemia in adult acute lymphoblastic leukemia and non-Hodgkin's lymphoma. J Clin Oncol 1986; 4(8):1207-11
+
+66. Amadori S, Papa G, Avvisati G, et al. Sequential combination of systemic high-dose ara-C and asparaginase for the treatment of central nervous system leukemia and lymphoma. J Clin Oncol 1984; 2(2):98-101.
+
+67. Moser AM, Adamson PC, Gillespie AJ, et al: Intraventricular concentration times time (C x T) methotrexate and cytarabine for patients with recurrent meningeal leukemia and lymphoma. Cancer 1999; 85:511-516.
+
+--- BULA: DORTRIRELAX ---
+Dortrirelax[®] é indicado no alívio da dor associada a contraturas musculares, incluindo cefaleia tensional.
+
+A eficácia da combinação, em um mesmo comprimido, de dipirona 300 mg + citrato de orfenadrina 35 mg + cafeína 50 mg foi avaliada em três estudos clínicos abertos, prospectivos, não randomizados, com braço único de tratamento. As indicações incluíam dor secundária às desordens músculo esqueléticas agudas, crônicas e cefaleia.
+
+No primeiro estudo, a combinação de dipirona 300 mg, citrato de orfenadrina 35 mg e cafeína 50 mg, na posologia de 1 a 2 comprimidos 3 a 4 vezes ao dia, foi avaliada em 100 pacientes submetidos ao tratamento de dor em diversas desordens músculo esqueléticas, das quais predominaram lombalgias, cervicalgias, entorses, e torcicolos. Os pacientes foram classificados conforme intensidade da dor em intensa (59%) e moderada (41%) e à capacidade funcional em Grau III (47 casos), Grau IV (40 casos) e Grau V (13 casos). Os resultados referentes à resolução do fenômeno doloroso totalizaram 88%, sendo avaliados como excelentes (38%), bons (20%) e moderados (30%). (Frasca et al, 1970)
+
+No segundo estudo, foram incluídos 22 pacientes com processo álgico de diferentes etiologias. A posologia ficava a critério médico, sendo que a dose máxima admitida seria 2 comprimidos a cada 6 horas. Ao final de 60 minutos a combinação conseguiu eliminar a dor em 68,18% dos pacientes e promoveu redução acentuada da intensidade da dor em 27,27% dos pacientes, totalizando eficácia global de 95,45%, com 100% de tolerabilidade da medicação. (Silva et al,1998)
+
+O terceiro estudo avaliou a eficácia clínica e tolerabilidade da associação de analgésicos contida na combinação de dipirona 300 mg + citrato de orfenadrina 35 mg + cafeína 50 mg, em 208 pacientes submetidos a procedimentos odontológicos. Aproximadamente 74% dos pacientes submetidos à extração dentária simples e 78% submetidos a intervenções cirúrgicas mais complexas, tiveram resultados favoráveis, ao considerar-se a eficácia analgésica. Os autores também relatam um bom perfil de tolerabilidade (94%). (Galvão de Sá, 1973)
+
+1. Frasca ID, et al. Novo analgésico miorrelaxante em ortopedia e traumatologia (Avaliação final de 100 casos tratados). O Hospital (Rio de Janeiro) Agosto, 1970. 78 (2)597-604.
+
+2. Galvão de Sá ML. Estudo clínico de uma associação analgésica e miorrelaxante em odontologia. Folha Med. 1973;66(4):875-82.
+
+3. Silva JHC. Eficácia terapêutica no alívio de dores agudas do sistema musculoesquelético, enxaqueca e processo inflamatório bucal, usando uma combinação de dipirona anidra, cafeína e citrato de orfenadrina. RBM - Rev. Bras. Méd1998:55(6)397-99.
+
+--- BULA: GANFORT ---
+GANFORT[®] (bimatoprosta e maleato de timolol) é indicado para reduzir a pressão intraocular (PIO) em pacientes com glaucoma de ângulo aberto crônico ou hipertensão ocular, que não responderam suficientemente ao tratamento tópico com beta bloqueadores ou análogos da prostaglandina.
+
+O programa de eficácia clínica de GANFORT[®] (bimatoprosta e maleato de timolol) inclui os resultados de 4 estudos envolvendo 1964 pacientes avaliáveis, dos quais 866 foram alocados em grupos tratados com a combinação. [Estudo 192024-018T, Estudo 19204-021T, Estudo 192024-504T e Estudo 192024-026T]. Os diagnósticos pesquisados incluíram todas a formas de glaucoma de ângulo aberto crônico e hipertensão intraocular. O parâmetro de eficácia dos estudos foi a medida da pressão intraocular.
+
+A revisão dos valores médios da PIO mostra que a PIO média se manteve consistentemente abaixo de 18 mmHg durante o período de 12 meses dos estudos (variando de 15,6 a 17,7 mmHg) com valores de
+
+GANFORT[® ] - VPS - BU02
+
+PIO numericamente mais baixos do que os observados com a bimatoprosta e valores significativamente mais baixos em 6 tempos de avaliação. Verificou-se que na revisão dos valores médios da PIO durante o período de 12 meses de estudo a variação da PIO dentro de cada consulta não excedeu 1,2 mmHg. A análise da alteração média em relação à avaliação basal mostrou que diminuições de até 9,6 mmHg são observadas no grupo tratado com a combinação em comparação com o maior efeito da bimatoprosta de 8,8 mmHg. A combinação é consistentemente superior ao timolol, uma vez que os valores médios da PIO foram significativamente mais baixos com a combinação do que com o timolol em todos os tempos de avaliação (p<0,001). Foi demonstrada também superioridade numérica consistente em relação à bimatoprosta em vários tempos de avaliação. O efeito redutor da PIO observado nos pacientes cujas PIOs foram inadequadamente controladas pelas prostaglandinas ou prostamidas foi significativo. As análises de respondedores baseadas na PIO alvo ou porcentagem de redução em relação ao valor basal também fornecem resultados consistentes. A análise dos dados agrupados de 12 meses mostrou que 23,3% dos pacientes randomizados para receberem a combinação atingiram PIOs <18 mmHg em todos os 16 tempos de avaliação. Além disso, nos estudos individuais de 12 meses, a combinação reduziu a PIO em pelo menos 20% em todos os 16 tempos de avaliação em 36,0% a 41,9% dos pacientes. Finalmente, foi demonstrado nos estudos clínicos que a administração de GANFORT[®] (bimatoprosta e maleato de timolol) uma vez ao dia, proporcionou resultados de eficácia que não foram inferiores àqueles observados com o uso adjuvante da bimatoprosta (uma vez ao dia) e timolol (duas vezes ao dia) em produtos separados. São evidentes as vantagens da administração única diária da combinação, em relação ao esquema complicado do tratamento adjuvante de produtos separados, com relação à conveniência, e consequentemente melhor adesão ao tratamento.
+
+1. _Study 192024-018T_ . A multicenter, double-masked, randomized, 3-arm parallel study, for 3 months (with a 9-month, masked extension) of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% Combination ophthalmic solution once daily compared with timolol 0,5% monotherapy twice daily and bimatoprost 0,03% monotherapy once daily in patients with glaucoma or ocular hypertension (12 month report). Data on file Allergan.
+
+2. _Study 192024-021T_ . A multicenter, double-masked, randomized, 3-arm parallel study, for 3 months (with a 9-month, masked extension) of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% Combination ophthalmic solution once daily compared with timolol 0,5% monotherapy twice daily and bimatoprost 0,03% monotherapy once daily in patients with glaucoma or ocular hypertension (12 month report). Data on file Allergan.
+
+_3. Study 192024-504T_ . A 12-week, multicenter, double-masked, randomized, 3-arm parallel study of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% fixed Combination ophthalmic solution QD compared with bimatoprosta 0,03% ophthalmic solution QD and timolol 0,5% ophthalmic
+
+solution BID in patients with glaucoma or ocular hypertension with an elevated intraocular pressure on beta-blocker therapy alone. Data on file Allergan.
+
+4. _Study 192024-026T_ . A multicenter, double-masked, randomized, parallel, three-week study, of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% Combination ophthalmic solution once daily and timolol 0,5% twice daily ophthalmic solutions dosed concurrently, and bimatoprost 0,03% once daily ophthalmic solution in treatment-naïve patients with glaucoma or ocular hypertension. Data on file Allergan.
+
+GANFORT[®] UD é indicado para reduzir a pressão intraocular (PIO) em pacientes com glaucoma de ângulo aberto ou hipertensão ocular que não responderam suficientemente ao tratamento tópico com beta bloqueadores ou análogos da prostaglandina.
+
+O programa de eficácia clínica de GANFORT[®] UD inclui os resultados de um estudo duplo-cego, randomizado, de grupos paralelos de doze semanas, que comparou a eficácia e a segurança da administração uma vez ao dia de GANFORT[®] UD – dose
+
+Bula para o Profissional de Saúde – BU01 1
+
+única/sem conservante com GANFORT[®] em pacientes com glaucoma ou hipertensão ocular.
+
+GANFORT[®] UD mostrou-se equivalente ao GANFORT[®] no tocante à média da PIO do olho em todas as avaliações de acompanhamento (hora 0, 2 e 8; semana 2, 6 e 12), com limite superior de IC 95% para a diferença de tratamento ≤ 1,5 mm Hg e limite inferior ≥ -1,5 mm Hg para a população ITT. Além disso, o IC 95% ficou dentro das margens de ± 1,0 mm Hg em todas as avaliações de acompanhamento. Em momento algum o limite inferior do IC 95% ficou abaixo de -0,82 mm Hg ou o limite superior do IC 95% ultrapassou 0,51 mm Hg. A diferença de tratamento entre GANFORT[®] UD e GANFORT[®] na média da PIO do olho variou de 0,39 a -0,08 mm Hg ao longo das semanas 2 a 12 na população ITT.
+
+Ambos os grupos de tratamento mostraram reduções estatística e clinicamente significativas da média da PIO do olho desde o início do estudo em todas as avaliações de acompanhamento (p < 0.001). As variações médias da PIO no olho desde o início o estudo foram de -8,72 a -7,57 mm Hg no grupo de GANFORT[®] UD, e de –8,55 a -7,27 mm Hg no grupo de GANFORT[®] , ao longo das semanas 2, 6 e 12.[1 ]
+
+O programa de eficácia clínica de GANFORT[®] inclui os resultados de 4 estudos envolvendo 1964 pacientes avaliáveis, dos quais 866 foram alocados em grupos tratados com a combinação. [Estudo 192024-018T, Estudo 19204-021T, Estudo 192024-504T e Estudo 192024-026T]. Os diagnósticos pesquisados incluíram todas a formas de glaucoma de ângulo aberto crônico e hipertensão intraocular. O parâmetro de eficácia dos estudos foi a medida da pressão intraocular.
+
+A revisão dos valores médios da PIO mostra que a PIO média se manteve consistentemente abaixo de 18 mmHg durante o período de 12 meses dos estudos (variando de 15,6 a 17,7 mmHg) com valores de PIO numericamente mais baixos do que os observados com a bimatoprosta e valores significativamente mais baixos em 6 tempos de avaliação. Verificou-se que na revisão dos valores médios da PIO durante o período de 12 meses de estudo a variação da PIO dentro de cada consulta não excedeu 1,2 mmHg. A análise da alteração média em relação à avaliação basal mostrou que diminuições de até 9,6 mmHg são observadas no grupo tratado com a combinação em comparação com o maior efeito da bimatoprosta de 8,8 mmHg. A combinação é consistentemente superior ao timolol, uma vez que os valores médios da PIO foram significativamente mais baixos com a combinação do que com o timolol em todos os tempos de avaliação (p<0,001). Foi demonstrada também superioridade numérica consistente em relação à bimatoprosta em vários tempos de avaliação. O
+
+Bula para o Profissional de Saúde – BU01 2
+
+efeito redutor da PIO observado nos pacientes cujas PIOs foram inadequadamente controladas pelas prostaglandinas ou prostamidas foi significativo. As análises de respondedores baseadas na PIO alvo ou porcentagem de redução em relação ao valor basal também fornecem resultados consistentes. A análise dos dados agrupados de 12 meses mostrou que 23,3% dos pacientes randomizados para receberem a combinação atingiram PIOs <18 mmHg em todos os 16 tempos de avaliação. Além disso, nos estudos individuais de 12 meses, a combinação reduziu a PIO em pelo menos 20% em todos os 16 tempos de avaliação em 36,0% a 41,9% dos pacientes. Finalmente, foi demonstrado nos estudos clínicos que a administração de GANFORT[®] uma vez ao dia, proporcionou resultados de eficácia que não foram inferiores àqueles observados com o uso adjuvante da bimatoprosta (uma vez ao dia) e timolol (duas vezes ao dia) em produtos separados. São evidentes as vantagens da administração única diária da combinação, em relação ao esquema complicado do tratamento adjuvante de produtos separados, com relação à conveniência, e consequentemente melhor adesão ao tratamento.[2, 3, 4, 5]
+
+1. _Study192024-050_ . A Multicenter, Double-masked, Randomized, Parallel Study of the Safety and Efficacy of Bimatoprost 0.03%/Timolol 0.5% Preservative-free Ophthalmic Solution Compared with GANFORT[®] (bimatoprost 0.03%/timolol 0.5% ophthalmic solution) Once Daily for 12 Weeks in Patients with Glaucoma or Ocular Hypertension.
+
+2. _Study 192024-018T._ A multicenter, double-masked, randomized, 3-arm parallel study, for 3 months (with a 9- month, masked extension) of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% Combination ophthalmic solution once daily compared with timolol 0,5% monotherapy twice daily and bimatoprost 0,03% monotherapy once daily in patients with glaucoma or ocular hypertension (12 month report). Data on file Allergan.
+
+3. _Study 192024-021T_ . A multicenter, double-masked, randomized, 3-arm parallel study, for 3 months (with a 9- month, masked extension) of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% Combination ophthalmic solution once daily compared with timolol 0,5% monotherapy twice daily and bimatoprost 0,03% monotherapy once daily in patients with glaucoma or ocular hypertension (12 month report). Data on file Allergan.
+
+4. _Study 192024-504T_ . A 12-week, multicenter, double-masked, randomized, 3-arm parallel study of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% fixed Combination ophthalmic solution QD compared with bimatoprosta 0,03% ophthalmic solution QD and timolol 0,5% ophthalmic solution BID in patients with glaucoma or ocular hypertension with an elevated intraocular pressure on beta-blocker therapy alone. Data on file Allergan.
+
+5. _Study 192024-026T_ . A multicenter, double-masked, randomized, parallel, three-week study, of the safety and efficacy of bimatoprost 0,03% / timolol 0,5% Combination ophthalmic solution once daily and timolol 0,5% twice daily ophthalmic solutions dosed concurrently, and
+
+Bula para o Profissional de Saúde – BU01 3
+
+bimatoprost 0,03% once daily ophthalmic solution in treatment-naïve patients with glaucoma or ocular hypertension. Data on file Allergan.
+
+--- BULA: FOSFATO SÓDICO DE PREDNISOLONA ---
+Este medicamento é indicado como agente anti-inflamatório e imunossupressor em patologias cujos mecanismos fisiopatológicos envolvam processos inflamatórios e/ou autoimunes; para o tratamento de condições endócrinas; e em composição de esquemas terapêuticos em algumas neoplasias:
+
+Distúrbios Endócrinos: insuficiência adrenocortical primária ou secundária (sendo que corticosteroides naturais como cortisona ou hidrocortisona são de primeira escolha). Análogos sintéticos podem ser utilizados em conjunto com mineralocorticoides, quando necessário (na infância a suplementação de mineralocorticoides é especialmente importante); hiperplasia adrenal congênita; tireoidite não-supurativa; hipercalcemia associada ao câncer.
+
+Distúrbios Reumáticos: como terapia adjuvante para administração a curto prazo (para reverter paciente em episódio agudo ou exacerbado) em: artrite psoriática, artrite reumatoide, incluindo artrite reumatoide juvenil (em casos particulares serão utilizadas terapias de manutenção de baixas doses); espondilite anquilosante; bursite aguda e subaguda; tenossinovite aguda inespecífica; artrite gotosa aguda; osteoartrite póstraumática; sinovites osteoartríticas; epicondilites. Colagenoses: durante exacerbação ou como terapia de manutenção em casos particulares de lúpus eritematoso sistêmico, cardite reumática aguda. Doenças Dermatológicas: pênfigo; dermatite herpetiforme bolhosa; eritema multiforme grave (Síndrome de Stevens-Johnson); dermatite esfoliativa; micoses fungoides; psoríase grave; dermatite seborréica grave. Estados Alérgicos: controle de condições alérgicas graves ou incapacitantes refratárias aos meios adequados de tratamentos convencionais; rinite alérgica perene ou sazonal; dermatite de contato; dermatite atópica; doenças do soro; reações de hipersensibilidade a drogas. Doenças Oftálmicas: processos inflamatórios e alérgicos agudos e crônicos graves: envolvendo o olho e seus anexos como úlceras marginais alérgicas da córnea; herpes zoster oftálmico; inflamação do segmento anterior; coroidite e uveíte posterior difusa; oftalmia simpática; conjuntivite alérgica; ceratite; coriorretinite; neurite óptica; irites e iridociclites. Doenças Respiratórias: sarcoidose sintomática; Síndrome de Löefler não-tratável por outros meios; beriliose; tuberculose pulmonar fulminante ou disseminada quando usado concomitantemente à quimioterapia antituberculose apropriada; pneumonite por aspiração; asma brônquica. Distúrbios Hematológicos: púrpura trombocitopênica idiopática em adultos; trombocitopenia secundária em adultos; anemia hemolítica adquirida (autoimune); eritroblastopenia (anemia eritrocítica); anemia hipoplásica congênita (eritroide). Doenças Neoplásicas: para o tratamento paliativo de leucemia e linfomas em adultos; leucemia aguda infantil. Estados Edematosos: para indução de diurese ou remissão da proteinúria na síndrome nefrótica idiopática ou devida ao lúpus eritematoso, sem uremia.
+
+Doenças Gastrintestinais: manutenção do paciente após um período crítico da doença em colite ulcerativa e enterite regional. Doenças Neurológicas: exacerbações agudas da esclerose múltipla.
+
+Foram compilados resultados do tratamento de todas as crianças com anemia de Diamond-Blackfan registradas na Sociedade Japonesa de Hematologia Pediátrica entre 1988 e 1998. Cinquenta e quatro crianças foram identificadas. O tratamento de 1[a] linha instituído para todas as crianças foi a prednisolona (2 mg/kg/dia); em 17 crianças, houve necessidade de iniciar tratamento com ciclosporina A (CsA). A
+
+Fosfato sódico de prednisolona _bula_profissional
+
+probabilidade de remissão sem necessidade de medicamento foi significantemente maior para as crianças tratadas somente com prednisolona em comparação com aquelas que necessitaram uso de CsA.
+
+Foram randomizados 359 pacientes pediátricos com leucemia linfoblástica aguda (LLA) para receber prednisolona (60 mg/m² na indução e 40 mg/m² nas intensificações) ou dexametasona (8 mg/m² na indução e 6 mg/m² nas intensificações). A sobrevida livre de eventos após 8 anos de seguimento foi de 81,1 ±3,9% para a dexametasona e 84,4 ±5,2% para a prednisolona, no grupo de risco básico (P=0,217), e de 84,9 ±4,6% para a dexametasona e 80,4 ±5,1% para a prednisolona, no grupo de risco intermediário (P=0,625). Embora o número absoluto de pacientes que apresentaram toxicidade grave tenha sido maior no grupo dexametasona, não se observou diferença estatisticamente significativa.
+
+Estudo avaliou a eficácia e a segurança de um esquema de 6 ciclos (repetidos a cada 21 dias) com mitoxantrona (14 mg/m²; D1), clorambucil (10 mg/d; D1 a D10 e prednisolona (25 mg/m²; D1 a D10) no tratamento de 130 portadores de linfoma não-Hodgkin (LNH) (88 com baixo grau e 42 com alto grau). No grupo de LNH de baixo grau, observou-se 86% de resposta (50%, resposta completa; 36%, resposta parcial), e no grupo de alto grau, a taxa de resposta foi de 64% (33%, resposta completa; 31%, resposta parcial). A toxicidade foi considerada baixa. O esquema de melfalano com prednisolona (MP) foi comparado com a associação de mitoxantrona, vincristina e prednisolona (NOP) em um estudo fase III envolvendo 151 portadores de mieloma múltiplo (MM). No esquema MP, a dose de prednisolona usada foi de 100-200 mg/dia, do D1 ao D4, repetidos a cada 4 semanas, e no esquema NOP a dose de prednisolona foi de 250 mg do D1 ao D4 e do D17 ao D20. Os dois esquemas estavam programados para serem repetidos por até 1 ano. A taxa de resposta nos pacientes tratados com MP e NOP foram de 60% e 64% (P =NS) e o tempo para progressão foi de 16 meses (IC95%, 14-51 meses) e 21 meses (IC95%, 15-27 meses; P =NS), respectivamente. A mediana da sobrevida foi superior nos pacientes tratados com MP (31 meses [IC95%, 21-43 meses] vs. 14 meses [IC95%, 7-21 meses]; P =0,02), indicando superioridade do esquema MP.
+
+Foram comparados dois esquemas de prednisolona oral no tratamento da púrpura trombocitopênica idiopática (PTI): dose baixa (0,5
+
+mg/kg/dia) e dose convencional (1,0 mg/kg/dia). Cinquenta e nove pacientes adultos foram randomizados para cada um dos tratamentos, não se observando diferença estatística para as taxas de remissão entre os grupos (35% no grupo “dose baixa” e 39% no grupo “dose convencional”). Entretanto, o tempo médio de hospitalização foi menor no grupo “dose baixa” (20 dias vs. 50 dias; P < 0,001). Em conclusão, o tratamento da PTI com prednisolona oral em dose baixa tem a mesma eficácia da dose alta, mas se associa a menor tempo de permanência intra-hospitalar.
+
+A prednisolona foi comparada com outros corticosteroides no tratamento da artrite reumatoide (AR). Foi conduzido estudo com 142 pacientes para comparar, durante 12 semanas, a prednisolona (7,5 mg/dia) com budesonida em cápsulas de liberação ileal (3 mg ou 9 mg) e placebo. A prednisolona e a budesonida 9 mg tiveram eficácia semelhante na melhora da artrite, resposta esta que teve magnitude superior ao placebo e à budesonida 3 mg. O critério de resposta ACR20 foi atingido em 25% dos pacientes tratados com placebo, 22% com budesonida 3 mg, 42% com budesonida 9 mg e 56% com prednisolona 7,5 mg. Eventos adversos atribuíveis aos glicocorticoides foram semelhantes nos grupos tratados com os mesmos. Não se observou rebote dos sintomas após a suspensão dos tratamentos.
+
+Foi observada melhora nas seguintes variáveis após tratamento com prednisolona (na dose de 0,4 mg/kg/dia) durante 10 dias, em comparação com o placebo em pacientes com artrite reumatoide juvenil: grau de fraqueza muscular; fadiga; avaliação subjetiva global; avaliação global pelo médico; índices articulares de articulações comprometidas.
+
+Foram comparados dois esquemas de corticosteroides para o tratamento da crise asmática: 65 pacientes adultos foram randomizados para tratamento parenteral (hidrocortisona, 100 mg IV a cada 6 horas por 72 horas) ou oral (prednisolona, 100 mg VO uma vez ao dia por 72 horas). Todos os pacientes receberam corticosteroides inalatórios e broncodilatadores. Observou-se melhora significativa dos sintomas e do pico de fluxo expiratório (PEF) nos dois braços de tratamento, sem que houvesse diferença entre eles. A tolerabilidade também foi igual nos dois grupos, indicando que a prednisolona é uma alternativa eficaz e segura à corticoterapia parenteral no tratamento da exacerbação asmática em adultos.
+
+Estudo duplo-cego controlado com placebo avaliou o impacto clínico e radiológico de um tratamento curto com prednisolona em pacientes com polipose nasal. Quarenta pacientes foram randomizados para prednisolona (50 mg/dia por 14 dias) ou placebo. A eficácia do tratamento foi avaliada pela avaliação médica, questionário de sintomas, rinoscopia e ressonância magnética (RM). Ao final de duas semanas, observouse melhora dos sintomas nasais somente nos pacientes tratados com prednisolona, e tanto a MR quanto a rinoscopia mostraram redução do tamanho dos pólipos somente após o corticosteroide. O tratamento com prednisolona foi bem tolerado, sendo a insônia o único evento adverso relatado com frequência superior ao grupo placebo.
+
+Resultados positivos foram obtidos em um estudo tailandês com 105 pacientes randomizados para prednisolona (50 mg/dia) ou placebo durante 14 dias. A resposta clínica foi avaliada pelo escore de sintomas nasais, índice de pico de fluxo e escore de pólipos nasais. Além disso, foi realizada rinoscopia e exames radiográficos para avaliar o tamanho dos pólipos. Observou-se melhora clínica e redução do tamanho dos pólipos apenas nos pacientes tratados com prednisolona (P<0,001 para todas as variáveis). A presença de pólipos grau 3 ou superior foi um preditor de menor resposta ao tratamento.
+
+Um estudo controlado com placebo conduzido na Turquia avaliou a associação de prednisolona (20 mg, duas vezes ao dia) nos primeiros 40 dias de tratamento com esquema antituberculoso em pacientes HIV-negativos com TBP. Em comparação com o grupo placebo, os pacientes tratados com o corticosteroide apresentaram resolução mais rápida da febre, maior ganho de peso corporal, maior elevação da albumina sérica, melhora radiológica e negativação do escarro mais rápida e menor tempo de permanência no hospital. Nenhum evento adverso significativo foi observado.
+
+Foram acompanhados 280 pacientes com sarcoidose pulmonar estágios I e II, sem manifestações extrapulmonares, que foram randomizados para tratamento com prednisolona por 6 meses, 12 meses ou para observação somente. A dose de prednisolona prescrita foi de 40 mg/dia, com redução gradual de 5 mg a cada semana até a dose de manutenção de 10 mg/dia. Observou-se regressão radiológica mais significativa nos pacientes tratados com prednisolona.
+
+Foram comparadas duas estratégias anti-inflamatórias em 40 pacientes com uveíte que seriam submetidos a facoemulsificação e implante de lente acrílica intraocular: grupo 1, dose única de metilprednisolona IV (15 mg/kg), 30 minutos antes da cirurgia; grupo 2, prednisolona VO (0,5 mg/kg/dia), iniciada duas semanas antes da cirurgia, com desmame gradual após o procedimento. A flarefotometria (que mede o número de partículas em suspensão no humor aquoso) mostrou maior aumento no número do “flare” e de células na câmara anterior nos pacientes que receberam o corticosteroide IV, em comparação com a prednisolona VO, indicando que o último foi mais eficaz em preservar a integridade da barreira hemato-aquosa.
+
+Foi avaliado se o prolongamento da corticoterapia além das 8 semanas do esquema convencional poderia diminuir a taxa de recidivas. Quarenta e cinco crianças no primeiro episódio de SNI foram randomizadas para o tratamento convencional de 8 semanas ou tratamento prolongado de 16 semanas (2,0 mg/kg/dia por 4 semanas → 1,5 mg/kg/dia por 4 semanas → 1,5 mg/kg em dias alternados por 4 semanas → 1,0 mg/kg em dias alternados por 4 semanas). O tempo até a primeira recidiva foi maior nos pacientes tratados com o esquema prolongado (média, 222,2 dias; mediana, 120 dias) em comparação com o esquema convencional (média, 134,3 dias; mediana, 96,5 dias). A porcentagem de pacientes sem recidivas 6 e 12 meses após a interrupção do corticosteroide foi de 40,9% e 27,3%, para o tratamento prolongado e 21,7% e 8,7% para o tratamento convencional, respectivamente.
+
+Foi comparada a budesonida oral com a prednisolona no tratamento da colite ulcerativa, em 72 pacientes, durante 9 semanas. A dose utilizada de prednisolona foi de 40 mg/dia, com desmame gradual. Observou-se equivalência dos dois tratamentos em relação ao escore endoscópico, mas em relação ao escore histopatológico, a prednisolona foi superior. Por ter baixa biodisponibilidade por via oral, a budesonida não interferiu na secreção endógena de cortisol, ao contrário da prednisolona.
+
+Ohga, S. et al. _Diamond-Blackfan anemia in Japan: clinical outcomes of prednisolone therapy and hematopoietic stem cell transplantation_ . International Journal of Hematology. v. 79, p. 22-30, 2004. Igarashi, S. et al. _No advantage of dexamethasone over prednisolone for the outcome of standard- and intermediate-risk childhood acute lymphoblastic leukemia in the Tokyo Children's Cancer Study Group L95-14 protocol_ . Journal of the American Society of Clinical Oncology, v. 23, p. 6489-6498, 2005. Bernard, T. et al. _Mitoxantrone, chlorambucil and prednisolone in the treatment of non-Hodgkin's lymphoma._ Leukemia & Lymphoma, v. 15, p. 481-485, 1994. Keldsen, N. et al. _Multiple myeloma treated with mitoxantrone in combination with vincristine and prednisolone (NOP regimen) versus melphalan and prednisolone: a phase III study._ Nordic Myeloma Study Group (NMSG). European Journal of Hematology, v. 51, p. 80-85, 1993. Ohmine, K. et al. _Low-dose prednisolone therapy for idiopathic thrombocytopenic purpura. Rinsho Ketsueki._ The Japanese journal of Clinical Hematology, v. 41, p. 8-11, 2000. Kirwan, J.R. et al. _A randomised placebo controlled 12 week trial of budesonide and prednisolone in rheumatoid arthritis._ Annals of the rheumatic diseases, v. 63, p. 688-695, 2004. Wallace, C.A. et al. _Trial of early aggressive therapy in polyarticular juvenile idiopathic arthritis._ Arthritis and Rheumatism, v. 64, p. 20122021, 2012. Dembla, G. et al. _Oral versus intravenous steroids in acute exacerbation of asthma--randomized controlled study_ . The Journal of the Association of Physicians of India, v. 59, p. 621-623, 2011. Hissaria, P. et al. _Short course of systemic corticosteroids in sinonasal polyposis: a double-blind, randomized, placebo-controlled trial with evaluation of outcome measures._ The Journal of Allergy and Clinical Immunology, v. 118, p.128-133, 2006. Kirtsreesakul, V. et al. _Clinical efficacy of a short course of systemic steroids in nasal polyposis._ Rhinology, v. 49, p. 525-532, 2011. Bilaceroglu, S. et al. _Prednisolone: a beneficial and safe adjunct to antituberculosis treatment? A randomized controlled trial._ The international journal of tuberculosis and lung disease. The Official Journal of the International Union against Tuberculosis and Lung Disease, v. 3, p. 47-54, 1999. Eule, H. et al. _Corticosteroid therapy of intrathoracic sarcoidosis stages I and II--results of a controlled clinical trial._ Zeitschrift fur Erkrankungen der Atmungsorgane 149, 142-147, 1977. Meacock, W.R. et al. _Steroid prophylaxis in eyes with uveitis undergoing phacoemulsification._ The British Journal of Ophthalmology, v. 88, p. 1122-1124, 2004. Bagga, A. et al. _Prolonged versus standard prednisolone therapy for initial episode of nephrotic syndrome._ Pediatric Nephrology, v. 13, p. 824-827, 1999.
+
+Lofberg, R. et al. _Oral budesonide versus prednisolone in patients with active extensive and left-sided ulcerative colitis._ Gastroenterology, v. 110, p. 1713-1718, 1996.
+
+--- BULA: ACICLOVIR ---
+O aciclovir creme é indicado para o tratamento de infecções cutâneas pelo vírus Herpes simplex, incluindo herpes genital e labial, inicial e recorrente.
+
+O aciclovir reduziu significativamente a replicação viral, formação de novas lesões e a duração dos sintomas nos casos de herpes genital recorrente (81,5% dos casos)1.
+
+1 FIDDIAN, AP. et al. Topical acyclovir in the treatment of genictal herpes: a comparison with systemic therapy. J Antimicrob Chemother, 12 (Suppl B): 67-77, 1983
+
+O aciclovir pomada oftálmica é indicado para o tratamento da ceratite por herpes simples.
+
+O aciclovir pomada oftálmica promoveu a cicatrização em 94% dos casos de ceratite por _Herpes simplex_ em pacientes tratados por 14 dias, com cicatrização mais rápida (p<0,01) que a dos pacientes tratados com adenosina arabnosídeo, que obtiveram 82% de cura.
+
+Ref: YOUNG, BJ. et al. A randomised double-blind clinical trial of acyclovir (Zovirax) and adenine arabinoside in herpes simplex corneal ulceration. Br J Ophthalmol, 66(6): 361-363, 1982.
+
+O aciclovir é usado no tratamento de infecções pelo vírus _Herpes simplex_ na pele e nas mucosas, incluindo herpes genital inicial e recorrente.
+
+É indicado também na supressão (prevenção de recidivas) de infecções recorrentes por _Herpes simplex_ em pacientes imunocompetentes e na profilaxia de infecções por _Herpes simplex_ em pacientes imunocomprometidos. O aciclovir é usado, ainda, no tratamento de infecções de Herpes zoster. Estudos têm demonstrado que o tratamento precoce de Herpes zoster com aciclovir produz efeito benéfico na dor e pode reduzir a incidência de neuralgia pós-herpética (dor associada ao Herpes zoster). O aciclovir também é usado no tratamento de pacientes seriamente imunocomprometidos.
+
+Estudos clínicos em pacientes com herpes labial, demonstraram redução significativa da duração da dor, tempo de cura e área 1 da primeira lesão, com tratamento de 200mg de ACV, 5x/dia durante 5 dias, quando comparado com placebo.
+
+Estudos clínicos em pacientes pediátricos apresentando gengivoestomatite, com média de idade de 2 anos, demonstraram que o tratamento com ACV oral na dose de 200 mg 5x/dia, durante 5 a 7 dias, reduziu significativamente a duração da atividade 2,3 viral, lesões orais, extraorais, febre e dificuldade de deglutição em ≥ 50 % dos pacientes comparado ao grupo placebo.
+
+Estudo randomizado e duplo-cego, envolvendo 119 pacientes adultos com infecção primária e 31 pacientes com não-primária, apresentando primeiro episódio de herpes genital tratados com 200 mg 5x/dia de ACV durante 10 dias, demonstraram redução 4 da duração da atividade viral, tempo de cura e duração da dor local.
+
+Estudo randomizado e duplo-cego envolvendo 156 pacientes adultos com herpes genital recorrente receberam tratamento com ACV oral na dose de 400 mg 2x/dia por um ano seguido de 200 mg 5x/dia por cinco dias. A administração diária de ACV oral 5 foi superior ao placebo no tratamento de herpes genital recorrente.
+
+Estudo duplo-cego, placebo controlado avaliou 49 pacientes adultos com doença hematológica maligna candidatos a transplante de medula, que receberam ACV na dose de 400 mg 5x/dia. O tratamento com ACV oral promoveu profilaxia efetiva contra a reativação do vírus do herpes simples em pacientes severamente imunossuprimidos capazes da ingestão de 6 droga oral.
+
+Estudos clínicos placebo controlado, demonstraram que administração oral de ACV é efetivo no tratamento de herpes zoster em pacientes adultos e idosos. O tratamento com ACV reduziu a severidade e duração do _rash_ , da dor, propagação do _rash_ 7,8 para as áreas adjacentes e incidência da disseminação de lesões/ulcerações.
+
+1. RABORN, GW. et al. Oral aciclovir and herpes labialis: a randomized, double-blind, placebo-controlled study. J Am Dent Assoc, 115(1): 38-42, 1987.
+
+2. AMIR, J. et al. Treatment of herpes simplex gingivostomatitis with aciclovir in children: a randomised double blind placebo controlled study. BMJ, 314(7097): 1800-1803, 1997.
+
+3. DUCOULOMBIER, H. et al. Herpetic stomatitis-gingivitis in children: controlled trial of aciclovir versus placebo. Ann Pediatr, 35(3): 212-216, 1988.
+
+4. MERTZ, GJ. et al. Double-blind placebo-controlled trial of oral acyclovir in first-episode genital herpes simplex virus infection. JAMA, 252(9): 1147-51, 1984.
+
+5. MATTISON, HR. et al. A double-blind, placebo-controlled trial comparing long-term suppressive with short-term oral aciclovir therapy for management of recurrent genital herpes. Am J Med, 85(2A): 20-25, 1988.
+
+6. WADE, JC. et al. Oral acyclovir for prevention of herpes simplex virus reactivation after marrow transplantation. Ann Intern Med, 100(6): 823-8, 1984.
+
+7. PALMIERI, G. et al. A clinical sturdy on two oral formulations of acyclovir in the treatment of herpes zoster. Acta Toxicol, 14: 105-112, 1993.
+
+8. WOOD, MJ. et al Efficacy of oral aciclovir treatment of acute herpes zoster. Am J Med, 85(2A): 79-83, 1988.
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA ---
+O butilbrometo de escopolamina + dipirona monoidratada é indicado para o tratamento sintomático de estados espástico-dolorosos e cólicas do trato gastrintestinal, das vias biliares, do trato geniturinário e do aparelho genital feminino (dismenorreia).
+
+A avaliação da eficácia analgésica de vários esquemas terapêuticos com duração de quatro dias, em pacientes com dor causada por espasmos (quadros dolorosos, mais ou menos contínuos, de gravidade intermediária provocada por espasmos da musculatura lisa do trato gastrintestinal, biliar ou renal), incluiu o uso oral de butilbrometo de escopolamina + dipirona monoidratada e obteve os seguintes resultados: alívio da dor em 81,5% dos pacientes (total de 76) tratados com butilbrometo de escopolamina + dipirona monoidratada, contra 9,3% no grupo placebo (total de 151).
+
+Gregório M, Damiani S, Gatta G Antalgic properties of proxazole. Double blind study in visceral algoplastic conditions Panmin Med 1969; 11: 436-440.
+
+--- BULA: CLORIDRATO DE CIPROFLOXACINO ---
+Infecções complicadas e não complicadas causadas por microrganismos sensíveis ao ciprofloxacino.
+
+Trato respiratório: cloridrato de ciprofloxacino pode ser considerado como tratamento recomendável em casos de pneumonias causadas por _Klebsiella spp., Enterobacter spp., Proteus spp., Escherichia coli, Pseudomonas aeruginosa, Haemophilus spp., Moraxella catarrhalis, Legionella spp._ e _Staphylococci_ . O cloridrato de ciprofloxacino não deve ser usado como medicamento de primeira escolha no tratamento de pacientes ambulatoriais com pneumonia causada por _Pneumococcus_ .
+
+- Ouvido médio (otite média) e seios paranasais (sinusite), especialmente se a infecção for causada por
+
+- organismos gram-negativos, inclusive _Pseudomonas aeruginosa_ ou _Staphylococci_ .
+
+- Rins e/ou trato urinário eferente.
+
+- Órgãos genitais, inclusive anexite, gonorreia e prostatite.
+
+- Cavidade abdominal (por exemplo, infecções bacterianas do trato gastrintestinal ou do trato biliar e
+
+- Pele e tecidos moles.
+
+- Ossos e articulações.
+
+Infecção ou risco iminente de infecção (profilaxia), em pacientes com sistema imunológico comprometido (por exemplo, pacientes em uso de imunossupressores ou pacientes neutropênicos). Descontaminação intestinal seletiva em pacientes sob tratamento com imunossupressores.
+
+cloridrato de ciprofloxacino_Bula_Profissional
+
+No tratamento da exacerbação pulmonar aguda de fibrose cística, associada à infecção por _Pseudomonas aeruginosa_ , em pacientes pediátricos de 5 a 17 anos de idade. Os estudos clínicos em crianças foram realizados na indicação acima. Para outras indicações clínicas a experiência é limitada. Não se recomenda, portanto, o uso do ciprofloxacino para outras indicações diferentes da mencionada acima. O tratamento deve ser iniciado somente após cuidadosa avaliação dos riscos e benefícios, pela possibilidade de reações adversas nas articulações e nos tecidos adjacentes.
+
+Para reduzir a incidência ou progressão da doença após exposição ao _Bacillus anthracis_ aerossolizado.
+
+Os resultados das experiências clínicas realizadas e documentadas demonstraram que os microrganismos causadores das infecções foram erradicados em 81,9% dos casos[1] . Clinicamente, quase 94,2% dos pacientes apresentaram melhora acentuada ou recuperação completa[1] .
+
+Os resultados das pesquisas clínicas confirmam a excelente atividade in vitro do cloridrato de ciprofloxacino . Os microrganismos mais comuns foram _E. coli_ e _Pseudomonas aeruginosa_[1] . Os percentuais de erradicação para os patógenos gram-negativos, tais como a _E. coli_ (95%), _Proteus sp_ (97 - 100%), _Salmonella sp_ (100%), _Haemophilus influenzae_ (95%) e também para os organismos grampositivos, _Streptococcus pneumoniae_ (>80%) e _Staphylococcus sp_ (>80%) em particular, juntamente com os resultados favoráveis contra _Pseudomonas aeruginosa_ (74%), alcançados com tratamento via oral,
+
+demonstram o amplo espectro de atividade do cloridrato de ciprofloxacino[1,16] .
+
+Os índices de cura ou melhora das condições clínicas encontrados nas diferentes infecções foram os seguintes:
+
+Trato respiratório inferior e superior > 85%[2,3] Trato urinário não complicadas > 90%[4] Trato urinário complicadas 97 - 100%[5] Pele e tecidos moles 90%[1,6] Ossos e articulações 75%[7,8] Gastrintestinais 100%[9,10] Bacteremia/septicemia 94%[11] Ginecológicas 92%[12] Otite maligna externa 90%[13,15] Prostatite crônica 84 - 91%[14]
+
+1. Schacht P, Arcieri G, Branolte J, et al. Worldwide clinical data on efficacy and safety of ciprofloxacin. Infection 1988; 16 (Suppl.1): 29-44.
+
+2. Moller M. Ciprofloxacin therapy in outpatients with lower respiratory tract infections. International Journal of Clinical Practice 1990; 6 (Suppl. 1): 72-76.
+
+3. Piccirillo JF, Parnes SM. Ciprofloxacin for the treatment of chronic ear disease. Laryngoscope 99 1990; 510-513.
+
+4. Abbas AMA, Chandra V, Dongaonkar PP, et al. Ciprofloxacin versus amoxycillin/clavulanic acid in the treatment of urinary tract infections on general practice. Journal of Antimicrobial Chemotherapy 1989; 24: 235-239.
+
+5. Fass RJ. Efficacy and safety of oral ciprofloxacin for treatment of serious urinary tract infections. Antimicrobial Agents and Chemotherapy 1987; 31: 148-150.
+
+6. Campoli-Richards DM, Monk JP, Price A, et al. Ciprofloxacin. A review of its antibacterial activity, pharmacokinetic proprerties and therapeutic use. Drugs 1988; 35: 373-447.
+
+7. Norrby SR. Ciprofloxacin in the treatment of acute and chronic osteomyelitis: a review. Scandinavian Journal of Infection Diseases 1989; 60 (Suppl.): 74-78.
+
+8. Trexler Hessen M, Levison ME. Ciprofloxacin for the treatment of osteomyelitis: a review. Journal of Foot Surgery 1989; 28: 100-105.
+
+9. Pithie AD, Wood MJ. Treatment of typhoid fever and infections diarrhea with ciprofloxacin, Journal of Antimicrobial Chemotherapy 1990; 26 (Suppl. F): 47-53.
+
+10. Stanley PJ, Flegg PJ, Mandai BK, et al. Open study of ciprofloxacin in enteric fever. Journal of Antimicrobial Chemotherapy 1989; 23: 789-791.
+
+11. Bouza E, Díaz-López MD, Bernaldo de Quirós JCL, et al. The Spanish Group for the Study of Ciprofloxacin. Ciprofloxacin in patients with bacteremic infection. American Journal of Medicine 1989; 87 (Suppl. 5A): 228-331.
+
+12. Fischbach F, Deckardt R, Graeff H, et al. Comparison of ciprofloxacin metronidazole versus cefoxitin/doxycycline in the treatment of pelvic inflammatory disease. Proceedings of the 3rd International Symposium on New Quinolones, Vancouver, 12-14 Jul, 1990, European Journal of Clinical Microbiology and Infectious Diseases, pp. 11-13, 1990.
+
+13. Levenson MJ, Parisier SC, Dolitsky J, et al. Ciprofloxacin: drug of choice in the treatment of malignant external otitis (MEO). Laryngoscope 1991; 101: 821-824.
+
+14. Langemeyer TNM, et al. Treatment of chronic bacterial prostatitis with ciprofloxacin. Phamaceutisch Weekblad Scientific 1987; 9 (Suppl.): 78-81.
+
+15. Gehanno P. Ciprofloxacin in the treatment of malignant external otitis. Chemotherapy 1994; 40 (Suppl. 1): 35-40.
+
+16. Gelfand S. M., M.D., Simmons P. B., M.D., Craft B. R., R.N., Grogan J.T., M.T.- A.S.C.P. et al. Brief Report: Clinical Study of Intravenous and Oral Ciprofloxacin in Complicated Bacterial Infections. The American Journal of Medicine 1989; 87 (suppl. 5A): 235-237.
+
+--- BULA: CLORIDRATO DE OXIMETAZOLINA ---
+O cloridrato de oximetazolina adulto e pediátrico estão indicados para o alívio sintomático da congestão nasal e nasofaríngea decorrentes do resfriado comum, sinusite, febre ou outras alergias das vias aéreas superiores.
+
+Referências bibliográficas:
+
+1) Reinecke S; Tschaikin M. Investigation of the effect of oxymetazoline on the duration of rhinitis, results of a placebo-controlled double-blind study in patients with acute rhinitis. MMW Forstchr Med, 147 Suppl 3:113-118, 2005, Oct 8.
+
+- 2) Martindale The Complete Drug Reference. 35th Edition. 2007. Sean C. Sweetman Eds. 1395; 14131414.
+
+3) Goodman & Gilman’s. The Pharmacological Basis of Therapeutics. 10th Edition. International Edition. Joel G. Hardman and Lee E. Limbird, Alfred Goodman Gilman Eds. The McGraw Hill Companies Inc. 2001. 236.
+
+4) Scolaro KL; Chapter 11 Disorders related to colds and allergy in Krinsky DL, Berardi RR, Ferreri SP, Hume AL, Newton GD, Rollins CJ, and Tietze KJ ed.: Handbook of Nonprescription Drugs: An Interactive Approach to Self-Care; American Pharmacists Association, Washington DC, p. 179-204 (2012)
+
+5)Meltzer EO, Berstein DI, Prenner BM, Berger WE, Shekar T, and Teper AA. Mometasone furoate nasal spray plus oxymetazoline nasal spray: short-term efficacy and safety in seasonal allergic rhinitis. _Am J Rhinol Allergy_ 27 (2013) 102-8.
+
+--- BULA: AZITROMICINA ---
+A azitromicina di-hidratada é indicada para o tratamento de infecções do trato respiratório inferior (incluindo bronquite e pneumonia) e superior, incluindo sinusite, faringite e amigdalite; infecções da pele e tecidos moles; em otite média aguda e nas doenças sexualmente transmissíveis devido à clamídia e gonorreia não complicadas. É também indicada no tratamento de cancro devido a _Haemophillus ducreyi_ . Infecções que ocorrem junto com sífilis devem ser excluídas.
+
+Em um estudo controlado, randomizado, duplo-cego de exacerbação bacteriana aguda de bronquite crônica, azitromicina (500 mg, 1 vez ao dia, por 3 dias) foi comparada à claritromicina (500 mg, 2 vezes ao dia, por 10 dias). O principal ponto deste estudo foi a taxa de cura clínica do Dia 21-24. Entre os 304 pacientes analisados na Intenção de Tratar Modificada (In The Modified Intent To Treat Analysis) nas visitas do Dia 21-24, a taxa de cura clínica para 3 dias de azitromicina foi 85% (125/147) comparado a 82% (129/157) para 10 dias de claritromicina. Os seguintes achados foram as taxas de cura clínica nas visitas dos Días 21-24 dos pacientes avaliados bacteriologicamente por patógeno:
+
+|Patógeno|azitromicina(3 dias)|claritromicina(10 dias)|
+|---|---|---|
+|S._pneumoniae__H. influenzae__M. catarrhalis_|29/32(91%)12/14(86%)11/12(92%)| 21/27(78%)14/16(88%)12/15 (80%)|
+
+Em estudo realizado com 30 pacientes infectadas por _Chlamydia trachomatis_ , foi utilizada a dose única de 1 g de azitromicina. Nenhuma das pacientes relatou efeitos adversos. Os resultados revelaram que o tratamento com azitromicina para cervicite causada por _Chlamydia trachomatis_ é útil, com a vantagem de se administrar apenas uma dose.[2]
+
+Em um outro estudo, verificou-se que a azitromicina, 1 g/via oral, em dose única, é um avanço significativo no tratamento da uretrite causada por clamídia.[3]
+
+Foi realizado um estudo comparativo, randomizado com 60 crianças, com idade entre 6 meses e 12 anos de idade, portadoras de otite média aguda, utilizando-se azitromicina e coamoxiclav. A dose de azitromicina foi 10 mg/Kg/dia em uma única tomada diária por três dias e a de coamoxiclav 40 mg/Kg/dia, em três tomadas diárias por dez dias. Os dois antibióticos apresentaram eficácia, tolerabilidade e segurança semelhantes, sendo a praticidade da azitromicina ressaltada devido à sua utilização por um prazo mais curto e menor número de doses diárias.[4]
+
+1 Brasil. Ministério da Saúde. Agência Nacional de Vigilância Sanitária. CBM: compêndio de bulas de medicamentos / Ministério da Saúde, Agência Nacional de Vigilância Sanitária – volume 1. Brasília: Ministério da Saúde, 2005.
+
+2 REYES, M. L. E. N.; ROMAN, G. C.; GARCÍA, J. L. A. Eficacia y seguridad de azitromicina en el tratamiento de la infección genital femenina por chlamydia trachomatis / Efficacy and sacurity of azithromycin in the treatment of femenine genital infection by Chlamydia trachomatis. Ginecol. e obstet. México; 61 (9):261-4, setembro, 1993, tab.
+
+3 HERNÁNDEZ, Teresa B. Chlamydia trachomatis y ureaplasma urealyticum / Chlamydia trachomatis and ureaplasma urealyticum. Revista Chilena de Infectologia; 17(supl.1):66-71, 2000. tab, graf. 4 FUKUDA, Y.; KÓS, A. O. A. Azitromicina comparada à amoxicilina/ácido clavulânico no tratamento de pacientes pediátricos com otite média aguda. Revista brasileira de medicina-otorrinolaringologia. Edição 2(1):40-5, jan. 1995. ilus, tab.
+
+--- BULA: CLORIDRATO DE CEFEPIMA ---
+- Adultos O cloridrato de cefepima é indicado no tratamento, em adultos, das infecções relacionadas a seguir, quando causadas por bactérias suscetíveis à cefepima: - Infecções do trato respiratório inferior, incluindo pneumonia[I] e bronquite[II] ; - Infecções complicadas do trato urinário, incluindo pielonefrite[III] e infecções não complicadas do trato urinário[IV] ; - Infecções da pele e estruturas cutâneas[V] ; - Infecções intra-abdominais, incluindo peritonite[VI] e infecções do trato biliar[VII] ; - Infecções ginecológicas[ VIII] ; - Septicemia[ IX] ; - Terapia empírica em pacientes neutropênicos febris[X] : monoterapia com cefepima é indicada para o tratamento empírico de pacientes neutropênicos febris. Em pacientes com alto risco de infecção grave (por exemplo, pacientes com histórico de transplante de medula óssea recente, com hipotensão desde o início do acompanhamento, com malignidade hematológica subjacente, ou com neutropenia grave ou prolongada), monoterapia antimicrobiana pode não ser apropriada. Não há dados suficientes que comprovem a eficácia da monoterapia com cefepima nestes pacientes (vide 2. RESULTADOS DE EFICÁCIA ). O cloridrato de cefepima também está indicado para a profilaxia cirúrgica em pacientes submetidos à cirurgia de cólon e reto (vide 2. RESULTADOS DE EFICÁCIA – Profilaxia Cirúrgica ).
+
+Pediatria O cloridrato de cefepima é indicado no tratamento, em pacientes pediátricos, das infecções relacionadas a seguir, quando causadas por bactérias suscetíveis à cefepima: - Pneumonia[ I] ; - Infecções complicadas do trato urinário, incluindo pielonefrite[III] e infecções não complicadas do trato urinário[IV] ; - Infecções da pele e estruturas cutâneas[V] ; - Septicemia[ IX] ; - Terapia empírica em pacientes neutropênicos febris[ X] : monoterapia com cefepima é indicada para o tratamento empírico de pacientes neutropênicos febris. Em pacientes com alto risco de infecção grave (por exemplo, pacientes com histórico de recente transplante de medula óssea, com hipotensão desde o início do acompanhamento, com malignidade hematológica subjacente, ou com neutropenia grave ou prolongada), monoterapia antimicrobiana pode não ser apropriada. Não há dados suficientes que comprovem a eficácia da monoterapia com cefepima nestes pacientes (vide 2. RESULTADOS DE EFICÁCIA ); - Meningite bacteriana[XI] ;
+
+Devem ser realizados testes de cultura e suscetibilidade quando apropriados para se determinar a suscetibilidade do patógeno à cefepima. A terapia empírica com cloridrato de cefepima pode ser instituída antes de se conhecer os resultados dos testes de suscetibilidade; entretanto, a antibioticoterapia deverá ser ajustada de acordo com os resultados, assim que estiverem disponíveis.
+
+Devido ao seu amplo espectro de atividade bactericida contra bactérias Gram-positivas e Gram-negativas, cloridrato de cefepima pode ser usado como monoterapia antes da identificação do(s) patógeno(s). Em pacientes sob risco de infecções mistas de aeróbicos-anaeróbicos, particularmente se bactérias não suscetíveis à cefepima estiverem presentes (vide 3. CARACTERÍSTICAS FARMACOLÓGICAS - Microbiologia ), terapia inicial concomitante com um agente antianaeróbico é recomendada antes que o patógeno seja conhecido. Uma vez que estes resultados estiverem disponíveis, a terapia concomitante com cloridrato de cefepima e outros agentes anti-infecciosos pode ou não ser necessária, dependendo da suscetibilidade do microrganismo.
+
+I CID J15.9 - Pneumonia bacteriana não especificada
+
+II CID J40 - Bronquite não especificada como aguda ou crônica
+
+III CID N10 - Nefrite túbulo-intersticial aguda, Pielonefrite aguda; CID N11 - Nefrite túbulo-intersticial crônica, Pielonefrite crônica IV CID N39.0 - Infecção do trato urinário de localização não especificada V CID L00-L08 - Infecções da pele e do tecido subcutâneo VI CID K65.0 - Peritonite aguda VII CID K81 - Colecistite VIII CID N70-N74 - Doenças inflamatórias dos órgãos pélvicos femininos IX CID A41.9 - Septicemia não especificada X CID D70 - Agranulocitose, Neutropenia XI CID G00.9 - Meningite bacteriana não especificada
+
+A segurança e eficácia da monoterapia empírica com cefepima para pacientes neutropênicos febris foram avaliadas em dois estudos multicêntricos, randomizados, comparando monoterapia com cefepima (dose de 2 g a cada 8 horas, IV) à monoterapia com ceftazidima (dose de 2 g a cada 8 horas, IV). Esses estudos foram realizados com 317 pacientes. A Tabela 1 descreve as características da população de pacientes avaliáveis.
+
+Tabela 1: Demografia dos pacientes avaliáveis (apenas primeiros episódios)
+
+||cefepima(n=164)|ceftazidima(n=153)|
+|---|---|---|
+|Idade média(anos)|56(faixa 18-82)|55(faixa 16-84)|
+|Homens|86(52%)|85(56%)|
+|Mulheres|78(48%)|68(44%)|
+|Leucemia|65(40%)|52(34%)|
+|Outras malignidades hematológicas|43(26%)|36(24%)|
+|Tumor sólido|54(33%)|56(37%)|
+|CAN nadir médio(céls/mcL)|20(faixa 0-500)|20(faixa 0-500)|
+|Duração média da neutropenia(dias)|6(faixa 0-39)|6(faixa 0-32)|
+|Catéter venoso de demora|97(59%)|86(56%)|
+|Profilaxia com antibiótico|62(38%)|64(42%)|
+|Corrupção da medula|9(5%)|7(5%)|
+|PAS < 90 mm Hgna entrada|7(4%)|2(1%)|
+
+CAN = contagem absoluta de neutrófilos; PAS = pressão arterial sistólica
+
+A Tabela 2 descreve as taxas das respostas clínicas observadas. Para todos os resultados medidos, a cefepima mostrou-se terapeuticamente equivalente a ceftazidima.
+
+Tabela 2: Taxas de respostas conjuntas para terapia empírica em pacientes neutropênicos febris
+
+|Tabela 2:Taxas de respostas conjuntaspara terapia empírica empacientes neutropênicos febris|Tabela 2:Taxas de respostas conjuntaspara terapia empírica empacientes neutropênicos febris|Tabela 2:Taxas de respostas conjuntaspara terapia empírica empacientes neutropênicos febris|
+|---|---|---|
+||||
+||% Resposta||
+|Resultados medidos|cefepima(n=164)|ceftazidima(n=153)|
+|Episódio primário resolvido sem modificação no tratamento, não houvenovos episódios febris ou infecção, e o uso de antibióticos orais foipermitidopara complementar o tratamento|51|55|
+|Episódio primário resolvido sem modificação no tratamento, não houvenovos episódios febris ou infecção, e antibióticos orais não foramutilizados nopós-tratamento|34|39|
+|Sobrevivência,compermissão dequalquer modificação no tratamento|93|97|
+|Episódio primário resolvido sem modificação no tratamento eantibióticos orais forampermitidospara complementar o tratamento|62|67|
+|Episódio primário resolvido sem modificação no tratamento, eantibióticos orais não foram utilizados nopós-tratamento|46|51|
+
+Não existem dados suficientes que comprovem a eficácia da monoterapia com cefepima em pacientes com alto risco de infecções severas (incluindo pacientes com histórico de recente transplante de medula, com hipotensão desde o início do acompanhamento, com malignidade hematológica subjacente, ou com neutropenia grave ou prolongada). Não há dados sobre pacientes com choque séptico.
+
+Esta indicação está baseada em um estudo clínico randomizado, aberto, multicêntrico com pacientes de 19 anos de idade ou mais (média de idade de 66 anos) submetidos a cirurgia colorretal, nos quais uma administração pré-cirúrgica IV de uma dose única de 2 g de cloridrato de cefepima seguida de uma dose única IV de 500 mg de metronidazol (N=307) foi comparada com uma dose única IV de 2 g de ceftriaxona seguida por metronidazol (N=308). A administração da dose variou de 0 a 3 horas antes da incisão cirúrgica inicial. As taxas de sucesso clínico (ausência de infecções intra-abdominais e na região cirúrgica durante as 6 semanas após a cirurgia) foram de 75% em cada grupo de tratamento. (vide 8. POSOLOGIA E MODO DE USAR ).
+
+1. National Committee for Clinical Laboratory Standards. Methods for Dilution Antimicrobial Susceptibility Tests for Bacteria that Grow Aerobically – Third Edition. Approved Standards NCCLS Document M7-A3, Vol. 13, nº 25, NCCLS, Villanova, PA, December, 1993.
+
+2. National Committee for Clinical Laboratory Standards. Performance Standards for Antimicrobial Disk susceptibility Tests – Fifty Edition. Approved Standards NCCLS Document M2-A5, Vol. 13, nº 24, NCCLS, Villanova, PA, December, 1993.
+
+3. Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron., 16:31-41, 1976.
+
+4. BMS Study AI411-230. A multicenter open randomized comparative evaluation of the efficacy and safety of cefepime and ceftriaxone in the prophylaxis of bacterial infections in colorectal surgery. Document Accession No.910071138.
+
+5. Expert Report for BMS Study AI411-230. A multicenter open randomized comparative evaluation of the efficacy and safety of cefepime and ceftriaxone in the prophylaxis of bacterial infections in colorectal surgery. Document Accession No.910071185.
+
+6. FDA Summary Basis of Approval, Joint Clincial/Statistical Review of NDA 50. 679/SE1-002. pp 143-147. May 16, 1997, BMS Document Control No. 910063575.
+
+--- BULA: ELANI CICLO ---
+Os contraceptivos orais combinados (COCs) são utilizados para prevenir a gravidez. Quando usados corretamente, o índice de falha é de aproximadamente 1% ao ano. O índice de falha pode aumentar quando há esquecimento de tomada dos comprimidos ou quando estes são tomados incorretamente, ou ainda em casos de vômitos dentro de 3 a 4 horas após a ingestão de um comprimido ou diarreia intensa, bem como na vigência de interações medicamentosas.

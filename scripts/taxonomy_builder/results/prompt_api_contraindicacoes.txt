@@ -1,0 +1,381 @@
+Você é um Farmacêutico Clínico Especialista em Ontologias Médicas e NLP.
+
+Abaixo, fornecerei vários parágrafos extraídos da seção "CONTRAINDICACOES" de bulas reais.
+Sua tarefa é analisar o texto bruto, encontrar padrões de instruções clínicas e criar uma lista exaustiva de "Tags de Intenção" (Intention Tags) que cubram todas as informações contidas neles.
+
+REGRAS RÍGIDAS:
+1. BOTTOM-UP: Nenhuma tag pode ser inventada se não houver um trecho explícito que a justifique.
+2. GRANULARIDADE: Específica o suficiente para roteamento, mas genérica para servir a várias bulas (ex: "contraindicacao_doenca_cardiaca").
+3. FORMATO: Apenas snake_case (letras minúsculas e sublinhado).
+
+O QUE VOCÊ DEVE RETORNAR PARA CADA TAG IDENTIFICADA (em formato JSON estrito):
+[
+  {
+    "nome_tag": "tag_em_snake_case",
+    "descricao_intencao": "Que tipo de pergunta ativaria essa tag?",
+    "evidencia_extraida": "Frase exata da bula que originou a tag"
+  }
+]
+
+Aqui estão os textos brutos das bulas para a sua análise:
+--- BULA: CLORIDRATO DE PROPRANOLOL ---
+O cloridrato de propranolol, assim como outros betabloqueadores, não deve ser utilizado em pacientes nas seguintes situações:
+
+- conhecida hipersensibilidade ao cloridrato de propranolol e aos outros componentes da fórmula;
+
+- distúrbios graves da circulação arterial periférica;
+
+- síndrome do nó sinoatrial;
+
+- feocromocitoma não tratado (com um antagonista do receptor alfa-adrenérgico);
+
+- insuficiência cardíaca descompensada;
+
+- angina de Prinzmetal;
+
+- choque cardiogênico;
+
+- acidose metabólica;
+
+- após jejum prolongado;
+
+- bloqueio cardíaco de segundo ou terceiro grau;
+
+- histórico de asma brônquica ou broncoespasmo.
+
+O broncoespasmo pode normalmente ser revertido com broncodilatadores agonistas beta-2, por exemplo, salbutamol. Altas doses de broncodilatadores agonistas beta-2 podem ser necessárias para superar o bloqueio beta produzido pelo propranolol e a dose deve ser titulada de acordo com a resposta clínica. Tanto a administração intravenosa quanto a inalatória devem ser consideradas. O uso de aminofilina intravenosa e/ou o uso de ipratrópio (administrado por nebulizador) podem também ser considerados. Também foi relatado que o glucagon (1 a 2 mg administrados intravenosamente) produz um efeito broncodilatador em pacientes asmáticos. Em casos graves, podem ser necessários oxigênio ou ventilação artificial.
+
+O cloridrato de propranolol não deve ser utilizado por pacientes com predisposição à hipoglicemia, isto é, pacientes após jejum prolongado ou pacientes com reservas contra regulatórias restritas.
+
+--- BULA: DIPIRONA SÓDICA ---
+A dipirona não deve ser administrada a pacientes:
+
+• com hipersensibilidade à dipirona ou a qualquer um dos componentes da formulação ou a outras pirazolonas ou a pirazolidinas (ex.: fenazona, propifenazona, isopropilaminofenazona, fenilbutazona, oxifembutazona) incluindo, por exemplo, experiência prévia de agranulocitose ou reações cutâneas graves com uma destas substâncias;
+
+- com função da medula óssea prejudicada (ex.: após tratamento citostático) ou doenças do sistema hematopoiético;
+
+- que tenham desenvolvido broncoespasmo ou outras reações anafilactoides (ex.: urticária, rinite, angioedema) com analgésicos tais como salicilatos, paracetamol, diclofenaco, ibuprofeno, indometacina, naproxeno;
+
+- com porfiria hepática aguda intermitente (risco de indução de crises de porfiria);
+
+- com deficiência congênita da glicose-6-fosfato-desidrogenase (G6PD) (risco de hemólise);
+
+- gravidez e lactação (vide “Advertências e Precauções - Gravidez e Lactação”).
+
+Este medicamento é contraindicado para menores de 3 meses de idade ou pesando menos de 5 kg.
+
+--- BULA: ENOXALOW ---
+ENOXALOW[®] (enoxaparina sódica) é contraindicado nas seguintes situações:
+
+- Hipersensibilidade a enoxaparina sódica;
+
+- Endocardite bacteriana aguda ou pacientes portadores de endocardite e prótese valvular;
+
+- Alterações graves da hemostasia;
+
+- Lesões orgânicas que levem ao sangramento;
+
+- Trombocitopenia em pacientes com prova de agregação positiva _in vitro_ na presença de enoxaparina; - Úlcera gastroduodenal ativa; - Acidente vascular cerebral recente, com exceção da existência de embolização sistêmica; Enoxalow[®] é contraindicado na faixa etária pediátrica.
+
+Em caso de suspeita de dengue, ou quando associado a outros medicamentos que aumentem o efeito hemorrágico, a prescrição deste medicamento ou a manutenção do tratamento com ele deve ser reavaliada, devido a seu potencial hemorrágico.
+
+Informe a seu paciente que a doação de sangue é absolutamente contraindicada durante o tratamento com ENOXALOW[®] (enoxaparina sódica) e até 10 dias após seu término, devido ao dano que ele pode causar ao receptor.
+
+--- BULA: EXPECTOFLUI ---
+Expectoflui xarope é contraindicado para uso por pacientes alérgicos à guaifenesina ou aos demais componentes do medicamento. A guaifenesina é considerada insegura para pacientes com porfiria, pois apresentou-se porfirogênica em animais.
+
+Este medicamento é contraindicado para menores de 2 anos de idade.
+
+Este medicamento contém 0,37% de álcool (etanol) e pode causar intoxicação, especialmente em crianças.
+
+Este medicamento contém bissulfito de amônio, um sulfito que pode causar reações alérgicas, inclusive sintomas anafiláticos e episódios asmáticos menos severos ou com risco de morte em pessoas susceptíveis. A prevalência da sensibilidade aos sulfitos na população em geral é desconhecida e provavelmente baixa. A sensibilidade aos sulfitos ocorre mais frequentemente em pacientes asmáticos do que em não asmáticos.
+
+Contém sorbitol e sacarina sódica (edulcorantes).
+
+Atenção: Contém os corantes marrom caramelo 150a e vermelho de ponceau. Atenção, portadores de Doença Celíaca ou Síndrome Celíaca: contém glúten. Atenção: Este medicamento contém trigo.
+
+Atenção: Contém sorbitol em quantidade que pode causar efeito laxativo.
+
+--- BULA: EUPHORBIUM COMPOSITUM SN ---
+Euphorbium compositum SN é contraindicado em pacientes com afecções da tiróide, como também, em pacientes com alergia (hipersensibilidade) a quaisquer componentes da fórmula.
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA ---
+O butilbrometo de escopolamina injetável é contraindicado nos seguintes casos:
+
+– pacientes com hipersensibilidade conhecida ao butilbrometo de escopolamina ou a qualquer componente da fórmula
+
+– glaucoma de ângulo fechado não tratado
+
+– hipertrofia prostática com retenção urinária
+
+– estenoses mecânicas no trato gastrintestinal
+
+– íleo paralítico ou obstrutivo
+
+A administração de butilbrometo de escopolamina injetável é contraindicada por via INTRAMUSCULAR em pacientes em tratamento com anticoagulantes, uma vez que pode ocorrer hematoma intramuscular. Nesses pacientes devem ser utilizadas as vias subcutânea e intravenosa.
+
+O butilbrometo de escopolamina não é indicado na diarreia aguda ou persistente da criança.
+
+O butilbrometo de escopolamina é contraindicado para uso por idosos especialmente sensíveis aos efeitos secundários dos antimuscarínicos, como secura da boca e retenção urinária.
+
+--- BULA: GOTAS BINELLI ---
+Este medicamento é contraindicado para uso por pacientes com sensibilidade conhecida a dropropizina ou a qualquer componente de sua formulação.
+
+Este produto contém benzoato de sódio, que pode causar reações alérgicas, como a asma, especialmente em pessoas alérgicas ao ácido acetilsalícilico.
+
+Este medicamento é contraindicado para uso por pacientes com insuficiência respiratória grave, hipotensão e por pacientes asmáticos. Este medicamento é contraindicado para menores de 2 anos de idade.
+
+Como qualquer outro antitussígeno, este medicamento é contraindicado quando a tosse for necessária para expectoração de secreções anormalmente excessivas ou de partículas estranhas.
+
+--- BULA: FUROATO DE MOMETASONA ---
+Este medicamento é contraindicado para uso por pessoas sensíveis ao furoato de mometasona, a outros corticosteroides ou a qualquer um dos componentes da fórmula.
+
+Este medicamento é contraindicado para menores de 2 anos.
+
+--- BULA: BUP ---
+Bup® (cloridrato de bupropiona) é contraindicado para pacientes com hipersensibilidade conhecida à bupropiona ou a qualquer componente da fórmula.
+
+A bupropiona é contraindicada a pacientes com diagnóstico de epilepsia ou outros distúrbios convulsivos e diagnóstico atual ou prévio de bulimia ou anorexia nervosa, uma vez que foi observada alta incidência de convulsões nestes pacientes quando a bupropiona foi administrada.
+
+Bup (cloridrato de bupropiona)_COM REV LIB PROL_VP_V10
+
+Bup® (cloridrato de bupropiona) não deve ser administrado em pacientes tratados com qualquer outro medicamento que contenha bupropiona, uma vez que a incidência de convulsões é dependente da dose. É contraindicada a administração concomitante de inibidores da monoaminoxidase (IMAOs) ou o uso de bupropiona dentro de até 14 dias após a interrupção do tratamento com IMAOs.
+
+Bup® (cloridrato de bupropiona) é contraindicado a pacientes em processo de descontinuação abrupta do uso de sedativos ou álcool.
+
+Categoria D de risco na gravidez.
+
+Este medicamento não deve ser usado por mulheres grávidas sem orientação médica ou do cirurgião-dentista. Informe imediatamente seu médico em caso de suspeita de gravidez.
+
+--- BULA: BESILATO DE ANLODIPINO ---
+besilato de anlodipino é contraindicado a pacientes com conhecida hipersensibilidade às diidropiridinas*, ou a qualquer componente da fórmula.
+
+*o anlodipino é um bloqueador do canal de cálcio diidropiridino.
+
+--- BULA: FLUDALIBBS ---
+Fludalibbs[®] é contraindicado para pacientes que apresentem hipersensibilidade ao fosfato de fludarabina ou aos demais componentes do produto, para pacientes com anemia hemolítica descompensada e pacientes com alteração renal com depuração de creatinina menor que 30 mL/min.
+
+Este medicamento é contraindicado para uso por pacientes com alteração renal com depuração de creatinina menor que 30 mL/min.
+
+Uso contraindicado no aleitamento ou na doação de leite humano: Este medicamento é contraindicado durante o aleitamento ou doação de leite, pois é excretado no leite humano e pode causar reações indesejáveis no bebê. Seu médico ou cirurgião-dentista deve apresentar alternativas para o seu tratamento ou para a alimentação do bebê
+
+--- BULA: FIBROGAMMIN P ---
+Fibrogammin[® ] P é contraindicado para pacientes com hipersensibilidade ao princípio ativo ou a qualquer uma das substâncias da fórmula.
+
+--- BULA: DORICIN ---
+DORICIN[®] não deve ser utilizado caso o paciente tenha:
+
+- hipersensibilidade a qualquer um dos componentes da fórmula ou a derivados de pirazolonas (ex.: fenazona, propifenazona) ou a pirazolidinas (ex.: fenilbutazona, oxifembutazona) incluindo, por exemplo, caso anterior de agranulocitose, ou reações cutâneas graves em relação a um destes medicamentos;
+
+- glaucoma, obstrução pilórica ou duodenal, acalasia do esôfago (megaesôfago), úlcera péptica estenosante, hipertrofia prostática, obstrução do colo da bexiga e miastenia grave;
+
+- porfiria hepática aguda intermitente (risco de indução de crises de porfiria);
+
+- deficiência congênita da glicose-6-fosfato-desidrogenase (risco de ocorrência de hemólise);
+
+- função da medula óssea insuficiente (ex.: após tratamento citostático) ou doenças do sistema hematopoiético;
+
+- desenvolvido broncoespasmo ou outras reações anafiláticas (ex.: urticária, rinite, angioedema) com analgésicos, como:
+
+- salicilatos, paracetamol, diclofenaco, ibuprofeno, indometacina, naproxeno; gravidez e lactação (vide “Advertências e Precauções – Gravidez e lactação”).
+
+Deve ser usado com cautela por portadores de Diabetes. Este medicamento não deve ser usado por pessoas com insuficiência de sacarose-isomaltase e com síndrome de má-absorção de glicose- galactose.
+
+- glaucoma, obstrução pilórica ou duodenal, acalasia do esôfago (megaesôfago), úlcera péptica estenosante, hipertrofia
+
+- prostática, obstrução do colo da bexiga e miastenia grave;
+
+- broncoespasmo ou outras reações anafiláticas (isto é urticária, rinites, angioedema) com analgésicos, como salicilatos,
+
+- paracetamol, diclofenaco, ibuprofeno, indometacina, naproxeno;
+
+- gravidez e lactação (vide “Advertências e Precauções – Gravidez e lactação”).
+
+--- BULA: DIPROPIONATO DE BETAMETASONA + ÁCIDO SALICÍLICO ---
+Caso ocorra o desenvolvimento de irritação ou sensibilização durante o uso de dipropionato de betametasona+ácido salicílico, o tratamento deve ser descontinuado. Em presença de infecção deve ser instituída terapia antimicrobiana.
+
+Este medicamento é contraindicado em pacientes que apresentem infecções de pele causadas por vírus ou fungos e tuberculose de pele e em pacientes com infecções de pele causadas por bactérias que não estejam recebendo tratamento concomitante apropriado.
+
+Este medicamento é contraindicado para menores de 2 anos.
+
+Este medicamento é contraindicado para uso por pacientes que apresentarem antecedentes de hipersensibilidade a qualquer um dos componentes da fórmula.
+
+Ambas as substâncias (betametasona e ácido acetilsalicílico) não são totalmente compatíveis com aleitamento materno e seus usos devem ser criteriosos e de acordo com critério médico. Este medicamento é contraindicado em caso de suspeita de dengue, pois pode aumentar o risco de sangramento.
+
+Crianças ou adolescentes não devem usar esse medicamento para catapora ou sintomas gripais antes que um médico seja consultado sobre a síndrome de Reye, uma rara, mas grave doença associada a esse medicamento.
+
+--- BULA: AVALOX ---
+Hipersensibilidade conhecida ao moxifloxacino ou a qualquer componente da fórmula ou a outras quinolonas. Gravidez e lactação.
+
+Uso contraindicado no aleitamento ou na doação de leite humano. Este medicamento é contraindicado durante o aleitamento ou doação de leite, pois pode ser excretado no leite humano e pode causar reações indesejáveis no bebê. Seu médico ou cirurgião-dentista deve apresentar alternativas para o seu tratamento ou para a alimentação do bebê.
+
+Este medicamento é contraindicado para menores de 18 anos.
+
+0426-VV-LAB-121153-CCDS24
+
+--- BULA: BARIOGEL ---
+Este medicamento é contra-indicado para uso por pacientes que apresentem hipersensibilidade aos componentes da fórmula, obstrução e perfuração do trato gastrointestinal.
+
+Deve ser administrado criteriosamente em crianças, pacientes debilitados e com desordens no cólon.
+
+Não há contraindicações relativas a faixas etárias.
+
+--- BULA: ACETATO DE DEXAMETASONA ---
+Este medicamento não deve ser aplicado em presença de tuberculose da pele, varicelas, infecção por fungo ou herpes simples. Não usar em pacientes com história de hipersensibilidade conhecida a corticóides. Não aplicar no ouvido se houver perfuração na membrana do tímpano. O produto não deve ser usado por via oftálmica.
+
+Categoria de risco na gravidez: Categoria C.
+
+Este medicamento não deve ser utilizado por mulheres grávidas sem orientação médica ou do cirurgião-dentista.
+
+--- BULA: CLOTRIGEL ---
+Hipersensibilidade ao clotrimazol e/ou a qualquer outro componente da formulação do medicamento.
+
+Este medicamento não deve ser utilizado por mulheres grávidas sem orientação médica ou do cirurgião -dentista.
+
+--- BULA: ENALAMED ---
+Enalamed[®] é contraindicado para pacientes com hipersensibilidade a qualquer um de seus componentes, pacientes com histórico de edema angioneurótico relacionado a utilização de inibidores da enzima conversora de angiotensina e pacientes com angioedema hereditário ou idiopático.
+
+Enalamed[®] não deve ser administrado com alisquireno em pacientes com diabetes (veja o item 6. INTERAÇÕES MEDICAMENTOSAS ).
+
+Enalamed[®] é contraindicado em combinação com um inibidor de neprilisina (por exemplo, sacubitril). Não administre Enalamed® dentro de 36 horas antes ou depois de utilizar sacubitril/valsartana, um produto contendo um inibidor de neprilisina (Veja os itens 5. ADVERTÊNCIAS E PRECAUÇÕES e 6. INTERAÇÕES MEDICAMENTOSAS ). Enalamed® 5 mg:
+
+Atenção: Contém lactose. Este medicamento não deve ser usado por pessoas com síndrome de má-absorção de glicosegalactose.
+
+Atenção: Contém o corante vermelho amaranto laca de alumínio que pode, eventualmente, causar reações alérgicas. Atenção: Contém lactose. Este medicamento não deve ser usado por pessoas com síndrome de má-absorção de glicosegalactose.
+
+Atenção: Contém o amarelo de TARTRAZINA que pode, eventualmente, causar reações alérgicas. Atenção: Contém lactose. Este medicamento não deve ser usado por pessoas com síndrome de má-absorção de glicosegalactose. Este produto contém amarelo de TARTRAZINA, que pode causar reações alérgicas, como a asma, especialmente em pessoas alérgicas ao ácido acetilsalicílico.
+
+--- BULA: FAULDCITA ---
+Fauldcita[®] é contraindicado a pacientes hipersensíveis à citarabina ou a qualquer componente do produto.
+
+--- BULA: DORTRIRELAX ---
+Dortrirelax[®] não deve ser utilizado caso o paciente tenha:
+
+- hipersensibilidade a qualquer um dos componentes da fórmula ou a derivados de pirazolonas (ex.: fenazona, propifenazona) ou a pirazolidinas (ex.: fenilbutazona, oxifembutazona) incluindo, por exemplo, caso anterior de agranulocitose, ou reações cutâneas graves em relação a um destes medicamentos; - glaucoma, obstrução pilórica ou duodenal, acalasia do esôfago (megaesôfago), úlcera péptica estenosante, hipertrofia prostática, obstrução do colo da bexiga e miastenia grave;
+
+- porfiria hepática aguda intermitente (risco de indução de crises de porfiria);
+
+- deficiência congênita da glicose-6-fosfato-desidrogenase (risco de ocorrência de hemólise);
+
+- função da medula óssea insuficiente (ex.: após tratamento citostático) ou doenças do sistema hematopoiético;
+
+- desenvolvido broncoespasmo ou outras reações anafiláticas (ex.: urticária, rinite, angioedema) com analgésicos, como: salicilatos, paracetamol, diclofenaco, ibuprofeno, indometacina, naproxeno;
+
+- gravidez e lactação (vide “ Advertências e Precauções - Gravidez e lactação ”).
+
+Este medicamento não deve ser utilizado por mulheres grávidas sem orientação médica. Informe imediatamente seu médico em caso de suspeita de gravidez.
+
+--- BULA: GANFORT ---
+GANFORT[®] (bimatoprosta e maleato de timolol) é contraindicado em pacientes com história de hipersensibilidade à qualquer componente da formulação; em pacientes com doenças respiratórias reativas, incluindo asma brônquica ou paciente com história de asma brônquica e doença pulmonar obstrutiva crônica; em pacientes com bradicardia sinusal, síndrome do nódulo sinusal, bloqueio nodal sinoatrial, bloqueio atrioventricular de segundo ou terceiro grau não controlado por marcapasso, insuficiência cardíaca evidente, choque cardiogênico.
+
+GANFORT[®] UD é contraindicado em pacientes com histórico de hipersensibilidade à qualquer componente da formulação; em pacientes com doenças respiratórias reativas, incluindo asma brônquica ou pacientes com história de asma brônquica e doença pulmonar obstrusiva crônica, em pacientes com bradicardia sinusal, síndrome do nódulo sinusal, bloqueio nodal sino-atrial, bloqueio atrioventricular de segundo ou terceiro grau e não controlado por marcapasso, insuficiência cardíaca evidente, choque cardiogênico.
+
+--- BULA: FOSFATO SÓDICO DE PREDNISOLONA ---
+Este medicamento é contraindicado para uso por pacientes alérgicos à prednisolona ou a qualquer outro componente da fórmula; e para pacientes com infecções fúngicas sistêmicas ou infecções não controladas.
+
+--- BULA: ACICLOVIR ---
+O aciclovir creme é contraindicado para pacientes com hipersensibilidade conhecida ao aciclovir, ao valaciclovir, ao propilenoglicol ou a qualquer componente da fórmula.
+
+Não há contraindicação relativa à faixa etária.
+
+O aciclovir pomada oftálmica é contraindicado a pacientes com hipersensibilidade conhecida ao aciclovir ou ao valaciclovir.
+
+O aciclovir é contraindicado a pacientes com conhecida hipersensibilidade ao aciclovir ou ao valaciclovir.
+
+--- BULA: BUTILBROMETO DE ESCOPOLAMINA + DIPIRONA MONOIDRATADA ---
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado nos casos de:
+
+• pacientes que demonstraram hipersensibilidade prévia a pirazolonas ou pirazolidinas (como dipirona, isopropilaminofenazona, propifenazona, fenazona, fenilbutazona) ou ao butilbrometo de escopolamina, ou a qualquer outro componente do produto. Isto inclui pacientes que desenvolveram agranulocitose, por exemplo, após o uso destas substâncias.
+
+• pacientes com conhecida síndrome de asma induzida por analgésico, ou conhecida intolerância analgésica do tipo urticária-angioedema, isto é, pacientes que desenvolveram broncoespasmo ou outras reações anafilactoides em resposta a salicilatos, paracetamol ou outros analgésicos não-narcóticos como diclofenaco, ibuprofeno, indometacina ou naproxeno.
+
+• comprometimento da função da medula óssea (ex.: após tratamento com agentes citostáticos) ou doenças do sistema hematopoiético. • deficiência genética de glicose-6-fosfato-desidrogenase (risco de hemólise).
+
+• porfiria hepática aguda intermitente (risco de desencadear ataque de porfiria).
+
+- hipertrofia da próstata com retenção urinária.
+
+- estenose mecânica do trato gastrintestinal.
+
+- íleo paralítico ou obstrutivo.
+
+- _miastenia gravis_
+
+- no terceiro trimestre de gravidez.
+
+No caso de condições hereditárias raras que possam levar a incompatibilidade com algum componente do produto (conforme item “Advertências e precauções”), o seu uso é contraindicado.
+
+O butilbrometo de escopolamina + dipirona monoidratada é contraindicado no terceiro trimestre de gravidez.
+
+Além disto, butilbrometo de escopolamina + dipirona monoidratada solução injetável é contraindicado em:
+
+- pacientes com hipotensão arterial ou condição circulatória instável.
+
+- pacientes em tratamento com injeção intramuscular de medicamentos anticoagulantes, pois pode ocorrer hematoma intramuscular. Nestes pacientes, pode ser utilizada a via intravenosa.
+
+O butilbrometo de escopolamina + dipirona monoidratada solução injetável é contraindicado para uso por via subcutânea ou intra-arterial.
+
+--- BULA: CLORIDRATO DE CIPROFLOXACINO ---
+Hipersensibilidade ao ciprofloxacino, a outro derivado quinolônico ou a qualquer componente da fórmula (veja o item “Composição”).
+
+A administração concomitante de ciprofloxacino e tizanidina (veja o item “6. Interações Medicamentosas”).
+
+Informe a seu paciente que a doação de sangue é absolutamente contraindicada durante o tratamento com cloridrato de ciprofloxacino e até 7 dias após seu término, devido ao dano que ele pode causar ao receptor.
+
+Uso contraindicado no aleitamento ou na doação de leite humano: Este medicamento é contraindicado durante o aleitamento ou doação de leite, pois é excretado no leite humano e pode causar reações indesejáveis no bebê. Seu médico ou cirurgião-dentista deve apresentar alternativas para o seu tratamento ou para a alimentação do bebê.
+
+--- BULA: CLORIDRATO DE OXIMETAZOLINA ---
+- com hipersensibilidade a qualquer um dos componentes de cloridrato de oximetazolina adulto e pediátrico.
+
+- com doença cardíaca, hipertensão, doenças da tireoide, diabete ou dificuldade em urinar devido a aumento do tamanho da glândula da próstata, a menos que indicado pelo médico.
+
+- em tratamento com inibidores de monoaminaoxidase (IMAO) ou em pacientes que tomaram IMAO nas duas semanas anteriores
+
+- com glaucoma de ângulo estreito.
+
+- após hipofisectomia transfenoidal.
+
+- com inflamação da pele e mucosa do vestíbulo nasal e incrustação (rinite seca).
+
+--- BULA: AZITROMICINA ---
+A azitromicina di-hidratada é contraindicada em indivíduos com história de reações alérgicas ou hipersensibilidade a azitromicina, eritromicina ou a qualquer um dos antibióticos macrolídeos, ou ainda a qualquer componente da fórmula.
+
+--- BULA: CLORIDRATO DE CEFEPIMA ---
+O cloridrato de cefepima é contraindicado para uso por pacientes que tenham demonstrado reações prévias de hipersensibilidade a algum componente da formulação, a antibióticos da classe das cefalosporinas, a penicilinas ou a outros antibióticos betalactâmicos.
+
+Informe a seu paciente que a doação de sangue é absolutamente contraindicada durante o tratamento com cloridrato de cefepima e até 15 dias após seu término, devido ao dano que ele pode causar ao receptor.
+
+--- BULA: ELANI CICLO ---
+Contraceptivos orais combinados (COCs) não devem ser utilizados na presença de qualquer uma das seguintes condições: - presença ou história de processos trombóticos/tromboembólicos (arteriais ou venosos) como, por exemplo, trombose venosa profunda, embolia pulmonar, infarto do miocárdio; ou de acidente vascular cerebral;
+
+- presença ou história de sintomas e/ou sinais prodrômicos de trombose (por exemplo, episódio isquêmico transitório, angina pectoris);
+
+- um alto risco de trombose arterial ou venosa (veja item “Advertências e Precauções”);
+
+- história de enxaqueca com sintomas neurológicos focais;
+
+- diabetes mellitus com alterações vasculares;
+
+- doença hepática grave, enquanto os valores da função hepática não retornarem ao normal;
+
+- uso de medicamentos antivirais de ação direta contendo ombitasvir, paritaprevir ou dasabuvir e combinações destes medicamentos (veja item “Interações medicamentosas”);
+
+- insuficiência renal grave ou insuficiência renal aguda;
+
+- presença ou história de tumores hepáticos (benignos ou malignos);
+
+- diagnóstico ou suspeita de neoplasias malignas dependentes de esteroides sexuais (por exemplo, dos órgãos genitais ou das mamas);
+
+- sangramento vaginal não-diagnosticado;
+
+- suspeita ou diagnóstico de gravidez;
+
+- hipersensibilidade às substâncias ativas ou a qualquer um dos componentes do produto.
+
+Se qualquer uma das condições citadas anteriormente ocorrer pela primeira vez durante o uso de COCs, a sua utilização deve ser descontinuada imediatamente.
+
+Categoria X – Em estudos em animais e mulheres grávidas, o fármaco provocou anomalias fetais, havendo clara evidência de risco para o feto que é maior do que qualquer benefício possível para a paciente.
+
+Este medicamento não deve ser utilizado por mulheres grávidas ou que possam ficar grávidas durante o tratamento.
+
+Não prescreva este medicamento para mulheres com histórico de tromboembolismo venoso associado à gravidez ou ao uso de estrogênios exógenos, ou mesmo de causa desconhecida.

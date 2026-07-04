@@ -382,8 +382,20 @@ module.exports = async function handler(req, res) {
         llmResult = await chatWithModel(messages, modelOptions);
       } else {
         // chat() has built-in fallback chain (primary -> fallback)
-        // Limit tokens to prevent runaway generation
-        llmResult = await chat(messages, { temperature: 0.3, maxTokens: 512 });
+        // FarmaIA v2 Override: We CANNOT use the PRIMARY model (Ollama) here for the final response 
+        // because it is fine-tuned strictly for classification and will hallucinate text.
+        // We MUST use the fallback generalist model (e.g., Groq Llama 3 70B).
+        const { getModelConfig } = require('../lib/llm_config');
+        const fallbackConfig = getModelConfig('fallback');
+        
+        if (fallbackConfig) {
+          console.log(`[API Chat] Forcing generalist model (${fallbackConfig.provider}) for Final Generation.`);
+          const { chatWithConfig } = require('../lib/llm_client');
+          llmResult = await chatWithConfig(messages, fallbackConfig, { temperature: 0.3, maxTokens: 512 });
+        } else {
+          console.warn(`[API Chat] WARNING: No fallback config found! Generating final response with primary model (this might hallucinate if it's fine-tuned).`);
+          llmResult = await chat(messages, { temperature: 0.3, maxTokens: 512 });
+        }
       }
       
       const responseElapsed = Date.now() - responseStartTime;

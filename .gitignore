@@ -3,5 +3,32 @@ node_modules/
 .vercel
 .DS_Store
 Thumbs.db
+
+# Data & Database
+data/
 dados/
-data/perguntas_profissionais.json
+scripts/results/
+scripts/prompts_meta_juiz/
+scripts/*.json
+bula e avaliação 1/
+*.json
+!package.json
+!package-lock.json
+!vercel.json
+
+# Documentation, Articles & Media
+*.tex
+*.md
+!README.md
+!QUICK_SETUP.md
+*.pptx
+*.pdf
+*.png
+*.svg
+images/
+*.ipynb
+Roteiro*.md
+FarmaIA_TCC*.pptx
+
+# Others
+scratch/
