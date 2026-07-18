@@ -24,7 +24,11 @@ O projeto provou reduzir alucinações severas transformando-as em omissões seg
 - 👥 **Dual Mode** - Perfis de respostas distintos para Pacientes (linguagem acessível) e Profissionais (linguagem técnica farmacocinética).
 - 🧩 **Arquitetura MCP (Model Context Protocol)** - Ferramentas isoladas e chamáveis deterministicamente.
 
-## 📸 Arquitetura Visual e Diagramas
+## 📸 Interface e Arquitetura Visual
+
+### Interface do FarmaIA
+![Interface do Usuário](./docs/tcc/images/farmaia_interface.png)
+*Figura 1: A interface limpa e intuitiva do assistente, projetada para uso médico e paciente.*
 
 Abaixo estão os diagramas oficiais que ilustram o funcionamento do **FarmaIA** e o seu Roteamento Categórico:
 
