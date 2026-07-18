@@ -23,12 +23,17 @@ bula e avaliação 1/
 !QUICK_SETUP.md
 *.pptx
 *.pdf
-*.png
 *.svg
-images/
+*.png
+!docs/tcc/images/fig_mcp_arquitetura_geral.png
+!docs/tcc/images/pipeline_classificacao.png
+!docs/tcc/images/prompt_farmaceutico.png
+!docs/tcc/images/arquitetura_farmaia.png
 *.ipynb
 Roteiro*.md
 FarmaIA_TCC*.pptx
 
 # Others
 scratch/
+lixo farmaia/
+*.docx

@@ -1,172 +1,121 @@
 # FarmaIA 🧪💊
 
-**FarmaIA** - An intelligent medication assistant powered by AI, built with a planner-based architecture and MongoDB database.
+**FarmaIA** - Assistente inteligente de medicamentos baseado na arquitetura **Model Context Protocol (MCP)** e **Filtragem Estruturada (Tag-and-Filter)**, com foco em segurança regulatória e deploy Serverless no Vercel.
 
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat&logo=node.js)
-![Fly.io](https://img.shields.io/badge/Fly.io-Deployed-black?style=flat&logo=fly.io)
+![Vercel](https://img.shields.io/badge/Vercel-Serverless-black?style=flat&logo=vercel)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?style=flat&logo=mongodb)
-![Docker](https://img.shields.io/badge/Docker-Ready-blue?style=flat&logo=docker)
+![Groq](https://img.shields.io/badge/Groq-Llama%203.3-orange?style=flat)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat)
 
 ---
 
-## 📋 Overview
+## 📋 Visão Geral
 
-FarmaIA is an intelligent chatbot that helps users understand medication information from official Brazilian drug bulletins (*bulas*). It uses a **planner-based AI architecture** to analyze questions, execute targeted tool calls, and generate accurate, context-aware responses in Portuguese.
+O FarmaIA é um agente inteligente projetado para ler e responder dúvidas clínicas com base em bulas oficiais da ANVISA. Diferente de pipelines Agentic RAG tradicionais que dependem de similaridade vetorial (ruidosa), o FarmaIA introduz o **Roteamento Categórico via Dicionário Semântico de Intenções** e a **Filtragem Determinística de Sentenças**.
 
-All data is stored in MongoDB for fast, reliable access - no web scraping or external API calls.
+O projeto provou reduzir alucinações severas transformando-as em omissões seguras, e consome 60% menos tokens na injeção de contexto.
 
-### Key Features
+### Principais Funcionalidades
 
-- 🤖 **AI-Powered Planning** - LLM analyzes questions and creates execution plans for tool usage
-- 🔍 **Multi-Tool System** - 6 specialized tools for drug data retrieval, section extraction, and interaction checking
-- 💾 **MongoDB Database** - Pre-processed bula data with extracted sections for fast access
-- 🔄 **Automatic Fallback** - Multi-provider LLM chain ensures reliability when API quotas are exceeded
-- 👥 **Dual Mode** - Supports both patient and professional medication information modes
-- 💬 **Conversation History** - Context-aware responses using conversation memory
-- 🐳 **Docker Ready** - Containerized deployment with Fly.io support
+- 🤖 **Filtragem Estruturada (Tag-and-Filter)** - O sistema mapeia dúvidas para tags regulatórias exatas (ex: `posologia_pediatrica`), bloqueando a injeção de contexto irrelevante.
+- ⚡ **Vercel Serverless Functions** - Totalmente refatorado para rodar na nuvem do Vercel (`/api`), usufruindo de inferência ultrarrápida via **Groq (Llama 70B)** para evitar Timeouts.
+- 💾 **MongoDB Atlas** - Todo o acervo regulatório da ANVISA particionado estruturalmente por seções macro.
+- 👥 **Dual Mode** - Perfis de respostas distintos para Pacientes (linguagem acessível) e Profissionais (linguagem técnica farmacocinética).
+- 🧩 **Arquitetura MCP (Model Context Protocol)** - Ferramentas isoladas e chamáveis deterministicamente.
 
----
+## 📸 Arquitetura Visual e Diagramas
 
-## 🏗️ Architecture
+Abaixo estão os diagramas oficiais que ilustram o funcionamento do **FarmaIA** e o seu Roteamento Categórico:
 
-```
-┌─────────────────┐
-│   User Query    │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  LLM Planner    │ ← Analyzes question, returns JSON execution plan
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Tool Registry   │ ← Executes tools in PARALLEL (get_bula_data, get_section, etc.)
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Prompt Manager  │ ← Builds system prompt with tool results
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  LLM Response   │ ← Generates final answer with sources
-└─────────────────┘
-```
+### 1. Arquitetura Geral do Sistema (MCP + LLM)
+![Arquitetura Geral do FarmaIA](./docs/tcc/images/fig_mcp_arquitetura_geral.png)
+*Figura 1: Visão macro do fluxo de execução, desde a entrada da dúvida até a geração da resposta mitigada.*
 
-### Component Flow
+### 2. Pipeline de Classificação (Tag-and-Filter)
+![Pipeline de Classificação](./docs/tcc/images/pipeline_classificacao.png)
+*Figura 2: O mecanismo de Roteamento Categórico (k-NN) que substitui a busca vetorial tradicional.*
 
-1. **Question Classification** - Detects topics (posology, contraindications, side effects, etc.)
-2. **Planning** - LLM returns JSON plan with drugs, tools, and parameters
-3. **Tool Execution** - Parallel execution of required tools
-4. **Context Building** - Aggregates tool results into structured context
-5. **Response Generation** - LLM generates natural language response with citations
+### 3. Diagrama do Prompt Farmacêutico
+![Prompt Farmacêutico](./docs/tcc/images/prompt_farmaceutico.png)
+*Figura 3: Estrutura do Prompt injetado no modelo Llama 3.3 70B via Groq.*
 
 ---
 
-## 🛠️ Tech Stack
+## 🏗️ Arquitetura (Tag-and-Filter)
 
-| Category | Technology |
+```text
+┌─────────────────┐
+│   Dúvida Clínica│
+└────────┬────────┘
+         │
+         ▼
+┌───────────────────────┐
+│  Extrator / Tagger    │ ← Roteia a intenção para a Seção Macro Correta (k-NN lexical)
+└────────┬──────────────┘
+         │
+         ▼
+┌───────────────────────┐
+│  Filtro de Sentenças  │ ← Barra parágrafos irrelevantes usando as Tags do Banco
+└────────┬──────────────┘
+         │
+         ▼
+┌───────────────────────┐
+│  Prompt Manager       │ ← Constrói o contexto hiper-focado
+└────────┬──────────────┘
+         │
+         ▼
+┌───────────────────────┐
+│  Groq Llama 3.3 70B   │ ← Gera resposta final (livre de ruído estocástico)
+└───────────────────────┘
+```
+
+---
+
+## 🛠️ Stack Tecnológico
+
+| Categoria | Tecnologia |
 |----------|------------|
 | **Runtime** | Node.js 18+ |
-| **Framework** | Express.js |
-| **Database** | MongoDB Atlas |
+| **Deploy** | Vercel (Serverless Functions) / Fly.io (Docker fallback) |
+| **Banco de Dados** | MongoDB Atlas |
 | **LLM Provider** | Groq (Llama-3.3-70b-versatile) |
-| **Frontend** | Vanilla HTML/CSS/JS with Claude-style Artifact Side Panel |
-| **Deployment** | Fly.io + Docker |
+| **Frontend** | Vanilla HTML/CSS/JS (Interface com painel estilo Artifacts) |
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Como Rodar e Fazer Deploy
 
-### Prerequisites
+### Pré-requisitos
+- Node.js 18+
+- String de Conexão do MongoDB Atlas
+- Chave de API do Groq (`GROQ_API_KEY`)
 
-- Node.js 18 or higher
-- MongoDB Atlas connection string
-- API keys for LLM providers (HuggingFace, OpenAI, etc.)
-- Docker (optional, for local testing)
-- Fly.io account (for deployment)
-
-### Installation
+### Instalação Local
 
 ```bash
-# Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/lpaulovale/BulaIA.git
 cd farmaia-vercel
-
-# Install dependencies
 npm install
-
-# Copy environment template
 cp .env.example .env
-
-# Edit .env with your credentials
 ```
 
-### Environment Configuration
+### Configuração do `.env`
 
 ```env
-# Groq LLM Configuration
-GROQ_API_KEY=your_groq_api_key
-
-# Optional Fallback Providers
-HUGGINGFACE_API_KEY=your_huggingface_token
-OPENAI_API_KEY=your_openai_key
-
-# MongoDB Atlas
 MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/farmaia
-
-# Server Configuration (Fly.io)
-PORT=8080
-NODE_ENV=production
+PRIMARY_PROVIDER=groq
+PRIMARY_MODEL=llama-3.3-70b-versatile
+PRIMARY_API_KEY=gsk_sua_chave_groq_aqui
 ```
 
-### Local Development
+### Deploy no Vercel (Recomendado)
 
-```bash
-# Start the Express server
-npm run dev
+O projeto já contém a pasta `/api` configurada como **Vercel Serverless Functions**. Para publicar:
 
-# Or start directly
-npm start
-```
-
-The API will be available at `http://localhost:8080`
-
-### Docker (Local Testing)
-
-```bash
-# Build Docker image
-npm run docker:build
-
-# Run container
-npm run docker:run
-```
-
-### Fly.io Deployment
-
-```bash
-# Install Fly.io CLI
-curl -L https://fly.io/install.sh | sh
-
-# Login to Fly.io
-fly auth login
-
-# Create a new app
-fly launch --no-deploy
-
-# Set up secrets (MongoDB and API keys)
-fly secrets set MONGODB_URI="your_mongodb_uri"
-fly secrets set GROQ_API_KEY="your_groq_api_key"
-
-# Deploy
-fly deploy
-
-# View logs
-fly logs
-```
+1. Conecte este repositório ao seu painel no **Vercel**.
+2. Adicione as Variáveis de Ambiente (`MONGODB_URI`, `PRIMARY_PROVIDER`, etc.) nas configurações do Vercel.
+3. O deploy será feito automaticamente em todo `git push`. O limite de execução de 10s no plano grátis não é um problema devido à velocidade dos LPUs do Groq.
 
 ---
 
@@ -174,7 +123,7 @@ fly logs
 
 ### POST `/api/chat`
 
-Main chat endpoint for medication queries.
+Endpoint principal para perguntas clínicas.
 
 **Request Body:**
 ```json
@@ -189,206 +138,35 @@ Main chat endpoint for medication queries.
 ```json
 {
   "response": "Os efeitos colaterais do Paracetamol incluem...",
-  "sources": [
-    {
-      "name": "Paracetamol",
-      "displayName": "Bula Paracetamol"
-    }
-  ],
+  "sources": [{ "name": "Paracetamol", "displayName": "Bula Paracetamol" }],
   "metadata": {
     "mode": "patient",
     "drugsDetected": ["Paracetamol"],
-    "toolsExecuted": [
-      { "tool": "get_bula_data", "args": { "drug_name": "Paracetamol" } }
-    ],
-    "plan": {
-      "drugs": ["Paracetamol"],
-      "topics": ["reacoes_adversas"],
-      "tools": [...]
-    ],
-    "drugName": "Paracetamol"
+    "plan": { "topics": ["reacoes_adversas"] }
   }
 }
 ```
 
-### Available Tools
+---
 
-| Tool | Description |
-|------|-------------|
-| `search_medication` | Search medications by name or active ingredient |
-| `get_bula_data` | Get complete drug bulletin content |
-| `get_section` | Extract specific section (contraindications, posology, etc.) |
+## 🚧 Limitações Atuais (O Paradoxo do Roteamento)
+
+Em nossos testes oficiais, o sistema atingiu um acerto final de **76,9%**. O grande achado da pesquisa foi o "Paradoxo do Roteamento": devido à forte redundância semântica nas bulas da ANVISA, muitas vezes o sistema roteava a dúvida para uma seção teoricamente errada, mas a resposta correta também constava lá.
+
+Ainda assim, a principal defesa desta arquitetura é sua postura conservadora: quando a filtragem barra um texto irrelevante, o LLM se recusa a responder, convertendo alucinações severas em uma **Omissão Segura**.
 
 ---
 
-## 🧪 Example Usage
+## 📈 Trabalhos Futuros
 
-### Patient Mode
-```javascript
-const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    message: "Posso tomar Paracetamol se estou grávida?",
-    mode: "patient",
-    sessionId: "user-123"
-  })
-});
-
-const data = await response.json();
-console.log(data.response);
-```
-
-### Professional Mode
-```javascript
-const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    message: "Qual a farmacocinética do Dipirona?",
-    mode: "professional",
-    sessionId: "doctor-456"
-  })
-});
-```
+1. **Roteamento Dinâmico Paralelo:** Criação de agentes que leem Múltiplas Seções (K > 1) simultaneamente para responder perguntas clínicas transversais.
+2. **Ensemble de BERTs:** Treinar e testar pequenos classificadores especialistas e independentes para cada seção macro, substituindo o classificador geral único.
+3. **Integração Ministerial (PCDT):** Conectar o FarmaIA aos Protocolos Clínicos e Diretrizes Terapêuticas do Ministério da Saúde para cruzar dados da bula com tratamentos oficiais do SUS.
 
 ---
 
-## 📸 Screenshots
+## 👨‍💻 Autor
 
-> **Tip for Portfolio:** Add 2-3 screenshots here showing:
-> 1. **Chat Interface** - User asking about medication side effects
-> 2. **Professional Mode** - Detailed pharmacokinetic information
-> 3. **MongoDB Integration** - Real-time data fetch from official source
-
-### Example Screenshot Placesholders
-
-![Chat Interface](./screenshots/chat-interface.png)
-*Figure 1: User interaction with patient-friendly medication information*
-
-![Professional Mode](./screenshots/professional-mode.png)
-*Figure 2: Detailed technical information for healthcare professionals*
-
-![MongoDB Integration](./screenshots/anvisa-integration.png)
-*Figure 3: Real-time PDF extraction from official Brazilian health authority*
-
----
-
-## 🔐 Security & Compliance
-
-- **Data Privacy** - No personal health information stored permanently
-- **Official Sources Only** - All data from MongoDB's public API
-- **Rate Limiting** - Built-in throttling for external API calls
-- **Caching Strategy** - Intelligent caching reduces redundant PDF downloads
-
----
-
-## 🧩 Project Structure
-
-```
-farmaia-vercel/
-├── api/
-│   ├── chat.js           # Main chat endpoint
-│   ├── models.js         # Endpoint for available LLM models
-│   └── import-dados.js   # Script to populate MongoDB
-├── lib/
-│   ├── llm_client.js     # Multi-provider LLM client
-│   ├── llm_config.js     # LLM configuration (Groq setup)
-│   ├── planner.js        # Query planner
-│   ├── tool_registry.js  # Tool definitions & handlers
-│   ├── mongodb_tools.js  # MongoDB database interaction
-│   ├── db.js             # MongoDB connection
-│   └── prompt_manager.js # System prompt builder
-├── public/
-│   └── index.html        # Frontend with Claude-style Artifact Side Panel
-├── Dockerfile            # Docker container config
-├── fly.toml              # Fly.io deployment config
-├── server.js             # Express.js server entry point
-├── .dockerignore         # Docker build exclusions
-├── .env.example          # Environment template
-└── package.json
-```
-
----
-
-## 🚧 Challenges & Solutions
-
-| Challenge | Solution |
-|-----------|----------|
-| **LLM API Quota Exhaustion** | Implemented multi-provider fallback chain |
-| **PDF Processing Timeout** | Optimized extraction with 9s timeout buffer |
-| **Context-Aware Responses** | Conversation history with MongoDB session storage |
-| **Portuguese Language Nuances** | Custom prompt engineering for Brazilian Portuguese medical terminology |
-| **Real-Time Data Accuracy** | Direct MongoDB API integration with intelligent caching |
-| **CORS Issues with PDFs** | PDF proxy endpoint streams content server-side |
-| **Vercel Serverless Limits** | Migrated to Fly.io with Docker for better control |
-
----
-
-## 📈 Future Improvements
-
-- [ ] Add support for drug interaction database
-- [ ] Implement voice input for accessibility
-- [ ] Add medication reminder features
-- [ ] Expand to other Portuguese-speaking countries' health APIs
-- [ ] Mobile app with React Native
-- [ ] PDF annotation and highlighting features
-- [ ] Download PDF for offline viewing
-
----
-
-## 🤝 Contributing
-
-This is a portfolio project. Feel free to fork and experiment!
-
-```bash
-# Fork the repo
-git clone https://github.com/yourusername/farmaia-vercel.git
-
-# Create a feature branch
-git checkout -b feature/amazing-feature
-
-# Commit changes
-git commit -m "Add amazing feature"
-
-# Push to branch
-git push origin feature/amazing-feature
-```
-
----
-
-## 📄 License
-
-MIT License - see LICENSE file for details
-
----
-
-## 👨‍💻 Author
-
-**Paulo**  
-[LinkedIn](https://linkedin.com/in/yourprofile) | [GitHub](https://github.com/yourusername)
-
----
-
-## 🙏 Acknowledgments
-
-- **ANVISA** - Official Brazilian Health Regulatory Agency drug bulletins
-- **MongoDB** - Fast, reliable database for pre-processed bulletins
-- **Groq** - Lightning-fast LLM inference
-- **Fly.io & Vercel** - Deployment platforms
-
----
-
-## 📬 Contact
-
-For questions or collaboration opportunities, reach out via [your email] or open an issue on GitHub.
-
----
-
-<div align="center">
-
-**Made with ❤️ for better healthcare accessibility**
-
-[⬆ Back to Top](#farmaia-)
-
-</div>
+**Paulo Vale**  
+Universidade Federal do Piauí (UFPI)  
+[GitHub](https://github.com/lpaulovale)

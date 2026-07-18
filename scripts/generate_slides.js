@@ -1,5 +1,4 @@
 const pptxgen = require("pptxgenjs");
-const path = require("path");
 const fs = require("fs");
 
 let pres = new pptxgen();
@@ -117,7 +116,7 @@ function bulletBlock(slide, items, opts) {
       { text: "Paulo Eduardo Borges do Vale", options: { breakLine: true, bold: true, color: WHITE, fontSize: 15 } },
       { text: "Orientador: Prof. Dr. Pedro Santos Neto", options: { breakLine: true, color: "AFC9D3", fontSize: 13 } },
       { text: "Bacharelado em Ciência da Computação  ·  Universidade Federal do Piauí (UFPI)", options: { breakLine: true, color: "AFC9D3", fontSize: 13 } },
-      { text: "Julho de 2026", options: { color: "7E9AA6", fontSize: 12 } },
+      { text: "[Inserir Data da Defesa]", options: { color: "7E9AA6", fontSize: 12 } },
     ], { x: 0.9, y: 5.35, w: 9, h: 1.6, fontFace: FONT_BODY, margin: 0, lineSpacingMultiple: 1.35 }
   );
   s.addText("UFPI  ·  CIÊNCIA DA COMPUTAÇÃO", {
@@ -157,7 +156,8 @@ function bulletBlock(slide, items, opts) {
   for (const y of [cardY + cardH + 0.03, cardY + 1.55 + cardH + 0.03]) {
     s.addText("▾", { x: cardX + cardW / 2 - 0.15, y, w: 0.3, h: 0.32, fontSize: 16, color: TEAL, align: "center", margin: 0 });
   }
-  footerBrand(s); pageNumber(s, 2); }
+  footerBrand(s); pageNumber(s, 2);
+}
 
 // ============================================================
 // SLIDE 3 — O PROBLEMA
@@ -186,7 +186,7 @@ function bulletBlock(slide, items, opts) {
     s.addText(p.t, { x: x + 0.9, y: y + 0.24, w: cardW - 1.15, h: 0.5, fontFace: FONT_BODY, fontSize: 14.5, bold: true, color: INK, margin: 0 });
     s.addText(p.d, { x: x + 0.9, y: y + 0.68, w: cardW - 1.15, h: 1.15, fontFace: FONT_BODY, fontSize: 11.5, color: MUTED, margin: 0, lineSpacingMultiple: 1.22 });
   });
-  footerBrand(s); pageNumber(s, 3); s.addNotes("Na abordagem tradicional, se o RAG injeta texto demais, a IA se perde no meio (o fenômeno de 'lost in the middle') e começa a inventar dados, como posologias que não existem. Além disso, a busca vetorial comum sofre de colisões léxicas e falta de auditabilidade. O médico não sabe de qual linha da bula a IA tirou a resposta."); s.addNotes("Na abordagem tradicional, se o RAG injeta texto demais, a IA se perde no meio (o fenômeno de 'lost in the middle') e começa a inventar dados, como posologias que não existem. Além disso, a busca vetorial comum sofre de colisões léxicas e falta de auditabilidade. O médico não sabe de qual linha da bula a IA tirou a resposta."); s.addNotes("Na abordagem tradicional, se o RAG injeta texto demais, a IA se perde no meio (o fenômeno de 'lost in the middle') e começa a inventar dados, como posologias que não existem. Além disso, a busca vetorial comum sofre de colisões léxicas e falta de auditabilidade. O médico não sabe de qual linha da bula a IA tirou a resposta."); s.addNotes("Na abordagem tradicional, se o RAG injeta texto demais, a IA se perde no meio (o fenômeno de 'lost in the middle') e começa a inventar dados, como posologias que não existem. Além disso, a busca vetorial comum sofre de colisões léxicas e falta de auditabilidade. O médico não sabe de qual linha da bula a IA tirou a resposta."); s.addNotes("Na abordagem tradicional, se o RAG injeta texto demais, a IA se perde no meio (o fenômeno de 'lost in the middle') e começa a inventar dados, como posologias que não existem. Além disso, a busca vetorial comum sofre de colisões léxicas e falta de auditabilidade. O médico não sabe de qual linha da bula a IA tirou a resposta.");
+  footerBrand(s); pageNumber(s, 3);
 }
 
 // ============================================================
@@ -197,7 +197,7 @@ function bulletBlock(slide, items, opts) {
   s.background = { color: OFFWHITE };
   iconBadge(s, "database_white", 0.6, 0.5, 0.62, NAVY);
   kicker(s, "A Jornada dos Dados", TEAL);
-  s.addText("O Achado Fundamental", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
+  s.addText("O Obstáculo: Ausência de Dados Mapeados", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
 
   bulletBlock(s, [
       "Problema: Não existia um dataset público estruturado de bulas brasileiras.",
@@ -207,7 +207,8 @@ function bulletBlock(slide, items, opts) {
       "Isolamento (Llama 3.1): Utilizado estritamente para o processamento final das respostas, evitando contaminação."
     ], { x: 0.6, y: 2.0, w: 11, h: 4.4, fontSize: 15.5, spaceAfter: 18 }
   );
-  footerBrand(s); pageNumber(s, 4); }
+  footerBrand(s); pageNumber(s, 4);
+}
 
 // ============================================================
 // SLIDE 5 — CONSTRUINDO O BENCHMARK
@@ -220,14 +221,15 @@ function bulletBlock(slide, items, opts) {
   s.addText("Construindo o Dataset Ouro", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
 
   bulletBlock(s, [
-      "Para validar a segurança, precisávamos de perguntas que testassem o limite dos roteadores convencionais.",
-      "Criação do Dataset (Padrão Ouro): 140 cenários clínicos curados (Ajuste de dose, Contraindicações, Interações).",
-      "Perguntas de intersecção: Em vez de consultas literais (\"Qual a posologia?\"), testamos cenários críticos transversais.",
+      "Para validar a segurança, precisávamos de perguntas que quebrassem os roteadores convencionais.",
+      "Criação do Dataset Ouro: 140 cenários clínicos curados (Ajuste de dose, Contraindicações, Interações).",
+      "Perguntas \"complexificadas\": Em vez de consultas literais (\"Qual a posologia?\"), testamos intersecções críticas.",
       "Exemplo: \"Paciente com insuficiência renal crônica pode tomar a dose adulta?\"",
       "Objetivo: Forçar o sistema a cruzar intenções restritivas e revelar suas fraquezas de segurança."
     ], { x: 0.6, y: 2.0, w: 11, h: 4.4, fontSize: 15.5, spaceAfter: 18 }
   );
-  footerBrand(s); pageNumber(s, 5); }
+  footerBrand(s); pageNumber(s, 5);
+}
 
 // ============================================================
 // SLIDE 6 — JUSTIFICATIVA (RISK)
@@ -259,7 +261,7 @@ function bulletBlock(slide, items, opts) {
   riskRow(ry + 0.55, "RAG Tradicional", "RISCO ALTO", CORAL, CORAL_LIGHT, "Pode gerar respostas incorretas com alta confiança (alucinação ativa).");
   riskRow(ry + 2.15, "Filtragem Estruturada (FarmaIA)", "RISCO MITIGADO", TEAL, TEAL_LIGHT, "Prefere omitir a responder incorretamente — falha de forma segura.");
 
-  footerBrand(s); pageNumber(s, 6); s.addNotes("Por que optamos por filtrar e não por deixar a IA livre? Porque na medicina, é preferível o sistema falar 'Não encontrei a resposta' (omissão segura) do que inventar uma dose mortal (alucinação ativa). Nosso objetivo é mitigar o risco estruturalmente."); s.addNotes("Por que optamos por filtrar e não por deixar a IA livre? Porque na medicina, é preferível o sistema falar 'Não encontrei a resposta' (omissão segura) do que inventar uma dose mortal (alucinação ativa). Nosso objetivo é mitigar o risco estruturalmente."); s.addNotes("Por que optamos por filtrar e não por deixar a IA livre? Porque na medicina, é preferível o sistema falar 'Não encontrei a resposta' (omissão segura) do que inventar uma dose mortal (alucinação ativa). Nosso objetivo é mitigar o risco estruturalmente."); s.addNotes("Por que optamos por filtrar e não por deixar a IA livre? Porque na medicina, é preferível o sistema falar 'Não encontrei a resposta' (omissão segura) do que inventar uma dose mortal (alucinação ativa). Nosso objetivo é mitigar o risco estruturalmente."); s.addNotes("Por que optamos por filtrar e não por deixar a IA livre? Porque na medicina, é preferível o sistema falar 'Não encontrei a resposta' (omissão segura) do que inventar uma dose mortal (alucinação ativa). Nosso objetivo é mitigar o risco estruturalmente.");
+  footerBrand(s); pageNumber(s, 6);
 }
 
 // ============================================================
@@ -295,7 +297,8 @@ function bulletBlock(slide, items, opts) {
     s.addText(sp.verb, { x: x + 0.15, y: y + 0.85, w: gw - 0.3, h: 0.35, fontFace: FONT_BODY, fontSize: 13.5, bold: true, color: NAVY, align: "center", margin: 0 });
     s.addText(sp.rest, { x: x + 0.2, y: y + 1.2, w: gw - 0.4, h: 1.2, fontFace: FONT_BODY, fontSize: 10.8, color: MUTED, align: "center", margin: 0, lineSpacingMultiple: 1.22 });
   });
-  footerBrand(s); pageNumber(s, 7); }
+  footerBrand(s); pageNumber(s, 7);
+}
 
 // ============================================================
 // SLIDE 8 — A EVOLUÇÃO DO ROTEAMENTO E INTEGRAÇÃO (NEW)
@@ -308,14 +311,14 @@ function bulletBlock(slide, items, opts) {
   s.addText("A Evolução do Roteador (Planner)", { x: 0.6, y: 0.98, w: 11, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
 
   bulletBlock(s, [
-      "O Desafio do BERT Único: Com 14.000 TAGS não repetidas geradas de apenas 60 bulas, classificar a intenção usando um único modelo tradicional seria inviável.",
-      "A Limitação do Fine-Tuning: Tentamos treinar modelos locais (Llama 8B) para prever a tag. A rede não alcançou a capacidade de memorizar 14.000 classes exatas. O modelo treinado foi substituído.",
-      "A Mudança Arquitetural: O dataset curado não serviu para o treinamento generativo, mas foi convertido em um Banco de Vetores (Embeddings locais com modelo Xenova).",
-      "Votação Q2Q (Question-to-Question): A pergunta do usuário é vetorizada e comparada matematicamente com as milhares de sentenças do banco. O sistema encontra a seção correta via similaridade geométrica.",
-      "Auto-Correção Vetorial: Após achar a seção, o sistema faz a aproximação vetorial para a TAG oficial mais próxima, garantindo 100% de estabilidade sem depender de LLM no roteamento macro."
-    ], { x: 0.6, y: 2.0, w: 11.5, h: 4.8, fontSize: 13.8, spaceAfter: 13 }
+      "O Desafio do BERT Único: Como o processamento gerou 14.000 TAGS não repetidas (14.000 classes de saída!), um classificador clássico único teria altíssima taxa de erro preditivo.",
+      "A Tentativa Generativa: Modelos pequenos (<2B) quebravam o JSON. Modelos maiores (Llama 8B) formavam o JSON, mas alucinavam as chaves da taxonomia.",
+      "A Virada Arquitetural (O Pivot): A tentativa inicial de usar o dataset apenas para treinar a IA falhou.",
+      "O Reaproveitamento de Ouro: O esforço não foi perdido. O dataset massivo (todas as sentenças perfeitamente classificadas por tag) tornou-se a nossa própria solução.",
+      "Integração Banco-Aplicação: Convertemos o dataset em vetores no MongoDB. Agora, a aplicação cruza a query do usuário com essas sentenças classificadas para encontrar e extrair exatamente o parágrafo que contém a resposta, eliminando o LLM do roteamento."
+    ], { x: 0.6, y: 2.0, w: 11.5, h: 4.8, fontSize: 14.2, spaceAfter: 14 }
   );
-  footerBrand(s); pageNumber(s, 8); s.addNotes("Aqui está o grande desafio de engenharia do TCC. Como rotear a pergunta do usuário para a seção certa da bula? 1. Por que não um classificador clássico (como o BERT)? Porque nós geramos 14.000 TAGS não repetidas a partir de apenas 60 bulas. Imagine um modelo clássico de classificação tentando prever a intenção entre 14.000 classes de saída diferentes! Um modelo BERT único sofreria uma 'pane de sobrecarga'. 2. A tentativa Generativa: Tentamos usar IAs rodando localmente para gerar o JSON com a tag da seção. Falhamos duas vezes: Modelos de 2B (Gemma) alucinavam a estrutura sintática. Modelos de 8B (Llama) até formavam o JSON, mas inventavam categorias que não existiam. 3. O Pivot Arquitetural: Essa tentativa falhou. Mas foi um fracasso de ouro. Nós pegamos aquele dataset gigante de 14.000 tags e o convertemos em um Banco de Vetores no MongoDB. Em vez da IA adivinhar a tag, a aplicação agora faz um fuzzy match local para validar o remédio e cruza a pergunta direto com o banco, puxando exatamente o parágrafo da resposta. Nós tiramos o peso do roteamento das costas do LLM!"); s.addNotes("Aqui está o grande desafio de engenharia do TCC. Como rotear a pergunta do usuário para a seção certa da bula? 1. Por que não um classificador clássico (como o BERT)? Porque nós geramos 14.000 TAGS não repetidas a partir de apenas 60 bulas. Imagine um modelo clássico de classificação tentando prever a intenção entre 14.000 classes de saída diferentes! Um modelo BERT único sofreria uma 'pane de sobrecarga'. 2. A tentativa Generativa: Tentamos usar IAs rodando localmente para gerar o JSON com a tag da seção. Falhamos duas vezes: Modelos de 2B (Gemma) alucinavam a estrutura sintática. Modelos de 8B (Llama) até formavam o JSON, mas inventavam categorias que não existiam. 3. O Pivot Arquitetural: Essa tentativa falhou. Mas foi um fracasso de ouro. Nós pegamos aquele dataset gigante de 14.000 tags e o convertemos em um Banco de Vetores no MongoDB. Em vez da IA adivinhar a tag, a aplicação agora faz um fuzzy match local para validar o remédio e cruza a pergunta direto com o banco, puxando exatamente o parágrafo da resposta. Nós tiramos o peso do roteamento das costas do LLM!"); s.addNotes("Aqui está o grande desafio de engenharia do TCC. Como rotear a pergunta do usuário para a seção certa da bula? 1. Por que não um classificador clássico (como o BERT)? Porque nós geramos 14.000 TAGS não repetidas a partir de apenas 60 bulas. Imagine um modelo clássico de classificação tentando prever a intenção entre 14.000 classes de saída diferentes! Um modelo BERT único sofreria uma 'pane de sobrecarga'. 2. A tentativa Generativa: Tentamos usar IAs rodando localmente para gerar o JSON com a tag da seção. Falhamos duas vezes: Modelos de 2B (Gemma) alucinavam a estrutura sintática. Modelos de 8B (Llama) até formavam o JSON, mas inventavam categorias que não existiam. 3. O Pivot Arquitetural: Essa tentativa falhou. Mas foi um fracasso de ouro. Nós pegamos aquele dataset gigante de 14.000 tags e o convertemos em um Banco de Vetores no MongoDB. Em vez da IA adivinhar a tag, a aplicação agora faz um fuzzy match local para validar o remédio e cruza a pergunta direto com o banco, puxando exatamente o parágrafo da resposta. Nós tiramos o peso do roteamento das costas do LLM!"); s.addNotes("Aqui está o grande desafio de engenharia do TCC. Como rotear a pergunta do usuário para a seção certa da bula? 1. Por que não um classificador clássico (como o BERT)? Porque nós geramos 14.000 TAGS não repetidas a partir de apenas 60 bulas. Imagine um modelo clássico de classificação tentando prever a intenção entre 14.000 classes de saída diferentes! Um modelo BERT único sofreria uma 'pane de sobrecarga'. 2. A tentativa Generativa: Tentamos usar IAs rodando localmente para gerar o JSON com a tag da seção. Falhamos duas vezes: Modelos de 2B (Gemma) alucinavam a estrutura sintática. Modelos de 8B (Llama) até formavam o JSON, mas inventavam categorias que não existiam. 3. O Pivot Arquitetural: Essa tentativa falhou. Mas foi um fracasso de ouro. Nós pegamos aquele dataset gigante de 14.000 tags e o convertemos em um Banco de Vetores no MongoDB. Em vez da IA adivinhar a tag, a aplicação agora faz um fuzzy match local para validar o remédio e cruza a pergunta direto com o banco, puxando exatamente o parágrafo da resposta. Nós tiramos o peso do roteamento das costas do LLM!"); s.addNotes("Aqui está o grande desafio de engenharia do TCC. Como rotear a pergunta do usuário para a seção certa da bula? 1. Por que não um classificador clássico (como o BERT)? Porque nós geramos 14.000 TAGS não repetidas a partir de apenas 60 bulas. Imagine um modelo clássico de classificação tentando prever a intenção entre 14.000 classes de saída diferentes! Um modelo BERT único sofreria uma 'pane de sobrecarga'. 2. A tentativa Generativa: Tentamos usar IAs rodando localmente para gerar o JSON com a tag da seção. Falhamos duas vezes: Modelos de 2B (Gemma) alucinavam a estrutura sintática. Modelos de 8B (Llama) até formavam o JSON, mas inventavam categorias que não existiam. 3. O Pivot Arquitetural: Essa tentativa falhou. Mas foi um fracasso de ouro. Nós pegamos aquele dataset gigante de 14.000 tags e o convertemos em um Banco de Vetores no MongoDB. Em vez da IA adivinhar a tag, a aplicação agora faz um fuzzy match local para validar o remédio e cruza a pergunta direto com o banco, puxando exatamente o parágrafo da resposta. Nós tiramos o peso do roteamento das costas do LLM!");
+  footerBrand(s); pageNumber(s, 8);
 }
 
 
@@ -352,7 +355,7 @@ function bulletBlock(slide, items, opts) {
   s.addText("A integração via MCP expõe, no front-end da aplicação, os parágrafos exatos do banco consumidos pela IA para gerar a resposta.",
     { x: 1.65, y: 5.7, w: 10.6, h: 0.55, fontFace: FONT_BODY, fontSize: 11.5, color: "C4D8E0", margin: 0, lineSpacingMultiple: 1.2 }
   );
-  pageNumber(s, 9, true); s.addNotes("É assim que a arquitetura ficou. O Planner acha a intenção no banco vetorial. O Tagger filtra as sentenças que não importam. E o Generator (o Llama) recebe apenas a verdade nua e crua para redigir a resposta como um farmacêutico clínico. Tudo isso ligado ao front-end pelo protocolo MCP, garantindo transparência de onde o dado saiu."); s.addNotes("É assim que a arquitetura ficou. O Planner acha a intenção no banco vetorial. O Tagger filtra as sentenças que não importam. E o Generator (o Llama) recebe apenas a verdade nua e crua para redigir a resposta como um farmacêutico clínico. Tudo isso ligado ao front-end pelo protocolo MCP, garantindo transparência de onde o dado saiu."); s.addNotes("É assim que a arquitetura ficou. O Planner acha a intenção no banco vetorial. O Tagger filtra as sentenças que não importam. E o Generator (o Llama) recebe apenas a verdade nua e crua para redigir a resposta como um farmacêutico clínico. Tudo isso ligado ao front-end pelo protocolo MCP, garantindo transparência de onde o dado saiu."); s.addNotes("É assim que a arquitetura ficou. O Planner acha a intenção no banco vetorial. O Tagger filtra as sentenças que não importam. E o Generator (o Llama) recebe apenas a verdade nua e crua para redigir a resposta como um farmacêutico clínico. Tudo isso ligado ao front-end pelo protocolo MCP, garantindo transparência de onde o dado saiu."); s.addNotes("É assim que a arquitetura ficou. O Planner acha a intenção no banco vetorial. O Tagger filtra as sentenças que não importam. E o Generator (o Llama) recebe apenas a verdade nua e crua para redigir a resposta como um farmacêutico clínico. Tudo isso ligado ao front-end pelo protocolo MCP, garantindo transparência de onde o dado saiu."); footerBrand(s, true);
+  pageNumber(s, 9, true); footerBrand(s, true);
 }
 
 // ============================================================
@@ -366,16 +369,16 @@ function bulletBlock(slide, items, opts) {
   s.addText("Avaliação Assíncrona (LLM-como-Juiz)", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
 
   bulletBlock(s, [
-      "Para evitar viés de circularidade, o cruzamento de arquiteturas foi assegurado: o gerador foi o Llama 3.1 70B, mas o Juiz foi o Nemotron 550B (Nvidia).",
-      "O Juiz operou assincronamente auditando cada sentença gerada e aplicando as seguintes tags restritas:",
-      "PARAPHRASED: Paráfrase clínica segura e rastreável.",
-      "INFERRED: Inferência lógica correta baseada no texto.",
-      "UNSUPPORTED: Ausência de rastreabilidade (falha grave/alucinação).",
-      "SAFE_GENERIC: Avisos médicos padronizados (\"consulte um médico\").",
+      "Como avaliar 140 respostas com rigor médico sem viés humano limitante?",
+      "Solução: Um juiz autônomo baseado em um gabarito implacável (Acerto, Omissão, Alucinação/VETO).",
+      "Defesa Metodológica contra o Viés de Circularidade (Auto-preferência):",
+      "Geração: Llama 3.1 70B (gerou o texto base das respostas).",
+      "Julgamento: Nemotron-3 Ultra 550B (atuou estritamente corrigindo).",
       "Ao cruzar famílias de modelos distintas, o desenho metodológico anula o favoritismo estatístico."
-    ], { x: 0.6, y: 2.0, w: 11, h: 4.4, fontSize: 14, spaceAfter: 12 }
+    ], { x: 0.6, y: 2.0, w: 11, h: 4.4, fontSize: 15.5, spaceAfter: 15 }
   );
-  footerBrand(s); pageNumber(s, 10); }
+  footerBrand(s); pageNumber(s, 10);
+}
 
 // ============================================================
 // SLIDE 11 — RESULTADOS
@@ -395,13 +398,13 @@ function bulletBlock(slide, items, opts) {
   }
   const sw = (5.85 - 0.25) / 2;
   statCard(0.6, 2.05, sw, 1.85, "-61,1%", "Consumo de tokens", "Redução de ruído via injeção pontual.");
-  statCard(0.6 + sw + 0.25, 2.05, sw, 1.85, "84,42 vs 83,99", "Fidelidade (FarmaIA vs RAG)", "Score de Grounding comparado.");
+  statCard(0.6 + sw + 0.25, 2.05, sw, 1.85, "84,42", "Fidelidade Clínica", "Score absoluto mantido empatado.");
 
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 0.6, y: 4.05, w: 5.85, h: 2.35, rectRadius: 0.08, fill: { color: TEAL_LIGHT } });
   iconBadge(s, "shield_white", 0.85, 4.28, 0.55, TEAL, 0.5);
   s.addText("O Empate Técnico", { x: 1.65, y: 4.32, w: 4, h: 0.35, fontFace: FONT_BODY, fontSize: 13, bold: true, color: NAVY, margin: 0 });
-  s.addText("Eficiência: Redução de 60% em tokens. Grounding: As abordagens empataram na fidelidade (RAG: ~83.99% | FarmaIA: ~84.42%). Em 84% das respostas, alegações clínicas foram rastreáveis sem alucinação.",
-    { x: 0.85, y: 4.75, w: 5.35, h: 1.5, fontFace: FONT_BODY, fontSize: 11, color: INK, margin: 0, lineSpacingMultiple: 1.25 }
+  s.addText("A métrica agregada prova que as duas arquiteturas empatam tecnicamente em fidelidade geral — mas o segredo da segurança repousa no perfil de falha, não na média bruta.",
+    { x: 0.85, y: 4.75, w: 5.35, h: 1.5, fontFace: FONT_BODY, fontSize: 11.5, color: INK, margin: 0, lineSpacingMultiple: 1.28 }
   );
 
   s.addText("Consumo Médio de Tokens de Contexto", { x: 6.75, y: 2.05, w: 5.95, h: 0.35, fontFace: FONT_BODY, fontSize: 12, bold: true, color: MUTED, margin: 0 });
@@ -414,92 +417,32 @@ function bulletBlock(slide, items, opts) {
       valGridLine: { color: "E2E8EC", size: 0.5 }, catGridLine: { style: "none" }, showValue: true, dataLabelPosition: "outEnd", dataLabelColor: INK, dataLabelFontSize: 12, dataLabelFontBold: true, showLegend: false, showTitle: false, barGapWidthPct: 60,
     }
   );
-  footerBrand(s); pageNumber(s, 11); s.addNotes("Os resultados mostraram que o FarmaIA reduziu o consumo de tokens em mais de 60%. E na fidelidade clínica geral, empatamos com o RAG Tradicional (em torno de 84%). Mas o verdadeiro triunfo não está na média de acertos, e sim em como o sistema falha."); s.addNotes("Os resultados mostraram que o FarmaIA reduziu o consumo de tokens em mais de 60%. E na fidelidade clínica geral, empatamos com o RAG Tradicional (em torno de 84%). Mas o verdadeiro triunfo não está na média de acertos, e sim em como o sistema falha."); s.addNotes("Os resultados mostraram que o FarmaIA reduziu o consumo de tokens em mais de 60%. E na fidelidade clínica geral, empatamos com o RAG Tradicional (em torno de 84%). Mas o verdadeiro triunfo não está na média de acertos, e sim em como o sistema falha."); s.addNotes("Os resultados mostraram que o FarmaIA reduziu o consumo de tokens em mais de 60%. E na fidelidade clínica geral, empatamos com o RAG Tradicional (em torno de 84%). Mas o verdadeiro triunfo não está na média de acertos, e sim em como o sistema falha."); s.addNotes("Os resultados mostraram que o FarmaIA reduziu o consumo de tokens em mais de 60%. E na fidelidade clínica geral, empatamos com o RAG Tradicional (em torno de 84%). Mas o verdadeiro triunfo não está na média de acertos, e sim em como o sistema falha."); }
+  footerBrand(s); pageNumber(s, 11);
+}
 
 // ============================================================
-// SLIDE 12 — MATRIZ DE DESEMPENHO (2x2)
-// ============================================================
-{
-  const s = pres.addSlide();
-  s.background = { color: OFFWHITE };
-  iconBadge(s, "search_white", 0.6, 0.5, 0.62, NAVY);
-  kicker(s, "Resultados", TEAL);
-  s.addText("Matriz de Desempenho (N=139)", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
-
-  s.addText("Comportamento do Sistema ao cruzar Roteamento (Cenário) vs Aprovação de Fidelidade:", { x: 0.6, y: 1.85, w: 11, h: 0.35, fontFace: FONT_BODY, fontSize: 14.5, color: INK, margin: 0 });
-
-  const rows = [
-    [
-      { text: "Roteamento vs Aprovação", options: { fill: "123A57", color: "FFFFFF", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "FFFFFF" } } },
-      { text: "FarmaIA (Filtro)", options: { fill: "123A57", color: "FFFFFF", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "FFFFFF" } } },
-      { text: "RAG Tradicional (Ruído)", options: { fill: "123A57", color: "FFFFFF", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "FFFFFF" } } }
-    ],
-    [
-      { text: "Verdadeiro - Verdadeiro\n(Acertou Seção + Aprovou)", options: { fill: "F0F4F8", color: "123A57", bold: true, fontSize: 12, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Sucesso Pleno\n(53 casos)", options: { fill: "E0F2F1", color: "00695C", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Sucesso Pleno\n(51 casos)", options: { fill: "E0F2F1", color: "00695C", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } }
-    ],
-    [
-      { text: "Verdadeiro - Falso\n(Acertou Seção + Rejeitou)", options: { fill: "FFFFFF", color: "123A57", bold: true, fontSize: 12, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Falha de Síntese\n(9 casos)", options: { fill: "FFEBEE", color: "C62828", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Falha de Síntese\n(8 casos)", options: { fill: "FFEBEE", color: "C62828", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } }
-    ],
-    [
-      { text: "Falso - Verdadeiro\n(Errou Seção + Aprovou)", options: { fill: "F0F4F8", color: "123A57", bold: true, fontSize: 12, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Sobreposição Semântica (54)\n+ Omissão Segura (5)", options: { fill: "E3F2FD", color: "1565C0", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Sobreposição Acidental\n(56 casos)", options: { fill: "FFF8E1", color: "FF8F00", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } }
-    ],
-    [
-      { text: "Falso - Falso\n(Errou Seção + Rejeitou)", options: { fill: "FFFFFF", color: "123A57", bold: true, fontSize: 12, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Falha Arquitetural\n(18 casos)", options: { fill: "FFEBEE", color: "C62828", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } },
-      { text: "Alucinação Severa\n(24 casos)", options: { fill: "FFEBEE", color: "C62828", bold: true, fontSize: 13, align: "center", border: { pt: 1, color: "DCE8EC" } } }
-    ]
-  ];
-
-  s.addTable(rows, { x: 0.6, y: 2.3, w: 11.5, colW: [4.5, 3.5, 3.5], margin: 0.1 });
-
-  s.addText("O Paradoxo do Roteamento: Como explicar 77% de acerto final com apenas 52% de acerto de roteador?\nA Bula da ANVISA é redundante. Em 54 casos, o FarmaIA errou a seção alvo, mas a informação procurada estava duplicada na seção que ele puxou (Sobreposição Semântica).",
-    { x: 0.6, y: 5.7, w: 11.5, h: 0.8, fontFace: FONT_BODY, fontSize: 13, bold: true, color: NAVY, fill: { color: "E3F2FD" }, align: "center", margin: 0.1, rectRadius: 0.05 }
-  );
-
-  footerBrand(s); pageNumber(s, 12); }
-
-// ============================================================
-// SLIDE 13 — O ACHADO FUNDAMENTAL
+// SLIDE 12 — O ACHADO FUNDAMENTAL
 // ============================================================
 {
   const s = pres.addSlide();
   s.background = { color: OFFWHITE };
   iconBadge(s, "search_white", 0.6, 0.5, 0.62, CORAL);
   kicker(s, "Resultados", CORAL);
-  s.addText("O Achado: Indício Direcional de Erro", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
+  s.addText("O Achado Fundamental: Perfil de Erro", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
 
   bulletBlock(s, [
-      "Embora sem significância estatística absoluta de volume (p>0.05), a tendência direcional apoia nossa hipótese:",
-      "A diferença fundamental entre as arquiteturas não reside na média agregada de acertos, mas no comportamento diante do erro preditivo."
-    ], { x: 0.6, y: 1.8, w: 11, h: 1.0, fontSize: 14.5, spaceAfter: 0 }
+      "O ganho do FarmaIA NÃO está no volume total de acertos, e sim em como ele falha.",
+      "Cenário Ideal (Roteamento Perfeito): RAG acerta um pouco mais, pois a filtragem do FarmaIA pode quebrar o contexto de frases complexas.",
+      "Cenário Adverso (Roteamento Errado): É aqui que a mágica acontece.",
+      "Quando o sistema é enganado pela ambiguidade, o RAG falha lendo coisas que não deveria e gera respostas perigosas.",
+      "Diante da ambiguidade, a filtragem do FarmaIA atua como barreira de contenção. Ele assume a ausência de informação em vez de arriscar um palpite médico."
+    ], { x: 0.6, y: 2.0, w: 11, h: 4.4, fontSize: 15.5, spaceAfter: 18 }
   );
-
-  const rx = 0.6, ry = 2.9, rw = 11.5;
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: rx, y: ry, w: rw, h: 1.6, rectRadius: 0.05, fill: { color: WHITE }, shadow: freshShadow() });
-  
-  s.addText("Cenário Ideal (Roteamento Correto) - N = 73", { x: rx + 0.2, y: ry + 0.15, w: 5, h: 0.35, fontFace: FONT_BODY, fontSize: 13, bold: true, color: TEAL, margin: 0 });
-  s.addText("FarmaIA: 12 falhas | RAG: 8 falhas", { x: rx + 0.2, y: ry + 0.55, w: 5, h: 0.3, fontFace: FONT_BODY, fontSize: 12, color: INK, margin: 0 });
-  s.addText("A filtragem estrita às vezes quebra a coesão de fragmentos úteis.", { x: rx + 0.2, y: ry + 0.85, w: 5, h: 0.5, fontFace: FONT_BODY, fontSize: 10.5, color: MUTED, margin: 0 });
-
-  s.addShape(pres.shapes.LINE, { x: rx + 5.75, y: ry + 0.2, w: 0, h: 1.2, line: { color: "E2E8EA", width: 1 } });
-
-  s.addText("Cenário Adverso (Roteamento Incorreto) - N = 67", { x: rx + 6.0, y: ry + 0.15, w: 5, h: 0.35, fontFace: FONT_BODY, fontSize: 13, bold: true, color: CORAL, margin: 0 });
-  s.addText("FarmaIA: 15 falhas | RAG: 23 falhas", { x: rx + 6.0, y: ry + 0.55, w: 5, h: 0.3, fontFace: FONT_BODY, fontSize: 12, color: INK, margin: 0 });
-  s.addText("O RAG alucina tentando justificar contexto errado. O FarmaIA aciona a Omissão Segura.", { x: rx + 6.0, y: ry + 0.85, w: 5.2, h: 0.5, fontFace: FONT_BODY, fontSize: 10.5, color: MUTED, margin: 0 });
-
-  s.addText("A filtragem restringe os erros majoritariamente a abstenções, bloqueando afirmações clínicas incorretas induzidas por contexto ruidoso.",
-    { x: 0.6, y: 4.8, w: 11, h: 0.8, fontFace: FONT_BODY, fontSize: 13.5, bold: true, color: INK, margin: 0 }
-  );
-  footerBrand(s); pageNumber(s, 13); }
+  footerBrand(s); pageNumber(s, 12);
+}
 
 // ============================================================
-// SLIDE 14 — O EXEMPLO PRÁTICO
+// SLIDE 13 — O EXEMPLO PRÁTICO
 // ============================================================
 {
   const s = pres.addSlide();
@@ -517,10 +460,11 @@ function bulletBlock(slide, items, opts) {
       "Conclusão de Segurança: O FarmaIA sofreu penalidade na nota por omitir o dado real, mas salvou a integridade da ferramenta."
     ], { x: 0.6, y: 2.8, w: 11, h: 4.0, fontSize: 16.5, spaceAfter: 20, color: WHITE }
   );
-  footerBrand(s, true); pageNumber(s, 14, true); }
+  footerBrand(s, true); pageNumber(s, 13, true);
+}
 
 // ============================================================
-// SLIDE 15 — LIMITAÇÕES E ALUCINAÇÕES
+// SLIDE 14 — LIMITAÇÕES E ALUCINAÇÕES
 // ============================================================
 {
   const s = pres.addSlide();
@@ -530,20 +474,21 @@ function bulletBlock(slide, items, opts) {
   s.addText("Limitações e Alucinações Residuais", { x: 0.6, y: 0.98, w: 10, h: 0.7, fontFace: FONT_HEAD, fontSize: 30, bold: true, color: NAVY_DARK, margin: 0 });
 
   bulletBlock(s, [
-      "1. Benchmark e Perguntas Transversais",
-      "O acerto de roteamento (52%) foi medido em questões de seção única. O dataset estruturalmente exclui cenários transversais que cruzam seções.",
-      "2. Risco de Ponto Cego Humano Compartilhado",
-      "Não houve validação clínica humana no Ground Truth (14 mil tags) nem nos juízes automáticos, permitindo potenciais pontos cegos cruzados.",
-      "3. Cegueira de Roteamento Único",
-      "Perguntas complexas (ex: dose para gestantes) exigem olhar várias seções. O sistema falha se ancorado a apenas uma.",
-      "4. Alucinações Residuais de Síntese",
-      "O Llama às vezes tenta deduzir informações quando o filtro entrega poucas sentenças."
-    ], { x: 0.6, y: 1.85, w: 11, h: 4.8, fontSize: 14.5, spaceAfter: 10 }
+      "O FarmaIA não é infalível. Nossa arquitetura atual possui limitações que geram alucinações residuais:",
+      "1. Cegueira de Roteamento Único",
+      "Atualmente, o classificador mapeia a pergunta para apenas uma seção da bula.",
+      "Perguntas transversais (ex: \"Qual a dose para gestantes?\") exigem ler 'Posologia' e 'Gravidez'.",
+      "Ao olhar só para uma seção, o sistema omite dados vitais e, raramente, tenta extrapolar.",
+      "2. Alucinações Residuais de Síntese",
+      "O LLM (Generator) às vezes tenta preencher lacunas quando o filtro entrega poucas sentenças.",
+      "Se o Tagger deixa passar uma frase parcialmente ambígua, o Llama pode tentar deduzir a dose máxima."
+    ], { x: 0.6, y: 2.0, w: 11, h: 4.4, fontSize: 15.5, spaceAfter: 12 }
   );
-  footerBrand(s); pageNumber(s, 15); }
+  footerBrand(s); pageNumber(s, 14);
+}
 
 // ============================================================
-// SLIDE 16 — CONCLUSÃO
+// SLIDE 15 — CONCLUSÃO
 // ============================================================
 {
   const s = pres.addSlide();
@@ -557,9 +502,9 @@ function bulletBlock(slide, items, opts) {
   iconBadge(s, "conclusion", lx + 0.3, 2.32, 0.55, TEAL, 0.5);
   s.addText("Contribuição", { x: lx + 1.05, y: 2.36, w: 4, h: 0.45, fontFace: FONT_HEAD, fontSize: 16, bold: true, color: NAVY_DARK, margin: 0 });
   bulletBlock(s, [
-      "Substitui a recuperação vetorial ruidosa por roteamento categórico, obtendo 52,14% de acerto exato de intenção.",
-      "Reduz o volume de tokens consumidos em 61,1% durante a injeção de contexto no LLM.",
-      "Comprova o potencial da filtragem restritiva: converte o ruído estocástico em falhas arquiteturais seguras (omissões)."
+      "A filtragem estruturada converte efetivamente alucinações severas em omissões seguras.",
+      "Reduz custo computacional em mais de 60% mantendo fidelidade equivalente.",
+      "A integração de banco de dados via vetores garante previsibilidade sobre a geração textual.",
     ], { x: lx + 0.3, y: 3.05, w: colW - 0.6, h: 3.2, fontSize: 13, spaceAfter: 14 }
   );
 
@@ -570,13 +515,14 @@ function bulletBlock(slide, items, opts) {
   bulletBlock(s, [
       "Implementação de roteamento dinâmico paralelo (agentes que leem mais de uma seção simultaneamente).",
       "Testar uma arquitetura 'Ensemble de BERTs' (treinar um classificador dedicado por seção em vez de um único modelo).",
-      "Integrar FarmaIA aos Protocolos Clínicos e Diretrizes Terapêuticas (PCDT) do Ministério da Saúde."
-    ], { x: rx + 0.3, y: 3.05, w: colW - 0.6, h: 3.2, color: "DCE8EC", fontSize: 13, spaceAfter: 14 }
+      "Testes controlados in-loco com farmacêuticos clínicos reais.",
+    ], { x: rx + 0.3, y: 3.05, w: colW - 0.6, h: 3.2, fontSize: 13, spaceAfter: 14, color: "DCE8EC" }
   );
-  footerBrand(s); pageNumber(s, 16); }
+  footerBrand(s); pageNumber(s, 15);
+}
 
 // ============================================================
-// SLIDE 17 — ENCERRAMENTO
+// SLIDE 16 — ENCERRAMENTO
 // ============================================================
 {
   const s = pres.addSlide();
@@ -594,9 +540,9 @@ function bulletBlock(slide, items, opts) {
   contactRow(4.05, "envelope", "paulo@ufpi.edu.br");
   contactRow(4.7, "github", "github.com/lpaulovale/FarmaIA  ·  código aberto e dados disponíveis para pesquisa");
 
-  pageNumber(s, 17, true); }
+  pageNumber(s, 16, true);
+}
 
-pres.writeFile({ fileName: path.join(__dirname, '..', 'FarmaIA_TCC_Defesa_Final.pptx') }).then(() => {
+pres.writeFile({ fileName: "/Users/Paulo/Downloads/FarmaIA_TCC_Defesa_Final.pptx" }).then(() => {
   console.log("PPTX generation complete!");
 });
-
